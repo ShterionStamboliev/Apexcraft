@@ -29,8 +29,8 @@ const login = async (req, res) => {
 
         const user = rows[0];
 
-        // Verify password
-        const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
+        // Verify password 
+        const isPasswordCorrect = await bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
             console.log('Password does not match for the provided username');
             return res.status(401).json({ error: 'Invalid username or password' });
@@ -42,6 +42,9 @@ const login = async (req, res) => {
 
         // Send token in response
         res.status(200).json({ token });
+
+        // Redirect to another page upon successful login to be determined
+        // res.redirect('/home');
 
     } catch (error) {
         console.error('Error authenticating user:', error.message);
