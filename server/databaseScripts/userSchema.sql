@@ -7,6 +7,6 @@ CREATE TABLE tbl_users (
     name_and_family VARCHAR(255) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    role VARCHAR(50) NOT NULL,
+    role ENUM('admin', 'manager', 'user') NOT NULL,
     status ENUM('active', 'inactive') NOT NULL
 );
