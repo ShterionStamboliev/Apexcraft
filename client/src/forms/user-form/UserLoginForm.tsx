@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -12,7 +12,9 @@ import {
 import { Input } from "../../components/ui/input";
 import LoadingButton from "../../components/LoadingButton";
 import { Button } from "../../components/ui/button";
-import { LoginFormProps } from "@/types/userTypes";
+import { LoginFormProps, UserLoginFormData } from "@/types/userTypes";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const loginFormSchema = z.object({
     username: z.string().min(5, {
@@ -27,10 +29,12 @@ export type LoginFormData = z.infer<typeof loginFormSchema>;
 
 const UserLoginForm = (
     {
-        isLoading,
         title = 'Login page',
         buttonText = 'Sign in',
     }: LoginFormProps) => {
+
+    const { login, isLoading, error } = useAuth();
+    const navigate = useNavigate();
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginFormSchema),
@@ -40,9 +44,10 @@ const UserLoginForm = (
         }
     });
 
-    const onSubmit = (data: any) => {
-        console.log(data);
-    }
+    const onSubmit: SubmitHandler<LoginFormData> = async (data: UserLoginFormData) => {
+        await login(data.username, data.password);
+        navigate('/');
+    };
 
     return (
         <Form {...form}>

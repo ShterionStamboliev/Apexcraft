@@ -9,3 +9,9 @@ export type LoginFormProps = {
     isLoading: boolean;
     onSubmit: () => void;
 };
+
+export type User = {
+    username: string;
+    password: string;
+    role: string;
+}
