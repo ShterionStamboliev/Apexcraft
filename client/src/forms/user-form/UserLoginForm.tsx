@@ -12,7 +12,7 @@ import {
 import { Input } from "../../components/ui/input";
 import LoadingButton from "../../components/LoadingButton";
 import { Button } from "../../components/ui/button";
-import { LoginFormProps, UserLoginFormData } from "@/types/userTypes";
+import { UserLoginFormData } from "@/types/userTypes";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -27,11 +27,7 @@ const loginFormSchema = z.object({
 
 export type LoginFormData = z.infer<typeof loginFormSchema>;
 
-const UserLoginForm = (
-    {
-        title = 'Login page',
-        buttonText = 'Sign in',
-    }: LoginFormProps) => {
+const UserLoginForm = () => {
 
     const { login, isLoading, error } = useAuth();
     const navigate = useNavigate();
@@ -44,8 +40,8 @@ const UserLoginForm = (
         }
     });
 
-    const onSubmit: SubmitHandler<LoginFormData> = async (data: UserLoginFormData) => {
-        await login(data.username, data.password);
+    const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
+        await login(userData.username, userData.password);
         navigate('/');
     };
 
@@ -57,7 +53,7 @@ const UserLoginForm = (
             >
                 <div>
                     <h2 className='text-2xl font-bold mb-4'>
-                        {title}
+                        Вход в системата
                     </h2>
                     <FormField
                         control={form.control}
@@ -96,8 +92,8 @@ const UserLoginForm = (
                 {isLoading ? (
                     <LoadingButton />
                 ) : (
-                    <Button className="bg-slate-700 font-bold mt-4">
-                        {buttonText}
+                    <Button className="bg-slate-700 font-bold mt-4 justify-center text-center items-center">
+                        Вход
                     </Button>
                 )}
             </form>

@@ -1,13 +1,9 @@
-export interface User {
-    username: string;
-    password: string;
-}
-
 export interface AuthState {
-    user?: null,
+    user?: string | null,
     token: string | null;
     isLoading: boolean;
     error: string | null;
+    role: string | null;
 }
 
 export interface AuthContextProps extends AuthState {

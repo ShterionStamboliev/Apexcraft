@@ -8,8 +8,10 @@ import {
 } from '@/types/authTypes';
 
 const initialState: AuthState = {
+    user: null,
     token: null,
     error: null,
+    role: null,
     isLoading: false,
 };
 
@@ -27,7 +29,9 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             return {
                 ...state,
                 isLoading: false,
-                token: action.payload.token
+                user: action.payload.user,
+                token: action.payload.token,
+                role: action.payload.role,
             };
         case AuthActionType.LOGIN_ERROR:
             return {
@@ -73,15 +77,19 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     password
                 }),
             });
-            const data: AuthState = await response.json();
+
             if (!response.ok) {
                 throw new Error('Login failed');
             }
+
+            const userData = await response.json();
+            
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
-                    token: data.token,
-                    username: data.user
+                    token: userData.token,
+                    user: userData.username,
+                    role: userData.role
                 }
             });
         } catch (error: unknown) {
@@ -99,7 +107,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         dispatch({
             type: AuthActionType.LOGOUT,
         })
-        queryClient.clear()
+        queryClient.clear();
     }
 
     return (
