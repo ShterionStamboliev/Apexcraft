@@ -2,7 +2,7 @@ export interface AuthState {
     user?: string | null,
     token: string | null;
     isLoading: boolean;
-    error: string | null;
+    error: string | undefined;
     role: string | null;
 }
 

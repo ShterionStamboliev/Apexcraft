@@ -10,7 +10,7 @@ import {
 const initialState: AuthState = {
     user: null,
     token: null,
-    error: null,
+    error: undefined,
     role: null,
     isLoading: false,
 };
@@ -23,7 +23,7 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             return {
                 ...state,
                 isLoading: true,
-                error: null,
+                error: undefined,
             };
         case AuthActionType.LOGIN_SUCCESS:
             return {
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                throw new Error('Грешен потребител или парола');
             }
 
             const userData = await response.json();
@@ -104,6 +104,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
 
     const logout = () => {
+
+        // Ask about the route for /auth/logout POST method //
         dispatch({
             type: AuthActionType.LOGOUT,
         })

@@ -9,14 +9,13 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
 
+app.use(cors());
+
 app.use(bodyParser.json());
 
 app.use('/auth', authRoutes);
 app.use('/', homeRoutes);
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
-}))
+
 
 // Server can start with "npm start and will listen on port 3000"
 app.listen(port, () => {

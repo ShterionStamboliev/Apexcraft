@@ -42,7 +42,11 @@ const UserLoginForm = () => {
 
     const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
         await login(userData.username, userData.password);
-        navigate('/');
+        if (userData.password !== form.getValues('password')) {
+            throw new Error(error);
+        }
+
+        // navigate('/');
     };
 
     return (
@@ -61,10 +65,9 @@ const UserLoginForm = () => {
                         render={({ field }) => (
                             <FormItem>
                                 <FormMessage className="text-red-500 font-semibold text-center" />
-                                <FormLabel className="font-semibold">Username</FormLabel>
+                                <FormLabel className="font-semibold">Потребител</FormLabel>
                                 <FormControl>
                                     <Input {...field}
-                                        placeholder="Username"
                                         type='text'
                                         className='bg-white'
                                     />
@@ -77,10 +80,9 @@ const UserLoginForm = () => {
                         name='password'
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel className="font-semibold">Password</FormLabel>
+                                <FormLabel className="font-semibold">Парола</FormLabel>
                                 <FormControl {...field}>
                                     <Input
-                                        placeholder="Password"
                                         type='password'
                                         className='bg-white'
                                     />
@@ -95,6 +97,11 @@ const UserLoginForm = () => {
                     <Button className="bg-slate-700 font-bold mt-4 justify-center text-center items-center">
                         Вход
                     </Button>
+                )}
+                {error && (
+                    <div className="text-red-500 mt-4">
+                        {error}
+                    </div>
                 )}
             </form>
         </Form>
