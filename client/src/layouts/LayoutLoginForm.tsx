@@ -1,16 +1,16 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-type LayoutMainProps = {
+type LayoutLoginFormProps = {
     children: React.ReactNode;
 };
 
-const LayoutMain = ({ children }: LayoutMainProps) => {
+const LayoutLoginForm = ({ children }: LayoutLoginFormProps) => {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
 
-            <div className="flex-1 p-10">
+            <div className="flex-1 p-10 items-center bg-blend-darken justify-center">
                 {children}
             </div>
 
@@ -19,4 +19,4 @@ const LayoutMain = ({ children }: LayoutMainProps) => {
     )
 }
 
-export default LayoutMain
+export default LayoutLoginForm

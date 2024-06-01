@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import LayoutMain from './layouts/LayoutMain';
 import Homepage from './components/Homepage';
 import UserLoginForm from './forms/user-form/UserLoginForm';
+import LayoutLoginForm from './layouts/LayoutLoginForm';
 
 const AppRoutes = () => {
     return (
@@ -17,9 +18,9 @@ const AppRoutes = () => {
             <Route
                 path='/login'
                 element={
-                    <LayoutMain>
+                    <LayoutLoginForm>
                         <UserLoginForm />
-                    </LayoutMain>
+                    </LayoutLoginForm>
                 }
             />
             <Route

@@ -9,9 +9,8 @@ export type LoginFormProps = {
     isLoading: boolean;
 };
 
-// export type User = {
-//     username: string;
-//     password: string;
-//     role?: string;
-//     token?: string;
-// }
+export type User = {
+    user?: string;
+    role?: string;
+    token?: string;
+}

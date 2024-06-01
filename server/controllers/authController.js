@@ -19,7 +19,7 @@ const login = async (req, res) => {
 
     try {
         // Retrieve user from the database
-        const [rows] = await db.execute('SELECT * FROM tbl_users WHERE username = ?', [username]);
+        const [rows] = await db.execute('SELECT * FROM tbl_users WHERE username = ? AND status = "active"', [username]);
 
         // Check if user exists
         if (!rows || rows.length === 0) {

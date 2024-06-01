@@ -8,9 +8,11 @@ const Homepage = () => {
     if (!user) {
         return <div>Loading...</div>
     }
+    const isAdmin = role === 'admin';
+    console.log(isAdmin);
+    const isManager = role === 'manager';
+    console.log(isManager);
     
-    console.log(role);
-
     return (
         <div>
             {user && (<div>

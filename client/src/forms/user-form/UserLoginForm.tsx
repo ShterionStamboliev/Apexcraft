@@ -18,10 +18,10 @@ import { useNavigate } from "react-router-dom";
 
 const loginFormSchema = z.object({
     username: z.string().min(5, {
-        message: 'Invalid credentials.',
+        message: 'Грешен потребител или парола',
     }),
     password: z.string().min(5, {
-        message: 'Invalid credentials.',
+        message: 'Грешен потребител или парола',
     })
 });
 
@@ -42,29 +42,34 @@ const UserLoginForm = () => {
 
     const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
         await login(userData.username, userData.password);
+
         if (userData.password !== form.getValues('password')) {
             throw new Error(error);
         }
-
-        // navigate('/');
+        navigate('/');
     };
 
     return (
         <Form {...form}>
+            <div className="text-center mb-6">
+                <h1 className='text-3xl font-bold'>
+                    Добре дошли
+                </h1>
+                <p className="text-gray-500">
+                    Вход в системата
+                </p>
+            </div>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className='bg-slate-500 p-10 rounded-md md:p-10'
+                className="border border-gray-300 p-6 mx-auto rounded-md w-full max-w-md md:p-6"
             >
-                <div>
-                    <h2 className='text-2xl font-bold mb-4'>
-                        Вход в системата
-                    </h2>
+                <div className="space-y-4">
                     <FormField
                         control={form.control}
-                        name='username'
+                        name="username"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormMessage className="text-red-500 font-semibold text-center" />
+                            <FormItem className="flex-1">
+                                <FormMessage className="text-red-500 font-semibold text-center mb-2" />
                                 <FormLabel className="font-semibold">Потребител</FormLabel>
                                 <FormControl>
                                     <Input {...field}
@@ -77,9 +82,9 @@ const UserLoginForm = () => {
                     />
                     <FormField
                         control={form.control}
-                        name='password'
+                        name="password"
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className="flex-1">
                                 <FormLabel className="font-semibold">Парола</FormLabel>
                                 <FormControl {...field}>
                                     <Input
@@ -91,15 +96,17 @@ const UserLoginForm = () => {
                         )}
                     />
                 </div>
-                {isLoading ? (
-                    <LoadingButton />
-                ) : (
-                    <Button className="bg-slate-700 font-bold mt-4 justify-center text-center items-center">
-                        Вход
-                    </Button>
-                )}
+                <div className="flex flex-1 pt-10">
+                    {isLoading ? (
+                        <LoadingButton />
+                    ) : (
+                        <Button className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800">
+                            Вход
+                        </Button>
+                    )}
+                </div>
                 {error && (
-                    <div className="text-red-500 mt-4">
+                    <div className="text-red-500 font-semibold mt-4 text-center">
                         {error}
                     </div>
                 )}

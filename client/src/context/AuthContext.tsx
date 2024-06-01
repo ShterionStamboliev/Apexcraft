@@ -6,6 +6,7 @@ import {
     AuthActionType,
     AuthContextProps
 } from '@/types/authTypes';
+import { User } from '@/types/userTypes';
 
 const initialState: AuthState = {
     user: null,
@@ -82,13 +83,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 throw new Error('Грешен потребител или парола');
             }
 
-            const userData = await response.json();
+            const userData: User = await response.json();
             
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
                     token: userData.token,
-                    user: userData.username,
+                    user: userData.user,
                     role: userData.role
                 }
             });
@@ -105,7 +106,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const logout = () => {
 
-        // Ask about the route for /auth/logout POST method //
         dispatch({
             type: AuthActionType.LOGOUT,
         })
