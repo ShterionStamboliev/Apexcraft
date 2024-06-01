@@ -7,14 +7,16 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../../components/ui/input";
 import LoadingButton from "../../components/LoadingButton";
 import { Button } from "../../components/ui/button";
-import { UserLoginFormData } from "@/types/userTypes";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const ADMIN_AUTH = import.meta.env.VITE_ADMIN_AUTH;
 
 const loginFormSchema = z.object({
     username: z.string().min(5, {
@@ -23,6 +25,8 @@ const loginFormSchema = z.object({
     password: z.string().min(5, {
         message: 'Грешен потребител или парола',
     })
+}).refine((data) => data.password === ADMIN_AUTH, {
+    path: ['password'],
 });
 
 export type LoginFormData = z.infer<typeof loginFormSchema>;
@@ -30,24 +34,36 @@ export type LoginFormData = z.infer<typeof loginFormSchema>;
 const UserLoginForm = () => {
 
     const { login, isLoading, error } = useAuth();
+    const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginFormSchema),
+        mode: 'onChange',
         defaultValues: {
+            username: '',
             password: '',
-            username: ''
         }
     });
 
-    const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
-        await login(userData.username, userData.password);
-
-        if (userData.password !== form.getValues('password')) {
-            throw new Error(error);
+    const onSubmit: SubmitHandler<LoginFormData> = async (userData: LoginFormData) => {
+        const isSuccess = await login(userData.username, userData.password);
+        if (isSuccess) {
+            setIsLoginSuccess(true);
         }
-        navigate('/');
     };
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        if (isLoginSuccess) {
+            navigate('/');
+        };
+
+        return () => {
+            controller.abort();
+        };
+    }, [isLoginSuccess, navigate]);
 
     return (
         <Form {...form}>
@@ -69,7 +85,7 @@ const UserLoginForm = () => {
                         name="username"
                         render={({ field }) => (
                             <FormItem className="flex-1">
-                                <FormMessage className="text-red-500 font-semibold text-center mb-2" />
+                                {/* <FormMessage className="text-red-500 font-semibold text-center mb-2" /> */}
                                 <FormLabel className="font-semibold">Потребител</FormLabel>
                                 <FormControl>
                                     <Input {...field}
@@ -85,9 +101,10 @@ const UserLoginForm = () => {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="flex-1">
+                                {/* <FormMessage className="text-red-500 font-semibold text-center mb-2" /> */}
                                 <FormLabel className="font-semibold">Парола</FormLabel>
-                                <FormControl {...field}>
-                                    <Input
+                                <FormControl>
+                                    <Input  {...field}
                                         type='password'
                                         className='bg-white'
                                     />
@@ -105,6 +122,7 @@ const UserLoginForm = () => {
                         </Button>
                     )}
                 </div>
+
                 {error && (
                     <div className="text-red-500 font-semibold mt-4 text-center">
                         {error}

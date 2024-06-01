@@ -7,7 +7,7 @@ export interface AuthState {
 }
 
 export interface AuthContextProps extends AuthState {
-    login: (username: string, password: string) => Promise<void>;
+    login: (username: string, password: string) => Promise<boolean>;
     logout: () => void;
 }
 

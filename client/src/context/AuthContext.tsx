@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
     const queryClient = useQueryClient();
 
-    const login = async (username: string, password: string) => {
+    const login = async (username: string, password: string): Promise<boolean> => {
         dispatch({
             type: AuthActionType.LOGIN_REQUEST
         });
@@ -79,20 +79,21 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 }),
             });
 
+            const userData: User = await response.json();
+
             if (!response.ok) {
                 throw new Error('Грешен потребител или парола');
             }
-
-            const userData: User = await response.json();
             
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
                     token: userData.token,
                     user: userData.user,
-                    role: userData.role
+                    role: userData.role,
                 }
             });
+            return true;
         } catch (error: unknown) {
             if (error instanceof Error)
                 dispatch({
@@ -101,11 +102,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                         error: error.message
                     }
                 });
+                return false;
         }
     }
 
     const logout = () => {
-
         dispatch({
             type: AuthActionType.LOGOUT,
         })

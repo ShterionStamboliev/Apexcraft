@@ -8,10 +8,6 @@ const Homepage = () => {
     if (!user) {
         return <div>Loading...</div>
     }
-    const isAdmin = role === 'admin';
-    console.log(isAdmin);
-    const isManager = role === 'manager';
-    console.log(isManager);
     
     return (
         <div>
