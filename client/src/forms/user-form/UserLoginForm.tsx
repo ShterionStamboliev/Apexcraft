@@ -7,7 +7,6 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "../../components/ui/input";
 import LoadingButton from "../../components/LoadingButton";
@@ -16,23 +15,18 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-const ADMIN_AUTH = import.meta.env.VITE_ADMIN_AUTH;
-
 const loginFormSchema = z.object({
     username: z.string().min(5, {
         message: 'Грешен потребител или парола',
     }),
     password: z.string().min(5, {
         message: 'Грешен потребител или парола',
-    })
-}).refine((data) => data.password === ADMIN_AUTH, {
-    path: ['password'],
+    }),
 });
 
 export type LoginFormData = z.infer<typeof loginFormSchema>;
 
 const UserLoginForm = () => {
-
     const { login, isLoading, error } = useAuth();
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -60,9 +54,7 @@ const UserLoginForm = () => {
             navigate('/');
         };
 
-        return () => {
-            controller.abort();
-        };
+        return () => controller.abort();
     }, [isLoginSuccess, navigate]);
 
     return (
@@ -85,7 +77,6 @@ const UserLoginForm = () => {
                         name="username"
                         render={({ field }) => (
                             <FormItem className="flex-1">
-                                {/* <FormMessage className="text-red-500 font-semibold text-center mb-2" /> */}
                                 <FormLabel className="font-semibold">Потребител</FormLabel>
                                 <FormControl>
                                     <Input {...field}
@@ -101,7 +92,6 @@ const UserLoginForm = () => {
                         name="password"
                         render={({ field }) => (
                             <FormItem className="flex-1">
-                                {/* <FormMessage className="text-red-500 font-semibold text-center mb-2" /> */}
                                 <FormLabel className="font-semibold">Парола</FormLabel>
                                 <FormControl>
                                     <Input  {...field}
