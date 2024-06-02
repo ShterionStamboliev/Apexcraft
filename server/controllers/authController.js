@@ -19,7 +19,7 @@ const login = async (req, res) => {
 
     try {
         // Retrieve user from the database
-        const [rows] = await db.execute('SELECT * FROM tbl_users WHERE username = ?', [username]);
+        const [rows] = await db.execute('SELECT * FROM tbl_users WHERE username = ? AND status = "active"', [username]);
 
         // Check if user exists
         if (!rows || rows.length === 0) {
@@ -41,10 +41,7 @@ const login = async (req, res) => {
         console.log('Login successful, token generated');
 
         // Send token in response
-        res.status(200).json({ token });
-
-        // Redirect to another page upon successful login to be determined
-        // res.redirect('/home');
+        res.status(200).json({ token, user: user.username, role: user.role });
 
     } catch (error) {
         console.error('Error authenticating user:', error.message);
