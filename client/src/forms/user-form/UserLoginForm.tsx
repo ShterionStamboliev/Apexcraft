@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -7,63 +7,79 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
 } from "@/components/ui/form";
 import { Input } from "../../components/ui/input";
 import LoadingButton from "../../components/LoadingButton";
 import { Button } from "../../components/ui/button";
-import { LoginFormProps } from "@/types/userTypes";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const loginFormSchema = z.object({
     username: z.string().min(5, {
-        message: 'Invalid credentials.',
+        message: 'Грешен потребител или парола',
     }),
     password: z.string().min(5, {
-        message: 'Invalid credentials.',
-    })
+        message: 'Грешен потребител или парола',
+    }),
 });
 
 export type LoginFormData = z.infer<typeof loginFormSchema>;
 
-const UserLoginForm = (
-    {
-        isLoading,
-        title = 'Login page',
-        buttonText = 'Sign in',
-    }: LoginFormProps) => {
+const UserLoginForm = () => {
+    const { login, isLoading, error } = useAuth();
+    const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
+    const navigate = useNavigate();
 
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginFormSchema),
+        mode: 'onChange',
         defaultValues: {
+            username: '',
             password: '',
-            username: ''
         }
     });
 
-    const onSubmit = (data: any) => {
-        console.log(data);
-    }
+    const onSubmit: SubmitHandler<LoginFormData> = async (userData: LoginFormData) => {
+        const isSuccess = await login(userData.username, userData.password);
+        if (isSuccess) {
+            setIsLoginSuccess(true);
+        }
+    };
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        if (isLoginSuccess) {
+            navigate('/');
+        };
+
+        return () => controller.abort();
+    }, [isLoginSuccess, navigate]);
 
     return (
         <Form {...form}>
+            <div className="text-center mb-6">
+                <h1 className='text-3xl font-bold'>
+                    Добре дошли
+                </h1>
+                <p className="text-gray-500">
+                    Вход в системата
+                </p>
+            </div>
             <form
                 onSubmit={form.handleSubmit(onSubmit)}
-                className='bg-slate-500 p-10 rounded-md md:p-10'
+                className="border border-gray-300 p-6 mx-auto rounded-md w-full max-w-md md:p-6"
             >
-                <div>
-                    <h2 className='text-2xl font-bold mb-4'>
-                        {title}
-                    </h2>
+                <div className="space-y-4">
                     <FormField
                         control={form.control}
-                        name='username'
+                        name="username"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormMessage className="text-red-500 font-semibold text-center" />
-                                <FormLabel className="font-semibold">Username</FormLabel>
+                            <FormItem className="flex-1">
+                                <FormLabel className="font-semibold">Потребител</FormLabel>
                                 <FormControl>
                                     <Input {...field}
-                                        placeholder="Username"
                                         type='text'
                                         className='bg-white'
                                     />
@@ -73,13 +89,12 @@ const UserLoginForm = (
                     />
                     <FormField
                         control={form.control}
-                        name='password'
+                        name="password"
                         render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="font-semibold">Password</FormLabel>
-                                <FormControl {...field}>
-                                    <Input
-                                        placeholder="Password"
+                            <FormItem className="flex-1">
+                                <FormLabel className="font-semibold">Парола</FormLabel>
+                                <FormControl>
+                                    <Input  {...field}
                                         type='password'
                                         className='bg-white'
                                     />
@@ -88,12 +103,20 @@ const UserLoginForm = (
                         )}
                     />
                 </div>
-                {isLoading ? (
-                    <LoadingButton />
-                ) : (
-                    <Button className="bg-slate-700 font-bold mt-4">
-                        {buttonText}
-                    </Button>
+                <div className="flex flex-1 pt-10">
+                    {isLoading ? (
+                        <LoadingButton />
+                    ) : (
+                        <Button className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800">
+                            Вход
+                        </Button>
+                    )}
+                </div>
+
+                {error && (
+                    <div className="text-red-500 font-semibold mt-4 text-center">
+                        {error}
+                    </div>
                 )}
             </form>
         </Form>

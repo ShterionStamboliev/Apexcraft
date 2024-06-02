@@ -13,6 +13,7 @@ const Header = () => {
                 <Link to='/login' className="text-white text-2xl font-bold tracking-tight hover:cursor-pointer hover:text-yellow-100">
                     Sign in
                 </Link>
+                
             </div>
         </div>
     )

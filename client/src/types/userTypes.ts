@@ -7,5 +7,10 @@ export type LoginFormProps = {
     title?: string;
     buttonText: string;
     isLoading: boolean;
-    onSubmit: () => void;
 };
+
+export type User = {
+    user?: string;
+    role?: string;
+    token?: string;
+}

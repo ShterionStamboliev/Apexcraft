@@ -3,9 +3,9 @@ import { Button } from './ui/button';
 
 const LoadingButton = () => {
     return (
-        <Button disabled>
-            <Loader2 className='mt-4 h-4 w-4 animate-spin'/>
-            Signing in...
+        <Button className='w-full px-6' disabled>
+            <Loader2 className='font-semibold animate-spin'/>
+            Вход
         </Button>
     )
 }
