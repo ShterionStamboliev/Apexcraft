@@ -30,7 +30,6 @@ const UserLoginForm = () => {
     const { login, isLoading, error } = useAuth();
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
-
     const form = useForm<LoginFormData>({
         resolver: zodResolver(loginFormSchema),
         mode: 'onChange',
@@ -44,6 +43,7 @@ const UserLoginForm = () => {
         const isSuccess = await login(userData.username, userData.password);
         if (isSuccess) {
             setIsLoginSuccess(true);
+            navigate('/')
         }
     };
 
@@ -52,7 +52,7 @@ const UserLoginForm = () => {
 
         if (isLoginSuccess) {
             navigate('/');
-        };
+        }
 
         return () => controller.abort();
     }, [isLoginSuccess, navigate]);
