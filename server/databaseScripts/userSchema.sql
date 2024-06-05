@@ -8,5 +8,9 @@ CREATE TABLE tbl_users (
     username VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'manager', 'user') NOT NULL,
-    status ENUM('active', 'inactive') NOT NULL
+    status ENUM('active', 'inactive') NOT NULL,
+    manager INT,
+    CONSTRAINT fk_manager_tbl_users_id
+    FOREIGN KEY (manager)
+    REFERENCES tbl_users(id)
 );
