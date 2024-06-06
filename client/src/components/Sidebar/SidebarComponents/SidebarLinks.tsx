@@ -12,7 +12,6 @@ const SidebarLinks = ({ sidebarItems }: SidebarLinksProps) => {
 
     return (
         <>
-            
             {
                 sidebarItems.links.map((link, index) => (
                     <Link to={link.href} key={index} className='pb-1'>
