@@ -9,7 +9,10 @@
         "program": "${workspaceFolder}/index.js",
         "envFile": "${workspaceFolder}/.env",
         "console": "integratedTerminal",
-        "internalConsoleOptions": "neverOpen"
+        "internalConsoleOptions": "neverOpen",
+        "outFiles": ["${workspaceFolder}/**/*.js"],
+        "runtimeExecutable": "node",
+        "runtimeArgs": ["--nolazy", "--inspect-brk=9229"]
       }
     ]
   }
