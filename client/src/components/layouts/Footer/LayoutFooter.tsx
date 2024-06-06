@@ -1,4 +1,4 @@
-const Footer = () => {
+const LayoutFooter = () => {
     return (
         <div className="bg-slate-800 py-10">
             <div className="container mx-auto flex flex-col justify-between">
@@ -10,4 +10,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default LayoutFooter

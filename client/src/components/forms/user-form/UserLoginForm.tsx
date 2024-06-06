@@ -8,9 +8,9 @@ import {
     FormItem,
     FormLabel,
 } from "@/components/ui/form";
-import { Input } from "../../components/ui/input";
-import LoadingButton from "../../components/LoadingButton";
-import { Button } from "../../components/ui/button";
+import { Input } from "../../ui/input";
+import LoadingButton from "../../common/LoadingButton";
+import { Button } from "../../ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -105,7 +105,7 @@ const UserLoginForm = () => {
                 </div>
                 <div className="flex flex-1 pt-10">
                     {isLoading ? (
-                        <LoadingButton />
+                        <LoadingButton label="Вход"/>
                     ) : (
                         <Button className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800">
                             Вход

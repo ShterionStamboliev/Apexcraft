@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const LayoutHeader = () => {
     return (
         <div className="py-6 bg-slate-800">
             <div className="container mx-auto flex justify-between items-center">
@@ -19,4 +19,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default LayoutHeader

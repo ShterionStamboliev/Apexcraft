@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import LayoutMain from './layouts/LayoutMain';
-import Homepage from './components/Homepage';
-import UserLoginForm from './forms/user-form/UserLoginForm';
-import LayoutLoginForm from './layouts/LayoutLoginForm';
+import LayoutHomepage from './components/layouts/Home/LayoutHomepage';
+import Homepage from './components/pages/Homepage';
+import UserLoginForm from './components/forms/user-form/UserLoginForm';
+import LayoutLoginForm from './components/layouts/Login/LayoutLoginForm';
 
 const AppRoutes = () => {
     return (
@@ -10,9 +10,9 @@ const AppRoutes = () => {
             <Route
                 path='/'
                 element={
-                    <LayoutMain>
+                    <LayoutHomepage>
                         <Homepage />
-                    </LayoutMain>
+                    </LayoutHomepage>
                 }
             />
             <Route
