@@ -21,7 +21,7 @@ const getAssociatedUsers = async (req, res) => {
 };
 
 const createUser = async (req, res) => {
-    const { name, username, password, role } = req.body;
+    const { name, username, password, status, role } = req.body;
     const loggedUserId = req.user.id;
     const logedUserRole = req.user.role;
 
@@ -33,7 +33,7 @@ const createUser = async (req, res) => {
     try {
         // Validate input
         // Additional validation will be added at a later point
-        if (!name || !username || !password || !role ) {
+        if (!name || !username || !password || !status || !role ) {
             return res.status(400).json({ message: 'All fields are required' });
         };
 
@@ -50,7 +50,7 @@ const createUser = async (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?);
         `;
 
-        const values = [name, username, hashedPassword, role, "active", loggedUserId];
+        const values = [name, username, hashedPassword, role, status, loggedUserId];
 
         const [result] = await pool.query(query, values);
 
@@ -60,6 +60,7 @@ const createUser = async (req, res) => {
             username,
             password,
             role,
+            status,
             manager_id: loggedUserId
         };
 
