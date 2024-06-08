@@ -6,12 +6,13 @@ type UsersTableDialogFooterProps = {
 }
 
 const UsersTableDialogFooter = ({ label = 'Добавете' }: UsersTableDialogFooterProps) => {
+
     return (
         <DialogFooter>
             <Button
                 type='submit'
                 form='user-form'
-                className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800 mt-5"
+                className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800 mt-2"
             >
                 {label}
             </Button>

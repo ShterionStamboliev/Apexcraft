@@ -1,4 +1,4 @@
-import { addNewUserSchema } from '@/components/models/newUserSchema'
+import { addNewUserSchema, formDefaultValues } from '@/components/models/newUserSchema'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
 import { useUser } from '@/context/UserContext'
@@ -12,38 +12,68 @@ import UsersTableDialogFooter from './UsersTableDialogFooter'
 import UsersTableDialogTrigger from './UsersTableDialogTrigger'
 import UsersTableSelectStatus from './UsersTableSelectStatus'
 import UsersTableSelectRole from './UsersTableSelectRole'
+import { useEffect, useState } from 'react'
+import { useToast } from '@/components/ui/use-toast'
 
 export type AddNewUserData = z.infer<typeof addNewUserSchema>;
 
 const UsersTableAddNew = () => {
     const { createUser } = useUser();
     const { role } = useAuth();
+
     const form = useForm<CreateUserType>({
         resolver: zodResolver(addNewUserSchema),
         mode: 'onChange',
-        defaultValues: {
-            username: '',
-            name: '',
-            password: '',
-            role: '',
-            status: '',
-        }
+        defaultValues: formDefaultValues
     });
+
+    const { reset } = form;
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
+    
+    const { toast } = useToast();
 
     // const isAdmin = role === 'админ';
     const isManager = role === 'мениджър';
 
     const handleCreateUser: SubmitHandler<CreateUserType> = async (userData: CreateUserType) => {
-
         try {
-            await createUser(userData)
+            const isCreateSuccess = await createUser(userData);
+            if (isCreateSuccess) {
+                setIsCreateSuccess(true);
+                setIsOpen(false);
+                reset();
+                toast({
+                    variant: 'success',
+                    title: 'Записът беше успешен.',
+                    duration: 3000,
+                });
+                console.log(userData);
+            } else {
+                toast({
+                    variant: 'destructive',
+                    title: 'Грешка!',
+                    description: 'Съществува потребител с избраното име.',
+                    duration: 3000,
+                });
+            }
         } catch (error: unknown) {
             if (error instanceof Error) {
                 return error.message;
             }
         }
-        console.log(userData);
     }
+
+    useEffect(() => {
+        const controller = new AbortController();
+
+        if (isCreateSuccess) {
+            setIsCreateSuccess(false);
+        };
+
+        return () => controller.abort();
+
+    }, [isCreateSuccess])
 
     return (
         <>
@@ -53,7 +83,11 @@ const UsersTableAddNew = () => {
                         id='user-form'
                         onSubmit={form.handleSubmit(handleCreateUser)}
                     >
-                        <Dialog>
+                        <Dialog
+                            open={isOpen}
+                            onOpenChange={setIsOpen}
+                        >
+
                             <UsersTableDialogTrigger />
 
                             <DialogContent className='max-w-[425px] sm:max-w-[425px]'>
@@ -80,7 +114,7 @@ const UsersTableAddNew = () => {
                                     name='password'
                                 />
 
-                                <div className='flex flex-1 pt-4 justify-between'>
+                                <div className='flex flex-1 justify-between'>
                                     <UsersTableSelectRole
                                         label='Роля'
                                         name='role'

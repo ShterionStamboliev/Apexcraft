@@ -9,7 +9,7 @@ const UsersTableDialogHeader = ({ title = 'Добавете нов потреб�
     return (
         <>
             <DialogHeader>
-                <DialogTitle>
+                <DialogTitle className='text-center font-semibold'>
                     {title}
                 </DialogTitle>
             </DialogHeader>

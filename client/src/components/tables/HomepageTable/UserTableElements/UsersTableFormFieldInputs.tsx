@@ -17,7 +17,7 @@ const UsersTableFormFieldInputs = ({ label, name, type }: TableFormInputsType) =
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className='pt-4'>
+                <FormItem className='pt-2'>
                     <FormLabel className='font-semibold'>
                         {label}
                     </FormLabel>

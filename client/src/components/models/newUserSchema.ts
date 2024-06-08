@@ -1,3 +1,4 @@
+import { CreateUserType } from '@/types/user-types/userTypes';
 import { z } from 'zod';
 
 // export const userRoles = ['мениджър', 'потребител'] as const;
@@ -31,4 +32,12 @@ export const addNewUserSchema = z.object({
     status: z.nativeEnum(UserStatus, {
         message: 'Моля селектирайте статус'
     }),
-})
+});
+
+export const formDefaultValues: CreateUserType = {
+    name: '',
+    username: '',
+    password: '',
+    role: '',
+    status: '',
+}
