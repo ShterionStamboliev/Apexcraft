@@ -13,14 +13,27 @@ const editUser = async (req, res) => {
     const queryParams = [];
 
     if (name_and_family) {
+        if (name_and_family.trim() === '') {
+            return res.status(400).send('Name and Family cannot be empty.')
+        }
         query += 'name_and_family = ?, ';
         queryParams.push(name_and_family);
     }
 
     if (username) {
+        if (username.trim() === '') {
+            return res.status(400).send('Username cannot be empty.')
+        }
+        // Check for unique username
+        const [rows] = await db.execute('SELECT id FROM tbl_users WHERE username = ? AND id != ?', [username, userId])
+        if (rows.length > 0) {
+            return res.status(400).send('Username is already taken.')
+        }
+
         query += 'username = ?, ';
         queryParams.push(username);
     }
+
     if (password) {
         // Check if password is not empty.
         if (password.trim() !== '') {
@@ -49,8 +62,10 @@ const editUser = async (req, res) => {
 
     }
     if (status) {
-        query += 'status = ?, ';
-        queryParams.push(status);
+        if (status === "active" || status === "inactive") {
+            query += 'status = ?, ';
+            queryParams.push(status);
+        }
     }
 
     //Remove the last comma and space
@@ -66,4 +81,6 @@ const editUser = async (req, res) => {
     })
 
 }
-module.exports = editUser;
+module.exports = {
+    editUser
+};
