@@ -22,9 +22,12 @@ const editUser = async (req, res) => {
         queryParams.push(username);
     }
     if (password) {
-        const hashedPassword = await hashPassword(password);
-        query += 'password = ?, ';
-        queryParams.push(hashedPassword);
+        // Check if password is not empty.
+        if (password.trim() !== '') {
+            const hashedPassword = await hashPassword(password);
+            query += 'password = ?, ';
+            queryParams.push(hashedPassword);
+        }
     }
     if (role) {
         // Role change logic
