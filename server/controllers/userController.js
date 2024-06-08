@@ -26,7 +26,7 @@ const createUser = async (req, res) => {
     const logedUserRole = req.user.role;
 
     // If a logged in user is with role user, should they shouldn't be able to access /create
-    if (logedUserRole === 'user') {
+    if (logedUserRole === 'потребител') {
         res.redirect('/users');
     }
 
@@ -39,7 +39,7 @@ const createUser = async (req, res) => {
 
         // Manager should only be able to create users and not admin or other managers.
         
-        if (req.user.role === 'manager' && role !== 'user') {
+        if (req.user.role === 'мениджър' && role !== 'потребител') {
             return res.status(403).json({ message: 'Managers can only create users with role user' });
         };
 
