@@ -2,9 +2,13 @@ const db = require("../db")
 const hashPassword = require("../hashPassword");
 
 const editUser = async (req, res) => {
+
     const userId = req.params.id;
     const { name_and_family, username, password, role, status } = req.body;
 
+    const currentUserRole = req.user.role;
+
+    //Constructing the query dynamically
     let query = 'UPDATE tbl_users SET ';
     const queryParams = [];
 
@@ -23,8 +27,23 @@ const editUser = async (req, res) => {
         queryParams.push(hashedPassword);
     }
     if (role) {
-        query += 'role = ?, ';
-        queryParams.push(role);
+        // Role change logic
+        if (currentUserRole === "admin" && (role === "manager" || role === "user")) {
+            // If the current user is admin, they can change the role to 'manager' or 'user'.
+            query += 'role = ?, ';
+            queryParams.push(role);
+        } else if (currentUserRole === "manager" && role === "user") {
+            // if the current user is manager, they can change the role to 'user'.
+            query += 'role = ?, ';
+            queryParams.push(role);
+        } else if (currentUserRole === "user") {
+            // User is not allowed to change role
+            return res.status(403).send("You are not allowed to change your role.")
+        } else {
+            // Any other cases are invalid role change requests
+            return res.status(400).send("Invalid role change request.")
+        }
+
     }
     if (status) {
         query += 'status = ?, ';
@@ -44,3 +63,4 @@ const editUser = async (req, res) => {
     })
 
 }
+module.exports = editUser;
