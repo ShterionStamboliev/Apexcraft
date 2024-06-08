@@ -1,10 +1,12 @@
 import { z } from 'zod';
 
-export const userRoles = ['мениджър', 'потребител'] as const;
+// export const userRoles = ['мениджър', 'потребител'] as const;
 export const userStatus = ['активен', 'неактивен'] as const;
+export const userRoles = ['потребител'] as const;
+
 
 enum UserRoles {
-    мениджър = 'мениджър',
+    // мениджър = 'мениджър',
     потребител = 'потребител'
 }
 
