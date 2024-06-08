@@ -45,7 +45,7 @@ const UsersTableBody = ({ userData }: UserTableCellProps) => {
                             Delete
                         </Button>
                         <Button
-                            className="mr-2"
+                            className="mr-2 hover:bg-pink-400"
                             variant={'outline'}
                         >
                             Deactivate
