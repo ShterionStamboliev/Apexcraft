@@ -31,6 +31,10 @@ const createUser = async (req, res) => {
     }
 
     try {
+        if (req.user.role === "потребител"){
+            return res.status(403).json( {message: "Create user is not available to users"});
+        }
+        
         // Validate input
         // Additional validation will be added at a later point
         if (!name || !username || !password || !status || !role ) {
