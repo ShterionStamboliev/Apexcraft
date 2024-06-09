@@ -7,9 +7,9 @@ export type UserTableData = {
 }[]
 
 export type UsersTableHeaderProps = {
-    id?: string;
+    id: string;
     username: string;
     name_and_family: string;
     status: string;
-    role?: string;
+    role: string;
 }

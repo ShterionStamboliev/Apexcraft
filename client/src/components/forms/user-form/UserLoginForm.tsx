@@ -1,45 +1,27 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from 'zod';
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-} from "@/components/ui/form";
-import { Input } from "../../ui/input";
-import LoadingButton from "../../common/LoadingButton";
-import { Button } from "../../ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-
-const loginFormSchema = z.object({
-    username: z.string().min(5, {
-        message: 'Грешен потребител или парола',
-    }),
-    password: z.string().min(5, {
-        message: 'Грешен потребител или парола',
-    }),
-});
-
-export type LoginFormData = z.infer<typeof loginFormSchema>;
+import { formDefaultValues, loginFormSchema } from '@/components/models/userLoginSchema';
+import UserLoginFormHeader from './UserLoginFormHeader';
+import { UserLoginFormData } from '@/types/user-types/userTypes';
+import FormFieldInput from '@/components/common/FormFieldInput';
+import UserLoginFormButtons from './UserLoginFormButtons';
+import UserLoginFormErrors from './UserLoginFormErrors';
 
 const UserLoginForm = () => {
     const { login, isLoading, error } = useAuth();
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
-    const form = useForm<LoginFormData>({
+    
+    const form = useForm<UserLoginFormData>({
         resolver: zodResolver(loginFormSchema),
         mode: 'onChange',
-        defaultValues: {
-            username: '',
-            password: '',
-        }
+        defaultValues: formDefaultValues
     });
 
-    const onSubmit: SubmitHandler<LoginFormData> = async (userData: LoginFormData) => {
+    const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
         const isSuccess = await login(userData.username, userData.password);
         if (isSuccess) {
             setIsLoginSuccess(true);
@@ -58,68 +40,42 @@ const UserLoginForm = () => {
     }, [isLoginSuccess, navigate]);
 
     return (
-        <Form {...form}>
-            <div className="text-center mb-6">
-                <h1 className='text-3xl font-bold'>
-                    Добре дошли
-                </h1>
-                <p className="text-gray-500">
-                    Вход в системата
-                </p>
-            </div>
+        <FormProvider {...form}>
+
+            <UserLoginFormHeader
+                title='Добре дошли'
+                description='Вход в системата'
+            />
+
             <form
+                id='login-form'
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="border border-gray-300 p-6 mx-auto rounded-md w-full max-w-md md:p-6"
             >
                 <div className="space-y-4">
-                    <FormField
-                        control={form.control}
-                        name="username"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel className="font-semibold">Потребител</FormLabel>
-                                <FormControl>
-                                    <Input {...field}
-                                        type='text'
-                                        className='bg-white'
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )}
+                    <FormFieldInput
+                        name='username'
+                        label='Потребител'
+                        type='text'
                     />
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem className="flex-1">
-                                <FormLabel className="font-semibold">Парола</FormLabel>
-                                <FormControl>
-                                    <Input  {...field}
-                                        type='password'
-                                        className='bg-white'
-                                    />
-                                </FormControl>
-                            </FormItem>
-                        )}
+                    <FormFieldInput
+                        name='password'
+                        label='Парола'
+                        type='password'
                     />
-                </div>
-                <div className="flex flex-1 pt-10">
-                    {isLoading ? (
-                        <LoadingButton label="Вход"/>
-                    ) : (
-                        <Button className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800">
-                            Вход
-                        </Button>
-                    )}
                 </div>
 
-                {error && (
-                    <div className="text-red-500 font-semibold mt-4 text-center">
-                        {error}
-                    </div>
-                )}
+                <div className="flex flex-1 pt-10 pb-2">
+                    <UserLoginFormButtons
+                        isLoading={isLoading}
+                    />
+                </div>
+
+                <UserLoginFormErrors
+                    error={error}
+                />
             </form>
-        </Form>
+        </FormProvider>
     )
 }
 

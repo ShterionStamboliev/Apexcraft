@@ -12,7 +12,7 @@ export type UserTableFormFieldInputTypes = {
     control: Control<CreateUserType>
 }
 
-export type TableFormInputsType = {
+export type FormInputType = {
     name: string;
     label: string;
     type: string;

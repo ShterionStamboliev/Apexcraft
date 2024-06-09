@@ -5,8 +5,6 @@ import { useUser } from '@/context/UserContext'
 import { CreateUserType } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
-import UsersTableFormFieldInputs from './UsersTableFormFieldInputs'
 import UsersTableDialogHeader from './UsersTableDialogHeader'
 import UsersTableDialogFooter from './UsersTableDialogFooter'
 import UsersTableDialogTrigger from './UsersTableDialogTrigger'
@@ -14,8 +12,7 @@ import UsersTableSelectStatus from './UsersTableSelectStatus'
 import UsersTableSelectRole from './UsersTableSelectRole'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
-
-export type AddNewUserData = z.infer<typeof addNewUserSchema>;
+import FormFieldInput from '@/components/common/FormFieldInput'
 
 const UsersTableAddNew = () => {
     const { createUser } = useUser();
@@ -30,7 +27,7 @@ const UsersTableAddNew = () => {
     const { reset } = form;
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
-    
+
     const { toast } = useToast();
 
     // const isAdmin = role === 'админ';
@@ -38,8 +35,8 @@ const UsersTableAddNew = () => {
 
     const handleCreateUser: SubmitHandler<CreateUserType> = async (userData: CreateUserType) => {
         try {
-            const isCreateSuccess = await createUser(userData);
-            if (isCreateSuccess) {
+            const isCreateSuccessful = await createUser(userData);
+            if (isCreateSuccessful) {
                 setIsCreateSuccess(true);
                 setIsOpen(false);
                 reset();
@@ -96,19 +93,19 @@ const UsersTableAddNew = () => {
                                     title='Добавете нов потребител'
                                 />
 
-                                <UsersTableFormFieldInputs
+                                <FormFieldInput
                                     type='text'
                                     label='Потребител'
                                     name='username'
                                 />
 
-                                <UsersTableFormFieldInputs
+                                <FormFieldInput
                                     type='text'
                                     label='Име, Фамилия'
                                     name='name'
                                 />
 
-                                <UsersTableFormFieldInputs
+                                <FormFieldInput
                                     type='password'
                                     label='Парола'
                                     name='password'

@@ -23,9 +23,9 @@ export interface CreateUserState {
 export type UserContextProps = {
     state: {
         user: CreateUserType[];
-        isLoading?: boolean;
-        error?: string;
     }
+    isLoading?: boolean;
+    error?: string;
     createUser: (user: CreateUserType) => Promise<boolean>;
     changeUserStatus?: (userId: string) => Promise<boolean>;
     editUser?: (userId: string, user: User) => Promise<boolean>;
