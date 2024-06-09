@@ -65,25 +65,26 @@ const editUser = async (req, res) => {
         }
         if (role) {
             // Role change logic
-            if (currentUserRole === "admin" && (role === "manager" || role === "user")) {
+            if (currentUserRole === "admin" && (role === "мениджър" || role === "потребител")) {
                 // If the current user is admin, they can change the role to 'manager' or 'user'.
                 query += 'role = ?, ';
                 queryParams.push(role);
-            } else if (currentUserRole === "manager" && role === "user") {
+            } else if (currentUserRole === "мениджър" && role === "потребител") {
                 // if the current user is manager, they can change the role to 'user'.
                 query += 'role = ?, ';
                 queryParams.push(role);
-            } else if (currentUserRole === "user") {
-                // User is not allowed to change role
-                return res.status(403).send("You are not allowed to change your role.")
-            } else {
-                // Any other cases are invalid role change requests
-                return res.status(400).send("Invalid role change request.")
             }
+            // } else if (currentUserRole === "user") {
+            //     // User is not allowed to change role
+            //     return res.status(403).send("You are not allowed to change your role.")
+            // } else {
+            //     // Any other cases are invalid role change requests
+            //     return res.status(400).send("Invalid role change request.")
+            // }
 
         }
         if (status) {
-            if (status === "active" || status === "inactive") {
+            if (status === "активен" || status === "неактивен") {
                 query += 'status = ?, ';
                 queryParams.push(status);
             }
