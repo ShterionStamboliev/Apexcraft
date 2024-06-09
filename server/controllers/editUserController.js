@@ -6,7 +6,6 @@ const editUser = async (req, res) => {
     const userId = req.params.id;
     const { name_and_family, username, password, role, status } = req.body;
     const currentUserRole = req.user.role;
-    console.log(req.body);
 
     // Constructing the query dynamically
     let query = 'UPDATE tbl_users SET ';
@@ -72,8 +71,7 @@ const editUser = async (req, res) => {
         //Remove the last comma and space
         query = query.slice(0, -2);
         query += ' WHERE id = ?'
-        console.log(query);
-        console.log(queryParams);
+        queryParams.push(userId)
 
         try {
             const [result] = await db.execute(query, queryParams)
@@ -83,13 +81,6 @@ const editUser = async (req, res) => {
             res.status(500).send(error);
         }
 
-        // db.execute(query, queryParams, (err, results) => {
-        //     console.log("hi");
-        //     if (err) {
-        //         return res.status(500).send(err);
-        //     }
-        //     res.send('User updated successfully');
-        // });
     } catch (err) {
         console.error('Unexpected error:', err); // Log the unexpected error for debugging
         res.status(500).send('Internal Server Error');
