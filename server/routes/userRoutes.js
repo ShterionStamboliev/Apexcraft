@@ -6,6 +6,6 @@ const { editUser } = require('../controllers/editUserController');
 const router = express.Router();
 
 router.get('/users', authenticateToken, getAssociatedUsers);
-router.post('/users/:id/edit', editUser);
+router.post('/users/:id/edit', authenticateToken, editUser);
 
 module.exports = router;
