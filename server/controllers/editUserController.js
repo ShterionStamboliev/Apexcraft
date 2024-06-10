@@ -1,5 +1,5 @@
 const db = require("../db")
-const hashPassword = require("../hashPassword");
+const hashPassword = require("../utils/hashPassword");
 
 // Function to handle fetching a user by id
 const getUserById = async (req, res) => {
