@@ -5,8 +5,8 @@ import {
     AuthState,
     AuthActionType,
     AuthContextProps
-} from '@/types/authTypes';
-import { User } from '@/types/userTypes';
+} from '@/types/auth-types/authTypes';
+import { User } from '@/types/user-types/userTypes';
 
 const initialState: AuthState = {
     user: null,
