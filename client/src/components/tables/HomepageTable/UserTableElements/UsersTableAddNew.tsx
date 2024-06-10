@@ -15,7 +15,7 @@ import { useToast } from '@/components/ui/use-toast'
 import FormFieldInput from '@/components/common/FormFieldInput'
 
 const UsersTableAddNew = () => {
-    const { createUser } = useUser();
+    const { createUser, isLoading } = useUser();
     const { role } = useAuth();
 
     const form = useForm<CreateUserType>({
@@ -126,7 +126,7 @@ const UsersTableAddNew = () => {
                                 </div>
 
                                 <UsersTableDialogFooter
-                                    label='Добавете'
+                                    isLoading={isLoading}
                                 />
                             </DialogContent>
                         </Dialog>

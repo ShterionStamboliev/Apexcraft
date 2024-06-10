@@ -9,7 +9,7 @@ const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     return (
         <>
             {isLoading ? (
-                <LoadingButton label="Добави" />
+                <LoadingButton label="Вход" />
             ) : (
                 <Button
                     form='login-form'

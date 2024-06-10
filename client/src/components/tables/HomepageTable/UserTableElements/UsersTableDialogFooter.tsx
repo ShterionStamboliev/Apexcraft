@@ -1,21 +1,26 @@
+import LoadingButton from '@/components/common/LoadingButton';
 import { Button } from '@/components/ui/button';
 import { DialogFooter } from '@/components/ui/dialog';
 
 type UsersTableDialogFooterProps = {
-    label: string;
+    isLoading: boolean | undefined;
 }
 
-const UsersTableDialogFooter = ({ label = 'Добавете' }: UsersTableDialogFooterProps) => {
+const UsersTableDialogFooter = ({ isLoading }: UsersTableDialogFooterProps) => {
 
     return (
         <DialogFooter>
-            <Button
-                type='submit'
-                form='user-form'
-                className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800 mt-2"
-            >
-                {label}
-            </Button>
+            {isLoading ? (
+                <LoadingButton label='Добавете' />
+            ) : (
+                <Button
+                    type='submit'
+                    form='user-form'
+                    className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800 mt-2"
+                >
+                    Добавете
+                </Button>
+            )}
         </DialogFooter>
     )
 }

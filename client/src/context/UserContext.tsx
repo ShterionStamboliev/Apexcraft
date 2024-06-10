@@ -67,7 +67,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
 
     const { token } = useAuth();
 
-    const createUser = async ({ name, username, password, role, status }: CreateUserType): Promise<boolean> => {
+    const createUser = async (userData: CreateUserType): Promise<boolean> => {
         dispatch({
             type: UserActionType.CREATE_USER_REQUEST
         });
@@ -79,25 +79,20 @@ export const UserProvider = ({ children }: UserProviderType) => {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`
                 },
-                body: JSON.stringify({
-                    name,
-                    username,
-                    password,
-                    role,
-                    status,
-                }),
+                body: JSON.stringify(userData),
             });
 
             if (!response.ok) {
-                throw new Error('Грешка')
+                throw new Error('Грешка при създаването на нов потребител')
             }
 
-            const userData: CreateUserType = await response.json();
+            const newUserData: CreateUserType = await response.json();
 
             dispatch({
                 type: UserActionType.CREATE_USER_SUCCESS,
-                payload: userData
+                payload: newUserData
             });
+
             return true;
         } catch (error: unknown) {
             if (error instanceof Error)
@@ -112,7 +107,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
     }
 
     return (
-        <UserContext.Provider value={{ state, createUser }}>
+        <UserContext.Provider value={{ state, createUser, isLoading: state.isLoading }}>
             {children}
         </UserContext.Provider>
     );
