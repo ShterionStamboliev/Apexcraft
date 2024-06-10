@@ -1,10 +1,9 @@
-import { CreateUserType } from '@/types/user-types/userTypes';
+import { User } from '@/types/user-types/userTypes';
 import { z } from 'zod';
 
 // export const userRoles = ['мениджър', 'потребител'] as const;
 export const userStatus = ['активен', 'неактивен'] as const;
 export const userRoles = ['потребител'] as const;
-
 
 enum UserRoles {
     // мениджър = 'мениджър',
@@ -34,7 +33,7 @@ export const addNewUserSchema = z.object({
     }),
 });
 
-export const formDefaultValues: CreateUserType = {
+export const formDefaultValues: User = {
     name: '',
     username: '',
     password: '',

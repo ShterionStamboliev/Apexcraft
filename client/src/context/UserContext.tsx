@@ -1,12 +1,12 @@
 import { createContext, useContext, useReducer } from 'react'
-import { CreateUserType } from '@/types/user-types/userTypes'
+import { User } from '@/types/user-types/userTypes'
 import { UserActionType, UserAction, UserContextProps } from '@/types/user-types/userActionTypes';
 import { useAuth } from './AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 type InitialUserState = {
-    user: CreateUserType[];
+    user: User[];
     isLoading?: boolean;
     error?: string;
 };
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
 
     const { token } = useAuth();
 
-    const createUser = async (userData: CreateUserType): Promise<boolean> => {
+    const createUser = async (userData: User): Promise<boolean> => {
         dispatch({
             type: UserActionType.CREATE_USER_REQUEST
         });
@@ -86,7 +86,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 throw new Error('Грешка при създаването на нов потребител')
             }
 
-            const newUserData: CreateUserType = await response.json();
+            const newUserData: User = await response.json();
 
             dispatch({
                 type: UserActionType.CREATE_USER_SUCCESS,

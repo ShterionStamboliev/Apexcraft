@@ -2,7 +2,7 @@ import { addNewUserSchema, formDefaultValues } from '@/components/models/newUser
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
 import { useUser } from '@/context/UserContext'
-import { CreateUserType } from '@/types/user-types/userTypes'
+import { User } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import UsersTableDialogHeader from './UsersTableDialogHeader'
@@ -18,7 +18,7 @@ const UsersTableAddNew = () => {
     const { createUser, isLoading } = useUser();
     const { role } = useAuth();
 
-    const form = useForm<CreateUserType>({
+    const form = useForm<User>({
         resolver: zodResolver(addNewUserSchema),
         mode: 'onChange',
         defaultValues: formDefaultValues
@@ -33,7 +33,7 @@ const UsersTableAddNew = () => {
     // const isAdmin = role === 'админ';
     const isManager = role === 'мениджър';
 
-    const handleCreateUser: SubmitHandler<CreateUserType> = async (userData: CreateUserType) => {
+    const handleCreateUser: SubmitHandler<User> = async (userData: User) => {
         try {
             const isCreateSuccessful = await createUser(userData);
             if (isCreateSuccessful) {

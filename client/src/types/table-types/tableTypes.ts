@@ -1,5 +1,5 @@
 import { Control } from 'react-hook-form';
-import { CreateUserType } from '../user-types/userTypes';
+import { User } from '../user-types/userTypes';
 
 export type TableHeaderTypes = {
     id?: number;
@@ -9,7 +9,7 @@ export type TableHeaderTypes = {
 }
 
 export type UserTableFormFieldInputTypes = {
-    control: Control<CreateUserType>
+    control: Control<User>
 }
 
 export type FormInputType = {

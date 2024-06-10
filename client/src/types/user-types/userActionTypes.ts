@@ -1,4 +1,4 @@
-import { CreateUserType, User } from './userTypes';
+import { User } from './userTypes';
 
 export enum UserActionType {
     CREATE_USER_REQUEST = 'CREATE_USER_REQUEST',
@@ -12,21 +12,13 @@ export enum UserActionType {
     EDIT_USER_ERROR = 'EDIT_USER_ERROR',
 }
 
-export interface CreateUserState {
-    user?: string | null,
-    isLoading?: boolean;
-    error?: string | undefined;
-    role?: string | null;
-    status?: string | null;
-}
-
 export type UserContextProps = {
     state: {
-        user: CreateUserType[];
+        user: User[];
     }
     isLoading?: boolean;
     error?: string;
-    createUser: (user: CreateUserType) => Promise<boolean>;
+    createUser: (user: User) => Promise<boolean>;
     changeUserStatus?: (userId: string) => Promise<boolean>;
     editUser?: (userId: string, user: User) => Promise<boolean>;
 }
