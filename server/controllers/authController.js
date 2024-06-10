@@ -54,6 +54,12 @@ const login = async (req, res) => {
     }
 };
 
+//TO DO Logout
+const logout = (req, res) => {
+
+}
+
 module.exports = {
-    login
+    login,
+    logout
 };
