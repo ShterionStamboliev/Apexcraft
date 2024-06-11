@@ -15,7 +15,7 @@ const getAssociatedUsers = async (req, res) => {
             query = 'SELECT name_and_family, username, status FROM tbl_users WHERE manager = ? AND status = "активен"';
             queryParams = [currentUserId];
         } else if (req.user.role === 'админ') {
-            query = 'SELECT name_and_family, username, status FROM tbl_users';
+            query = 'SELECT name_and_family, username, status FROM tbl_users WHERE status = "активен"';
         }
 
         const [rows] = await pool.query(query, queryParams);
@@ -28,7 +28,6 @@ const getAssociatedUsers = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 };
-
 
 
 module.exports = {
