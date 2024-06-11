@@ -23,7 +23,7 @@ const HomepageUsersTable = () => {
                 </UsersTableHeader>
 
                 <TableLoadingPage />
-                
+
                 <UsersTableBody
                     userData={dummyUsers}>
                 </UsersTableBody>

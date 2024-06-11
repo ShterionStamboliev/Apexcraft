@@ -16,9 +16,6 @@ const UsersTableBody = ({ userData }: UserTableCellProps) => {
             {userData.map((user, index) => (
                 <TableRow key={index}>
                     <TableCell>
-                        {user.id}
-                    </TableCell>
-                    <TableCell>
                         {user.username}
                     </TableCell>
                     <TableCell>
@@ -37,12 +34,6 @@ const UsersTableBody = ({ userData }: UserTableCellProps) => {
                             variant={'outline'}
                         >
                             Edit
-                        </Button>
-                        <Button
-                            className="mr-2 hover:bg-red-400"
-                            variant={'outline'}
-                        >
-                            Delete
                         </Button>
                         <Button
                             className="mr-2 hover:bg-pink-400"
