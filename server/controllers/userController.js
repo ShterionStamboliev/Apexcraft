@@ -12,15 +12,24 @@ const getAssociatedUsers = async (req, res) => {
         // Aadmin can see all, managers can see only associated to them users.
 
         if (req.user.role === 'мениджър') {
-            query = 'SELECT name_and_family, username, status FROM tbl_users WHERE manager = ? AND status = "активен"';
+            query = 'SELECT name_and_family, username, status FROM tbl_users WHERE manager = ?';
             queryParams = [currentUserId];
         } else if (req.user.role === 'админ') {
-            query = 'SELECT name_and_family, username, status FROM tbl_users WHERE status = "активен"';
+            query = 'SELECT name_and_family, username, status FROM tbl_users';
         }
 
         const [rows] = await pool.query(query, queryParams);
 
-        const associatedUsers = rows.sort((a, b) => a.username.localeCompare(b.username));
+        const associatedUsers = rows.sort((a, b) => {
+            if (a.status === b.status) {
+                return a.username.localeCompare(b.username);
+            } else if (a.status === 'активен' && b.status !== 'активен') {
+                return -1;
+            } else if (a.status !== 'активен' && b.status === 'активен') {
+                return 1;
+            }
+            return 0;
+        });
         
         res.json(associatedUsers);
 
