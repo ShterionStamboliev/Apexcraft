@@ -7,7 +7,7 @@ const UsersTableDialogTrigger = () => {
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='w-15 h-10 border border-zinc-200 hover:bg-zinc-300'
+                    className='w-15 h-10'
                     variant={'outline'}
                     size={'sm'}
                 >

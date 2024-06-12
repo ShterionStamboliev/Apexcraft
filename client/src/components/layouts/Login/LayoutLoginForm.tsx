@@ -8,7 +8,7 @@ const LayoutLoginForm = ({ children }: LayoutLoginFormProps) => {
     return (
         <div className="flex flex-col min-h-screen">
 
-            <div className="flex-1 p-10 items-center bg-blend-darken justify-center">
+            <div className="flex-1 p-10 items-center justify-center">
                 {children}
             </div>
 

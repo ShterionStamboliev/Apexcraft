@@ -7,7 +7,6 @@ import { UsersTableHeaderProps } from "@/types/table-types/userTableTypes"
 
 const UsersTableHeader = (
     {
-        id,
         username,
         name_and_family,
         status,
@@ -16,9 +15,6 @@ const UsersTableHeader = (
     return (
         <TableHeader>
             <TableRow>
-                <TableHead>
-                    {id}
-                </TableHead>
                 <TableHead>
                     {username}
                 </TableHead>

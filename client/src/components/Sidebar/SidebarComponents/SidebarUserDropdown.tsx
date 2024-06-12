@@ -6,7 +6,7 @@ import { sidebarUserItems } from './sidebarItems'
 const SidebarUserDropdown = () => {
     return (
         <PopoverContent className='w-[250px] p-0'>
-            <div className='py-2'>
+            <div className='py-2 px-2'>
                 {sidebarUserItems.links.map((link, index) => (
                     <Link to={link.href} key={index}>
                         <SidebarButton

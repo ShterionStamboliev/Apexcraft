@@ -24,7 +24,7 @@ const SidebarUser = () => {
                         <PopoverTrigger asChild>
                             <Button
                                 variant='ghost'
-                                className='w-full justify-start h-10 px-4'
+                                className='w-full justify-start h-10 px-6'
                             >
                                 <div className='flex justify-between items-center w-full'>
                                     <div className='flex gap-2 w-full items-center'>

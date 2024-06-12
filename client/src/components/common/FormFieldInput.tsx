@@ -24,7 +24,7 @@ const FormFieldInput = ({ label, name, type }: FormInputType) => {
                     <FormControl>
                         <Input {...field}
                             type={type}
-                            className='bg-white'
+                            // className='bg-white'
                         />
                     </FormControl>
                 </FormItem>

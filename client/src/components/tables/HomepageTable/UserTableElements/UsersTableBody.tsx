@@ -30,13 +30,13 @@ const UsersTableBody = ({ userData }: UserTableCellProps) => {
 
                     <TableCell className='text-right w-[300px]'>
                         <Button
-                            className="mr-2 hover:bg-zinc-300"
+                            className="mr-2"
                             variant={'outline'}
                         >
                             Edit
                         </Button>
                         <Button
-                            className="mr-2 hover:bg-pink-400"
+                            className="mr-2"
                             variant={'outline'}
                         >
                             Deactivate

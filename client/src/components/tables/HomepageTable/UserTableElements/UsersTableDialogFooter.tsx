@@ -16,7 +16,8 @@ const UsersTableDialogFooter = ({ isLoading }: UsersTableDialogFooterProps) => {
                 <Button
                     type='submit'
                     form='user-form'
-                    className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800 mt-2"
+                    className="font-semibold w-full mt-2"
+                    variant='outline'
                 >
                     Добавете
                 </Button>

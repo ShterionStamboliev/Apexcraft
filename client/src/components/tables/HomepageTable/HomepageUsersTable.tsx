@@ -8,7 +8,7 @@ import UsersTableAddNew from "./UserTableElements/UsersTableAddNew"
 const HomepageUsersTable = () => {
 
     return (
-        <div className="flex flex-1 gap-5">
+        <div className="flex flex-1 gap-5 py-8">
 
             <UsersTableAddNew />
 
