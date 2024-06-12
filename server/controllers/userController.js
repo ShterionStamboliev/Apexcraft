@@ -1,4 +1,4 @@
-
+const pool = require("../db");
 
 const getAssociatedUsers = async (req, res) => {
     try {
@@ -15,6 +15,8 @@ const getAssociatedUsers = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 };
+
+
 
 module.exports = {
     getAssociatedUsers,
