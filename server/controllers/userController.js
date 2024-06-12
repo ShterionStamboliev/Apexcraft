@@ -12,10 +12,10 @@ const getAssociatedUsers = async (req, res) => {
         // Aadmin can see all, managers can see only associated to them users.
 
         if (req.user.role === 'мениджър') {
-            query = 'SELECT id, name_and_family, username, role status FROM tbl_users WHERE manager = ?';
+            query = 'SELECT id, name_and_family, username, role, status FROM tbl_users WHERE manager = ?';
             queryParams = [currentUserId];
         } else if (req.user.role === 'админ') {
-            query = 'SELECT id, name_and_family, username, role status FROM tbl_users';
+            query = 'SELECT id, name_and_family, username, role, status FROM tbl_users';
         }
 
         const [rows] = await pool.query(query, queryParams);
