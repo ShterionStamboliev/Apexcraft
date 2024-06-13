@@ -14,7 +14,7 @@ const SidebarLinks = ({ sidebarItems }: SidebarLinksProps) => {
         <>
             {
                 sidebarItems.links.map((link, index) => (
-                    <Link to={link.href} key={index} className='pb-1'>
+                    <Link to={link.href} key={index} className='pb-1 px-2'>
                         <SidebarButton
                             variant={location.pathname === link.href ? 'secondary' : 'ghost'}
                             icon={link.icon}

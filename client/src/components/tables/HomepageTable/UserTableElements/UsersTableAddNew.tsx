@@ -121,7 +121,7 @@ const UsersTableAddNew = () => {
                                     <UsersTableSelectStatus
                                         label='Статус'
                                         name='status'
-                                        placeholder='Статус'
+                                        placeholder='активен'
                                     />
                                 </div>
 

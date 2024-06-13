@@ -13,7 +13,7 @@ const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
             ) : (
                 <Button
                     form='login-form'
-                    className="bg-zinc-950 font-semibold w-full hover:bg-zinc-800">
+                    className="font-semibold w-full">
                     Вход
                 </Button>
             )}

@@ -1,11 +1,11 @@
-import LayoutHeader from '@/components/layouts/Header/LayoutHeader';
-import LayoutFooter from '@/components/layouts/Footer/LayoutFooter';
+import LayoutFooter from '../Footer/LayoutFooter';
+import LayoutHeader from '../Header/LayoutHeader';
 
-type LayoutHomepageProps = {
+type LayoutUsersTableProps = {
     children: React.ReactNode;
 };
 
-const LayoutHomepage = ({ children }: LayoutHomepageProps) => {
+const LayoutUsersTable = ({ children }: LayoutUsersTableProps) => {
     return (
         <div className="flex flex-col min-h-screen">
             <LayoutHeader />
@@ -20,4 +20,4 @@ const LayoutHomepage = ({ children }: LayoutHomepageProps) => {
     );
 }
 
-export default LayoutHomepage
+export default LayoutUsersTable

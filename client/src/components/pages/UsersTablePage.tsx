@@ -1,7 +1,7 @@
-import { useAuth } from "@/context/AuthContext";
 import SidebarDesktopLinks from '../Sidebar/SidebarDesktop/SidebarDesktop';
+import HomepageUsersTable from '../tables/HomepageTable/HomepageUsersTable';
 
-const Homepage = () => {
+const UsersTablePage = () => {
 
     // const { user, logout, isLoading, role } = useAuth();
 
@@ -10,8 +10,10 @@ const Homepage = () => {
 
             <SidebarDesktopLinks />
 
+            <HomepageUsersTable />
+
         </div>
     );
 }
 
-export default Homepage
+export default UsersTablePage

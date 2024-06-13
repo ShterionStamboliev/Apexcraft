@@ -4,12 +4,12 @@ export type UserLoginFormData = {
 }
 
 export type User = {
-    id?: string;
-    role?: string;
-    name?: string;
-    user?: string;
-    username?: string;
-    password?: string;
-    status?: string;
-    token?: string;
+    id?: string | null;
+    role?: string | null;
+    name?: string | null;
+    user?: string | null;
+    username?: string | null;
+    password?: string | null;
+    status?: string | null;
+    token?: string | null;
 }

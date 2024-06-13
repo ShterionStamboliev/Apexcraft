@@ -38,5 +38,5 @@ export const formDefaultValues: User = {
     username: '',
     password: '',
     role: '',
-    status: '',
+    status: 'активен',
 }
