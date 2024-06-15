@@ -30,7 +30,6 @@ const UsersTableAddNew = () => {
 
     const { toast } = useToast();
 
-    // const isAdmin = role === 'админ';
     const isManager = role === 'мениджър';
 
     const handleCreateUser: SubmitHandler<User> = async (userData: User) => {
@@ -95,14 +94,14 @@ const UsersTableAddNew = () => {
 
                                 <FormFieldInput
                                     type='text'
-                                    label='Потребител'
-                                    name='username'
+                                    label='Име, Фамилия'
+                                    name='name'
                                 />
 
                                 <FormFieldInput
                                     type='text'
-                                    label='Име, Фамилия'
-                                    name='name'
+                                    label='Потребител'
+                                    name='username'
                                 />
 
                                 <FormFieldInput
@@ -127,11 +126,13 @@ const UsersTableAddNew = () => {
 
                                 <UsersTableDialogFooter
                                     isLoading={isLoading}
+                                    label='Добавете'
+                                    formName='user-form'
                                 />
                             </DialogContent>
                         </Dialog>
                     </form>
-                </FormProvider >
+                </FormProvider>
             )}
         </>
     )

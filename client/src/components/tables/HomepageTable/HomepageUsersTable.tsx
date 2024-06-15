@@ -1,9 +1,7 @@
-import TableLoadingPage from "@/components/utils/UsersTableLoader/TableLoadingPage"
 import { Table } from "../../ui/table"
 import UsersTableHeader from "./UserTableElements/UsersTableHeader"
-import UsersTableBody from "./UserTableElements/UsersTableBody"
-import { dummyUsers } from "./dummyData"
 import UsersTableAddNew from "./UserTableElements/UsersTableAddNew"
+import UsersTableDisplay from './UserTableElements/UsersTableDisplay';
 
 const HomepageUsersTable = () => {
 
@@ -13,20 +11,9 @@ const HomepageUsersTable = () => {
             <UsersTableAddNew />
 
             <Table>
-                <UsersTableHeader
-                    id="ID"
-                    username="Потребител"
-                    name_and_family="Име, Фамилия"
-                    status="Статус"
-                    role="Роля"
-                >
-                </UsersTableHeader>
-
-                <TableLoadingPage />
-
-                <UsersTableBody
-                    userData={dummyUsers}>
-                </UsersTableBody>
+                <UsersTableHeader />
+                
+                <UsersTableDisplay />
             </Table>
         </div>
     )

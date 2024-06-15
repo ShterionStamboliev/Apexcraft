@@ -1,12 +1,13 @@
+import { useUser } from '@/context/UserContext';
 import { TableBody } from "../../ui/table"
 import SkeletonCard from "./TableSkeletonCard"
 
-import { dummyUsers } from "@/components/tables/HomepageTable/dummyData"
-
 const TableLoadingPage = () => {
+    const { state } = useUser();
+
     return (
         <TableBody>
-            {dummyUsers.map((_, i) => (
+            {state.user.map((_, i) => (
                 <SkeletonCard key={i} />
             ))}
         </TableBody>

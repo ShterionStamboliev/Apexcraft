@@ -15,7 +15,7 @@ import {
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const UsersTableSelectRole = ({ label, name, placeholder }: TableFormSelectType) => {
+const UsersTableSelectRole = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
 
     const { control } = useFormContext();
 
@@ -28,7 +28,10 @@ const UsersTableSelectRole = ({ label, name, placeholder }: TableFormSelectType)
                     <FormLabel className='font-semibold'>
                         {label}
                     </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select
+                        onValueChange={field.onChange}
+                        defaultValue={defaultVal}
+                    >
                         <FormControl>
                             <SelectTrigger className='w-[140px]'>
                                 <SelectValue placeholder={placeholder} />

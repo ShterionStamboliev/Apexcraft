@@ -5,7 +5,7 @@ type UserLoginFormButtonsProps = {
     isLoading: boolean | undefined;
 }
 
-const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
+const UserFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     return (
         <>
             {isLoading ? (
@@ -21,4 +21,4 @@ const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     )
 }
 
-export default UserLoginFormButtons
+export default UserFormButtons
