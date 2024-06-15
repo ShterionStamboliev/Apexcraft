@@ -1,6 +1,6 @@
-const db = require('../db');
+const db = require('../../db');
 
-const deleteUserController = async (req, res) => {
+const deactivateUserController = async (req, res) => {
     try {
         const id = req.params.id
         await db.execute(`UPDATE tbl_users SET status = 'неактивен' WHERE id = ?`, [id])
@@ -10,4 +10,4 @@ const deleteUserController = async (req, res) => {
     }
 }
 
-module.exports = deleteUserController
+module.exports = deactivateUserController
