@@ -11,7 +11,7 @@ const router = express.Router();
 router.post('/users/create', authenticateToken, createUser);
 router.get('/users', authenticateToken, getAssociatedUsers);
 router.get('/users/:id', authenticateToken, getUserById);
-router.post('/users/:id/edit', authenticateToken, editUser);
+router.put('/users/:id/edit', authenticateToken, editUser);
 router.get('/users/:id/delete', authenticateToken, deactivateUserController)
 
 module.exports = router;
