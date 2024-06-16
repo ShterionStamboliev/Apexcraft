@@ -1,6 +1,6 @@
 const db = require('../../db');
 
-const deactivateUserController = async (req, res) => {
+const modifyUserStatus = async (req, res) => {
     try {
         const id = req.params.id
         const [rows] = await db.execute(`SELECT status FROM tbl_users WHERE id = ?`, [id]);
@@ -21,5 +21,5 @@ const deactivateUserController = async (req, res) => {
     }
 }
 
-module.exports = deactivateUserController
+module.exports = modifyUserStatus
 

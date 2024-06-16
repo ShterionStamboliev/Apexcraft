@@ -1,6 +1,6 @@
 const db = require('../../db');
 
-const disableActivity = async (req, res) => {
+const modifyActivityStatus = async (req, res) => {
     try {
         const id = req.params.id;
         const [rows] = await db.execute(`SELECT status FROM tbl_activities WHERE id = ?`, [id]);
@@ -21,4 +21,4 @@ const disableActivity = async (req, res) => {
     }
 }
 
-module.exports = disableActivity;
+module.exports = modifyActivityStatus;
