@@ -1,10 +1,21 @@
 import { userStatus } from '@/components/models/newUserSchema'
-import { FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel
+} from '@/components/ui/form'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue
+} from '@/components/ui/select'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const UsersTableSelectStatus = ({ label, name, placeholder }: TableFormSelectType) => {
+const UsersTableSelectStatus = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
 
     const { control } = useFormContext();
 
@@ -19,7 +30,7 @@ const UsersTableSelectStatus = ({ label, name, placeholder }: TableFormSelectTyp
                     </FormLabel>
                     <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        defaultValue={defaultVal}
                     >
                         <FormControl>
                             <SelectTrigger className='w-[140px]'>

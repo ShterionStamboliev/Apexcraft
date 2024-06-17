@@ -3,17 +3,17 @@ type UserLoginFormHeaderProps = {
     description: string;
 }
 
-const UserLoginFormHeader = ({ title, description }: UserLoginFormHeaderProps) => {
+const UserFormHeader = ({ title, description }: UserLoginFormHeaderProps) => {
     return (
         <div className="text-center mb-6">
             <h1 className='text-3xl font-bold'>
                 {title}
             </h1>
-            <p className="text-gray-500">
+            <p>
                 {description}
             </p>
         </div>
     )
 }
 
-export default UserLoginFormHeader
+export default UserFormHeader

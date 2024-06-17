@@ -2,13 +2,13 @@ import { Button } from '@/components/ui/button'
 import { DialogTrigger } from '@/components/ui/dialog'
 import { SquarePlus } from 'lucide-react'
 
-const UsersTableDialogTrigger = () => {
+const DialogTriggerDesktop = () => {
     return (
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='w-15 h-10 border border-zinc-200 hover:bg-zinc-300'
-                    variant={'outline'}
+                    className='w-15 h-10'
+                    variant={'ghost'}
                     size={'sm'}
                 >
                     <SquarePlus className='text-zinc-400' />
@@ -18,4 +18,4 @@ const UsersTableDialogTrigger = () => {
     )
 }
 
-export default UsersTableDialogTrigger
+export default DialogTriggerDesktop
