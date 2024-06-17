@@ -6,7 +6,7 @@ const LayoutHeader = () => {
     return (
         <>
             <div className="py-4 w-full">
-                <div className="container mx-auto flex justify-between items-center px-4">
+                <div className="w-full flex justify-between items-center px-4 max-w-screen-lg mx-auto">
                     <div>
                         <Link to='/' className="flex">
                             <span className="text-2xl text-zinc-500 font-bold tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200">
@@ -14,7 +14,7 @@ const LayoutHeader = () => {
                             </span>
                         </Link>
                     </div>
-                    <div>
+                    <div className='flex items-center'>
                         <Link to='/login'
                             className="text-2xl text-zinc-500 pr-4 font-bold tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200"
                         >

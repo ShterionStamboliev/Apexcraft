@@ -8,9 +8,9 @@ import { Popover, PopoverTrigger } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
 import { MoreHorizontal } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
-import SidebarUserDropdown from './SidebarUserDropdown'
+import SidebarUserDropdown from '../SidebarComponents/SidebarUserDropdown'
 
-const SidebarUser = () => {
+const SidebarDesktopUser = () => {
     const { user } = useAuth();
 
     const userAvatarFallbackLetter = user?.split('')[0].toUpperCase();
@@ -19,12 +19,12 @@ const SidebarUser = () => {
         <>
             {user && (
                 <>
-                    <Separator className='mt-5' />
+                    <Separator className='mt-1' />
                     <Popover>
                         <PopoverTrigger asChild>
                             <Button
                                 variant='ghost'
-                                className='w-full justify-start h-10 px-6'
+                                className='w-full justify-start h-9 px-4 mt-2'
                             >
                                 <div className='flex justify-between items-center w-full'>
                                     <div className='flex gap-2 w-full items-center'>
@@ -43,11 +43,10 @@ const SidebarUser = () => {
 
                         <SidebarUserDropdown />
                     </Popover>
-                    <Separator />
                 </>
             )}
         </>
     )
 }
 
-export default SidebarUser
+export default SidebarDesktopUser

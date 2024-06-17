@@ -1,12 +1,9 @@
-import { useAuth } from "@/context/AuthContext";
-import SidebarDesktopLinks from '../Sidebar/SidebarDesktop/SidebarDesktop';
+import SidebarDesktopLinks from '../Sidebar/Sidebar';
 
 const Homepage = () => {
 
-    // const { user, logout, isLoading, role } = useAuth();
-
     return (
-        <div className="flex gap-5">
+        <div className="flex gap-2">
 
             <SidebarDesktopLinks />
 

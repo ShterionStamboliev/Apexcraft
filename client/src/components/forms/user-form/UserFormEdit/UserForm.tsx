@@ -14,12 +14,13 @@ import { FormValues, formSchema } from '@/components/models/editUserSchema';
 const UserForm = ({ user, onSuccess }: UserFormProps) => {
 
     const { editUser, isLoading } = useUser();
-    const { toast } = useToast()
+    const { toast } = useToast();
+    
     const form = useForm<FormValues>({
         defaultValues: user && {
             username: user.username,
             name_and_family: user.name_and_family,
-            password: '****',
+            password: user.password,
             role: user.role,
             status: user.status,
         },
@@ -36,7 +37,7 @@ const UserForm = ({ user, onSuccess }: UserFormProps) => {
                 reset();
                 toast({
                     variant: 'success',
-                    title: 'Редакцията беше успешен.',
+                    title: 'Редакцията беше успешна',
                     duration: 3000,
                 });
             }
@@ -54,7 +55,7 @@ const UserForm = ({ user, onSuccess }: UserFormProps) => {
                     title='Редакция на потребител'
                     user={`${user?.username}`}
                 />
-                
+
                 <FormFieldInput
                     type='text'
                     label='Име, Фамилия'

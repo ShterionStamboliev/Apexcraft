@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import {
     TableBody,
     TableCell,
@@ -10,12 +9,17 @@ import { FetchUser } from '@/types/user-types/userTypes';
 import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UserForm from '@/components/forms/user-form/UserFormEdit/UserForm';
+import { useMediaQuery } from 'usehooks-ts';
+import DesktopViewButtons from './UserTableButtons/DesktopViewButtons';
+import MobileViewButtons from './UserTableButtons/MobileViewButtons';
 
 const UsersTableBody = () => {
     const { state, getUser, getUsers, isLoading, isUserLoading } = useUser();
     const [selectedUser, setSelectedUser] = useState<FetchUser>();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isModified, setIsModified] = useState(false);
+
+    const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
         getUsers();
@@ -27,7 +31,6 @@ const UsersTableBody = () => {
         if (data) {
             setSelectedUser(data);
         }
-        console.log(data);
     };
 
     const handleCloseDialog = () => {
@@ -59,21 +62,18 @@ const UsersTableBody = () => {
                                 </TableCell>
                             )
                         ))}
-                        <TableCell className="text-right w-[300px]">
-                            <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => handleEditClick(user.id)}
-                                className="h-9 px-4 py-1 mr-2 border rounded-md"
-                            >
-                                Edit
-                            </Button>
-                            <Button
-                                className="mr-2"
-                                variant="outline"
-                            >
-                                Deactivate
-                            </Button>
+                        <TableCell className="text-center w-[300px]">
+                            {onDesktop ? (
+                                <DesktopViewButtons
+                                    handleEditClick={handleEditClick}
+                                    userId={user.id}
+                                />
+                            ) : (
+                                <MobileViewButtons
+                                    handleEditClick={handleEditClick}
+                                    userId={user.id}
+                                />
+                            )}
                         </TableCell>
                     </TableRow>
                 ))}
@@ -83,7 +83,7 @@ const UsersTableBody = () => {
                 open={isDialogOpen}
                 onOpenChange={handleCloseDialog}
             >
-                <DialogContent className='max-w-[425px] sm:max-w-[425px]'>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                     {!isUserLoading && selectedUser && (
                         <UserForm
                             user={selectedUser}

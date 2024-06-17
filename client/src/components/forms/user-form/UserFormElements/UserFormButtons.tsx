@@ -13,7 +13,9 @@ const UserFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
             ) : (
                 <Button
                     form='login-form'
-                    className="font-semibold w-full">
+                    className="font-semibold w-full"
+                    variant={'outline'}
+                >
                     Вход
                 </Button>
             )}

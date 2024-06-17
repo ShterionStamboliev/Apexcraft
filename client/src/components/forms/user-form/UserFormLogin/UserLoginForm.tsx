@@ -50,7 +50,7 @@ const UserLoginForm = () => {
             <form
                 id='login-form'
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="border border-gray-300 p-6 mx-auto rounded-md w-full max-w-md md:p-6"
+                className="border p-6 mx-auto rounded-md w-full max-w-md md:p-6"
             >
                 <div className="space-y-4">
                     <FormFieldInput

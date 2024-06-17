@@ -1,17 +1,13 @@
-import SidebarDesktopLinks from '../Sidebar/SidebarDesktop/SidebarDesktop';
-import HomepageUsersTable from '../tables/HomepageTable/HomepageUsersTable';
+import Sidebar from '../Sidebar/Sidebar';
+import UsersTable from '../tables/HomepageTable/UsersTable';
 
 const UsersTablePage = () => {
 
-    // const { user, logout, isLoading, role } = useAuth();
-
     return (
-        <div className="flex gap-5">
-
-            <SidebarDesktopLinks />
-
-            <HomepageUsersTable />
-
+        <div className="flex gap-2">
+            <Sidebar />
+            
+            <UsersTable />
         </div>
     );
 }
