@@ -14,7 +14,7 @@ import DesktopViewButtons from './UserTableButtons/DesktopViewButtons';
 import MobileViewButtons from './UserTableButtons/MobileViewButtons';
 
 const UsersTableBody = () => {
-    const { state, getUser, getUsers, isLoading, isUserLoading } = useUser();
+    const { state, getUser, getUsers, deactivateUser, isLoading, isUserLoading } = useUser();
     const [selectedUser, setSelectedUser] = useState<FetchUser>();
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isModified, setIsModified] = useState(false);
@@ -31,6 +31,11 @@ const UsersTableBody = () => {
         if (data) {
             setSelectedUser(data);
         }
+    };
+
+    const handleDisableClick = async (userId: string | undefined) => {
+        deactivateUser(userId);
+        getUsers();
     };
 
     const handleCloseDialog = () => {
@@ -66,11 +71,13 @@ const UsersTableBody = () => {
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDisableClick}
                                     userId={user.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDisableClick}
                                     userId={user.id}
                                 />
                             )}

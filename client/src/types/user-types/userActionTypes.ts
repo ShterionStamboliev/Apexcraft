@@ -10,12 +10,12 @@ export enum UserActionType {
     GET_USERS_REQUEST = 'GET_USERS_REQUEST',
     GET_USERS_SUCCESS = 'GET_USERS_SUCCESS',
     GET_USERS_ERROR = 'GET_USERS_ERROR',
-    USER_STATUS_REQUEST = 'USER_STATUS_REQUEST',
-    USER_STATUS_SUCCESS = 'SER_STATUS_SUCCESS',
-    USER_STATUS_ERROR = 'USER_STATUS_ERROR',
     EDIT_USER_REQUEST = 'EDIT_USER_REQUEST',
     EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS',
     EDIT_USER_ERROR = 'EDIT_USER_ERROR',
+    DEACTIVATE_USER_REQUEST = 'DEACTIVATE_USER_REQUEST',
+    DEACTIVATE_USER_SUCCESS = 'DEACTIVATE_USER_SUCCESS',
+    DEACTIVATE_USER_ERROR = 'DEACTIVATE_USER_ERROR',
 }
 
 export type UserContextProps = {
@@ -28,7 +28,7 @@ export type UserContextProps = {
     createUser: (user: User) => Promise<boolean>;
     getUser: (userId: string | undefined) => Promise<FetchUser | null>;
     getUsers: () => Promise<FetchUser[]>;
-    changeUserStatus?: (userId: string) => Promise<boolean>;
+    deactivateUser: (userId: string | undefined) => Promise<boolean>;
     editUser: (userId: string, user: FetchUser) => Promise<boolean>;
 }
 
