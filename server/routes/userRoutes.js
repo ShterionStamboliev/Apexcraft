@@ -12,6 +12,6 @@ router.post('/users/create', authenticateToken, createUser);
 router.get('/users', authenticateToken, getAssociatedUsers);
 router.get('/users/:id', authenticateToken, getUserById);
 router.put('/users/:id/edit', authenticateToken, editUser);
-router.get('/users/:id/delete', authenticateToken, modifyUserStatus)
+router.put('/users/:id/delete', authenticateToken, modifyUserStatus)
 
 module.exports = router;

@@ -6,7 +6,7 @@ const modifyActivityStatus = require('../controllers/activity/modifyActivityStat
 const router = express.Router();
 
 router.get('/activities', authenticateToken, getActivities);
-router.get('/activities/:id/delete', authenticateToken, modifyActivityStatus)
+router.put('/activities/:id/delete', authenticateToken, modifyActivityStatus)
 
 
 module.exports = router;
