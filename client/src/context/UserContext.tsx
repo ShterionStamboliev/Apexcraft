@@ -84,12 +84,29 @@ const userReducer = (state: InitialUserState, action: UserAction): InitialUserSt
                     user.id === action.payload.id ? action.payload : user
                 ),
             };
-        case UserActionType.USER_STATUS_SUCCESS:
+        case UserActionType.DEACTIVATE_USER_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                error: undefined
+            };
+        case UserActionType.DEACTIVATE_USER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                user: action.payload,
+                user: state.user.map(user =>
+                    user.id === action.payload.id
+                        ? { ...user, status: 'неактивен' }
+                        : user
+                )
             };
+        case UserActionType.DEACTIVATE_USER_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload.error
+            }
+
         default:
             return state;
     }
@@ -203,7 +220,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
             }
 
             const userData: FetchUser[] = await response.json();
-
+            
             dispatch({
                 type: UserActionType.GET_USERS_SUCCESS,
                 payload: userData
@@ -261,6 +278,45 @@ export const UserProvider = ({ children }: UserProviderType) => {
         }
     }
 
+    const deactivateUser = async (userId: string | undefined): Promise<boolean> => {
+        dispatch({
+            type: UserActionType.DEACTIVATE_USER_REQUEST,
+        });
+        
+        try {
+            const response = await fetch(`${API_URL}/users/${userId}/delete`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            
+            if (!response.ok) {
+                throw new Error('Грешка при деактивиране на потребител')
+            };
+
+            const updatedUser: FetchUser = await response.json();
+            
+            dispatch({
+                type: UserActionType.DEACTIVATE_USER_SUCCESS,
+                payload: updatedUser
+            });
+            
+            return true;
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                dispatch({
+                    type: UserActionType.DEACTIVATE_USER_ERROR,
+                    payload: {
+                        error: error.message,
+                    }
+                });
+            }
+            return false;
+        }
+    }
+
     return (
         <UserContext.Provider value={{
             state,
@@ -268,6 +324,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
             editUser,
             getUser,
             getUsers,
+            deactivateUser,
             isLoading: state.isLoading,
             isUserLoading: state.isUserLoading,
         }}>

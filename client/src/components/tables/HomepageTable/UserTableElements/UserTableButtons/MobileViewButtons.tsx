@@ -12,10 +12,11 @@ import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 type MobileViewButtonsProps = {
     handleEditClick: (userId: string | undefined) => void;
+    handleDisableClick: (userId: string | undefined) => void;
     userId: string | undefined;
 }
 
-const MobileViewButtons = ({ handleEditClick, userId }: MobileViewButtonsProps) => {
+const MobileViewButtons = ({ handleEditClick, handleDisableClick, userId }: MobileViewButtonsProps) => {
     return (
         <>
             <DropdownMenu>
@@ -32,7 +33,7 @@ const MobileViewButtons = ({ handleEditClick, userId }: MobileViewButtonsProps) 
                     <DropdownMenuCheckboxItem onClick={() => handleEditClick(userId)}>
                         Edit
                     </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem>
+                    <DropdownMenuCheckboxItem onClick={() => handleDisableClick(userId)}>
                         Deactivate
                     </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
