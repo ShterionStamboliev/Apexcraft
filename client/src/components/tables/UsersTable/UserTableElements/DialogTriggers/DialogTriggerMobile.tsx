@@ -3,7 +3,6 @@ import { DialogTrigger } from '@/components/ui/dialog'
 import { SquarePlus } from 'lucide-react'
 
 const DialogTriggerMobile = () => {
-    
     return (
         <>
             <DialogTrigger asChild>

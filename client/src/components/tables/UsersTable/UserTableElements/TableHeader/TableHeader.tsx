@@ -1,5 +1,5 @@
 import {
-    TableHeader,
+    TableHeader as Header,
     TableRow,
     TableHead
 } from "@/components/ui/table"
@@ -16,9 +16,9 @@ const tableHeaderItems: UsersTableHeaderProps = {
     ]
 }
 
-const UsersTableHeader = () => {
+const TableHeader = () => {
     return (
-        <TableHeader>
+        <Header>
             {tableHeaderItems.items.map((item, i) => (
                 <TableRow key={i}>
                     {Object.keys(item).map((key, i) => (
@@ -30,8 +30,8 @@ const UsersTableHeader = () => {
                     ))}
                 </TableRow>
             ))}
-        </TableHeader>
+        </Header>
     )
 }
 
-export default UsersTableHeader
+export default TableHeader

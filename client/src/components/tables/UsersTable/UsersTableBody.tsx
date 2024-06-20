@@ -10,8 +10,8 @@ import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPa
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UserForm from '@/components/forms/user-form/UserFormEdit/UserForm';
 import { useMediaQuery } from 'usehooks-ts';
-import DesktopViewButtons from './UserTableButtons/DesktopViewButtons';
-import MobileViewButtons from './UserTableButtons/MobileViewButtons';
+import DesktopViewButtons from './UserTableElements/TableButtons/DesktopViewButtons';
+import MobileViewButtons from './UserTableElements/TableButtons/MobileViewButtons';
 
 const UsersTableBody = () => {
     const { state, getUser, getUsers, deactivateUser, isLoading, isUserLoading } = useUser();

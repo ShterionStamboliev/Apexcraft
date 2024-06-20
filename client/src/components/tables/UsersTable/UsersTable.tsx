@@ -1,7 +1,7 @@
 import { Table } from "../../ui/table"
-import UsersTableHeader from "./UserTableElements/UsersTableHeader"
-import UsersTableAddNew from "./UserTableElements/UsersTableAddNew"
-import UsersTableDisplay from './UserTableElements/UsersTableDisplay';
+import TableHeader from "./UserTableElements/TableHeader/TableHeader"
+import UsersTableAddNew from "./UsersTableAddNew"
+import UsersTableDisplay from './UsersTableDisplay';
 
 const UsersTable = () => {
 
@@ -12,7 +12,7 @@ const UsersTable = () => {
             <div className='flex-1 overflow-x-auto'>
 
                 <Table className='w-full min-w-full'>
-                    <UsersTableHeader />
+                    <TableHeader />
 
                     <UsersTableDisplay />
                 </Table>

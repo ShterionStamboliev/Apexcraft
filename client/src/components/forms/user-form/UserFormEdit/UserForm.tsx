@@ -3,11 +3,11 @@ import { useUser } from '@/context/UserContext';
 import { UserFormProps } from '@/types/user-types/userTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
-import UsersTableDialogHeader from '@/components/tables/HomepageTable/UserTableElements/UsersTableDialogHeader';
+import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader';
 import FormFieldInput from '@/components/common/FormFieldInput';
-import UsersTableSelectRole from '@/components/tables/HomepageTable/UserTableElements/UsersTableSelectRole';
-import UsersTableSelectStatus from '@/components/tables/HomepageTable/UserTableElements/UsersTableSelectStatus';
-import UsersTableDialogFooter from '@/components/tables/HomepageTable/UserTableElements/UsersTableDialogFooter';
+import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection';
+import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection';
+import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter';
 import { useToast } from '@/components/ui/use-toast';
 import { FormValues, formSchema } from '@/components/models/editUserSchema';
 
@@ -51,7 +51,7 @@ const UserForm = ({ user, onSuccess }: UserFormProps) => {
                 onSubmit={form.handleSubmit(onSubmit)}
             >
 
-                <UsersTableDialogHeader
+                <DialogHeader
                     title='Редакция на потребител'
                     user={`${user?.username}`}
                 />
@@ -78,21 +78,21 @@ const UserForm = ({ user, onSuccess }: UserFormProps) => {
                 />
 
                 <div className='flex flex-1 justify-between'>
-                    <UsersTableSelectRole
+                    <RoleSelection
                         label='Роля'
                         name='role'
                         placeholder='Роля'
                         defaultVal={user && user.role}
                     />
 
-                    <UsersTableSelectStatus
+                    <StatusSelection
                         label='Статус'
                         name='status'
                         defaultVal={user && user.status}
                     />
                 </div>
 
-                <UsersTableDialogFooter
+                <DialogFooter
                     isLoading={isLoading}
                     label='Редактирайте'
                     formName='form-edit'
