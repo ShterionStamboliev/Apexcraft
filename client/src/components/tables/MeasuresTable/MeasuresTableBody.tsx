@@ -1,10 +1,30 @@
-import React from 'react'
+import { Button } from '@/components/ui/button'
+import { TableBody, TableCell, TableRow } from '@/components/ui/table'
+import { measures } from './measureDummyData'
 
-type Props = {}
-
-const MeasuresTableBody = (props: Props) => {
+const MeasuresTableBody = () => {
+    
     return (
-        <div>MeasuresTableBody</div>
+        <TableBody>
+            {measures.map((measure, index) => (
+                <TableRow key={index}>
+                    <TableCell className='text-center'>
+                        {measure.measure}
+                    </TableCell>
+                    <TableCell className='text-center'>
+                        {measure.value}
+                    </TableCell>
+                    <TableCell className="text-center w-[300px]">
+                        <Button variant={'outline'} className='mr-2'>
+                            Edit
+                        </Button>
+                        <Button variant={'outline'}>
+                            Deactivate
+                        </Button>
+                    </TableCell>
+                </TableRow>
+            ))}
+        </TableBody>
     )
 }
 

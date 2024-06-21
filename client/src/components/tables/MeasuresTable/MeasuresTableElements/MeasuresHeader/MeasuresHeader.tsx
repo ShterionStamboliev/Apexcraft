@@ -4,8 +4,11 @@ const MeasuresHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead>
-                    
+                <TableHead className='text-center'>
+                    Measure
+                </TableHead>
+                <TableHead className='text-center'>
+                    Options
                 </TableHead>
             </TableRow>
         </TableHeader>

@@ -1,24 +1,21 @@
 import { addNewUserSchema, formDefaultValues } from '@/components/models/newUserSchema'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
-import { useUser } from '@/context/UserContext'
 import { User } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-
-import { useEffect, useState } from 'react'
-import { useToast } from '@/components/ui/use-toast'
+import { useState } from 'react'
 import FormFieldInput from '@/components/common/FormFieldInput'
 import { useMediaQuery } from 'usehooks-ts'
-import DialogTriggerDesktop from './UserTableElements/DialogTriggers/DialogTriggerDesktop'
-import DialogTriggerMobile from './UserTableElements/DialogTriggers/DialogTriggerMobile'
-import DialogHeader from './UserTableElements/DialogHeader/DialogHeader'
-import RoleSelection from './UserTableElements/RoleSelection/RoleSelection'
-import StatusSelection from './UserTableElements/StatusSelection/StatusSelection'
-import DialogFooter from './UserTableElements/DialogFooter/DialogFooter'
+import useCreateUser from '@/components/hooks/UserHooks/useCreateUser'
+import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop'
+import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile'
+import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader'
+import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection'
+import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection'
+import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter'
 
-const UsersTableAddNew = () => {
-    const { createUser, isLoading } = useUser();
+const CreateUser = () => {
     const { role } = useAuth();
     const isManager = role === 'мениджър';
 
@@ -27,52 +24,18 @@ const UsersTableAddNew = () => {
         mode: 'onChange',
         defaultValues: formDefaultValues
     });
-
+    
+    const { handleCreateUser, isLoading } = useCreateUser();
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
-
-    const { toast } = useToast();
     const { reset } = form;
 
     const onDesktop = useMediaQuery('(min-width: 768px)');
 
-    const handleCreateUser: SubmitHandler<User> = async (userData: User) => {
-        try {
-            const isCreateSuccessful = await createUser(userData);
-            if (isCreateSuccessful) {
-                setIsCreateSuccess(true);
-                setIsOpen(false);
-                reset();
-                toast({
-                    variant: 'success',
-                    title: 'Записът беше успешен.',
-                    duration: 3000,
-                });
-            } else {
-                toast({
-                    variant: 'destructive',
-                    title: 'Грешка!',
-                    description: 'Съществува потребител с избраното име.',
-                    duration: 3000,
-                });
-            }
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                return error.message;
-            }
-        }
-    }
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        if (isCreateSuccess) {
-            setIsCreateSuccess(false);
-        };
-
-        return () => controller.abort();
-
-    }, [isCreateSuccess])
+    const onSubmit: SubmitHandler<User> = async (userData: User) => {
+        await handleCreateUser(userData);
+        setIsOpen(false);
+        reset();
+    };
 
     return (
         <>
@@ -80,7 +43,7 @@ const UsersTableAddNew = () => {
                 <FormProvider {...form}>
                     <form
                         id='user-form'
-                        onSubmit={form.handleSubmit(handleCreateUser)}
+                        onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <Dialog
                             open={isOpen}
@@ -141,4 +104,4 @@ const UsersTableAddNew = () => {
     )
 }
 
-export default UsersTableAddNew
+export default CreateUser

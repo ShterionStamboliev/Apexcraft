@@ -1,48 +1,15 @@
 
-import { useUser } from '@/context/UserContext';
 import { UserFormProps } from '@/types/user-types/userTypes';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader';
 import FormFieldInput from '@/components/common/FormFieldInput';
 import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection';
 import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection';
 import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter';
-import { useToast } from '@/components/ui/use-toast';
-import { FormValues, formSchema } from '@/components/models/editUserSchema';
+import useEditUserForm from '@/components/hooks/UserHooks/useEditUser';
 
-const UserForm = ({ user, onSuccess }: UserFormProps) => {
-
-    const { editUser, isLoading } = useUser();
-    const { toast } = useToast();
-    
-    const form = useForm<FormValues>({
-        defaultValues: user && {
-            username: user.username,
-            name_and_family: user.name_and_family,
-            password: user.password,
-            role: user.role,
-            status: user.status,
-        },
-        resolver: zodResolver(formSchema),
-    });
-
-    const { reset } = form;
-
-    const onSubmit = async (data: FormValues) => {
-        if (user?.id) {
-            const isEditSuccess = await editUser(user.id, data);
-            if (isEditSuccess && onSuccess) {
-                onSuccess();
-                reset();
-                toast({
-                    variant: 'success',
-                    title: 'Редакцията беше успешна',
-                    duration: 3000,
-                });
-            }
-        }
-    }
+const EditForm = ({ user, onSuccess }: UserFormProps) => {
+    const { form, isLoading, onSubmit } = useEditUserForm(user, onSuccess);
 
     return (
         <FormProvider {...form}>
@@ -103,4 +70,4 @@ const UserForm = ({ user, onSuccess }: UserFormProps) => {
     )
 }
 
-export default UserForm
+export default EditForm

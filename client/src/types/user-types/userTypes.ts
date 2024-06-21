@@ -32,7 +32,7 @@ export type UserFormType = {
     status: 'активен' | 'неактивен';
 }
 
-export type UserFormProps = {
+export interface UserFormProps {
     onSuccess?: () => void;
-    user?: UserFormType;
+    user: UserFormType;
 }
