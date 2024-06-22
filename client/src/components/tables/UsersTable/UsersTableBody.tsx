@@ -3,7 +3,7 @@ import {
     TableCell,
     TableRow
 } from '@/components/ui/table';
-import { useUser } from '@/context/UserContext';
+import { useUser } from '@/context/User/UserContext';
 import { useEffect } from 'react';
 import { FetchUser } from '@/types/user-types/userTypes';
 import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';

@@ -1,7 +1,7 @@
-import { useUser } from '@/context/UserContext';
 import { useEffect, useState } from 'react';
 import { User } from '@/types/user-types/userTypes';
 import useToastHook from '../custom-hooks/useToastHook';
+import { useUser } from '@/context/User/UserContext';
 
 const useCreateUser = () => {
     const { createUser, isLoading } = useUser();

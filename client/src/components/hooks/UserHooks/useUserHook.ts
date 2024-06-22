@@ -1,4 +1,4 @@
-import { useUser } from '@/context/UserContext';
+import { useUser } from '@/context/User/UserContext';
 import { FetchUser } from '@/types/user-types/userTypes';
 import useEntityHandlers from '../custom-hooks/useEntityHandlers';
 

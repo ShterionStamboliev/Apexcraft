@@ -36,7 +36,7 @@ const CreateUser = () => {
         setIsOpen(false);
         reset();
     };
-
+    
     return (
         <>
             {isManager && (

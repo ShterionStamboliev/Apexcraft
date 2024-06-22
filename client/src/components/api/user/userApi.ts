@@ -1,124 +1,12 @@
-import { createContext, useCallback, useContext, useReducer } from 'react'
 import { FetchUser, User } from '@/types/user-types/userTypes'
-import { UserActionType, UserAction, UserContextProps } from '@/types/user-types/userActionTypes';
-import { useAuth } from './AuthContext';
+import { UserActionType } from '@/types/user-types/userActionTypes';
+import { useCallback, useReducer } from 'react';
+import userReducer, { initialState } from '@/context/User/userReducer';
+import { useAuth } from '@/context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type InitialUserState = {
-    user: FetchUser[];
-    isLoading?: boolean;
-    isUserLoading?: boolean;
-    error?: string;
-};
-
-const initialState: InitialUserState = {
-    user: [],
-    isLoading: false,
-    isUserLoading: false,
-    error: undefined,
-};
-
-const userReducer = (state: InitialUserState, action: UserAction): InitialUserState => {
-    switch (action.type) {
-        case UserActionType.CREATE_USER_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: undefined,
-            };
-        case UserActionType.CREATE_USER_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                user: [...state.user, action.payload],
-            };
-        case UserActionType.CREATE_USER_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload.error,
-            };
-        case UserActionType.GET_USER_REQUEST:
-            return {
-                ...state,
-                isUserLoading: true,
-                error: undefined,
-            };
-        case UserActionType.GET_USER_SUCCESS:
-            return {
-                ...state,
-                isUserLoading: false,
-                user: [...state.user],
-            };
-        case UserActionType.GET_USER_ERROR:
-            return {
-                ...state,
-                isUserLoading: false,
-                error: action.payload.error
-            };
-        case UserActionType.GET_USERS_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: undefined,
-            };
-        case UserActionType.GET_USERS_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                user: action.payload,
-            };
-        case UserActionType.GET_USERS_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload.error
-            };
-
-        case UserActionType.EDIT_USER_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                user: state.user.map(user =>
-                    user.id === action.payload.id ? action.payload : user
-                ),
-            };
-        case UserActionType.DEACTIVATE_USER_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: undefined
-            };
-        case UserActionType.DEACTIVATE_USER_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                user: state.user.map(user =>
-                    user.id === action.payload.id
-                        ? { ...user, status: 'неактивен' }
-                        : user
-                )
-            };
-        case UserActionType.DEACTIVATE_USER_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload.error
-            }
-
-        default:
-            return state;
-    }
-}
-
-const UserContext = createContext<UserContextProps | undefined>(undefined);
-
-type UserProviderType = {
-    children: React.ReactNode
-};
-
-export const UserProvider = ({ children }: UserProviderType) => {
+const useUserApi = () => {
     const [state, dispatch] = useReducer(userReducer, initialState);
 
     const { token } = useAuth();
@@ -133,13 +21,13 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(userData),
+                body: JSON.stringify(userData)
             });
 
             if (!response.ok) {
-                throw new Error('Грешка при създаването на нов потребител')
+                throw new Error('Грешка при създаване на потребител')
             }
 
             const newUserData: User = await response.json();
@@ -153,20 +41,21 @@ export const UserProvider = ({ children }: UserProviderType) => {
 
             return true;
         } catch (error: unknown) {
-            if (error instanceof Error)
+            if (error instanceof Error) {
                 dispatch({
                     type: UserActionType.CREATE_USER_ERROR,
                     payload: {
-                        error: error.message
+                        error: error.message,
                     }
                 });
+            }
             return false;
         }
-    }
+    };
 
     const getUser = async (userId: string | undefined): Promise<FetchUser | null> => {
         dispatch({
-            type: UserActionType.GET_USER_REQUEST
+            type: UserActionType.GET_USER_REQUEST,
         });
 
         try {
@@ -178,7 +67,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
             });
 
             if (!response.ok) {
-                throw new Error('Грешка при зареждане на потребителя')
+                throw new Error('Грешка при зареждане на потребител')
             }
 
             const userData: FetchUser = await response.json();
@@ -194,17 +83,17 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 dispatch({
                     type: UserActionType.GET_USER_ERROR,
                     payload: {
-                        error: error.message
+                        error: error.message,
                     }
                 });
             }
-            return null
+            return null;
         }
-    }
+    };
 
     const getUsers = useCallback(async (): Promise<FetchUser[]> => {
         dispatch({
-            type: UserActionType.GET_USERS_REQUEST
+            type: UserActionType.GET_USERS_REQUEST,
         });
 
         try {
@@ -220,10 +109,10 @@ export const UserProvider = ({ children }: UserProviderType) => {
             }
 
             const userData: FetchUser[] = await response.json();
-            
+
             dispatch({
                 type: UserActionType.GET_USERS_SUCCESS,
-                payload: userData
+                payload: userData,
             });
 
             return userData;
@@ -232,7 +121,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 dispatch({
                     type: UserActionType.GET_USERS_ERROR,
                     payload: {
-                        error: error.message
+                        error: error.message,
                     }
                 });
             }
@@ -242,7 +131,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
 
     const editUser = async (userId: string, userData: FetchUser): Promise<boolean> => {
         dispatch({
-            type: UserActionType.EDIT_USER_REQUEST
+            type: UserActionType.EDIT_USER_REQUEST,
         });
 
         try {
@@ -250,7 +139,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(userData)
             });
@@ -261,7 +150,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
 
             dispatch({
                 type: UserActionType.EDIT_USER_SUCCESS,
-                payload: userData
+                payload: userData,
             });
 
             return true;
@@ -270,19 +159,19 @@ export const UserProvider = ({ children }: UserProviderType) => {
                 dispatch({
                     type: UserActionType.EDIT_USER_ERROR,
                     payload: {
-                        error: error.message
+                        error: error.message,
                     }
                 });
             }
             return false;
         }
-    }
+    };
 
     const deactivateUser = async (userId: string | undefined): Promise<boolean> => {
         dispatch({
             type: UserActionType.DEACTIVATE_USER_REQUEST,
         });
-        
+
         try {
             const response = await fetch(`${API_URL}/users/${userId}/delete`, {
                 method: 'PUT',
@@ -291,52 +180,40 @@ export const UserProvider = ({ children }: UserProviderType) => {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            
+
             if (!response.ok) {
                 throw new Error('Грешка при деактивиране на потребител')
             };
 
             const updatedUser: FetchUser = await response.json();
-            
+
             dispatch({
                 type: UserActionType.DEACTIVATE_USER_SUCCESS,
                 payload: updatedUser
             });
-            
+
             return true;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
                     type: UserActionType.DEACTIVATE_USER_ERROR,
                     payload: {
-                        error: error.message,
+                        error: error.message
                     }
                 });
             }
             return false;
         }
-    }
+    };
 
-    return (
-        <UserContext.Provider value={{
-            state,
-            createUser,
-            editUser,
-            getUser,
-            getUsers,
-            deactivateUser,
-            isLoading: state.isLoading,
-            isUserLoading: state.isUserLoading,
-        }}>
-            {children}
-        </UserContext.Provider>
-    );
+    return {
+        state,
+        createUser,
+        getUser,
+        getUsers,
+        editUser,
+        deactivateUser,
+    };
 };
 
-export const useUser = () => {
-    const context = useContext(UserContext);
-    if (!context) {
-        throw new Error('User context must be used inside of a Provider component');
-    };
-    return context;
-}
+export default useUserApi;

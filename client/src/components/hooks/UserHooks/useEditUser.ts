@@ -1,4 +1,4 @@
-import { useUser } from '@/context/UserContext';
+import { useUser } from '@/context/User/UserContext';
 import { UserFormType } from '@/types/user-types/userTypes';
 import useToastHook from '../custom-hooks/useToastHook';
 import { FormValues, formSchema } from '@/components/models/editUserSchema';
