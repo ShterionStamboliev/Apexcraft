@@ -1,32 +1,37 @@
-import { SidebarItems } from '@/types/sidebar-types/sidebarItems'
-import { Link, useLocation } from 'react-router-dom'
-import SidebarButton from './SidebarButton'
-import SidebarUser from './SidebarUser'
+import { sidebarItems } from '../SidebarComponents/sidebarItems'
+import { Link } from 'react-router-dom'
+import SidebarButton from '../SidebarComponents/SidebarButton'
 
-interface SidebarLinksProps {
-    sidebarItems: SidebarItems
+type SidebarComponent = {
+    Component: React.ComponentType
 }
 
-const SidebarLinks = ({ sidebarItems }: SidebarLinksProps) => {
-    const location = useLocation();
+const SidebarLinks = ({ Component }: SidebarComponent) => {
 
     return (
-        <>
-            {
-                sidebarItems.links.map((link, index) => (
-                    <Link to={link.href} key={index} className='pb-1'>
+        <div className='min-h-full'>
+            <div className='mt-1 px-2 flex flex-col w-full gap-1'>
+                {sidebarItems.links.map((link, i) => (
+                    <Link
+                        to={link.href}
+                        key={i}
+                        className='pb-1'
+                    >
                         <SidebarButton
-                            variant={location.pathname === link.href ? 'secondary' : 'ghost'}
+                            variant={location.pathname === link.href
+                                ? 'secondary'
+                                : 'ghost'
+                            }
                             icon={link.icon}
                             className='w-full'
                         >
                             {link.label}
                         </SidebarButton>
                     </Link>
-                ))
-            }
-            <SidebarUser />
-        </>
+                ))}
+                <Component />
+            </div>
+        </div>
     )
 }
 

@@ -1,5 +1,4 @@
-import Header from "@/components/layouts/Header/LayoutHeader";
-import Footer from "@/components/layouts/Footer/LayoutFooter";
+import LayoutFooter from '@/components/layouts/Footer/LayoutFooter';
 
 type LayoutLoginFormProps = {
     children: React.ReactNode;
@@ -8,13 +7,12 @@ type LayoutLoginFormProps = {
 const LayoutLoginForm = ({ children }: LayoutLoginFormProps) => {
     return (
         <div className="flex flex-col min-h-screen">
-            <Header />
 
-            <div className="flex-1 p-10 items-center bg-blend-darken justify-center">
+            <div className="flex-1 p-10 items-center justify-center">
                 {children}
             </div>
 
-            <Footer />
+            <LayoutFooter />
         </div>
     )
 }

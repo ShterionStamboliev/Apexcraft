@@ -4,17 +4,17 @@ import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { formDefaultValues, loginFormSchema } from '@/components/models/userLoginSchema';
-import UserLoginFormHeader from './UserLoginFormHeader';
 import { UserLoginFormData } from '@/types/user-types/userTypes';
 import FormFieldInput from '@/components/common/FormFieldInput';
-import UserLoginFormButtons from './UserLoginFormButtons';
-import UserLoginFormErrors from './UserLoginFormErrors';
+import UserFormHeader from '../UserFormElements/UserFormHeader';
+import UserFormButtons from '../UserFormElements/UserFormButtons';
+import UserFormErrors from '../UserFormElements/UserFormErrors';
 
 const UserLoginForm = () => {
     const { login, isLoading, error } = useAuth();
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
-    
+
     const form = useForm<UserLoginFormData>({
         resolver: zodResolver(loginFormSchema),
         mode: 'onChange',
@@ -42,7 +42,7 @@ const UserLoginForm = () => {
     return (
         <FormProvider {...form}>
 
-            <UserLoginFormHeader
+            <UserFormHeader
                 title='Добре дошли'
                 description='Вход в системата'
             />
@@ -50,7 +50,7 @@ const UserLoginForm = () => {
             <form
                 id='login-form'
                 onSubmit={form.handleSubmit(onSubmit)}
-                className="border border-gray-300 p-6 mx-auto rounded-md w-full max-w-md md:p-6"
+                className="border p-6 mx-auto rounded-md w-full max-w-md md:p-6"
             >
                 <div className="space-y-4">
                     <FormFieldInput
@@ -66,12 +66,12 @@ const UserLoginForm = () => {
                 </div>
 
                 <div className="flex flex-1 pt-10 pb-2">
-                    <UserLoginFormButtons
+                    <UserFormButtons
                         isLoading={isLoading}
                     />
                 </div>
 
-                <UserLoginFormErrors
+                <UserFormErrors
                     error={error}
                 />
             </form>

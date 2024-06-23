@@ -1,21 +1,31 @@
+import { ModeToggle } from '@/components/Theme/ModeToggle';
+import { Separator } from '@/components/ui/separator';
 import { Link } from "react-router-dom";
 
 const LayoutHeader = () => {
     return (
-        <div className="py-6 bg-slate-800">
-            <div className="container mx-auto flex justify-between items-center">
-                <Link to='/' className="flex">
-                    <span className="text-white text-2xl font-bold tracking-tight">
-                        Project-34
-                    </span>
-                </Link>
-
-                <Link to='/login' className="text-white text-2xl font-bold tracking-tight hover:cursor-pointer hover:text-yellow-100">
-                    Sign in
-                </Link>
-                
+        <>
+            <div className="py-4 w-full">
+                <div className="w-full flex justify-between items-center px-4 max-w-screen-lg mx-auto">
+                    <div>
+                        <Link to='/' className="flex">
+                            <span className="text-2xl text-zinc-500 font-bold tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200">
+                                Project-34
+                            </span>
+                        </Link>
+                    </div>
+                    <div className='flex items-center'>
+                        <Link to='/login'
+                            className="text-2xl text-zinc-500 pr-4 font-bold tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200"
+                        >
+                            Sign in
+                        </Link>
+                        <ModeToggle />
+                    </div>
+                </div>
             </div>
-        </div>
+            <Separator />
+        </>
     )
 }
 

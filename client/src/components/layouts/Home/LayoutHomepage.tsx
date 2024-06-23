@@ -1,5 +1,5 @@
-import Header from "@/components/layouts/Header/LayoutHeader";
-import Footer from "@/components/layouts/Footer/LayoutFooter";
+import LayoutHeader from '@/components/layouts/Header/LayoutHeader';
+import LayoutFooter from '@/components/layouts/Footer/LayoutFooter';
 
 type LayoutHomepageProps = {
     children: React.ReactNode;
@@ -8,14 +8,14 @@ type LayoutHomepageProps = {
 const LayoutHomepage = ({ children }: LayoutHomepageProps) => {
     return (
         <div className="flex flex-col min-h-screen">
-            <Header />
+            <LayoutHeader />
 
             {/* Main content */}
             <div className="flex-1">
                 {children}
             </div>
 
-            <Footer />
+            <LayoutFooter />
         </div>
     );
 }
