@@ -5,7 +5,7 @@ const homeRoutes = require('./routes/homeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const measuresRoutes = require('./routes/measuresRoutes');
-// const cors = require('cors')
+const cors = require('cors')
 
 require('dotenv').config();
 
@@ -14,10 +14,11 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
-// app.use(cors({
-//     origin: 'https://project34-test-server.onrender.com',
-//     credentials: true
-// }));
+app.use(cors({
+    origin: 'https://project34-test.onrender.com',
+    credentials: true,
+    optionsSuccessStatus: 200
+}));
 
 app.use('/auth', authRoutes);
 app.use('/', homeRoutes);
