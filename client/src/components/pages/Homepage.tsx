@@ -1,4 +1,8 @@
-import SidebarDesktopLinks from '../Sidebar/Sidebar';
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import HomepageUsersTable from "../tables/HomepageTable/HomepageUsersTable";
+import SidebarDesktopLinks from '../Sidebar/SidebarDesktop/SidebarDesktop';
+
 
 const Homepage = () => {
 
