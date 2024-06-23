@@ -5,7 +5,8 @@ const homeRoutes = require('./routes/homeRoutes');
 const userRoutes = require('./routes/userRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 const measuresRoutes = require('./routes/measuresRoutes');
-const cors = require('cors')
+const cors = require('cors');
+require('dotenv').config();
 
 require('dotenv').config();
 
@@ -15,7 +16,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.API_CORS,
     credentials: true
 }));
 
