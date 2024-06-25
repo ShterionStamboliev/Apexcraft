@@ -5,7 +5,7 @@ type UserLoginFormButtonsProps = {
     isLoading: boolean | undefined;
 }
 
-const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
+const UserFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     return (
         <>
             {isLoading ? (
@@ -13,7 +13,9 @@ const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
             ) : (
                 <Button
                     form='login-form'
-                    className="font-semibold w-full">
+                    className="font-semibold w-full"
+                    variant={'outline'}
+                >
                     Вход
                 </Button>
             )}
@@ -21,4 +23,4 @@ const UserLoginFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     )
 }
 
-export default UserLoginFormButtons
+export default UserFormButtons

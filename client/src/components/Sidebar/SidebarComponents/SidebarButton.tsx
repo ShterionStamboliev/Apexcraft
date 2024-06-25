@@ -1,4 +1,5 @@
 import { Button, ButtonProps } from "@/components/ui/button";
+import { SheetClose } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 
@@ -26,3 +27,12 @@ const SidebarButton = (
 }
 
 export default SidebarButton
+
+
+export function SidebarButtonClose(props: SidebarButtonProps) {
+    return (
+        <SheetClose asChild>
+            <SidebarButton {...props} />
+        </SheetClose>
+    )
+}

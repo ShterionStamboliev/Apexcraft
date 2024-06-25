@@ -1,5 +1,5 @@
-const db = require("../db")
-const hashPassword = require("../utils/hashPassword");
+const db = require("../../db")
+const hashPassword = require("../../utils/hashPassword");
 
 // Edit User
 const editUser = async (req, res) => {

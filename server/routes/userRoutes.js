@@ -1,17 +1,17 @@
 const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
-const deleteUserController = require('../controllers/deleteUserController');
-const { getAssociatedUsers } = require('../controllers/userController');
-const { editUser } = require('../controllers/editUserController');
-const { createUser } = require('../controllers/createUserController');
+const { getAssociatedUsers } = require('../controllers/user/userController');
 const getUserById = require('../utils/getUserById');
+const modifyUserStatus = require('../controllers/user/modifyUserStatusController');
+const { createUser } = require('../controllers/user/createUserController');
+const { editUser } = require('../controllers/user/editUserController');
 
 const router = express.Router();
 
 router.post('/users/create', authenticateToken, createUser);
 router.get('/users', authenticateToken, getAssociatedUsers);
 router.get('/users/:id', authenticateToken, getUserById);
-router.post('/users/:id/edit', authenticateToken, editUser);
-router.get('/users/:id/delete', authenticateToken, deleteUserController)
+router.put('/users/:id/edit', authenticateToken, editUser);
+router.put('/users/:id/delete', authenticateToken, modifyUserStatus)
 
 module.exports = router;

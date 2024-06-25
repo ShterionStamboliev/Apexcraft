@@ -7,16 +7,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
 import UsersTableDialogHeader from './UsersTableDialogHeader'
 import UsersTableDialogFooter from './UsersTableDialogFooter'
-import UsersTableDialogTrigger from './UsersTableDialogTrigger'
 import UsersTableSelectStatus from './UsersTableSelectStatus'
 import UsersTableSelectRole from './UsersTableSelectRole'
 import { useEffect, useState } from 'react'
 import { useToast } from '@/components/ui/use-toast'
 import FormFieldInput from '@/components/common/FormFieldInput'
+import { useMediaQuery } from 'usehooks-ts'
+import DialogTriggerMobile from './UserTableDialogTriggers/DialogTriggerMobile'
+import DialogTriggerDesktop from './UserTableDialogTriggers/DialogTriggerDesktop'
 
 const UsersTableAddNew = () => {
     const { createUser, isLoading } = useUser();
     const { role } = useAuth();
+    const isManager = role === 'мениджър';
 
     const form = useForm<User>({
         resolver: zodResolver(addNewUserSchema),
@@ -24,14 +27,13 @@ const UsersTableAddNew = () => {
         defaultValues: formDefaultValues
     });
 
-    const { reset } = form;
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
-
+    
     const { toast } = useToast();
+    const { reset } = form;
 
-    // const isAdmin = role === 'админ';
-    const isManager = role === 'мениджър';
+    const onDesktop = useMediaQuery('(min-width: 768px)');
 
     const handleCreateUser: SubmitHandler<User> = async (userData: User) => {
         try {
@@ -45,7 +47,6 @@ const UsersTableAddNew = () => {
                     title: 'Записът беше успешен.',
                     duration: 3000,
                 });
-                console.log(userData);
             } else {
                 toast({
                     variant: 'destructive',
@@ -84,33 +85,34 @@ const UsersTableAddNew = () => {
                             open={isOpen}
                             onOpenChange={setIsOpen}
                         >
+                            {onDesktop
+                                ? (
+                                    <DialogTriggerDesktop />
+                                )
+                                : (
+                                    <DialogTriggerMobile />
+                                )
+                            }
 
-                            <UsersTableDialogTrigger />
-
-                            <DialogContent className='max-w-[425px] sm:max-w-[425px]'>
-
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <UsersTableDialogHeader
                                     title='Добавете нов потребител'
                                 />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Потребител'
-                                    name='username'
-                                />
-
                                 <FormFieldInput
                                     type='text'
                                     label='Име, Фамилия'
                                     name='name'
                                 />
-
+                                <FormFieldInput
+                                    type='text'
+                                    label='Потребител'
+                                    name='username'
+                                />
                                 <FormFieldInput
                                     type='password'
                                     label='Парола'
                                     name='password'
                                 />
-
                                 <div className='flex flex-1 justify-between'>
                                     <UsersTableSelectRole
                                         label='Роля'
@@ -124,14 +126,15 @@ const UsersTableAddNew = () => {
                                         placeholder='активен'
                                     />
                                 </div>
-
                                 <UsersTableDialogFooter
                                     isLoading={isLoading}
+                                    label='Добавете'
+                                    formName='user-form'
                                 />
                             </DialogContent>
                         </Dialog>
                     </form>
-                </FormProvider >
+                </FormProvider>
             )}
         </>
     )
