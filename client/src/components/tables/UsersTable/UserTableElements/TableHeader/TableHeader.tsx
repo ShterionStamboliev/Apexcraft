@@ -8,10 +8,11 @@ import { UsersTableHeaderProps } from "@/types/table-types/userTableTypes"
 const tableHeaderItems: UsersTableHeaderProps = {
     items: [
         {
-            name_and_family: 'Име, Фамилия',
-            username: 'Потребител',
-            status: 'Статус',
-            role: 'Роля'
+            name_and_family: 'Name, Surname',
+            username: 'User',
+            status: 'Status',
+            role: 'Role',
+            options: 'Options'
         }
     ]
 }

@@ -4,11 +4,14 @@ const ActivitiesHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='text-right'>
+                <TableHead className='text-right pr-10'>
                     Activity
                 </TableHead>
                 <TableHead className='text-center'>
-                    Measures
+                    Status
+                </TableHead>
+                <TableHead className='text-start pl-10'>
+                    Options
                 </TableHead>
             </TableRow>
         </TableHeader>

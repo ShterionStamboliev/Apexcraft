@@ -48,7 +48,7 @@ const UsersTableBody = () => {
                                 </TableCell>
                             )
                         ))}
-                        <TableCell className="text-center w-[300px]">
+                        <TableCell className="text-start w-[300px]">
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}

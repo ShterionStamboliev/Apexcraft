@@ -6,16 +6,16 @@ import DesktopViewButtons from '../UsersTable/UserTableElements/TableButtons/Des
 import MobileViewButtons from '../UsersTable/UserTableElements/TableButtons/MobileViewButtons';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import useEntityHook from '@/components/hooks/UserHooks/useEntityHook';
+import { Activity } from '@/types/activity-types/activityTypes';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ActivitiesTableBody = () => {
     const { token } = useAuth();
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<Activity[]>();
 
     const {
         isDialogOpen,
-        isModified,
         handleCloseDialog,
         handleEditClick,
         handleDeactivateClick,
@@ -53,16 +53,15 @@ const ActivitiesTableBody = () => {
     return (
         <>
             <TableBody>
-                {data.map((item, i) => (
+                {data && data.map((item, i) => (
                     <TableRow key={i}>
-                        {Object.keys(item).map((key, i) => (
-                            key !== 'ID' && (
-                                <TableCell className='text-right' key={i}>
-                                    {item[key as keyof typeof item]}
-                                </TableCell>
-                            )
-                        ))}
+                        <TableCell className='text-right pr-10'>
+                            {item.name}
+                        </TableCell>
                         <TableCell className='text-center'>
+                            {item.status}
+                        </TableCell>
+                        <TableCell className='text-start pl-10'>
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}

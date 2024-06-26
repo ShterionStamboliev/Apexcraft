@@ -4,7 +4,7 @@ const MeasuresHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='text-center'>
+                <TableHead className='text-right'>
                     Measure
                 </TableHead>
                 <TableHead className='text-center'>
