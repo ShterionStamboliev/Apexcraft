@@ -15,9 +15,8 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: 'https://project34-test.onrender.com',
-    credentials: true,
-    optionsSuccessStatus: 200
+    origin: 'http://localhost:5173',
+    credentials: true
 }));
 
 app.use('/auth', authRoutes);

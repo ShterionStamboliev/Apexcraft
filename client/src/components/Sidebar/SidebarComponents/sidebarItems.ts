@@ -1,10 +1,11 @@
 import { SidebarItems } from '@/types/sidebar-types/sidebarItems';
-import { Home, Info, LogOut, Table, User, Users } from 'lucide-react';
+import { Activity, Home, Info, LogOut, Ruler, User, Users } from 'lucide-react';
 
 export const sidebarItems: SidebarItems = {
     links: [
         { label: 'Home', href: '/', icon: Home },
-        { label: 'Tables', href: '/tables', icon: Table },
+        { label: 'Activities', href: '/activities', icon: Activity },
+        { label: 'Measures', href: '/measures', icon: Ruler },
         { label: 'Users', href: '/users', icon: Users },
         { label: 'About', href: '/about', icon: Info },
     ]

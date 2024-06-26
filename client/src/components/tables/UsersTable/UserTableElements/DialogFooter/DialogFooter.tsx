@@ -1,9 +1,9 @@
 import LoadingButton from '@/components/common/LoadingButton';
 import { Button } from '@/components/ui/button';
-import { DialogFooter } from '@/components/ui/dialog';
+import { DialogFooter as Footer } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
-type UsersTableDialogFooterProps = {
+type DialogFooterProps = {
     isLoading: boolean | undefined;
     label: string;
     type?: "submit" | "reset" | "button" | undefined;
@@ -11,10 +11,10 @@ type UsersTableDialogFooterProps = {
     className?: string;
 }
 
-const UsersTableDialogFooter = ({ isLoading, label, type, formName, className }: UsersTableDialogFooterProps) => {
+const DialogFooter = ({ isLoading, label, type, formName, className }: DialogFooterProps) => {
 
     return (
-        <DialogFooter>
+        <Footer>
             {isLoading ? (
                 <LoadingButton label='Добавете' />
             ) : (
@@ -27,8 +27,8 @@ const UsersTableDialogFooter = ({ isLoading, label, type, formName, className }:
                     {label}
                 </Button>
             )}
-        </DialogFooter>
+        </Footer>
     )
 }
 
-export default UsersTableDialogFooter
+export default DialogFooter

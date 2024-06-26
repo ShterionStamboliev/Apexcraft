@@ -1,5 +1,5 @@
 import Sidebar from '../Sidebar/Sidebar';
-import UsersTable from '../tables/HomepageTable/UsersTable';
+import UsersTable from '../tables/UsersTable/UsersTable';
 
 const UsersTablePage = () => {
 

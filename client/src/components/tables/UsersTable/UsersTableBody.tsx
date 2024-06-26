@@ -3,53 +3,34 @@ import {
     TableCell,
     TableRow
 } from '@/components/ui/table';
-import { useUser } from '@/context/UserContext';
-import { useEffect, useState } from 'react';
+import { useUser } from '@/context/User/UserContext';
+import { useEffect } from 'react';
 import { FetchUser } from '@/types/user-types/userTypes';
 import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import UserForm from '@/components/forms/user-form/UserFormEdit/UserForm';
 import { useMediaQuery } from 'usehooks-ts';
-import DesktopViewButtons from './UserTableButtons/DesktopViewButtons';
-import MobileViewButtons from './UserTableButtons/MobileViewButtons';
+import DesktopViewButtons from './UserTableElements/TableButtons/DesktopViewButtons';
+import MobileViewButtons from './UserTableElements/TableButtons/MobileViewButtons';
+import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
+import useEntityHooks from '@/components/hooks/UserHooks/useEntityHook';
 
 const UsersTableBody = () => {
-    const { state, getUser, getUsers, deactivateUser, isLoading, isUserLoading } = useUser();
-    const [selectedUser, setSelectedUser] = useState<FetchUser>();
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isModified, setIsModified] = useState(false);
+    const { state, getUsers, isLoading, isUserLoading } = useUser();
+    const {
+        selectedEntity: selectedUser,
+        isDialogOpen,
+        isModified,
+        handleCloseDialog,
+        handleDeactivateClick,
+        handleEditClick,
+        handleSuccess
+    } = useEntityHooks();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
         getUsers();
     }, [getUsers, isModified]);
-
-    const handleEditClick = async (userId: string | undefined) => {
-        setIsDialogOpen(true);
-        const data = await getUser(userId);
-        if (data) {
-            setSelectedUser(data);
-        }
-    };
-
-    const handleDisableClick = async (userId: string | undefined) => {
-        deactivateUser(userId);
-        getUsers();
-    };
-
-    const handleCloseDialog = () => {
-        setIsDialogOpen(false);
-        setSelectedUser(undefined);
-        if (isModified) {
-            getUsers();
-        };
-        setIsModified(false);
-    };
-
-    const handleSuccess = () => {
-        setIsModified(true);
-    };
 
     if (isLoading) {
         return <TableLoadingPage />
@@ -67,17 +48,17 @@ const UsersTableBody = () => {
                                 </TableCell>
                             )
                         ))}
-                        <TableCell className="text-center w-[300px]">
+                        <TableCell className="text-start w-[300px]">
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDisableClick}
+                                    handleDisableClick={handleDeactivateClick}
                                     userId={user.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDisableClick}
+                                    handleDisableClick={handleDeactivateClick}
                                     userId={user.id}
                                 />
                             )}
@@ -92,7 +73,7 @@ const UsersTableBody = () => {
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                     {!isUserLoading && selectedUser && (
-                        <UserForm
+                        <EditForm
                             user={selectedUser}
                             onSuccess={() => {
                                 handleCloseDialog();

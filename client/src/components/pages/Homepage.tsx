@@ -1,15 +1,10 @@
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// import HomepageUsersTable from "../tables/HomepageTable/HomepageUsersTable";
-import SidebarDesktopLinks from '../Sidebar/SidebarDesktop/SidebarDesktop';
-
+import Sidebar from '../Sidebar/Sidebar';
 
 const Homepage = () => {
 
     return (
         <div className="flex gap-2">
-
-            <SidebarDesktopLinks />
+            <Sidebar />
 
         </div>
     );

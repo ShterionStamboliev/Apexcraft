@@ -1,4 +1,4 @@
-import { userStatus } from '@/components/models/newUserSchema'
+import { userRoles } from '@/components/models/user/newUserSchema'
 import {
     FormControl,
     FormField,
@@ -15,7 +15,7 @@ import {
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const UsersTableSelectStatus = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const RoleSelection = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
 
     const { control } = useFormContext();
 
@@ -38,7 +38,7 @@ const UsersTableSelectStatus = ({ label, name, placeholder, defaultVal }: TableF
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {userStatus.map((role, index: number) => (
+                            {userRoles.map((role, index: number) => (
                                 <SelectItem
                                     key={index}
                                     value={role}
@@ -54,4 +54,4 @@ const UsersTableSelectStatus = ({ label, name, placeholder, defaultVal }: TableF
     )
 }
 
-export default UsersTableSelectStatus
+export default RoleSelection
