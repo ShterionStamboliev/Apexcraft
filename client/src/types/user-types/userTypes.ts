@@ -36,3 +36,5 @@ export interface UserFormProps {
     onSuccess?: () => void;
     user: UserFormType;
 }
+
+export type UserTuple = Partial<User> | Partial<FetchUser> | Partial<FetchUser[]>;

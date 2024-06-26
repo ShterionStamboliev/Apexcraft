@@ -1,17 +1,25 @@
-import { Button } from '@/components/ui/button';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/AuthContext';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import DesktopViewButtons from '../UsersTable/UserTableElements/TableButtons/DesktopViewButtons';
+import MobileViewButtons from '../UsersTable/UserTableElements/TableButtons/MobileViewButtons';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import useEntityHook from '@/components/hooks/UserHooks/useEntityHook';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const ActivitiesTableBody = () => {
     const { token } = useAuth();
     const [data, setData] = useState([]);
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isModified, setIsModified] = useState(false);
+
+    const {
+        isDialogOpen,
+        isModified,
+        handleCloseDialog,
+        handleEditClick,
+        handleDeactivateClick,
+    } = useEntityHook();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
@@ -38,14 +46,6 @@ const ActivitiesTableBody = () => {
         }
     }
 
-    const handleEditClick = async (activityId: string | undefined) => {
-        setIsDialogOpen(true);
-
-    };
-
-    const handleDisableClick = async (activityId: string | undefined) => {
-    };
-
     useEffect(() => {
         dataFetcher();
     }, []);
@@ -63,29 +63,41 @@ const ActivitiesTableBody = () => {
                             )
                         ))}
                         <TableCell className='text-center'>
-                            {/* {onDesktop ? (
+                            {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDisableClick}
-                                    userId={user.id}
+                                    handleDisableClick={handleDeactivateClick}
+                                    userId={''}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDisableClick}
-                                    userId={user.id}
+                                    handleDisableClick={handleDeactivateClick}
+                                    userId={''}
                                 />
-                            )} */}
-                            {/* <Button className='mr-2' variant={'outline'}>
-                                Edit
-                            </Button>
-                            <Button variant={'outline'}>
-                                Deactivate
-                            </Button> */}
+                            )}
                         </TableCell>
                     </TableRow>
                 ))}
             </TableBody>
+
+            <Dialog
+                open={isDialogOpen}
+                onOpenChange={handleCloseDialog}
+            >
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                    {/* {!isUserLoading && selectedUser && (
+                        <EditForm
+                            user={selectedUser}
+                            onSuccess={() => {
+                                handleCloseDialog();
+                                handleSuccess();
+                            }}
+                        />
+                    )} */}
+                </DialogContent>
+
+            </Dialog>
         </>
     )
 }

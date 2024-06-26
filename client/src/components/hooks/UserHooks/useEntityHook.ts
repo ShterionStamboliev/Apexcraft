@@ -2,7 +2,7 @@ import { useUser } from '@/context/User/UserContext';
 import { FetchUser } from '@/types/user-types/userTypes';
 import useEntityHandlers from '../custom-hooks/useEntityHandlers';
 
-const useUserHooks = () => {
+const useEntityHook = () => {
     const { getUser, getUsers, deactivateUser } = useUser();
     return useEntityHandlers<FetchUser>({
         getEntity: getUser,
@@ -11,4 +11,4 @@ const useUserHooks = () => {
     });
 }
 
-export default useUserHooks
+export default useEntityHook

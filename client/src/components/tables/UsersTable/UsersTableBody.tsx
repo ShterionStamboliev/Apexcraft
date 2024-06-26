@@ -11,8 +11,8 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import DesktopViewButtons from './UserTableElements/TableButtons/DesktopViewButtons';
 import MobileViewButtons from './UserTableElements/TableButtons/MobileViewButtons';
-import useUserHooks from '@/components/hooks/UserHooks/useUserHook';
 import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
+import useEntityHooks from '@/components/hooks/UserHooks/useEntityHook';
 
 const UsersTableBody = () => {
     const { state, getUsers, isLoading, isUserLoading } = useUser();
@@ -24,7 +24,7 @@ const UsersTableBody = () => {
         handleDeactivateClick,
         handleEditClick,
         handleSuccess
-    } = useUserHooks();
+    } = useEntityHooks();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 

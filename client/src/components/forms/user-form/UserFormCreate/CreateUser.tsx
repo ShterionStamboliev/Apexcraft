@@ -1,4 +1,4 @@
-import { addNewUserSchema, formDefaultValues } from '@/components/models/newUserSchema'
+import { addNewUserSchema, formDefaultValues } from '@/components/models/user/newUserSchema'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
 import { User } from '@/types/user-types/userTypes'
@@ -9,11 +9,11 @@ import FormFieldInput from '@/components/common/FormFieldInput'
 import { useMediaQuery } from 'usehooks-ts'
 import useCreateUser from '@/components/hooks/UserHooks/useCreateUser'
 import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop'
-import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile'
 import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader'
 import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection'
 import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection'
 import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter'
+import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile'
 
 const CreateUser = () => {
     const { role } = useAuth();
@@ -24,7 +24,7 @@ const CreateUser = () => {
         mode: 'onChange',
         defaultValues: formDefaultValues
     });
-    
+
     const { handleCreateUser, isLoading } = useCreateUser();
     const [isOpen, setIsOpen] = useState<boolean>(false);
     const { reset } = form;
@@ -36,7 +36,7 @@ const CreateUser = () => {
         setIsOpen(false);
         reset();
     };
-    
+
     return (
         <>
             {isManager && (

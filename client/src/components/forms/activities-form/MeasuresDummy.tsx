@@ -1,4 +1,3 @@
-import { userStatus } from '@/components/models/user/newUserSchema'
 import {
     FormControl,
     FormField,
@@ -15,7 +14,13 @@ import {
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const StatusSelection = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const measures = [
+    'кв.м',
+    'кв.см',
+    'кв.мм',
+]
+
+const MeasureSelection = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
 
     const { control } = useFormContext();
 
@@ -38,12 +43,12 @@ const StatusSelection = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {userStatus.map((role, index: number) => (
+                            {measures.map((measure, index: number) => (
                                 <SelectItem
                                     key={index}
-                                    value={role}
+                                    value={measure}
                                 >
-                                    {role}
+                                    {measure}
                                 </SelectItem>
                             ))}
                         </SelectContent>
@@ -54,4 +59,4 @@ const StatusSelection = ({ label, name, placeholder, defaultVal }: TableFormSele
     )
 }
 
-export default StatusSelection
+export default MeasureSelection

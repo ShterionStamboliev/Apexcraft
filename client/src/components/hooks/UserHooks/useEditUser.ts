@@ -1,9 +1,9 @@
 import { useUser } from '@/context/User/UserContext';
 import { UserFormType } from '@/types/user-types/userTypes';
 import useToastHook from '../custom-hooks/useToastHook';
-import { FormValues, formSchema } from '@/components/models/editUserSchema';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { FormValues, formSchema } from '@/components/models/user/editUserSchema';
 
 const useEditUserForm = (user: UserFormType, onSuccess?: () => void) => {
     const { editUser, isLoading } = useUser();

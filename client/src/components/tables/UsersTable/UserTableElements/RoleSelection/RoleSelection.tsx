@@ -1,4 +1,4 @@
-import { userRoles } from '@/components/models/newUserSchema'
+import { userRoles } from '@/components/models/user/newUserSchema'
 import {
     FormControl,
     FormField,
