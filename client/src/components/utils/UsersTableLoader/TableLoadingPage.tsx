@@ -1,4 +1,4 @@
-import { useUser } from '@/context/UserContext';
+import { useUser } from '@/context/User/UserContext';
 import { TableBody } from "../../ui/table"
 import SkeletonCard from "./TableSkeletonCard"
 

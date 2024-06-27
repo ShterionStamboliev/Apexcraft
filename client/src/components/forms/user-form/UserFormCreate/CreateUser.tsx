@@ -1,23 +1,21 @@
-import { addNewUserSchema, formDefaultValues } from '@/components/models/newUserSchema'
+import { addNewUserSchema, formDefaultValues } from '@/components/models/user/newUserSchema'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
-import { useUser } from '@/context/UserContext'
 import { User } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import UsersTableDialogHeader from './UsersTableDialogHeader'
-import UsersTableDialogFooter from './UsersTableDialogFooter'
-import UsersTableSelectStatus from './UsersTableSelectStatus'
-import UsersTableSelectRole from './UsersTableSelectRole'
-import { useEffect, useState } from 'react'
-import { useToast } from '@/components/ui/use-toast'
+import { useState } from 'react'
 import FormFieldInput from '@/components/common/FormFieldInput'
 import { useMediaQuery } from 'usehooks-ts'
-import DialogTriggerMobile from './UserTableDialogTriggers/DialogTriggerMobile'
-import DialogTriggerDesktop from './UserTableDialogTriggers/DialogTriggerDesktop'
+import useCreateUser from '@/components/hooks/UserHooks/useCreateUser'
+import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop'
+import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader'
+import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection'
+import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection'
+import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter'
+import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile'
 
-const UsersTableAddNew = () => {
-    const { createUser, isLoading } = useUser();
+const CreateUser = () => {
     const { role } = useAuth();
     const isManager = role === 'мениджър';
 
@@ -27,51 +25,17 @@ const UsersTableAddNew = () => {
         defaultValues: formDefaultValues
     });
 
+    const { handleCreateUser, isLoading } = useCreateUser();
     const [isOpen, setIsOpen] = useState<boolean>(false);
-    const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
-    
-    const { toast } = useToast();
     const { reset } = form;
 
     const onDesktop = useMediaQuery('(min-width: 768px)');
 
-    const handleCreateUser: SubmitHandler<User> = async (userData: User) => {
-        try {
-            const isCreateSuccessful = await createUser(userData);
-            if (isCreateSuccessful) {
-                setIsCreateSuccess(true);
-                setIsOpen(false);
-                reset();
-                toast({
-                    variant: 'success',
-                    title: 'Записът беше успешен.',
-                    duration: 3000,
-                });
-            } else {
-                toast({
-                    variant: 'destructive',
-                    title: 'Грешка!',
-                    description: 'Съществува потребител с избраното име.',
-                    duration: 3000,
-                });
-            }
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                return error.message;
-            }
-        }
-    }
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        if (isCreateSuccess) {
-            setIsCreateSuccess(false);
-        };
-
-        return () => controller.abort();
-
-    }, [isCreateSuccess])
+    const onSubmit: SubmitHandler<User> = async (userData: User) => {
+        await handleCreateUser(userData);
+        setIsOpen(false);
+        reset();
+    };
 
     return (
         <>
@@ -79,7 +43,7 @@ const UsersTableAddNew = () => {
                 <FormProvider {...form}>
                     <form
                         id='user-form'
-                        onSubmit={form.handleSubmit(handleCreateUser)}
+                        onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <Dialog
                             open={isOpen}
@@ -95,7 +59,7 @@ const UsersTableAddNew = () => {
                             }
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                                <UsersTableDialogHeader
+                                <DialogHeader
                                     title='Добавете нов потребител'
                                 />
                                 <FormFieldInput
@@ -114,19 +78,19 @@ const UsersTableAddNew = () => {
                                     name='password'
                                 />
                                 <div className='flex flex-1 justify-between'>
-                                    <UsersTableSelectRole
+                                    <RoleSelection
                                         label='Роля'
                                         name='role'
                                         placeholder='Роля'
                                     />
 
-                                    <UsersTableSelectStatus
+                                    <StatusSelection
                                         label='Статус'
                                         name='status'
                                         placeholder='активен'
                                     />
                                 </div>
-                                <UsersTableDialogFooter
+                                <DialogFooter
                                     isLoading={isLoading}
                                     label='Добавете'
                                     formName='user-form'
@@ -140,4 +104,4 @@ const UsersTableAddNew = () => {
     )
 }
 
-export default UsersTableAddNew
+export default CreateUser

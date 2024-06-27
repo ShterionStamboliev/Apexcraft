@@ -4,5 +4,6 @@ export type UsersTableHeaderProps = {
         username: string;
         status: string;
         role: string;
+        options: string;
     }>
 }

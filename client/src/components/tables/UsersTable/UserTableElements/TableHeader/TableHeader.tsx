@@ -1,5 +1,5 @@
 import {
-    TableHeader,
+    TableHeader as Header,
     TableRow,
     TableHead
 } from "@/components/ui/table"
@@ -8,17 +8,18 @@ import { UsersTableHeaderProps } from "@/types/table-types/userTableTypes"
 const tableHeaderItems: UsersTableHeaderProps = {
     items: [
         {
-            name_and_family: 'Име, Фамилия',
-            username: 'Потребител',
-            status: 'Статус',
-            role: 'Роля'
+            name_and_family: 'Name, Surname',
+            username: 'User',
+            status: 'Status',
+            role: 'Role',
+            options: 'Options'
         }
     ]
 }
 
-const UsersTableHeader = () => {
+const TableHeader = () => {
     return (
-        <TableHeader>
+        <Header>
             {tableHeaderItems.items.map((item, i) => (
                 <TableRow key={i}>
                     {Object.keys(item).map((key, i) => (
@@ -30,8 +31,8 @@ const UsersTableHeader = () => {
                     ))}
                 </TableRow>
             ))}
-        </TableHeader>
+        </Header>
     )
 }
 
-export default UsersTableHeader
+export default TableHeader

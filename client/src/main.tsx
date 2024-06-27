@@ -5,7 +5,7 @@ import AppRoutes from './AppRoutes'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from './context/AuthContext'
-import { UserProvider } from './context/UserContext'
+import { UserProvider } from './context/User/UserContext'
 import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 

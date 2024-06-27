@@ -3,12 +3,11 @@ import { DialogTrigger } from '@/components/ui/dialog'
 import { SquarePlus } from 'lucide-react'
 
 const DialogTriggerMobile = () => {
-    
     return (
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='fixed left-4 top-36'
+                    className='absolute left-4 top-36'
                     variant={'ghost'}
                     size={'icon'}
                 >
