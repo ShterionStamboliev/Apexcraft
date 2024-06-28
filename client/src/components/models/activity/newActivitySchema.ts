@@ -9,4 +9,5 @@ export const newActivitySchema = z.object({
 
 export const activityDefaults: Activity = {
     name: '',
+    status: '',
 }
