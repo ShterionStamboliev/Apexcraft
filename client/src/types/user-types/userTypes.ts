@@ -4,7 +4,7 @@ export type UserLoginFormData = {
 }
 
 export type User = {
-    id?: string | null;
+    id?: number | null;
     role?: string | null;
     name: string | null;
     user?: string | null;
@@ -15,7 +15,7 @@ export type User = {
 }
 
 export type FetchUser = {
-    id?: string;
+    id?: number;
     name_and_family: string;
     username: string;
     password: string;
@@ -24,7 +24,7 @@ export type FetchUser = {
 }
 
 export type UserFormType = {
-    id?: string;
+    id?: number;
     name_and_family: string;
     username: string;
     password: string;
