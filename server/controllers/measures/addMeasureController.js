@@ -5,7 +5,7 @@ const addMeasure = async (req, res) => {
         const measureName = req.body.name;
         const measureStatus = req.body.status;
 
-        const query = 'INSERT INTO tbl_measures(name, satus) VALUES(?, ?)'; //check the name of the table
+        const query = 'INSERT INTO tbl_measure(name, satus) VALUES(?, ?)'; //check the name of the table
 
         await db.execute(query, [measureName, measureStatus])
 
