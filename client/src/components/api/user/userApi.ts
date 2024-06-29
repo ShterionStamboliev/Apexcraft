@@ -3,8 +3,7 @@ import { UserActionType } from '@/types/user-types/userActionTypes';
 import { useCallback, useReducer } from 'react';
 import userReducer, { initialState } from '@/context/User/userReducer';
 import { useAuth } from '@/context/AuthContext';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiCall } from './apiCall';
 
 const useUserApi = () => {
     const [state, dispatch] = useReducer(userReducer, initialState);
@@ -17,20 +16,7 @@ const useUserApi = () => {
         });
 
         try {
-            const response = await fetch(`${API_URL}/users/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(userData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при създаване на потребител')
-            }
-
-            const newUserData: User = await response.json();
+            const newUserData: User = await apiCall('/users/create', 'POST', token!, userData);
 
             dispatch({
                 type: UserActionType.CREATE_USER_SUCCESS,
@@ -53,31 +39,20 @@ const useUserApi = () => {
         }
     };
 
-    const getUser = async (userId: string | undefined): Promise<FetchUser | null> => {
+    const getUser = async (userId: number | undefined): Promise<FetchUser | null> => {
         dispatch({
             type: UserActionType.GET_USER_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при зареждане на потребител')
-            }
-
-            const userData: FetchUser = await response.json();
+            const user: FetchUser = await apiCall(`/users/${userId}`, 'GET', token!)
 
             dispatch({
                 type: UserActionType.GET_USER_SUCCESS,
-                payload: userData,
+                payload: user,
             });
 
-            return userData;
+            return user;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -97,25 +72,14 @@ const useUserApi = () => {
         });
 
         try {
-            const response = await fetch(`${API_URL}/users`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при зареждане на потребителите')
-            }
-
-            const userData: FetchUser[] = await response.json();
+            const users: FetchUser[] = await apiCall('/users', 'GET', token!)
 
             dispatch({
                 type: UserActionType.GET_USERS_SUCCESS,
-                payload: userData,
+                payload: users,
             });
 
-            return userData;
+            return users;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -129,24 +93,13 @@ const useUserApi = () => {
         }
     }, [token]);
 
-    const editUser = async (userId: string, userData: FetchUser): Promise<boolean> => {
+    const editUser = async (userId: number, userData: FetchUser): Promise<boolean> => {
         dispatch({
             type: UserActionType.EDIT_USER_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}/edit`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(userData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при редактиране на потребител')
-            }
+            await apiCall(`/users/${userId}/edit`, 'PUT', token!, userData);
 
             dispatch({
                 type: UserActionType.EDIT_USER_SUCCESS,
@@ -167,29 +120,17 @@ const useUserApi = () => {
         }
     };
 
-    const deactivateUser = async (userId: string | undefined): Promise<boolean> => {
+    const deactivateUser = async (userId: number | undefined): Promise<boolean> => {
         dispatch({
             type: UserActionType.DEACTIVATE_USER_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/users/${userId}/delete`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при деактивиране на потребител')
-            };
-
-            const updatedUser: FetchUser = await response.json();
+            const user = await apiCall(`/users/${userId}/delete`, 'PUT', token!)
 
             dispatch({
                 type: UserActionType.DEACTIVATE_USER_SUCCESS,
-                payload: updatedUser
+                payload: user
             });
 
             return true;

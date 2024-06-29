@@ -1,4 +1,7 @@
-import { UserAction, UserActionType } from '@/types/user-types/userActionTypes';
+import {
+    UserAction,
+    UserActionType
+} from '@/types/user-types/userActionTypes';
 import { FetchUser } from '@/types/user-types/userTypes';
 
 interface InitialUserState {

@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 
 type DesktopViewButtonsProps = {
-    handleEditClick: (userId: string | undefined) => void;
-    handleDisableClick: (userId: string | undefined) => void;
-    userId: string | undefined;
+    handleEditClick: (userId: number | undefined) => void;
+    handleDisableClick: (userId: number | undefined) => void;
+    userId: number | undefined;
 }
 
 const DesktopViewButtons = ({ handleEditClick, handleDisableClick, userId }: DesktopViewButtonsProps) => {
