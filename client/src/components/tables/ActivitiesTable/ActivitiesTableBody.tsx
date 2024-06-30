@@ -66,13 +66,13 @@ const ActivitiesTableBody = () => {
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={''}
+                                    userId={item.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={''}
+                                    userId={item.id}
                                 />
                             )}
                         </TableCell>
