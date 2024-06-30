@@ -26,10 +26,10 @@ export type UserContextProps = {
     isUserLoading?: boolean;
     error?: string;
     createUser: (user: User) => Promise<boolean>;
-    getUser: (userId: string | undefined) => Promise<FetchUser | null>;
+    getUser: (userId: number | undefined) => Promise<FetchUser | null>;
     getUsers: () => Promise<FetchUser[]>;
-    deactivateUser: (userId: string | undefined) => Promise<boolean>;
-    editUser: (userId: string, user: FetchUser) => Promise<boolean>;
+    deactivateUser: (userId: number | undefined) => Promise<boolean>;
+    editUser: (userId: number, user: FetchUser) => Promise<boolean>;
 }
 
 export interface UserAction {

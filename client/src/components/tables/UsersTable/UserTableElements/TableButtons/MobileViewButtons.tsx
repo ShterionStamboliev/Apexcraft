@@ -11,9 +11,9 @@ import {
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 type MobileViewButtonsProps = {
-    handleEditClick: (userId: string | undefined) => void;
-    handleDisableClick: (userId: string | undefined) => void;
-    userId: string | undefined;
+    handleEditClick: (userId: number | undefined) => void;
+    handleDisableClick: (userId: number | undefined) => void;
+    userId: number | undefined;
 }
 
 const MobileViewButtons = ({ handleEditClick, handleDisableClick, userId }: MobileViewButtonsProps) => {

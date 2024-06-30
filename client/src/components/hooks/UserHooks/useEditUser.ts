@@ -13,7 +13,7 @@ const useEditUserForm = (user: UserFormType, onSuccess?: () => void) => {
         defaultValues: user && {
             username: user.username,
             name_and_family: user.name_and_family,
-            password: user.password,
+            password: '*******',
             role: user.role,
             status: user.status,
         },
