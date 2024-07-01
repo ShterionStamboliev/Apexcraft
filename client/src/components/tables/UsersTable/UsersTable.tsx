@@ -1,7 +1,10 @@
 import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
 import { Table } from "../../ui/table"
 import TableHeader from "./UserTableElements/TableHeader/TableHeader"
-import UsersTableDisplay from './UsersTableDisplay';
+import { Suspense, lazy } from 'react';
+import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
+
+const UsersTableBody = lazy(() => import('@/components/tables/UsersTable/UsersTableBody'));
 
 const UsersTable = () => {
 
@@ -14,7 +17,9 @@ const UsersTable = () => {
                 <Table className='w-full min-w-full'>
                     <TableHeader />
 
-                    <UsersTableDisplay />
+                    <Suspense fallback={<TableLoadingPage />}>
+                        <UsersTableBody />
+                    </Suspense>
                 </Table>
             </div>
         </div>

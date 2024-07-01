@@ -1,3 +1,5 @@
+import { QueryFunctionContext, QueryKey } from '@tanstack/react-query';
+
 export type UserLoginFormData = {
     username: string;
     password: string;
@@ -36,5 +38,7 @@ export interface UserFormProps {
     onSuccess?: () => void;
     user: UserFormType;
 }
+
+export type QueryFunc<T = unknown, TQueryKey extends QueryKey = QueryKey, TPageParam = never> = (context: QueryFunctionContext<TQueryKey, TPageParam>) => T | Promise<T>
 
 export type UserTuple = Partial<User> | Partial<FetchUser> | Partial<FetchUser[]>;
