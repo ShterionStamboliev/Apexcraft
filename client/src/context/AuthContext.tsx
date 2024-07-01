@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 queryClient.clear();
                 navigate('/login');
             }
-        }, 50000);
+        }, 60000);
 
         return () => clearInterval(tokenExpirationCheck);
     }, [state.tokenExpiration, queryClient, navigate]);
