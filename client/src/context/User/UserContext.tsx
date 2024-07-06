@@ -15,7 +15,7 @@ export const UserProvider = ({ children }: UserProviderType) => {
         getUser,
         getUsers,
         editUser,
-        deactivateUser
+        deactivateUser,
     } = useUserApi();
 
     return (

@@ -3,39 +3,37 @@ import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useAuth } from '@/context/AuthContext'
 import { User } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useState } from 'react'
-import FormFieldInput from '@/components/common/FormFieldInput'
+import { FormProvider, UseFormProps } from 'react-hook-form'
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
+import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile'
+import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHook'
+import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler'
 import { useMediaQuery } from 'usehooks-ts'
-import useCreateUser from '@/components/hooks/UserHooks/useCreateUser'
-import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop'
-import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader'
-import RoleSelection from '@/components/tables/UsersTable/UserTableElements/RoleSelection/RoleSelection'
-import StatusSelection from '@/components/tables/UsersTable/UserTableElements/StatusSelection/StatusSelection'
-import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter'
-import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile'
+import DialogHeader from '@/components/common/DialogElements/DialogHeader'
+import DialogFooter from '@/components/common/DialogElements/DialogFooter'
+import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop'
+import RoleSelector from '@/components/common/FormElements/FormRoleSelector'
+import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 
 const CreateUser = () => {
     const { role } = useAuth();
     const isManager = role === 'мениджър';
 
-    const form = useForm<User>({
-        resolver: zodResolver(addNewUserSchema),
-        mode: 'onChange',
-        defaultValues: formDefaultValues
-    });
-
-    const { handleCreateUser, isLoading } = useCreateUser();
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const { reset } = form;
-
     const onDesktop = useMediaQuery('(min-width: 768px)');
 
-    const onSubmit: SubmitHandler<User> = async (userData: User) => {
-        await handleCreateUser(userData);
-        setIsOpen(false);
-        reset();
+    const formOptions: Partial<UseFormProps<User>> = {
+        resolver: zodResolver(addNewUserSchema),
+        mode: 'onChange',
+        defaultValues: formDefaultValues,
     };
+
+    const { handleCreateEntity, isLoading } = useUserEntityHandlers();
+    const {
+        onSubmit,
+        isOpen,
+        setIsOpen,
+        form,
+    } = useSubmitHandler<User>(handleCreateEntity, formOptions);
 
     return (
         <>
@@ -78,13 +76,12 @@ const CreateUser = () => {
                                     name='password'
                                 />
                                 <div className='flex flex-1 justify-between'>
-                                    <RoleSelection
+                                    <RoleSelector
                                         label='Роля'
                                         name='role'
                                         placeholder='Роля'
                                     />
-
-                                    <StatusSelection
+                                    <StatusSelector
                                         label='Статус'
                                         name='status'
                                         placeholder='активен'

@@ -1,28 +1,27 @@
-import { useUser } from '@/context/User/UserContext';
-import { UserFormType } from '@/types/user-types/userTypes';
 import useToastHook from '../custom-hooks/useToastHook';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormValues, formSchema } from '@/components/models/user/editUserSchema';
+import { Measure } from '@/types/measure-types/measureTypes';
+import { useMeasure } from '@/context/Measure/MeasureContext';
+import { newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
 
-const useEditUser = (user: UserFormType, onSuccess?: () => void) => {
-    const { editUser, isLoading } = useUser();
+const useEditMeasure = (measure: Measure, onSuccess?: () => void) => {
+    const { editMeasure, isLoading } = useMeasure();
     const { fireToast } = useToastHook();
 
-    const form = useForm<FormValues>({
-        defaultValues: user && {
-            ...user,
-            password: '*******',
+    const form = useForm<Measure>({
+        defaultValues: measure && {
+            name: measure.name,
         },
-        resolver: zodResolver(formSchema)
+        resolver: zodResolver(newMeasureSchema)
     });
 
     const { reset } = form;
 
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (data: Measure) => {
         try {
-            if (user?.id) {
-                const isEditSuccess = await editUser(user.id, data);
+            if (measure?.id) {
+                const isEditSuccess = await editMeasure(measure.id, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();
@@ -49,4 +48,4 @@ const useEditUser = (user: UserFormType, onSuccess?: () => void) => {
     };
 };
 
-export default useEditUser;
+export default useEditMeasure;

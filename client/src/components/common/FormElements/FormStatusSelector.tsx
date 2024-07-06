@@ -15,7 +15,7 @@ import {
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const StatusSelection = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
 
     const { control } = useFormContext();
 
@@ -54,4 +54,4 @@ const StatusSelection = ({ label, name, placeholder, defaultVal }: TableFormSele
     )
 }
 
-export default StatusSelection
+export default StatusSelector

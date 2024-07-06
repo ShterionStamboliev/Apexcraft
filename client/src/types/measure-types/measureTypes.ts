@@ -1,4 +1,8 @@
 export type Measure = {
-    id?: string;
+    id?: number;
     name: string;
+}
+export interface MeasureFormProps {
+    onSuccess?: () => void;
+    measure: Measure;
 }

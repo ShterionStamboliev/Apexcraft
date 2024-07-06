@@ -1,9 +1,9 @@
-type UserLoginFormHeaderProps = {
+type FormHeaderProps = {
     title: string;
     description: string;
 }
 
-const UserFormHeader = ({ title, description }: UserLoginFormHeaderProps) => {
+const FormHeader = ({ title, description }: FormHeaderProps) => {
     return (
         <div className="text-center mb-6">
             <h1 className='text-3xl font-bold'>
@@ -13,7 +13,7 @@ const UserFormHeader = ({ title, description }: UserLoginFormHeaderProps) => {
                 {description}
             </p>
         </div>
-    )
-}
+    );
+};
 
-export default UserFormHeader
+export default FormHeader;

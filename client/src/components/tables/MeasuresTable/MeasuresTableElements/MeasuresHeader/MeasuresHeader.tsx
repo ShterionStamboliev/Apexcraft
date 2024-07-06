@@ -1,18 +1,18 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const MeasuresHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='text-right'>
+                <TableHead>
                     Measure
                 </TableHead>
-                <TableHead className='text-center'>
+                <TableHead>
                     Options
                 </TableHead>
             </TableRow>
         </TableHeader>
-    )
-}
+    );
+};
 
-export default MeasuresHeader
+export default MeasuresHeader;

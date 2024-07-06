@@ -1,78 +1,63 @@
-import { TableBody, TableCell, TableRow } from '@/components/ui/table';
-import { useAuth } from '@/context/AuthContext';
-import { useEffect, useState } from 'react';
+import {
+    TableBody,
+    TableCell,
+    TableRow
+} from '@/components/ui/table';
+import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
-import DesktopViewButtons from '../UsersTable/UserTableElements/TableButtons/DesktopViewButtons';
-import MobileViewButtons from '../UsersTable/UserTableElements/TableButtons/MobileViewButtons';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import useEntityHook from '@/components/hooks/UserHooks/useEntityHook';
-import { Activity } from '@/types/activity-types/activityTypes';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
+import { useActivity } from '@/context/Activity/ActivityContext';
+import EditForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
+import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
+import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
+import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 
 const ActivitiesTableBody = () => {
-    const { token } = useAuth();
-    const [data, setData] = useState<Activity[]>();
-
+    const { state, getActivities, isLoading, isActivityLoading } = useActivity();
     const {
+        selectedEntity: selectedActivity,
         isDialogOpen,
+        isModified,
         handleCloseDialog,
-        handleEditClick,
         handleDeactivateClick,
-    } = useEntityHook();
+        handleEditClick,
+        handleSuccess,
+    } = useActivityEntityHandlers();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
-    const dataFetcher = async () => {
-        try {
-            const response = await fetch(`${API_URL}/activities`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Грешка при зареждане на данните');
-            };
-
-            const data = await response.json();
-            if (data) {
-                setData(data);
-            }
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                throw new Error('Възникна грешка')
-            }
-        }
-    }
-
     useEffect(() => {
-        dataFetcher();
-    }, []);
+        getActivities();
+    }, [getActivities, isModified]);
+
+    if (isLoading) {
+        return <TableLoadingPage />
+    };
 
     return (
         <>
             <TableBody>
-                {data && data.map((item, i) => (
+                {state.activity.map((activity, i) => (
                     <TableRow key={i}>
                         <TableCell className='text-right pr-10'>
-                            {item.name}
+                            {activity.name}
                         </TableCell>
                         <TableCell className='text-center'>
-                            {item.status}
+                            {activity.status}
                         </TableCell>
                         <TableCell className='text-start pl-10'>
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={item.id}
+                                    id={activity.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={item.id}
+                                    id={activity.id}
                                 />
                             )}
                         </TableCell>
@@ -85,15 +70,15 @@ const ActivitiesTableBody = () => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {/* {!isUserLoading && selectedUser && (
+                    {!isActivityLoading && selectedActivity && (
                         <EditForm
-                            user={selectedUser}
+                            activity={selectedActivity}
                             onSuccess={() => {
                                 handleCloseDialog();
                                 handleSuccess();
                             }}
                         />
-                    )} */}
+                    )}
                 </DialogContent>
 
             </Dialog>

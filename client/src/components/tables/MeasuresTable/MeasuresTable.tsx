@@ -1,7 +1,7 @@
 import { Table } from '@/components/ui/table'
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader'
 import MeasuresTableBody from './MeasuresTableBody'
-import CreateMeasure from '@/components/forms/measures-form/CreateMeasure'
+import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/CreateMeasure'
 
 const MeasuresTable = () => {
     return (

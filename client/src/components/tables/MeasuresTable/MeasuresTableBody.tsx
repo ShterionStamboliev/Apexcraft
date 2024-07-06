@@ -1,41 +1,56 @@
 import { TableBody, TableCell, TableRow } from '@/components/ui/table'
-import { measures } from './measureDummyData'
-import useEntityHook from '@/components/hooks/UserHooks/useEntityHook';
 import { useMediaQuery } from 'usehooks-ts';
-import DesktopViewButtons from '../UsersTable/UserTableElements/TableButtons/DesktopViewButtons';
-import MobileViewButtons from '../UsersTable/UserTableElements/TableButtons/MobileViewButtons';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { useMeasure } from '@/context/Measure/MeasureContext';
+import useMeasureEntityHandlers from '@/components/hooks/MeasuresHooks/useMeasuresEntityHook';
+import { useEffect } from 'react';
+import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
+import EditForm from '@/components/forms/measures-form/MeasureFormEdit/EditMeasure';
+import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
+import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 
 const MeasuresTableBody = () => {
+    const { state, getMeasures, isLoading, isMeasureLoading } = useMeasure();
     const {
+        selectedEntity: selectedMeasure,
         isDialogOpen,
+        isModified,
         handleCloseDialog,
-        handleEditClick,
         handleDeactivateClick,
-    } = useEntityHook();
+        handleEditClick,
+        handleSuccess,
+    } = useMeasureEntityHandlers();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
+
+    useEffect(() => {
+        getMeasures();
+    }, [getMeasures, isModified]);
+
+    if (isLoading) {
+        return <TableLoadingPage />
+    };
 
     return (
         <>
             <TableBody>
-                {measures.map((measure, i) => (
-                    <TableRow key={i}>
+                {state.measure.map((measure, index) => (
+                    <TableRow key={index}>
                         <TableCell className='text-right'>
-                            {measure.measure}
+                            {measure.name}
                         </TableCell>
                         <TableCell className='text-center'>
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={''}
+                                    id={measure.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={''}
+                                    id={measure.id}
                                 />
                             )}
                         </TableCell>
@@ -48,15 +63,15 @@ const MeasuresTableBody = () => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {/* {!isUserLoading && selectedUser && (
+                    {!isMeasureLoading && selectedMeasure && (
                         <EditForm
-                            user={selectedUser}
+                            measure={selectedMeasure}
                             onSuccess={() => {
                                 handleCloseDialog();
                                 handleSuccess();
                             }}
                         />
-                    )} */}
+                    )}
                 </DialogContent>
 
             </Dialog>

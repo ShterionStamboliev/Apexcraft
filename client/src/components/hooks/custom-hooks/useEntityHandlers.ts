@@ -1,31 +1,70 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import useToastHook from './useToastHook';
 interface UseEntityHandlersProps<T> {
-    getEntity: (id: number | undefined) => Promise<T | null>;
+    createEntity: (data: T) => Promise<boolean>;
+    getEntity: (id?: number) => Promise<T | null>;
     getEntities: () => Promise<T[]>;
-    deactivateEntity: (id: number | undefined) => Promise<boolean>;
+    deactivateEntity: (id?: number) => Promise<boolean>;
+    isLoading?: boolean;
 }
 
-type UseEntityHandlers<T> = {
+type UseEntityHandlers<T,> = {
     selectedEntity: T | undefined;
     isDialogOpen: boolean;
     isModified: boolean;
-    handleEditClick: (id: number | undefined) => Promise<void>;
-    handleDeactivateClick: (id: number | undefined) => Promise<void>;
+    isLoading?: boolean;
+    handleEditClick: (id?: number) => Promise<void>;
+    handleDeactivateClick: (id?: number) => Promise<void>;
     handleCloseDialog: () => void;
     handleSuccess: () => void;
+    handleCreateEntity: (data: T) => Promise<void>;
 }
 
-const useEntityHandlers = <T,>({
+const useEntityHandlers = <T>({
+    createEntity,
     getEntity,
     getEntities,
-    deactivateEntity
+    deactivateEntity,
+    isLoading,
 }: UseEntityHandlersProps<T>): UseEntityHandlers<T> => {
     const [selectedEntity, setSelectedEntity] = useState<T | undefined>(undefined);
+    const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [isModified, setIsModified] = useState<boolean>(false);
+    const { fireToast } = useToastHook();
 
-    const handleEditClick = async (id: number | undefined): Promise<void> => {
+    const handleCreateEntity = async (data: T) => {
+        try {
+            const isCreateSuccessful = await createEntity(data);
+            if (isCreateSuccessful) {
+                setIsCreateSuccess(true);
+                fireToast({
+                    title: 'Записът беше успешен',
+                    variant: 'success',
+                });
+            } else {
+                fireToast({
+                    title: 'Съществува запис с избраното име',
+                    variant: 'destructive',
+                });
+            }
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                fireToast({
+                    title: error.message,
+                    variant: 'destructive',
+                })
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (isCreateSuccess) {
+            setIsCreateSuccess(false);
+        }
+    }, [isCreateSuccess]);
+
+    const handleEditClick = async (id?: number): Promise<void> => {
         setIsDialogOpen(true);
         const entityData = await getEntity(id);
         if (entityData) {
@@ -33,7 +72,7 @@ const useEntityHandlers = <T,>({
         }
     };
 
-    const handleDeactivateClick = async (id: number | undefined): Promise<void> => {
+    const handleDeactivateClick = async (id?: number): Promise<void> => {
         await deactivateEntity(id);
         getEntities();
     };
@@ -55,10 +94,12 @@ const useEntityHandlers = <T,>({
         selectedEntity,
         isDialogOpen,
         isModified,
+        isLoading,
         handleEditClick,
         handleDeactivateClick,
         handleCloseDialog,
-        handleSuccess
+        handleSuccess,
+        handleCreateEntity,
     }
 }
 

@@ -1,10 +1,9 @@
 import { useAuth } from '@/context/AuthContext';
 import activityReducer, { initialState } from '@/context/Activity/activityReducer';
-import { useReducer } from 'react';
+import { useCallback, useReducer } from 'react';
 import { ActivityActionType } from '@/types/activity-types/activityActionTypes';
 import { Activity } from '@/types/activity-types/activityTypes';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { apiCall } from '../apiCall';
 
 const useActivityApi = () => {
     const [state, dispatch] = useReducer(activityReducer, initialState);
@@ -17,27 +16,14 @@ const useActivityApi = () => {
         });
 
         try {
-            const response = await fetch(`${API_URL}/activities/create`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(activityData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при създаване на дейност')
-            }
-
-            const newActivity: Activity = await response.json();
+            const newActivityData: Activity = await apiCall('/activities/create', 'POST', token!, activityData);
 
             dispatch({
                 type: ActivityActionType.CREATE_ACTIVITY_SUCCESS,
-                payload: newActivity,
+                payload: newActivityData,
             });
 
-            // await getActivities();
+            await getActivities();
 
             return true;
         } catch (error: unknown) {
@@ -53,31 +39,20 @@ const useActivityApi = () => {
         }
     };
 
-    const getActivity = async (activityId: string): Promise<Activity | null> => {
+    const getActivity = async (activityId?: number): Promise<Activity | null> => {
         dispatch({
             type: ActivityActionType.GET_ACTIVITY_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/activities/${activityId}`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при зареждане на дейности')
-            }
-
-            const activityData: Activity = await response.json();
+            const activity: Activity = await apiCall(`/activities/${activityId}`, 'GET', token!);
 
             dispatch({
                 type: ActivityActionType.GET_ACTIVITY_SUCCESS,
-                payload: activityData,
+                payload: activity,
             });
 
-            return activityData;
+            return activity;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -91,31 +66,20 @@ const useActivityApi = () => {
         }
     };
 
-    const getActivities = async (): Promise<Activity[]> => {
+    const getActivities = useCallback(async (): Promise<Activity[]> => {
         dispatch({
             type: ActivityActionType.GET_ACTIVITIES_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/activities`, {
-                method: 'GET',
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при зареждане на дейности');
-            }
-
-            const activitiesData: Activity[] = await response.json();
+            const activities: Activity[] = await apiCall('/activities', 'GET', token!);
 
             dispatch({
                 type: ActivityActionType.GET_ACTIVITIES_SUCCESS,
-                payload: activitiesData,
+                payload: activities,
             });
 
-            return activitiesData;
+            return activities;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -127,26 +91,15 @@ const useActivityApi = () => {
             }
             return [];
         }
-    };
+    }, [token]);
 
-    const editActivity = async (activityId: string, activityData: Activity): Promise<boolean> => {
+    const editActivity = async (activityId: number, activityData: Activity): Promise<boolean> => {
         dispatch({
             type: ActivityActionType.EDIT_ACTIVITY_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/activities/${activityId}/edit`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(activityData)
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при редактиране на дейност');
-            }
+            await apiCall(`/activities/${activityId}/edit`, 'PUT', token!, activityData);
 
             dispatch({
                 type: ActivityActionType.EDIT_ACTIVITY_SUCCESS,
@@ -167,29 +120,17 @@ const useActivityApi = () => {
         }
     };
 
-    const deactivateActivity = async (activityId: string): Promise<boolean> => {
+    const deactivateActivity = async (activityId?: number): Promise<boolean> => {
         dispatch({
             type: ActivityActionType.DEACTIVATE_ACTIVITY_REQUEST,
         });
 
         try {
-            const response = await fetch(`${API_URL}/activities/${activityId}/delete`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
-            if (!response.ok) {
-                throw new Error('Грешка при деактивиране на дейност')
-            };
-
-            const updatedActivity: Activity = await response.json();
+            const activity = await apiCall(`/activities/${activityId}/delete`, 'PUT', token!);
 
             dispatch({
                 type: ActivityActionType.DEACTIVATE_ACTIVITY_SUCCESS,
-                payload: updatedActivity,
+                payload: activity,
             });
 
             return true;

@@ -9,10 +9,10 @@ import { FetchUser } from '@/types/user-types/userTypes';
 import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
-import DesktopViewButtons from './UserTableElements/TableButtons/DesktopViewButtons';
-import MobileViewButtons from './UserTableElements/TableButtons/MobileViewButtons';
 import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
-import useEntityHooks from '@/components/hooks/UserHooks/useEntityHook';
+import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHook';
+import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
+import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 
 const UsersTableBody = () => {
     const { state, getUsers, isLoading, isUserLoading } = useUser();
@@ -24,7 +24,7 @@ const UsersTableBody = () => {
         handleDeactivateClick,
         handleEditClick,
         handleSuccess
-    } = useEntityHooks();
+    } = useUserEntityHandlers();
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
@@ -53,13 +53,13 @@ const UsersTableBody = () => {
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={user.id}
+                                    id={user.id}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    userId={user.id}
+                                    id={user.id}
                                 />
                             )}
                         </TableCell>

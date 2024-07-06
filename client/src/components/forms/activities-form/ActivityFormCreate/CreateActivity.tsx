@@ -1,30 +1,39 @@
-import FormFieldInput from '@/components/common/FormFieldInput';
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import DialogHeader from '@/components/common/DialogElements/DialogHeader';
+import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop';
+import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
+import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
 import { activityDefaults, newActivitySchema } from '@/components/models/activity/newActivitySchema';
-import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter';
-import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader';
-import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop';
-import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';
 import { Activity } from '@/types/activity-types/activityTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormProps } from 'react-hook-form';
 import { useMediaQuery } from 'usehooks-ts';
 
 const CreateActivity = () => {
 
     const { role } = useAuth();
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const onDesktop = useMediaQuery('(min-width: 768px)');
-
     const isManager = role === 'мениджър';
 
-    const form = useForm<Activity>({
+    const onDesktop = useMediaQuery('(min-width: 768px)');
+
+    const formOptions: Partial<UseFormProps<Activity>> = {
         resolver: zodResolver(newActivitySchema),
         mode: 'onChange',
-        defaultValues: activityDefaults
-    });
+        defaultValues: activityDefaults,
+    };
+
+    const { handleCreateEntity, isLoading } = useActivityEntityHandlers();
+    const {
+        onSubmit,
+        isOpen,
+        setIsOpen,
+        form,
+    } = useSubmitHandler<Activity>(handleCreateEntity, formOptions);
 
     return (
         <>
@@ -32,6 +41,7 @@ const CreateActivity = () => {
                 <FormProvider {...form}>
                     <form
                         id='activity-form'
+                        onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <Dialog
                             open={isOpen}
@@ -56,9 +66,15 @@ const CreateActivity = () => {
                                     label='Вид дейност'
                                     name='name'
                                 />
-
+                                <div className='flex flex-1 justify-between'>
+                                    <StatusSelector
+                                        label='Статус'
+                                        name='status'
+                                        placeholder='активен'
+                                    />
+                                </div>
                                 <DialogFooter
-                                    isLoading={true}
+                                    isLoading={isLoading}
                                     label='Добавете'
                                     formName='activity-form'
                                 />

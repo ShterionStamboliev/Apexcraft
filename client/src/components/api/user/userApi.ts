@@ -1,16 +1,16 @@
-import { FetchUser, User } from '@/types/user-types/userTypes'
+import { FetchUser, User, UserTuple } from '@/types/user-types/userTypes'
 import { UserActionType } from '@/types/user-types/userActionTypes';
 import { useCallback, useReducer } from 'react';
 import userReducer, { initialState } from '@/context/User/userReducer';
 import { useAuth } from '@/context/AuthContext';
-import { apiCall } from './apiCall';
+import { apiCall } from '../apiCall';
 
 const useUserApi = () => {
     const [state, dispatch] = useReducer(userReducer, initialState);
 
     const { token } = useAuth();
 
-    const createUser = async (userData: User): Promise<boolean> => {
+    const createUser = async (userData: UserTuple): Promise<boolean> => {
         dispatch({
             type: UserActionType.CREATE_USER_REQUEST
         });
@@ -67,6 +67,7 @@ const useUserApi = () => {
     };
 
     const getUsers = useCallback(async (): Promise<FetchUser[]> => {
+
         dispatch({
             type: UserActionType.GET_USERS_REQUEST,
         });

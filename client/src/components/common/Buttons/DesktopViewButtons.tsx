@@ -1,18 +1,22 @@
 import { Button } from '@/components/ui/button';
 
 type DesktopViewButtonsProps = {
-    handleEditClick: (userId: number | undefined) => void;
-    handleDisableClick: (userId: number | undefined) => void;
-    userId: number | undefined;
+    handleEditClick: (userId?: number) => void;
+    handleDisableClick: (userId?: number) => void;
+    id?: number;
 }
 
-const DesktopViewButtons = ({ handleEditClick, handleDisableClick, userId }: DesktopViewButtonsProps) => {
+const DesktopViewButtons = ({
+    handleEditClick,
+    handleDisableClick,
+    id
+}: DesktopViewButtonsProps) => {
     return (
         <>
             <Button
                 type="button"
                 variant="outline"
-                onClick={() => handleEditClick(userId)}
+                onClick={() => handleEditClick(id)}
                 className="h-9 px-4 py-1 mr-2 border rounded-md"
             >
                 Edit
@@ -20,7 +24,7 @@ const DesktopViewButtons = ({ handleEditClick, handleDisableClick, userId }: Des
             <Button
                 className="mr-2"
                 variant="outline"
-                onClick={() => handleDisableClick(userId)}
+                onClick={() => handleDisableClick(id)}
             >
                 Deactivate
             </Button>

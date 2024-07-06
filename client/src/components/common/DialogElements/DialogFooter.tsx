@@ -1,22 +1,28 @@
-import LoadingButton from '@/components/common/LoadingButton';
+import LoaderButton from '@/components/common/Buttons/LoaderButton';
 import { Button } from '@/components/ui/button';
 import { DialogFooter as Footer } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
 type DialogFooterProps = {
-    isLoading: boolean | undefined;
+    isLoading?: boolean | undefined;
     label: string;
     type?: "submit" | "reset" | "button" | undefined;
     formName: string;
     className?: string;
 }
 
-const DialogFooter = ({ isLoading, label, type, formName, className }: DialogFooterProps) => {
+const DialogFooter = ({
+    isLoading,
+    label,
+    type,
+    formName,
+    className
+}: DialogFooterProps) => {
 
     return (
         <Footer>
             {isLoading ? (
-                <LoadingButton label='Добавете' />
+                <LoaderButton label='Добавете' />
             ) : (
                 <Button
                     type={type}

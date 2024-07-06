@@ -1,30 +1,38 @@
-import FormFieldInput from '@/components/common/FormFieldInput';
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import DialogHeader from '@/components/common/DialogElements/DialogHeader';
+import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop';
+import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
+import useMeasureEntityHandlers from '@/components/hooks/MeasuresHooks/useMeasuresEntityHook';
 import { measureDefaults, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
-import DialogFooter from '@/components/tables/UsersTable/UserTableElements/DialogFooter/DialogFooter';
-import DialogHeader from '@/components/tables/UsersTable/UserTableElements/DialogHeader/DialogHeader';
-import DialogTriggerDesktop from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerDesktop';
-import DialogTriggerMobile from '@/components/tables/UsersTable/UserTableElements/DialogTriggers/DialogTriggerMobile';
 import { DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';
 import { Measure } from '@/types/measure-types/measureTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, UseFormProps } from 'react-hook-form';
 import { useMediaQuery } from 'usehooks-ts';
 
 const CreateMeasure = () => {
-
     const { role } = useAuth();
-    const [isOpen, setIsOpen] = useState<boolean>(false);
-    const onDesktop = useMediaQuery('(min-width: 768px)');
     const isManager = role === 'мениджър';
 
-    const form = useForm<Measure>({
+    const onDesktop = useMediaQuery('(min-width: 768px)');
+
+    const formOptions: Partial<UseFormProps<Measure>> = {
         resolver: zodResolver(newMeasureSchema),
         mode: 'onChange',
-        defaultValues: measureDefaults
-    });
+        defaultValues: measureDefaults,
+    };
+
+    const { handleCreateEntity, isLoading } = useMeasureEntityHandlers();
+    const {
+        onSubmit,
+        isOpen,
+        setIsOpen,
+        form,
+    } = useSubmitHandler<Measure>(handleCreateEntity, formOptions);
 
     return (
         <>
@@ -32,6 +40,7 @@ const CreateMeasure = () => {
                 <FormProvider {...form}>
                     <form
                         id='measure-form'
+                        onSubmit={form.handleSubmit(onSubmit)}
                     >
                         <Dialog
                             open={isOpen}
@@ -58,7 +67,7 @@ const CreateMeasure = () => {
                                 />
 
                                 <DialogFooter
-                                    isLoading={true}
+                                    isLoading={isLoading}
                                     label='Добавете'
                                     formName='measure-form'
                                 />

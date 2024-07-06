@@ -9,8 +9,12 @@ import { FormInputType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
 
-const FormFieldInput = ({ label, name, type, className }: FormInputType) => {
-
+const FormFieldInput = ({
+    label,
+    name,
+    type,
+    className
+}: FormInputType) => {
     const { control } = useFormContext();
 
     return (

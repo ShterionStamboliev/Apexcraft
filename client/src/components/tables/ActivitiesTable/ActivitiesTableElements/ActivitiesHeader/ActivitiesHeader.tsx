@@ -1,4 +1,4 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const ActivitiesHeader = () => {
     return (
@@ -10,12 +10,12 @@ const ActivitiesHeader = () => {
                 <TableHead className='text-center'>
                     Status
                 </TableHead>
-                <TableHead className='text-start pl-10'>
+                <TableHead className='pl-10'>
                     Options
                 </TableHead>
             </TableRow>
         </TableHeader>
-    )
-}
+    );
+};
 
-export default ActivitiesHeader
+export default ActivitiesHeader;

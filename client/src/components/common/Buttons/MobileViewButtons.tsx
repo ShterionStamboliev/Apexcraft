@@ -11,12 +11,16 @@ import {
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 type MobileViewButtonsProps = {
-    handleEditClick: (userId: number | undefined) => void;
-    handleDisableClick: (userId: number | undefined) => void;
-    userId: number | undefined;
+    handleEditClick: (userId?: number) => void;
+    handleDisableClick: (userId?: number) => void;
+    id?: number;
 }
 
-const MobileViewButtons = ({ handleEditClick, handleDisableClick, userId }: MobileViewButtonsProps) => {
+const MobileViewButtons = ({
+    handleEditClick,
+    handleDisableClick,
+    id,
+}: MobileViewButtonsProps) => {
     return (
         <>
             <DropdownMenu>
@@ -27,13 +31,13 @@ const MobileViewButtons = ({ handleEditClick, handleDisableClick, userId }: Mobi
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className='flex flex-col p-2 text-center'>
                     <DropdownMenuLabel className='p-0'>
-                        Настройки
+                        Options
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator className='mt-2' />
-                    <DropdownMenuCheckboxItem onClick={() => handleEditClick(userId)}>
+                    <DropdownMenuCheckboxItem onClick={() => handleEditClick(id)}>
                         Edit
                     </DropdownMenuCheckboxItem>
-                    <DropdownMenuCheckboxItem onClick={() => handleDisableClick(userId)}>
+                    <DropdownMenuCheckboxItem onClick={() => handleDisableClick(id)}>
                         Deactivate
                     </DropdownMenuCheckboxItem>
                 </DropdownMenuContent>
