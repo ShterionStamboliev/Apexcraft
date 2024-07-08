@@ -39,7 +39,7 @@ const useUserApi = () => {
         }
     };
 
-    const getUser = async (userId: number | undefined): Promise<FetchUser | null> => {
+    const getUser = async (userId: number): Promise<FetchUser | null> => {
         dispatch({
             type: UserActionType.GET_USER_REQUEST,
         });
@@ -67,7 +67,6 @@ const useUserApi = () => {
     };
 
     const getUsers = useCallback(async (): Promise<FetchUser[]> => {
-
         dispatch({
             type: UserActionType.GET_USERS_REQUEST,
         });
@@ -121,7 +120,7 @@ const useUserApi = () => {
         }
     };
 
-    const deactivateUser = async (userId: number | undefined): Promise<boolean> => {
+    const deactivateUser = async (userId: number): Promise<boolean> => {
         dispatch({
             type: UserActionType.DEACTIVATE_USER_REQUEST,
         });

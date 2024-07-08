@@ -26,10 +26,10 @@ export type MeasureContextProps = {
     isMeasureLoading?: boolean;
     error?: string;
     createMeasure: (measure: Measure) => Promise<boolean>;
-    getMeasure: (measureId: number | undefined) => Promise<Measure | null>;
+    getMeasure: (measureId: number) => Promise<Measure | null>;
     getMeasures: () => Promise<Measure[]>;
     editMeasure: (measureId: number, measure: Measure) => Promise<boolean>;
-    deactivateMeasure: (measureId: number | undefined) => Promise<boolean>;
+    deactivateMeasure: (measureId: number) => Promise<boolean>;
 }
 
 export interface MeasureAction {

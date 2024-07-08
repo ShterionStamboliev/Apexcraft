@@ -50,12 +50,7 @@ const activityReducer = (state: InitialActivityState, action: ActivityAction) =>
                 isActivityLoading: false,
                 activity: [...state.activity],
             };
-        case ActivityActionType.EDIT_ACTIVITY_ERROR:
-            return {
-                ...state,
-                isActivityLoading: false,
-                error: action.payload.error,
-            };
+
         case ActivityActionType.GET_ACTIVITIES_REQUEST:
             return {
                 ...state,

@@ -74,6 +74,12 @@ const userReducer = (state: InitialUserState, action: UserAction): InitialUserSt
                 isLoading: false,
                 error: action.payload.error
             };
+        case UserActionType.EDIT_USER_REQUEST:
+            return {
+                ...state,
+                isLoading: true,
+                error: undefined,
+            };
         case UserActionType.EDIT_USER_SUCCESS:
             return {
                 ...state,
@@ -83,6 +89,12 @@ const userReducer = (state: InitialUserState, action: UserAction): InitialUserSt
                         ? action.payload
                         : user
                 )
+            };
+        case UserActionType.EDIT_USER_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.payload.error,
             };
         case UserActionType.DEACTIVATE_USER_REQUEST:
             return {

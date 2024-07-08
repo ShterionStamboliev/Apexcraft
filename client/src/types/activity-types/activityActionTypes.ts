@@ -26,10 +26,10 @@ export type ActivityContextProps = {
     isActivityLoading?: boolean;
     error?: string;
     createActivity: (activity: Activity) => Promise<boolean>;
-    getActivity: (activityId: number | undefined) => Promise<Activity | null>;
+    getActivity: (activityId: number) => Promise<Activity | null>;
     getActivities: () => Promise<Activity[]>;
     editActivity: (activityId: number, activity: Activity) => Promise<boolean>;
-    deactivateActivity: (activityId: number | undefined) => Promise<boolean>;
+    deactivateActivity: (activityId: number) => Promise<boolean>;
 }
 
 export interface ActivityAction {

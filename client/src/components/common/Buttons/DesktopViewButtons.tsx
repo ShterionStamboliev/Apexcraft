@@ -1,9 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Edit, UserX } from 'lucide-react';
 
 type DesktopViewButtonsProps = {
-    handleEditClick: (userId?: number) => void;
-    handleDisableClick: (userId?: number) => void;
-    id?: number;
+    handleEditClick: (userId: number) => void;
+    handleDisableClick: (userId: number) => void;
+    id: number;
 }
 
 const DesktopViewButtons = ({
@@ -13,21 +15,39 @@ const DesktopViewButtons = ({
 }: DesktopViewButtonsProps) => {
     return (
         <>
-            <Button
-                type="button"
-                variant="outline"
-                onClick={() => handleEditClick(id)}
-                className="h-9 px-4 py-1 mr-2 border rounded-md"
-            >
-                Edit
-            </Button>
-            <Button
-                className="mr-2"
-                variant="outline"
-                onClick={() => handleDisableClick(id)}
-            >
-                Deactivate
-            </Button>
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={() => handleEditClick(id)}
+                            className="mr-2"
+                        >
+                            <Edit />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side='left'>
+                        <p>Edit user</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
+
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <Button
+                            variant="ghost"
+                            onClick={() => handleDisableClick(id)}
+                        >
+                            <UserX />
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side='right'>
+                        <p>Deactivate user</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
         </>
     )
 }

@@ -26,9 +26,9 @@ export type UserContextProps = {
     isUserLoading?: boolean;
     error?: string;
     createUser: (user: UserTuple) => Promise<boolean>;
-    getUser: (userId: number | undefined) => Promise<User | null>;
+    getUser: (userId: number) => Promise<User | null>;
     getUsers: () => Promise<User[]>;
-    deactivateUser: (userId: number | undefined) => Promise<boolean>;
+    deactivateUser: (userId: number) => Promise<boolean>;
     editUser: (userId: number, user: User) => Promise<boolean>;
 }
 

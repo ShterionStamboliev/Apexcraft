@@ -39,7 +39,7 @@ const useActivityApi = () => {
         }
     };
 
-    const getActivity = async (activityId?: number): Promise<Activity | null> => {
+    const getActivity = async (activityId: number): Promise<Activity | null> => {
         dispatch({
             type: ActivityActionType.GET_ACTIVITY_REQUEST,
         });
@@ -120,7 +120,7 @@ const useActivityApi = () => {
         }
     };
 
-    const deactivateActivity = async (activityId?: number): Promise<boolean> => {
+    const deactivateActivity = async (activityId: number): Promise<boolean> => {
         dispatch({
             type: ActivityActionType.DEACTIVATE_ACTIVITY_REQUEST,
         });

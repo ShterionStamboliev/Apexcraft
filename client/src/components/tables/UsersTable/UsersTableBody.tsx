@@ -48,18 +48,18 @@ const UsersTableBody = () => {
                                 </TableCell>
                             )
                         ))}
-                        <TableCell className="text-start w-[300px]">
+                        <TableCell className="text-start w-[200px]">
                             {onDesktop ? (
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    id={user.id}
+                                    id={user.id!}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    id={user.id}
+                                    id={user.id!}
                                 />
                             )}
                         </TableCell>

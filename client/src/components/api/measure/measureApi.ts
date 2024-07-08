@@ -39,7 +39,7 @@ const useMeasureApi = () => {
         }
     };
 
-    const getMeasure = async (measureId: number | undefined): Promise<Measure | null> => {
+    const getMeasure = async (measureId: number): Promise<Measure | null> => {
         dispatch({
             type: MeasureActionType.GET_MEASURE_REQUEST,
         });
@@ -67,7 +67,6 @@ const useMeasureApi = () => {
     };
 
     const getMeasures = useCallback(async (): Promise<Measure[]> => {
-
         dispatch({
             type: MeasureActionType.GET_MEASURES_REQUEST,
         });
@@ -121,7 +120,7 @@ const useMeasureApi = () => {
         }
     };
 
-    const deactivateMeasure = async (measureId: number | undefined): Promise<boolean> => {
+    const deactivateMeasure = async (measureId: number): Promise<boolean> => {
         dispatch({
             type: MeasureActionType.DEACTIVATE_MEASURE_REQUEST,
         });

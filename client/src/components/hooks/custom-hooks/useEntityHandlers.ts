@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import useToastHook from './useToastHook';
 interface UseEntityHandlersProps<T> {
     createEntity: (data: T) => Promise<boolean>;
-    getEntity: (id?: number) => Promise<T | null>;
+    getEntity: (id: number) => Promise<T | null>;
     getEntities: () => Promise<T[]>;
-    deactivateEntity: (id?: number) => Promise<boolean>;
+    deactivateEntity: (id: number) => Promise<boolean>;
     isLoading?: boolean;
 }
 
@@ -13,8 +13,8 @@ type UseEntityHandlers<T,> = {
     isDialogOpen: boolean;
     isModified: boolean;
     isLoading?: boolean;
-    handleEditClick: (id?: number) => Promise<void>;
-    handleDeactivateClick: (id?: number) => Promise<void>;
+    handleEditClick: (id: number) => Promise<void>;
+    handleDeactivateClick: (id: number) => Promise<void>;
     handleCloseDialog: () => void;
     handleSuccess: () => void;
     handleCreateEntity: (data: T) => Promise<void>;
@@ -64,7 +64,7 @@ const useEntityHandlers = <T>({
         }
     }, [isCreateSuccess]);
 
-    const handleEditClick = async (id?: number): Promise<void> => {
+    const handleEditClick = async (id: number): Promise<void> => {
         setIsDialogOpen(true);
         const entityData = await getEntity(id);
         if (entityData) {
@@ -72,7 +72,7 @@ const useEntityHandlers = <T>({
         }
     };
 
-    const handleDeactivateClick = async (id?: number): Promise<void> => {
+    const handleDeactivateClick = async (id: number): Promise<void> => {
         await deactivateEntity(id);
         getEntities();
     };

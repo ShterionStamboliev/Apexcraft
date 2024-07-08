@@ -1,27 +1,36 @@
+import { useMediaQuery } from 'usehooks-ts';
 import { Skeleton } from "../../ui/skeleton"
 import { TableCell, TableRow } from "../../ui/table"
 
 const TableSkeletonCard = () => {
+    const onDesktop = useMediaQuery('(min-width: 968px)');
+
     return (
         <>
             <TableRow>
                 <TableCell>
-                    <Skeleton className="p-2 h-4 w-24 align-middle" />
+                    <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
                 <TableCell>
-                    <Skeleton className="p-2 h-4 w-24 align-middle" />
+                    <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
                 <TableCell>
-                    <Skeleton className="p-2 h-4 w-14 align-middle" />
+                    <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
                 <TableCell>
-                    <Skeleton className="p-2 h-4 w-16 align-middle" />
+                    <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
 
-                <TableCell className='text-start'>
-                    <Skeleton className="inline-flex items-center justify-center whitespace-nowrap w-14 h-7 px-4 py-2 mr-2" />
-                    <Skeleton className="inline-flex items-center justify-center whitespace-nowrap w-24 h-7 px-4 py-2 mr-2" />
-                </TableCell>
+                {onDesktop ? (
+                    <TableCell className='text-start'>
+                        <Skeleton className="inline-flex items-center justify-center whitespace-nowrap w-14 h-8 px-4 py-2 mr-2" />
+                        <Skeleton className="inline-flex items-center justify-center whitespace-nowrap w-14 h-8 px-4 py-2 mr-2" />
+                    </TableCell>
+                ) : (
+                    <TableCell className='text-start'>
+                        <Skeleton className="inline-flex items-center justify-center whitespace-nowrap w-1 h-7 px-4 py-2 mr-2" />
+                    </TableCell>
+                )}
             </TableRow>
         </>
     )
