@@ -89,6 +89,7 @@ const editUser = async (req, res) => {
     }
 
 }
+
 module.exports = {
     editUser,
 };
