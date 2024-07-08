@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react'
+import { createContext, useContext, useEffect, useReducer } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import {
     AuthAction,
@@ -7,6 +7,7 @@ import {
     AuthContextProps
 } from '@/types/auth-types/authTypes';
 import { User } from '@/types/user-types/userTypes';
+import { useNavigate } from 'react-router-dom';
 
 const initialState: AuthState = {
     user: null,
@@ -14,6 +15,7 @@ const initialState: AuthState = {
     error: undefined,
     role: null,
     isLoading: false,
+    tokenExpiration: null,
 };
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -30,21 +32,24 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             return {
                 ...state,
                 isLoading: false,
-                user: action.payload.user,
-                token: action.payload.token,
-                role: action.payload.role,
+                user: action.payload?.user || null,
+                token: action.payload?.token || null,
+                tokenExpiration: action.payload?.tokenExpiration || null,
+                role: action.payload?.role || null,
             };
         case AuthActionType.LOGIN_ERROR:
             return {
                 ...state,
                 isLoading: false,
-                error: action.payload.error
+                error: action.payload?.error
             };
         case AuthActionType.LOGOUT:
             return {
                 ...state,
                 user: null,
                 token: null,
+                tokenExpiration: null,
+                role: null,
             };
         default:
             return state;
@@ -61,6 +66,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
 
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const tokenExpirationCheck = setInterval(() => {
+            const expiration = state.tokenExpiration
+                ? new Date(state.tokenExpiration)
+                : null;
+            if (expiration && new Date() >= expiration) {
+                dispatch({
+                    type: AuthActionType.LOGOUT
+                });
+                queryClient.clear();
+                navigate('/login');
+            }
+        }, 60000);
+
+        return () => clearInterval(tokenExpirationCheck);
+    }, [state.tokenExpiration, queryClient, navigate]);
 
     const login = async (username: string, password: string): Promise<boolean> => {
         dispatch({
@@ -84,15 +107,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             if (!response.ok) {
                 throw new Error('Грешен потребител или парола');
             }
-            
+
+            const expiration = new Date();
+            expiration.setHours(expiration.getHours() + 1);
+
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
-                    token: userData.token,
-                    user: userData.user,
-                    role: userData.role,
+                    token: userData.token || undefined,
+                    user: userData.user || undefined,
+                    role: userData.role || undefined,
+                    tokenExpiration: expiration.toISOString(),
                 }
             });
+
             return true;
         } catch (error: unknown) {
             if (error instanceof Error)
@@ -102,16 +130,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                         error: error.message
                     }
                 });
-                return false;
+            return false;
         }
-    }
+    };
 
-    const logout = () => {
+    const logout = async () => {
+        const token = state.token;
+
+        if (token) {
+            await fetch(`${API_URL}/auth/logout`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+        }
+
         dispatch({
             type: AuthActionType.LOGOUT,
         })
         queryClient.clear();
-    }
+        navigate('/login');
+    };
 
     return (
         <AuthContext.Provider value={{ ...state, login, logout }}>

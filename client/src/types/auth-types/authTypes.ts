@@ -5,6 +5,7 @@ export interface AuthState {
     error?: string | undefined;
     role?: string | null;
     status?: string | null;
+    tokenExpiration?: string | null;
 }
 
 export interface AuthContextProps extends AuthState {
@@ -18,8 +19,13 @@ export enum AuthActionType {
     LOGIN_ERROR = 'LOGIN_ERROR',
     LOGOUT = 'LOGOUT',
 }
-
 export interface AuthAction {
     type: AuthActionType;
-    payload?: any;
+    payload?: {
+        user?: string;
+        token?: string;
+        tokenExpiration?: string;
+        error?: string;
+        role?: string;
+    }
 }
