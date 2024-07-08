@@ -1,38 +1,31 @@
 import {
-    TableHeader as Header,
-    TableRow,
-    TableHead
-} from "@/components/ui/table"
-import { UsersTableHeaderProps } from "@/types/table-types/userTableTypes"
+    TableHead,
+    TableHeader,
+    TableRow
+} from '@/components/ui/table';
 
-const tableHeaderItems: UsersTableHeaderProps = {
-    items: [
-        {
-            name_and_family: 'Name, Surname',
-            username: 'User',
-            status: 'Status',
-            role: 'Role',
-            options: 'Options'
-        }
-    ]
-}
-
-const TableHeader = () => {
+const UsersHeader = () => {
     return (
-        <Header>
-            {tableHeaderItems.items.map((item, i) => (
-                <TableRow key={i}>
-                    {Object.keys(item).map((key, i) => (
-                        key !== 'id' && (
-                            <TableHead key={i}>
-                                {item[key as keyof typeof item]}
-                            </TableHead>
-                        )
-                    ))}
-                </TableRow>
-            ))}
-        </Header>
-    )
-}
+        <TableHeader>
+            <TableRow>
+                <TableHead className='w-[250px]'>
+                    Name, Surname
+                </TableHead>
+                <TableHead className='w-[200px]'>
+                    User
+                </TableHead>
+                <TableHead className='w-[150px]'>
+                    Role
+                </TableHead>
+                <TableHead className='w-[150px]'>
+                    Status
+                </TableHead>
+                <TableHead className='w-[280px]'>
+                    Options
+                </TableHead>
+            </TableRow>
+        </TableHeader>
+    );
+};
 
-export default TableHeader
+export default UsersHeader;

@@ -20,16 +20,16 @@ export enum ActivityActionType {
 
 export type ActivityContextProps = {
     state: {
-        activities: Activity[];
+        activity: Activity[];
     }
     isLoading?: boolean;
     isActivityLoading?: boolean;
     error?: string;
     createActivity: (activity: Activity) => Promise<boolean>;
-    getActivity: (activityId: string | undefined) => Promise<Activity | null>;
+    getActivity: (activityId: number) => Promise<Activity | null>;
     getActivities: () => Promise<Activity[]>;
-    editActivity: (activityId: string, activity: Activity) => Promise<boolean>;
-    deactivateActivity: (activityId: string | undefined) => Promise<boolean>;
+    editActivity: (activityId: number, activity: Activity) => Promise<boolean>;
+    deactivateActivity: (activityId: number) => Promise<boolean>;
 }
 
 export interface ActivityAction {

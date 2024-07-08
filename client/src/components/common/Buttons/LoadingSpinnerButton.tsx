@@ -1,20 +1,22 @@
-import LoadingButton from '@/components/common/LoadingButton';
 import { Button } from '@/components/ui/button';
+import LoaderButton from './LoaderButton';
 
 type UserLoginFormButtonsProps = {
     isLoading: boolean | undefined;
 }
 
-const UserFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
+const LoadingSpinnerButton = ({ isLoading }: UserLoginFormButtonsProps) => {
     return (
         <>
             {isLoading ? (
-                <LoadingButton label="Вход" />
+                <LoaderButton
+                    label="Вход"
+                />
             ) : (
                 <Button
                     form='login-form'
                     className="font-semibold w-full"
-                    variant={'outline'}
+                    variant='outline'
                 >
                     Вход
                 </Button>
@@ -23,4 +25,4 @@ const UserFormButtons = ({ isLoading }: UserLoginFormButtonsProps) => {
     )
 }
 
-export default UserFormButtons
+export default LoadingSpinnerButton

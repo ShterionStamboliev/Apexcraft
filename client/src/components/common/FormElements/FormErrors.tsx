@@ -1,8 +1,8 @@
-type UserLoginFormErrorsProps = {
-    error: string | undefined;
+type FormErrorsProps = {
+    error?: string;
 }
 
-const UserFormErrors = ({ error }: UserLoginFormErrorsProps) => {
+const FormErrors = ({ error }: FormErrorsProps) => {
     return (
         <>
             {error && (
@@ -14,4 +14,4 @@ const UserFormErrors = ({ error }: UserLoginFormErrorsProps) => {
     )
 }
 
-export default UserFormErrors
+export default FormErrors

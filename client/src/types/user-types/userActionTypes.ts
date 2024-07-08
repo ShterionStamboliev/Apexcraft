@@ -1,4 +1,4 @@
-import { FetchUser, User } from './userTypes';
+import { FetchUser, User, UserTuple } from './userTypes';
 
 export enum UserActionType {
     CREATE_USER_REQUEST = 'CREATE_USER_REQUEST',
@@ -25,11 +25,11 @@ export type UserContextProps = {
     isLoading?: boolean;
     isUserLoading?: boolean;
     error?: string;
-    createUser: (user: User) => Promise<boolean>;
-    getUser: (userId: number | undefined) => Promise<FetchUser | null>;
-    getUsers: () => Promise<FetchUser[]>;
-    deactivateUser: (userId: number | undefined) => Promise<boolean>;
-    editUser: (userId: number, user: FetchUser) => Promise<boolean>;
+    createUser: (user: UserTuple) => Promise<boolean>;
+    getUser: (userId: number) => Promise<User | null>;
+    getUsers: () => Promise<User[]>;
+    deactivateUser: (userId: number) => Promise<boolean>;
+    editUser: (userId: number, user: User) => Promise<boolean>;
 }
 
 export interface UserAction {

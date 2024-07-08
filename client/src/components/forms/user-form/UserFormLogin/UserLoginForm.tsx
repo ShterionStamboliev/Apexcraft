@@ -1,9 +1,9 @@
 import { FormProvider } from "react-hook-form";
-import FormFieldInput from '@/components/common/FormFieldInput';
-import UserFormHeader from '../UserFormElements/UserFormHeader';
-import UserFormButtons from '../UserFormElements/UserFormButtons';
-import UserFormErrors from '../UserFormElements/UserFormErrors';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import useLoginUser from '@/components/hooks/UserHooks/useLoginUser';
+import LoadingSpinnerButton from '../../../common/Buttons/LoadingSpinnerButton';
+import FormErrors from '../../../common/FormElements/FormErrors';
+import FormHeader from '../../../common/FormElements/FormHeader';
 
 const UserLoginForm = () => {
     const { form, onSubmit, error, isLoading } = useLoginUser();
@@ -11,7 +11,7 @@ const UserLoginForm = () => {
     return (
         <FormProvider {...form}>
 
-            <UserFormHeader
+            <FormHeader
                 title='Добре дошли'
                 description='Вход в системата'
             />
@@ -33,14 +33,12 @@ const UserLoginForm = () => {
                         type='password'
                     />
                 </div>
-
                 <div className="flex flex-1 pt-10 pb-2">
-                    <UserFormButtons
+                    <LoadingSpinnerButton
                         isLoading={isLoading}
                     />
                 </div>
-
-                <UserFormErrors
+                <FormErrors
                     error={error}
                 />
             </form>
