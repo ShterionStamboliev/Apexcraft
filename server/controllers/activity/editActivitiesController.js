@@ -2,21 +2,38 @@ const db = require('../../db');
 
 const editActivities = async (req, res) => {
 
-    const activityId = req.params.id;
-    const newName = req.body.name;
-
-    if (!newName) {
-        return res.status(400).send('Name is required')
-    }
-
-    const query = 'UPDATE tbl_activities SET name = ? WHERE ID = ?';
-
+    const { activityId, activityName, activityStatus } = req.body;
+   
     try {
-        await db.execute(query, [newName, activityId])
-        res.status(200).send('Measure updated successfully')
+
+        if (!activityName || !activityStatus) {
+            return res.status(400).json({ message: 'All fields are required!' });
+        };
+
+        const query = `
+            UPDATE tbl_activities
+            SET name = ?, status = ?
+            WHERE id = ?;
+        `;
+
+        const values = [activityName, activityStatus];
+
+        const [result] = await pool.query(query, values);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Activity not found!' });
+        };
+
+        const updatedActivity = {
+            id: activityId,
+            activityName,
+            activityStatus,
+        };
+
+        res.status(200).json({ message: 'Activity updated successfully!', activity: updatedActivity });
+
     } catch (error) {
-        console.error('Database error:', error);
-        res.status(500).send(error);
+       res.status(500).json({ message: 'Error updating activity!', error });
     }
 }
 
