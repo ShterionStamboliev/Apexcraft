@@ -3,11 +3,14 @@ const db = require('../../db')
 const addMeasure = async (req, res) => {
     try {
         const measureName = req.body.name;
-        const measureStatus = req.body.status;
 
-        const query = 'INSERT INTO tbl_measure(name, satus) VALUES(?, ?)'; //check the name of the table
+        if (!measureName) {
+            return res.status(400).send('Name is required')
+        }
 
-        await db.execute(query, [measureName, measureStatus])
+        const query = 'INSERT INTO tbl_measure(name) VALUES(?)'; //check the name of the table
+
+        await db.execute(query, [measureName])
 
         res.status(201).send('Measure created successfully')
 
