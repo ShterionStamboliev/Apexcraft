@@ -10,7 +10,7 @@ const addActivities = async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         };
 
-        const query = 'INSERT INTO tbl_activities(name, satus) VALUES(?, ?)';
+        const query = 'INSERT INTO tbl_activities(name, status) VALUES(?, ?)';
 
         const values = [activityName, activityStatus];
 
