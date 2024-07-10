@@ -4,7 +4,7 @@ const { getCompanies } = require('../controllers/companies/getCompaniesControlle
 const { editCompany } = require('../controllers/companies/editCompanyController');
 const { createCompany } = require('../controllers/companies/createCompanyController');
 const { modifyCompanyStatus } = require('../controllers/companies/modifyCompanyStatusController');
-const { getCompanyById } = require('../controllers/companies/getCompanyById');
+const { getCompanyById } = require('../controllers/companies/getCompanyByIdController');
 
 const router = express.Router();
 

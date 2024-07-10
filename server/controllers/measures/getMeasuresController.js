@@ -1,6 +1,6 @@
 const db = require("../../db");
 
-const getAllMeasures = async (req, res) => {
+const getMeasures = async (req, res) => {
     try {
         const query = 'SELECT * FROM tbl_measure';
         const [rows] = await db.execute(query)
@@ -12,5 +12,5 @@ const getAllMeasures = async (req, res) => {
     }
 }
 module.exports = {
-    getAllMeasures,
+    getMeasures,
 }

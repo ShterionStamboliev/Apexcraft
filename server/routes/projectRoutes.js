@@ -2,7 +2,7 @@ const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
 const { createProject } = require('../controllers/projects/createProjectController');
 const { editProject } = require('../controllers/projects/editProjectController');
-const { getProjectById } = require('../controllers/projects/getProjectById');
+const { getProjectById } = require('../controllers/projects/getProjectByIdController');
 const { getProjects } = require('../controllers/projects/getProjectsController');
 const { modifyProjectStatus } = require('../controllers/projects/modifyProjectStatusController');
 
