@@ -8,7 +8,7 @@ const MeasuresTable = () => {
         <div className="flex flex-1 gap-2 py-8 overflow-x-auto md:px-0">
 
             <CreateMeasure />
-            <div className='flex-1 overflow-x-auto'>
+            <div className='flex-1 pr-12 overflow-x-auto'>
 
                 <Table className='w-full min-w-full'>
                     <MeasuresHeader />
