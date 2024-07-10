@@ -70,5 +70,8 @@ const editArtisan = async (req, res) => {
         console.error('Database error:', error);
         res.status(500).send(error);
     }
-}
-module.exports = { editArtisan };
+};
+
+module.exports = {
+    editArtisan
+};

@@ -45,11 +45,11 @@ const editUser = async (req, res) => {
         }
         if (role) {
             // Role change logic
-            if (currentUserRole === "admin" && (role === "мениджър" || role === "потребител")) {
+            if (currentUserRole === "admin" && (role === "manager" || role === "user")) {
                 // If the current user is admin, they can change the role to 'manager' or 'user'.
                 query += 'role = ?, ';
                 queryParams.push(role);
-            } else if (currentUserRole === "мениджър" && role === "потребител") {
+            } else if (currentUserRole === "manager" && role === "user") {
                 // if the current user is manager, they can change the role to 'user'.
                 query += 'role = ?, ';
                 queryParams.push(role);
@@ -64,7 +64,7 @@ const editUser = async (req, res) => {
 
         }
         if (status) {
-            if (status === "активен" || status === "неактивен") {
+            if (status === "active" || status === "inactive") {
                 query += 'status = ?, ';
                 queryParams.push(status);
             }

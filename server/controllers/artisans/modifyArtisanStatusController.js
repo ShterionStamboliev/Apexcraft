@@ -1,12 +1,12 @@
 const db = require('../../db');
 
-const changeArtisanStatus = async (req, res) => {
+const modifyArtisansStatus = async (req, res) => {
     try {
         const id = req.params.id
         const [rows] = await db.execute(`SELECT status FROM tbl_artisans WHERE id = ?`, [id]);
 
         if (rows.length === 0) {
-            return res.status(404).send('Artisan not found');
+            return res.status(404).json({ error: 'Artisan not found' });
         }
 
         const currentStatus = rows[0].status;
@@ -14,11 +14,12 @@ const changeArtisanStatus = async (req, res) => {
 
         await db.execute(`UPDATE tbl_artisans SET status = ? WHERE id = ?`, [newStatus, id])
 
-        res.status(200).send('Artisan status updated successfully');
+        res.status(200).json({ message: 'Artisan status updated successfully' });
     } catch (error) {
-        console.error('Error modifying user status:', error.message);
-        res.status(500).send('Internal server error');
+        res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
-module.exports = { changeArtisanStatus }
+module.exports = {
+    modifyArtisansStatus
+};

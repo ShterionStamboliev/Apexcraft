@@ -1,6 +1,6 @@
 const db = require('../../db');
 
-const createArtisans = async (req, res) => {
+const createArtisan = async (req, res) => {
 
     const { id, name, note, company_id, user_id, status } = req.body;
     // Required fields
@@ -34,7 +34,8 @@ const createArtisans = async (req, res) => {
         console.error('Error adding artisan:', error.message)
         res.status(500).send('Internal server error')
     }
+};
 
-
-}
-module.exports = { createArtisans }
+module.exports = {
+    createArtisan
+};

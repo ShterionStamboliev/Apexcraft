@@ -1,8 +1,9 @@
 const db = require('../../db');
 
-const editActivities = async (req, res) => {
+const editActivity = async (req, res) => {
 
-    const { activityId, activityName, activityStatus } = req.body;
+    const activityId = req.params.id;
+    const { activityName, activityStatus } = req.body;
    
     try {
 
@@ -38,5 +39,5 @@ const editActivities = async (req, res) => {
 }
 
 module.exports = {
-    editActivities
+    editActivity
 }

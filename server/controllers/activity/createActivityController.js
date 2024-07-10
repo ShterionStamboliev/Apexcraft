@@ -1,6 +1,6 @@
 const db = require('../../db')
 
-const addActivities = async (req, res) => {
+const createActivity = async (req, res) => {
 
     const { activityName, activityStatus } = req.body;
 
@@ -30,5 +30,5 @@ const addActivities = async (req, res) => {
 };
 
 module.exports = {
-    addActivities
+    createActivity
 };

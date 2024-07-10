@@ -3,7 +3,7 @@ const pool = require("../../db");
 const getCompanies = async (req, res) => {
 
     try {
-        const query = 'SELECT name, number, adress, mol, email, phone, dds, status FROM tbl_companies';
+        const query = 'SELECT * FROM tbl_companies';
 
         const [rows] = await pool.query(query)
 

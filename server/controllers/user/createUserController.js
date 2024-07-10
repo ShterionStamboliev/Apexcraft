@@ -16,7 +16,7 @@ const createUser = async (req, res) => {
 
         // Manager should only be able to create users and not admin or other managers.
         
-        if (req.user.role === 'мениджър' && role !== 'потребител') {
+        if (req.user.role === 'manager' && role !== 'user') {
             return res.status(403).json({ message: 'Managers can only create users with role user' });
         };
 
