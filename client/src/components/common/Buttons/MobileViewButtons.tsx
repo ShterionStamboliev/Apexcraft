@@ -27,13 +27,13 @@ const MobileViewButtons = ({
         <>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                    <Button variant={'ghost'}>
-                        <DotsVerticalIcon />
+                    <Button variant={'ghost'} onClick={() => handleEditClick(id)}>
+                        <Edit size={25} />
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className='flex flex-col p-2 text-center min-w-[4rem] cursor-pointer'>
+                {/* <DropdownMenuContent className='flex flex-col p-2 text-center min-w-[4rem] cursor-pointer'>
                     <DropdownMenuCheckboxItem onClick={() => handleEditClick(id)}>
-                        <TooltipProvider>
+                        {/* <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
                                     <Edit size={25} />
@@ -42,9 +42,9 @@ const MobileViewButtons = ({
                                     <p>Edit user</p>
                                 </TooltipContent>
                             </Tooltip>
-                        </TooltipProvider>
-                    </DropdownMenuCheckboxItem>
-                </DropdownMenuContent>
+                        </TooltipProvider> */}
+                    {/* </DropdownMenuCheckboxItem> */}
+                {/* </DropdownMenuContent> */}
             </DropdownMenu>
         </>
     )

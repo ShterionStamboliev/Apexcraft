@@ -44,13 +44,13 @@ const MeasuresTableBody = () => {
                                 <DesktopViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    id={measure.id}
+                                    id={measure.id!}
                                 />
                             ) : (
                                 <MobileViewButtons
                                     handleEditClick={handleEditClick}
                                     handleDisableClick={handleDeactivateClick}
-                                    id={measure.id}
+                                    id={measure.id!}
                                 />
                             )}
                         </TableCell>

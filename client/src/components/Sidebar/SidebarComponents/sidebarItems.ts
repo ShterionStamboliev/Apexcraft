@@ -13,7 +13,7 @@ export const sidebarItems: SidebarItems = {
 
 export const sidebarUserItems: SidebarItems = {
     links: [
-        { label: 'Профил', href: '/profile', icon: User },
-        { label: 'Изход', href: '/sign-out', icon: LogOut },
+        // { label: 'Профил', href: '/profile', icon: User },
+        { label: 'Sign out', href: '/sign-out', icon: LogOut },
     ]
 };
