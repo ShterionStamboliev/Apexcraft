@@ -41,13 +41,15 @@ const UsersTableBody = () => {
             <TableBody>
                 {state.user.map((user, index) => (
                     <TableRow key={index}>
-                        {Object.keys(user).map((key, i) => (
-                            key !== 'id' && (
-                                <TableCell key={i}>
-                                    {user[key as keyof FetchUser]}
-                                </TableCell>
-                            )
-                        ))}
+                        {Object.keys(user)
+                            .filter(key => key !== 'role' && key !== 'status')
+                            .map((key, i) => (
+                                key !== 'id' && (
+                                    <TableCell key={i}>
+                                        {user[key as keyof FetchUser]}
+                                    </TableCell>
+                                )
+                            ))}
                         <TableCell className="text-start w-[200px]">
                             {onDesktop ? (
                                 <DesktopViewButtons

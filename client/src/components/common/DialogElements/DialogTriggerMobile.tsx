@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { DialogTrigger } from '@/components/ui/dialog'
-import { SquarePlus } from 'lucide-react'
+import { UserPlus } from 'lucide-react'
 
 const DialogTriggerMobile = () => {
     return (
@@ -11,7 +11,7 @@ const DialogTriggerMobile = () => {
                     variant={'ghost'}
                     size={'icon'}
                 >
-                    <SquarePlus className='text-zinc-400' />
+                    <UserPlus />
                 </Button>
             </DialogTrigger>
         </>

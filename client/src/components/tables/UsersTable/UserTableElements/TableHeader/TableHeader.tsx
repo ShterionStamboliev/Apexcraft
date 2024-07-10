@@ -14,12 +14,12 @@ const UsersHeader = () => {
                 <TableHead className='w-[200px]'>
                     User
                 </TableHead>
-                <TableHead className='w-[150px]'>
+                {/* <TableHead className='w-[150px]'>
                     Role
                 </TableHead>
                 <TableHead className='w-[150px]'>
                     Status
-                </TableHead>
+                </TableHead> */}
                 <TableHead className='w-[280px]'>
                     Options
                 </TableHead>

@@ -14,12 +14,12 @@ const TableSkeletonCard = () => {
                 <TableCell>
                     <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
-                <TableCell>
+                {/* <TableCell>
                     <Skeleton className="p-2 align-middle h-5 w-20" />
                 </TableCell>
                 <TableCell>
                     <Skeleton className="p-2 align-middle h-5 w-20" />
-                </TableCell>
+                </TableCell> */}
 
                 {onDesktop ? (
                     <TableCell className='text-start'>
