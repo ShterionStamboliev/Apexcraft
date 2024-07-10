@@ -1,22 +1,34 @@
 const db = require('../../db')
 
 const addActivities = async (req, res) => {
+
+    const { activityName, activityStatus } = req.body;
+
     try {
-        const activityName = req.body.name;
-        const activityStatus = req.body.status;
 
-        const query = 'INSERT INTO tbl_activities(name, satus) VALUES(?, ?)'; //check the name of the table
+        if (!activityName || !activityStatus) {
+            return res.status(400).json({ message: 'All fields are required' });
+        };
 
-        await db.execute(query, [activityName, activityStatus])
+        const query = 'INSERT INTO tbl_activities(name, satus) VALUES(?, ?)';
 
-        res.status(201).send('New activity created successfully')
+        const values = [activityName, activityStatus];
+
+        const [result] = await db.execute(query, values);
+
+        const newActivity = {
+            id: result.insertId,
+            activityName,
+            activityStatus,
+        };
+
+        res.status(201).json({ message: 'Activity created successfully!', activity: newActivity  });
 
     } catch (error) {
-        console.log('Adding new activity failed');
-        res.status(500).send(error)
+        res.status(500).json({ message: 'Error creating the activity!', error });
     }
-}
+};
 
 module.exports = {
     addActivities
-}
+};
