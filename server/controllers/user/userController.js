@@ -23,9 +23,9 @@ const getAssociatedUsers = async (req, res) => {
         const associatedUsers = rows.sort((a, b) => {
             if (a.status === b.status) {
                 return a.username.localeCompare(b.username);
-            } else if (a.status === 'активен' && b.status !== 'активен') {
+            } else if (a.status === 'active' && b.status !== 'active') {
                 return -1;
-            } else if (a.status !== 'активен' && b.status === 'активен') {
+            } else if (a.status !== 'active' && b.status === 'active') {
                 return 1;
             }
             return 0;

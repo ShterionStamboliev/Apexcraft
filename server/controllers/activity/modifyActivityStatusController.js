@@ -10,7 +10,7 @@ const modifyActivityStatus = async (req, res) => {
         }
 
         const currentStatus = rows[0].status;
-        const newStatus = currentStatus === 'активен' ? 'неактивен' : 'активен';
+        const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
 
         await db.execute(`UPDATE tbl_activities SET status = ? WHERE id = ?`, [newStatus, id]);
 
