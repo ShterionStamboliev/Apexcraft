@@ -1,6 +1,6 @@
 const db = require('../../db');
 
-const changeArtisanStatus = async (req, res) => {
+const modifyArtisansStatus = async (req, res) => {
     try {
         const id = req.params.id
         const [rows] = await db.execute(`SELECT status FROM tbl_artisans WHERE id = ?`, [id]);
@@ -18,6 +18,8 @@ const changeArtisanStatus = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+};
 
-module.exports = { changeArtisanStatus }
+module.exports = {
+    modifyArtisansStatus
+};

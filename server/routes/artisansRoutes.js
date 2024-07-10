@@ -1,13 +1,15 @@
 const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
-const { createArtisans } = require('../controllers/artisans/createArtisansController');
-const { editArtisan } = require('../controllers/artisans/editArtisansController');
-const { changeArtisanStatus } = require('../controllers/artisans/changeArtisansStatusController');
+const { createArtisan } = require('../controllers/artisans/createArtisanController');
+const { editArtisan } = require('../controllers/artisans/editArtisanController');
+const { modifyArtisansStatus } = require('../controllers/artisans/modifyArtisanStatusController');
+const { getArtisanById } = require('../controllers/artisans/getArtisanById');
 
 const router = express.Router();
 
-router.post('/artisans', authenticateToken, createArtisans);
+router.post('/artisans', authenticateToken, createArtisan);
+router.get('/activities/:id', authenticateToken, getArtisanById);
 router.put('/artisans/:id/edit', authenticateToken, editArtisan);
-router.put('/artisans/:id/delete', authenticateToken, changeArtisanStatus);
+router.put('/artisans/:id/delete', authenticateToken, modifyArtisansStatus);
 
 module.exports = router;

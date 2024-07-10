@@ -20,4 +20,6 @@ const modifyCompanyStatus = async (req, res) => {
     };
 };
 
-module.exports = modifyCompanyStatus;
+module.exports = {
+    modifyCompanyStatus
+};

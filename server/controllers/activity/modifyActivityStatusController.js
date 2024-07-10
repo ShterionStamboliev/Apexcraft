@@ -19,6 +19,8 @@ const modifyActivityStatus = async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Internal server error!' });
     }
-}
+};
 
-module.exports = modifyActivityStatus;
+module.exports = {
+    modifyActivityStatus
+};

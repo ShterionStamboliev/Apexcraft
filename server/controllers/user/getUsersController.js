@@ -1,6 +1,6 @@
 const pool = require("../../db");
 
-const getAssociatedUsers = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
         // Get currently logged in user by their ID;
         const currentUserId = req.user.id;
@@ -40,5 +40,5 @@ const getAssociatedUsers = async (req, res) => {
 
 
 module.exports = {
-    getAssociatedUsers,
+    getUsers,
 };

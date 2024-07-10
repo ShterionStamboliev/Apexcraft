@@ -1,7 +1,7 @@
 const pool = require("../../db");
 const { getCompanyNameById } = require("../../utils/getCompanyNameById");
 
-const getAllProjects = async (req, res) => {
+const getProjects = async (req, res) => {
 
     try {
         let query = 'SELECT id, name, company_id FROM tbl_projects';
@@ -34,5 +34,5 @@ const getAllProjects = async (req, res) => {
 };
 
 module.exports = {
-    getAllProjects
+    getProjects
 };

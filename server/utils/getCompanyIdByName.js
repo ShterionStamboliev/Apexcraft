@@ -1,4 +1,3 @@
-// utils/getCompanyIdByName.js
 const pool = require("../db");
 
 const getCompanyIdByName = async (companyName) => {
