@@ -3,7 +3,7 @@ const authenticateToken = require('../middlewares/authenticateToken');
 const { createArtisan } = require('../controllers/artisans/createArtisanController');
 const { editArtisan } = require('../controllers/artisans/editArtisanController');
 const { modifyArtisansStatus } = require('../controllers/artisans/modifyArtisanStatusController');
-const { getArtisanById } = require('../controllers/artisans/getArtisanById');
+const { getArtisanById } = require('../controllers/artisans/getArtisanByIdController');
 
 const router = express.Router();
 

@@ -8,7 +8,7 @@ const RouteGuard = () => {
         return null;
     }
 
-    if (user && role === 'мениджър') {
+    if (user && role === 'manager') {
         return <Outlet />
     }
 

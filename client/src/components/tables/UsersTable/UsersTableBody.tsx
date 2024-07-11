@@ -43,34 +43,47 @@ const UsersTableBody = ({ filteredData }: UsersTableProps) => {
     return (
         <>
             <TableBody>
-                {filteredData.map((user, index) => (
-                    <TableRow key={index}>
-                        {Object.keys(user)
-                            .filter(key => key !== 'role' && key !== 'status')
-                            .map((key, i) => (
-                                key !== 'id' && (
-                                    <TableCell key={i}>
-                                        {user[key as keyof FetchUser]}
-                                    </TableCell>
-                                )
-                            ))}
-                        <TableCell className="text-start w-[200px]">
-                            {onDesktop ? (
-                                <DesktopViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={user.id!}
-                                />
-                            ) : (
-                                <MobileViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={user.id!}
-                                />
-                            )}
+                {filteredData.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={3} className='text-center text-3xl'>
+                            No results found
                         </TableCell>
                     </TableRow>
-                ))}
+                ) : (
+                    filteredData.map((user, index) => (
+                        <TableRow key={index}>
+                            {Object.keys(user)
+                                .filter(key => key !== 'role' && key !== 'status')
+                                .map((key, i) => {
+                                    const value = user[key as keyof FetchUser];
+                                    return key !== 'id' && (
+                                        <TableCell key={i}>
+                                            {
+                                                typeof value === 'object'
+                                                    ? JSON.stringify(value)
+                                                    : value
+                                            }
+                                        </TableCell>
+                                    )
+                                })}
+                            <TableCell className="text-start w-[200px]">
+                                {onDesktop ? (
+                                    <DesktopViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={user.id!}
+                                    />
+                                ) : (
+                                    <MobileViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={user.id!}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )
+                    ))}
             </TableBody>
 
             <Dialog

@@ -103,7 +103,7 @@ const activityReducer = (state: InitialActivityState, action: ActivityAction) =>
                 isLoading: false,
                 activity: state.activity.map(activity =>
                     activity.id === action.payload.id
-                        ? { ...activity, status: 'неактивен' }
+                        ? { ...activity, status: 'inactive' }
                         : activity
                 )
             };

@@ -11,10 +11,10 @@ const getUsers = async (req, res) => {
         // Filter the associated users to be dispalyed based on privilege of the logged in user.
         // Aadmin can see all, managers can see only associated to them users.
 
-        if (req.user.role === 'мениджър') {
+        if (req.user.role === 'manager') {
             query = 'SELECT id, name_and_family, username, role, status FROM tbl_users WHERE manager = ?';
             queryParams = [currentUserId];
-        } else if (req.user.role === 'админ') {
+        } else if (req.user.role === 'admin') {
             query = 'SELECT id, name_and_family, username, role, status FROM tbl_users';
         }
 

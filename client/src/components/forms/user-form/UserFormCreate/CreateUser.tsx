@@ -17,7 +17,7 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 
 const CreateUser = () => {
     const { role } = useAuth();
-    const isManager = role === 'мениджър';
+    const isManager = role === 'manager';
 
     const onDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -84,7 +84,7 @@ const CreateUser = () => {
                                     <StatusSelector
                                         label='Статус'
                                         name='status'
-                                        placeholder='активен'
+                                        placeholder='active'
                                     />
                                 </div>
                                 <DialogFooter

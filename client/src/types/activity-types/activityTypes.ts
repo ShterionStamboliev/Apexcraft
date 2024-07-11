@@ -1,7 +1,7 @@
 export type Activity = {
     id?: number;
     name: string;
-    status: 'активен' | 'неактивен';
+    status: 'active' | 'inactive';
 }
 export interface ActivityFormProps {
     onSuccess?: () => void;

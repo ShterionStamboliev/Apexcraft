@@ -1,18 +1,16 @@
 import { User } from '@/types/user-types/userTypes';
 import { z } from 'zod';
 
-// export const userRoles = ['мениджър', 'потребител'] as const;
-export const userStatus = ['активен', 'неактивен'] as const;
-export const userRoles = ['потребител'] as const;
+export const userStatus = ['active', 'inactive'] as const;
+export const userRoles = ['user'] as const;
 
 enum UserRoles {
-    // мениджър = 'мениджър',
-    потребител = 'потребител'
+    user = 'user'
 }
 
 enum UserStatus {
-    активен = 'активен',
-    неактивен = 'неактивен',
+    active = 'active',
+    inactive = 'inactive',
 }
 
 export const addNewUserSchema = z.object({
@@ -38,5 +36,5 @@ export const formDefaultValues: User = {
     username: '',
     password: '',
     role: '',
-    status: 'активен',
+    status: 'active',
 }

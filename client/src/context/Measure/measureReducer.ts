@@ -105,7 +105,7 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
                 isLoading: false,
                 measure: state.measure.map(measure =>
                     measure.id === action.payload.id
-                        ? { ...measure, status: 'неактивен' }
+                        ? { ...measure, status: 'inactive' }
                         : measure
                 )
             };

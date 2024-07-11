@@ -10,10 +10,10 @@ export const formSchema = z.object({
     password: z.string().min(5, {
         message: 'Паролата трябва да е минимум 5 символа',
     }),
-    role: z.union([z.literal('потребител'), z.literal('мениджър')], {
+    role: z.union([z.literal('user'), z.literal('manager')], {
         message: 'Моля селектирайте роля'
     }),
-    status: z.union([z.literal('активен'), z.literal('неактивен')], {
+    status: z.union([z.literal('active'), z.literal('inactive')], {
         message: 'Моля селектирайте статус'
     }),
 });

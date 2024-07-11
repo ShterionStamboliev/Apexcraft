@@ -93,7 +93,7 @@ const useUserApi = () => {
         }
     }, [token]);
 
-    const editUser = async (userId: number, userData: FetchUser): Promise<boolean> => {
+    const editUser = async (userId: number, userData: User): Promise<boolean> => {
         dispatch({
             type: UserActionType.EDIT_USER_REQUEST,
         });

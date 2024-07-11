@@ -108,7 +108,7 @@ const userReducer = (state: InitialUserState, action: UserAction): InitialUserSt
                 isLoading: false,
                 user: state.user.map(user =>
                     user.id === action.payload.id
-                        ? { ...user, status: 'неактивен' }
+                        ? { ...user, status: 'inactive' }
                         : user
                 )
             };

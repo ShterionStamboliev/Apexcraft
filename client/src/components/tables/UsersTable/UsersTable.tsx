@@ -24,12 +24,12 @@ const UsersTable = () => {
             const filterData = state.user.filter((value) => {
                 return value.name_and_family
                     .toLowerCase()
-                    .includes(searchQuery
-                        .toLowerCase());
+                    .includes(searchQuery.toLowerCase());
             });
             setFilteredData(filterData);
         }
         fetchSearchResults();
+
     }, [searchQuery, state.user]);
 
     return (
