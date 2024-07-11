@@ -7,7 +7,7 @@ const DialogTriggerMobile = () => {
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='absolute left-4 top-36'
+                    className='border border-zinc-800 overflow-x-auto'
                     variant={'ghost'}
                     size={'icon'}
                 >

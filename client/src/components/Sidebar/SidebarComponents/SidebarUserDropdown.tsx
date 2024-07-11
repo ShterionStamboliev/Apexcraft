@@ -47,7 +47,7 @@ const SidebarUserDropdown = () => {
                 {sidebarUserItems.links.map((link, index) => (
                     <Link to={link.href} key={index}>
                         <SidebarButton
-                            className='w-full p-1.5'
+                            className='w-full p-1.5 text-sm'
                             size='sm'
                             icon={link.icon}
                         >

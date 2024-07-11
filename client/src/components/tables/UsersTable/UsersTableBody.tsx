@@ -14,8 +14,12 @@ import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHoo
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 
-const UsersTableBody = () => {
-    const { state, getUsers, isLoading, isUserLoading } = useUser();
+interface UsersTableProps {
+    filteredData: FetchUser[];
+}
+
+const UsersTableBody = ({ filteredData }: UsersTableProps) => {
+    const { getUsers, isLoading, isUserLoading } = useUser();
     const {
         selectedEntity: selectedUser,
         isDialogOpen,
@@ -39,7 +43,7 @@ const UsersTableBody = () => {
     return (
         <>
             <TableBody>
-                {state.user.map((user, index) => (
+                {filteredData.map((user, index) => (
                     <TableRow key={index}>
                         {Object.keys(user)
                             .filter(key => key !== 'role' && key !== 'status')

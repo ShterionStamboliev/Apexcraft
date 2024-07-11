@@ -12,7 +12,7 @@ const LayoutHeader = () => {
     return (
         <>
             <div className="py-4 w-full">
-                <div className="w-full flex justify-between items-center px-12 mx-auto">
+                <div className="w-full flex justify-between items-center px-3 md:px-12 mx-auto">
                     <div>
                         <Link to='/' className="flex">
                             <span className="text-2xl text-zinc-500 font-bold tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200">
@@ -32,7 +32,7 @@ const LayoutHeader = () => {
                                             >
                                                 <div className='flex justify-between items-center w-full'>
                                                     <div className='flex gap-2 w-full items-center'>
-                                                        <span className='text-md'>{user}</span>
+                                                        <span className='text-md text-zinc-400'>{user}</span>
                                                         <User />
                                                     </div>
                                                 </div>

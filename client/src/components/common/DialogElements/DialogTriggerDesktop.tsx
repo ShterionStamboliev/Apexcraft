@@ -7,7 +7,7 @@ const DialogTriggerDesktop = () => {
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='w-15 h-10'
+                    className='w-15 h-9 border border-zinc-800'
                     variant={'ghost'}
                     size={'sm'}
                 >
