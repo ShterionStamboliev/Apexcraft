@@ -14,8 +14,12 @@ import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHoo
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 
-const UsersTableBody = () => {
-    const { state, getUsers, isLoading, isUserLoading } = useUser();
+interface UsersTableProps {
+    filteredData: FetchUser[];
+}
+
+const UsersTableBody = ({ filteredData }: UsersTableProps) => {
+    const { getUsers, isLoading, isUserLoading } = useUser();
     const {
         selectedEntity: selectedUser,
         isDialogOpen,
@@ -39,34 +43,47 @@ const UsersTableBody = () => {
     return (
         <>
             <TableBody>
-                {state.user.map((user, index) => (
-                    <TableRow key={index}>
-                        {Object.keys(user)
-                            .filter(key => key !== 'role' && key !== 'status')
-                            .map((key, i) => (
-                                key !== 'id' && (
-                                    <TableCell key={i}>
-                                        {user[key as keyof FetchUser]}
-                                    </TableCell>
-                                )
-                            ))}
-                        <TableCell className="text-start w-[200px]">
-                            {onDesktop ? (
-                                <DesktopViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={user.id!}
-                                />
-                            ) : (
-                                <MobileViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={user.id!}
-                                />
-                            )}
+                {filteredData.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={3} className='text-center text-3xl'>
+                            No results found
                         </TableCell>
                     </TableRow>
-                ))}
+                ) : (
+                    filteredData.map((user, index) => (
+                        <TableRow key={index}>
+                            {Object.keys(user)
+                                .filter(key => key !== 'role' && key !== 'status')
+                                .map((key, i) => {
+                                    const value = user[key as keyof FetchUser];
+                                    return key !== 'id' && (
+                                        <TableCell key={i}>
+                                            {
+                                                typeof value === 'object'
+                                                    ? JSON.stringify(value)
+                                                    : value
+                                            }
+                                        </TableCell>
+                                    )
+                                })}
+                            <TableCell className="text-start w-[200px]">
+                                {onDesktop ? (
+                                    <DesktopViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={user.id!}
+                                    />
+                                ) : (
+                                    <MobileViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={user.id!}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )
+                    ))}
             </TableBody>
 
             <Dialog

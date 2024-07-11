@@ -16,7 +16,7 @@ import { useMediaQuery } from 'usehooks-ts';
 
 const CreateMeasure = () => {
     const { role } = useAuth();
-    const isManager = role === 'мениджър';
+    const isManager = role === 'manager';
 
     const onDesktop = useMediaQuery('(min-width: 768px)');
 

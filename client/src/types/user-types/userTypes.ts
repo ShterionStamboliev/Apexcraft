@@ -10,9 +10,9 @@ export type User = {
     username: string;
     password: string;
     token?: string;
-    name_and_family: string;
-    status: 'активен' | 'неактивен';
-    role: 'потребител' | 'мениджър';
+    name_and_family?: string;
+    status: 'active' | 'inactive';
+    role: 'user' | 'manager' | '';
 }
 
 export type FetchUser = {
@@ -20,17 +20,17 @@ export type FetchUser = {
     name_and_family: string;
     username: string;
     password: string;
-    role: 'потребител' | 'мениджър';
-    status: 'активен' | 'неактивен';
+    role: 'user' | 'manager';
+    status: 'active' | 'inactive';
 }
 
 export type UserFormType = {
     id?: number;
-    name_and_family: string;
+    name_and_family?: string;
     username: string;
     password: string;
-    role: 'потребител' | 'мениджър';
-    status: 'активен' | 'неактивен';
+    role: 'user' | 'manager' | '';
+    status: 'active' | 'inactive';
 }
 
 export interface UserFormProps {
