@@ -1,4 +1,4 @@
-const db = require("../db")
+const db = require("../../db")
 
 
 // Function to handle fetching a user by id

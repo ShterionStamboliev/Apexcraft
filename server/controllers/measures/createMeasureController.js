@@ -1,6 +1,6 @@
 const db = require('../../db')
 
-const addMeasure = async (req, res) => {
+const createMeasure = async (req, res) => {
     try {
         const measureName = req.body.name;
 
@@ -18,8 +18,8 @@ const addMeasure = async (req, res) => {
         console.log('Adding measure failed');
         res.status(500).send(error)
     }
-}
+};
 
 module.exports = {
-    addMeasure
-}
+    createMeasure
+};

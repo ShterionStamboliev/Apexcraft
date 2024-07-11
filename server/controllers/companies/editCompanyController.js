@@ -1,22 +1,44 @@
 const pool = require("../../db");
 
 const editCompany = async (req, res) => {
-    const companyId = req.params.id
-    const {name, number, adress, mol, email, phone, dds, status} = req.body
-    const query = 'UPDATE tbl_companies SET name= ?, number=?, adress=?, mol=?, email=?, phone=?, dds=?, status=? WHERE id = ?';
 
-    if (Object.values(req.body).some(a => a == '')) {
-        const field = Object.entries(req.body).find(([f, v]) => v == '')
-        return res.status(400).send(`Field '${field[0]}' is required!`)
-    }
-    
+    const company_id = req.params.id;
+    const { company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status } = req.body;
+
     try {
+       
+        if (!company_id || !company_name || !company_number || !company_address || !company_mol || !company_email || !company_phone || !company_dds || !status) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
 
-        await pool.query(query, [name, number, adress, mol, email, phone, dds, status, companyId])
-        res.status(200).send('Company edited successfully!');
-    }
-    catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        const query = 
+        `UPDATE tbl_companies
+        SET company_name = ?, company_number = ?, company_address = ?, company_mol = ?, company_email = ?, company_phone = ?, company_dds = ?, status = ?
+        WHERE id = ?;`;
+
+        const values = [company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status, company_id];
+
+        const [result] = await pool.execute(query, values);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ message: 'Company not found' });
+        }
+
+        const updatedCompany = {
+            id: company_id,
+            company_name, 
+            company_number, 
+            company_address, 
+            company_mol, 
+            company_email, 
+            company_phone, 
+            company_dds, 
+            status
+        };
+
+        res.status(200).json({ message: 'Company updated successfully!', company: updatedCompany });
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating the company!', error });
     }
 };
 

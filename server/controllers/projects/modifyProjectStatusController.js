@@ -20,4 +20,6 @@ const modifyProjectStatus = async (req, res) => {
     };
 };
 
-module.exports = modifyProjectStatus;
+module.exports = {
+    modifyProjectStatus
+};

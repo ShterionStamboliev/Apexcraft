@@ -1,6 +1,6 @@
 const pool = require("../../db");
 
-const getAssociatedUsers = async (req, res) => {
+const getUsers = async (req, res) => {
     try {
         // Get currently logged in user by their ID;
         const currentUserId = req.user.id;
@@ -23,9 +23,9 @@ const getAssociatedUsers = async (req, res) => {
         const associatedUsers = rows.sort((a, b) => {
             if (a.status === b.status) {
                 return a.username.localeCompare(b.username);
-            } else if (a.status === 'активен' && b.status !== 'активен') {
+            } else if (a.status === 'active' && b.status !== 'active') {
                 return -1;
-            } else if (a.status !== 'активен' && b.status === 'активен') {
+            } else if (a.status !== 'active' && b.status === 'active') {
                 return 1;
             }
             return 0;
@@ -40,5 +40,5 @@ const getAssociatedUsers = async (req, res) => {
 
 
 module.exports = {
-    getAssociatedUsers,
+    getUsers,
 };

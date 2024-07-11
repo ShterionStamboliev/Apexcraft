@@ -7,6 +7,7 @@ const activityRoutes = require('./routes/activityRoutes');
 const measuresRoutes = require('./routes/measuresRoutes');
 const projectRoutes = require('./routes/projectRoutes');
 const artisansRoutes = require('./routes/artisansRoutes');
+const companyRoutes = require('./routes/companyRoutes');
 const cors = require('cors');
 
 require('dotenv').config();
@@ -30,6 +31,7 @@ app.use('/', activityRoutes)
 app.use('/', measuresRoutes);
 app.use('/', projectRoutes);
 app.use('/', artisansRoutes)
+app.use('/', companyRoutes)
 
 // Server can start with "npm start and will listen on port 3000"
 app.listen(port, () => {

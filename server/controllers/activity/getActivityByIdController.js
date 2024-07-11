@@ -1,6 +1,6 @@
 const pool = require("../../db");
 
-const getOneActivity = async (req, res) => {
+const getActivityById = async (req, res) => {
 
     try {
         const activityId = req.params.id;
@@ -19,5 +19,5 @@ const getOneActivity = async (req, res) => {
 };
 
 module.exports = {
-    getOneActivity
+    getActivityById
 };
