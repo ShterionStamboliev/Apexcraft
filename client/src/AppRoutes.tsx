@@ -8,6 +8,7 @@ import UsersTablePage from './components/pages/UsersTablePage';
 import Homepage from './components/pages/Homepage';
 import ActivitiesTablePage from './components/pages/ActivitiesTablePage';
 import MeasuresTablePage from './components/pages/MeasuresTablePage';
+import ProjectsTablePage from './components/pages/ProjectsTablePage';
 
 const AppRoutes = () => {
     return (
@@ -34,6 +35,14 @@ const AppRoutes = () => {
                     element={
                         <LayoutUsersTable>
                             <MeasuresTablePage />
+                        </LayoutUsersTable>
+                    }
+                />
+                <Route
+                    path='/projects'
+                    element={
+                        <LayoutUsersTable>
+                            <ProjectsTablePage />
                         </LayoutUsersTable>
                     }
                 />
