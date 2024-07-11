@@ -1,5 +1,5 @@
 import { SidebarItems } from '@/types/sidebar-types/sidebarItems';
-import { Activity, Home, Info, LogOut, Ruler, User, Users } from 'lucide-react';
+import { Activity, BrickWall, Home, Info, LogOut, Ruler, User, Users } from 'lucide-react';
 
 export const sidebarItems: SidebarItems = {
     links: [
@@ -7,6 +7,7 @@ export const sidebarItems: SidebarItems = {
         { label: 'Activities', href: '/activities', icon: Activity },
         { label: 'Measures', href: '/measures', icon: Ruler },
         { label: 'Users', href: '/users', icon: Users },
+        { label: 'Projects', href: '/projects', icon: BrickWall },
         { label: 'About', href: '/about', icon: Info },
     ]
 };
