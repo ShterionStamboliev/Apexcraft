@@ -15,9 +15,8 @@ const editMeasure = async (req, res) => {
         await db.execute(query, [newName, measureId])
         res.status(200).send('Measure updated successfully')
     } catch (error) {
-        console.error('Database error:', error);
-        res.status(500).send(error);
-    }
+        res.status(500).json({ message: 'Error creating the measure!', error });
+    };
 };
 
 module.exports = {
