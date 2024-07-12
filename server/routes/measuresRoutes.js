@@ -7,9 +7,9 @@ const { getMeasures } = require("../controllers/measures/getMeasuresController")
 
 const router = express.Router();
 
-router.get("/measures", getMeasures)
-router.get("/measures/:id", getMeasureById)
-router.post("/measures/create", createMeasure)
-router.put("/measures/:id/edit", editMeasure)
+router.get("/measures", authenticateToken, getMeasures)
+router.get("/measures/:id", authenticateToken, getMeasureById)
+router.post("/measures/create", authenticateToken, createMeasure)
+router.put("/measures/:id/edit", authenticateToken, editMeasure)
 
 module.exports = router;
