@@ -10,6 +10,7 @@ import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 import { ActivityProvider } from './context/Activity/ActivityContext'
 import { MeasureProvider } from './context/Measure/MeasureContext'
+import { CompanyProvider } from './context/Companies/CompanyContext'
 
 const queryClient = new QueryClient();
 
@@ -22,8 +23,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                         <UserProvider>
                             <ActivityProvider>
                                 <MeasureProvider>
-                                    <AppRoutes />
-                                    <Toaster />
+                                    <CompanyProvider>
+                                        <AppRoutes />
+                                        <Toaster />
+                                    </CompanyProvider>
                                 </MeasureProvider>
                             </ActivityProvider>
                         </UserProvider>
