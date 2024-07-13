@@ -1,115 +1,115 @@
-import { MeasureAction, MeasureActionType } from '@/types/measure-types/measureActionTypes';
-import { Measure } from '@/types/measure-types/measureTypes';
+import { CompanyAction, CompanyActionType } from '@/types/company-types/companyActionTypes';
+import { Company } from '@/types/company-types/companyTypes';
 
-interface InitialMeasureState {
-    measure: Measure[];
+interface InitialCompanyState {
+    company: Company[];
     isLoading: boolean;
-    isMeasureLoading: boolean;
+    isCompanyLoading: boolean;
     error?: string;
 }
 
-export const initialState: InitialMeasureState = {
-    measure: [],
-    isMeasureLoading: false,
+export const initialState: InitialCompanyState = {
+    company: [],
+    isCompanyLoading: false,
     isLoading: false,
     error: undefined,
 };
 
-const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
+const companyReducer = (state: InitialCompanyState, action: CompanyAction) => {
     switch (action.type) {
-        case MeasureActionType.CREATE_MEASURE_REQUEST:
+        case CompanyActionType.CREATE_COMPANY_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
             };
-        case MeasureActionType.CREATE_MEASURE_SUCCESS:
+        case CompanyActionType.CREATE_COMPANY_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                measure: [...state.measure, action.payload],
+                company: [...state.company, action.payload],
             };
-        case MeasureActionType.CREATE_MEASURE_ERROR:
+        case CompanyActionType.CREATE_COMPANY_ERROR:
             return {
                 ...state,
                 isMeasureLoading: false,
                 error: action.payload.error,
             };
-        case MeasureActionType.GET_MEASURE_REQUEST:
+        case CompanyActionType.GET_COMPANY_REQUEST:
             return {
                 ...state,
-                isMeasureLoading: true,
+                isCompanyLoading: true,
                 error: undefined,
             };
-        case MeasureActionType.GET_MEASURE_SUCCESS:
+        case CompanyActionType.GET_COMPANY_SUCCESS:
             return {
                 ...state,
-                isMeasureLoading: false,
-                measure: [...state.measure],
+                isCompanyLoading: false,
+                company: [...state.company],
             };
-        case MeasureActionType.GET_MEASURE_ERROR:
+        case CompanyActionType.GET_COMPANY_ERROR:
             return {
                 ...state,
-                isMeasureLoading: false,
+                isCompanyLoading: false,
                 error: action.payload.error,
             };
-        case MeasureActionType.GET_MEASURES_REQUEST:
+        case CompanyActionType.GET_COMPANIES_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
             };
-        case MeasureActionType.GET_MEASURES_SUCCESS:
+        case CompanyActionType.GET_COMPANIES_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                measure: action.payload,
+                company: action.payload,
             };
-        case MeasureActionType.GET_MEASURES_ERROR:
+        case CompanyActionType.GET_COMPANIES_ERROR:
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.error,
             };
-        case MeasureActionType.EDIT_MEASURE_REQUEST:
+        case CompanyActionType.EDIT_COMPANY_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
             };
-        case MeasureActionType.EDIT_MEASURE_SUCCESS:
+        case CompanyActionType.EDIT_COMPANY_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                measure: state.measure.map(measure =>
-                    measure.id === action.payload.id
+                company: state.company.map(company =>
+                    company.id === action.payload.id
                         ? action.payload
-                        : measure
+                        : company
                 )
             };
-        case MeasureActionType.EDIT_MEASURE_ERROR:
+        case CompanyActionType.EDIT_COMPANY_ERROR:
             return {
                 ...state,
                 isLoading: false,
                 error: action.payload.error,
             };
-        case MeasureActionType.DEACTIVATE_MEASURE_REQUEST:
+        case CompanyActionType.DEACTIVATE_COMPANY_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined
             };
-        case MeasureActionType.DEACTIVATE_MEASURE_SUCCESS:
+        case CompanyActionType.DEACTIVATE_COMPANY_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
-                measure: state.measure.map(measure =>
-                    measure.id === action.payload.id
-                        ? { ...measure, status: 'inactive' }
-                        : measure
+                company: state.company.map(company =>
+                    company.id === action.payload.id
+                        ? { ...company, status: 'inactive' }
+                        : company
                 )
             };
-        case MeasureActionType.DEACTIVATE_MEASURE_ERROR:
+        case CompanyActionType.DEACTIVATE_COMPANY_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -120,4 +120,4 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
     }
 }
 
-export default measureReducer;
+export default companyReducer;
