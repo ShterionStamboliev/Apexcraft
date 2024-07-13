@@ -1,10 +1,9 @@
-const pool = require("../../db");
+const db = require("../../db");
 
 const getActivityById = async (req, res) => {
+    const activityId = req.params.id;
 
     try {
-        const activityId = req.params.id;
-
         const [rows] = await db.execute('SELECT * FROM tbl_activities WHERE id = ?', [activityId])
 
         if (rows.length === 0) {
@@ -14,6 +13,7 @@ const getActivityById = async (req, res) => {
         res.json(rows[0]);
     }
     catch (error) {
+        console.log('DB error', error);
         res.status(500).json({ message: 'Server error', error });
     }
 };

@@ -13,8 +13,8 @@ interface InitialActivityState {
 
 export const initialState: InitialActivityState = {
     activity: [],
-    isActivityLoading: false,
     isLoading: false,
+    isActivityLoading: false,
     error: undefined,
 };
 
@@ -50,7 +50,12 @@ const activityReducer = (state: InitialActivityState, action: ActivityAction) =>
                 isActivityLoading: false,
                 activity: [...state.activity],
             };
-
+        case ActivityActionType.GET_ACTIVITY_ERROR:
+            return {
+                ...state,
+                isActivityLoading: false,
+                error: action.payload.error
+            };
         case ActivityActionType.GET_ACTIVITIES_REQUEST:
             return {
                 ...state,
@@ -78,7 +83,7 @@ const activityReducer = (state: InitialActivityState, action: ActivityAction) =>
         case ActivityActionType.EDIT_ACTIVITY_SUCCESS:
             return {
                 ...state,
-                isActivityLoading: false,
+                isLoading: false,
                 activity: state.activity.map(activity =>
                     activity.id === action.payload.id
                         ? action.payload
@@ -88,7 +93,7 @@ const activityReducer = (state: InitialActivityState, action: ActivityAction) =>
         case ActivityActionType.EDIT_ACTIVITY_ERROR:
             return {
                 ...state,
-                isActivityLoading: false,
+                isLoading: false,
                 error: action.payload.error,
             };
         case ActivityActionType.DEACTIVATE_ACTIVITY_REQUEST:

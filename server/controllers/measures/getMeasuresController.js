@@ -2,7 +2,7 @@ const db = require("../../db");
 
 const getMeasures = async (req, res) => {
     try {
-        const query = 'SELECT * FROM tbl_measure';
+        const query = 'SELECT * FROM tbl_measures';
         const [rows] = await db.execute(query)
 
         res.json(rows)

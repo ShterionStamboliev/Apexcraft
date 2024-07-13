@@ -9,11 +9,11 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 
 const EditForm = ({ measure, onSuccess }: MeasureFormProps) => {
     const { form, isLoading, onSubmit } = useEditMeasure(measure, onSuccess);
-
+    
     return (
         <FormProvider {...form}>
             <form
-                id='form-edit'
+                id='edit-measure'
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <DialogHeader
@@ -28,18 +28,10 @@ const EditForm = ({ measure, onSuccess }: MeasureFormProps) => {
                     className='py-3'
                 />
 
-                <div className='flex flex-1 justify-between'>
-                    {/* <StatusSelector
-                        label='Статус'
-                        name='status'
-                        defaultVal={measure && measure.status}
-                    /> */}
-                </div>
-
                 <DialogFooter
                     isLoading={isLoading}
                     label='Редактирайте'
-                    formName='form-edit'
+                    formName='edit-measure'
                     className='mt-6'
                 />
             </form>

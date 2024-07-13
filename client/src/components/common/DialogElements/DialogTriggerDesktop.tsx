@@ -1,17 +1,17 @@
 import { Button } from '@/components/ui/button'
 import { DialogTrigger } from '@/components/ui/dialog'
-import { UserPlus } from 'lucide-react'
+import { PlusSquare } from 'lucide-react'
 
 const DialogTriggerDesktop = () => {
     return (
         <>
             <DialogTrigger asChild>
                 <Button
-                    className='w-15 h-9 border border-zinc-800'
+                    className='border border-zinc-800'
                     variant={'ghost'}
-                    size={'sm'}
+                    size={'icon'}
                 >
-                    <UserPlus />
+                    <PlusSquare />
                 </Button>
             </DialogTrigger>
         </>

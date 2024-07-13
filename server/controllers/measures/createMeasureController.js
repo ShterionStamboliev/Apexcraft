@@ -1,23 +1,31 @@
 const db = require('../../db')
 
 const createMeasure = async (req, res) => {
+
+    const measureName = req.body.name;
+
     try {
-        const measureName = req.body.name;
 
         if (!measureName) {
-            return res.status(400).send('Name is required')
-        }
+            return res.status(400).json({ message: 'Name is required!' });
+        };
 
-        const query = 'INSERT INTO tbl_measure(name) VALUES(?)'; //check the name of the table
+        const query = 'INSERT INTO tbl_measures(name) VALUES(?)';
 
-        await db.execute(query, [measureName])
+        const values = [measureName];
 
-        res.status(201).send('Measure created successfully')
+        const [result] = await db.execute(query, values);
+
+        const newMeasure = {
+            id: result.insertId,
+            measureName
+        };
+
+        res.status(201).json({ message: 'Measure created successfully!', measure: newMeasure });
 
     } catch (error) {
-        console.log('Adding measure failed');
-        res.status(500).send(error)
-    }
+        res.status(500).json({ message: 'Error creating the measure!', error });
+    };
 };
 
 module.exports = {

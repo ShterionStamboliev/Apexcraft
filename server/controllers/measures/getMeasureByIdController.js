@@ -4,7 +4,7 @@ const getMeasureById = async (req, res) => {
 
     try {
         const measureId = req.params.id;
-        const query = 'SELECT * FROM tbl_measure WHERE id = ?';
+        const query = 'SELECT * FROM tbl_measures WHERE id = ?';
 
         const [rows] = await db.execute(query, [measureId])
 

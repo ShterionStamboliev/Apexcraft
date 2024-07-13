@@ -5,12 +5,14 @@ import { Edit, UserX } from 'lucide-react';
 type DesktopViewButtonsProps = {
     handleEditClick: (userId: number) => void;
     handleDisableClick: (userId: number) => void;
+    hoverLabel: string;
     id: number;
 }
 
 const DesktopViewButtons = ({
     handleEditClick,
     handleDisableClick,
+    hoverLabel,
     id
 }: DesktopViewButtonsProps) => {
     return (
@@ -28,12 +30,12 @@ const DesktopViewButtons = ({
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side='left'>
-                        <p>Edit user</p>
+                        <p>Edit {hoverLabel}</p>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
 
-            <TooltipProvider>
+            {/* <TooltipProvider>
                 <Tooltip>
                     <TooltipTrigger asChild>
                         <Button
@@ -44,10 +46,10 @@ const DesktopViewButtons = ({
                         </Button>
                     </TooltipTrigger>
                     <TooltipContent side='right'>
-                        <p>Deactivate user</p>
+                        <p>Deactivate {hoverLabel}</p>
                     </TooltipContent>
                 </Tooltip>
-            </TooltipProvider>
+            </TooltipProvider> */}
         </>
     )
 }

@@ -79,7 +79,7 @@ const CreateUser = () => {
                                     <RoleSelector
                                         label='Роля'
                                         name='role'
-                                        placeholder='Роля'
+                                        placeholder='user'
                                     />
                                     <StatusSelector
                                         label='Статус'

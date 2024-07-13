@@ -1,12 +1,12 @@
 import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
 import { Table } from "../../ui/table"
 import { Suspense, lazy, useEffect, useState } from 'react';
-import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import FilterDropdown from '@/components/common/Filter/FilterDropdown';
 import { useUser } from '@/context/User/UserContext';
 import { FetchUser } from '@/types/user-types/userTypes';
+import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 
 const UsersTableBody = lazy(() => import('@/components/tables/UsersTable/UsersTableBody'));
 
@@ -47,7 +47,7 @@ const UsersTable = () => {
                 </div>
                 <Table className='w-full min-w-full'>
                     <UsersHeader />
-                    <Suspense fallback={<TableLoadingPage />}>
+                    <Suspense fallback={<UsersLoader />}>
                         <UsersTableBody
                             filteredData={filteredData}
                         />

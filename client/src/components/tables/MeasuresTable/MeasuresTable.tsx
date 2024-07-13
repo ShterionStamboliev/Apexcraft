@@ -1,23 +1,61 @@
 import { Table } from '@/components/ui/table'
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader'
-import MeasuresTableBody from './MeasuresTableBody'
 import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/CreateMeasure'
+import { lazy, Suspense, useEffect, useState } from 'react'
+import { useMeasure } from '@/context/Measure/MeasureContext'
+import { Measure } from '@/types/measure-types/measureTypes'
+import FilterDropdown from '@/components/common/Filter/FilterDropdown'
+import SearchBar from '@/components/common/SearchBar/SearchBar'
+import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader'
+
+const MeasuresTableBody = lazy(() => import('@/components/tables/MeasuresTable/MeasuresTableBody'))
 
 const MeasuresTable = () => {
+    const { state } = useMeasure();
+    const [searchQuery, setSearchQuery] = useState<string>('')
+    const [filteredData, setFilteredData] = useState<Measure[]>(state.measure);
+
+    useEffect(() => {
+        const fetchSearchResults = () => {
+            if (searchQuery.trim() === '') {
+                setFilteredData(state.measure);
+                return;
+            }
+            const filterData = state.measure.filter((value) => {
+                return value.name
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase());
+            });
+            setFilteredData(filterData);
+        }
+        fetchSearchResults();
+
+    }, [searchQuery, state.measure]);
+
     return (
-        <div className="flex flex-1 gap-2 py-8 overflow-x-auto md:px-0">
-
-            <CreateMeasure />
-            <div className='flex-1 pr-12 overflow-x-auto'>
-
+        <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">
+            <div className='flex-1 pr-7 overflow-x-auto'>
+                <div className='flex gap-24 md:gap-34'>
+                    <SearchBar
+                        searchQuery={searchQuery}
+                        setSearchQuery={setSearchQuery}
+                    />
+                    <div className='flex gap-4'>
+                        <FilterDropdown />
+                        <CreateMeasure />
+                    </div>
+                </div>
                 <Table className='w-full min-w-full'>
                     <MeasuresHeader />
-
-                    <MeasuresTableBody />
+                    <Suspense fallback={<MeasuresLoader />}>
+                        <MeasuresTableBody
+                            filteredData={filteredData}
+                        />
+                    </Suspense>
                 </Table>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default MeasuresTable
+export default MeasuresTable;

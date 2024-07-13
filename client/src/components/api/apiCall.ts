@@ -6,7 +6,7 @@ export const apiCall = async (
     endpoint: string,
     method: string,
     token: string,
-    body?: UserTuple
+    data?: any
 ) => {
     const response = await fetch(`${API_URL}${endpoint}`, {
         method,
@@ -14,13 +14,13 @@ export const apiCall = async (
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
         },
-        body: body ? JSON.stringify(body) : undefined,
+        body: data ? JSON.stringify(data) : undefined
     });
-    
+
     if (!response.ok) {
         throw new Error('Грешка при обработка на заявката')
     }
-    
+
     const editEndpointPattern: RegExp = /^\/users\/\d+\/edit$/;
 
     if (editEndpointPattern.test(endpoint)) {
