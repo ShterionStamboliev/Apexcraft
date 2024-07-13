@@ -4,7 +4,6 @@ const editMeasure = async (req, res) => {
 
     const measureId = req.params.id;
     const newName = req.body.name;
-    try {
 
     if (!newName) {
         return res.status(400).json({ message: 'Name is required!' });
