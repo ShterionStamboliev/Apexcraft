@@ -61,6 +61,7 @@ const useEntityHandlers = <T>({
     useEffect(() => {
         if (isCreateSuccess) {
             setIsCreateSuccess(false);
+            setIsModified(true);
         }
     }, [isCreateSuccess]);
 

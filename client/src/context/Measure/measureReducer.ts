@@ -32,7 +32,7 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
         case MeasureActionType.CREATE_MEASURE_ERROR:
             return {
                 ...state,
-                isLoading: false,
+                isMeasureLoading: false,
                 error: action.payload.error,
             };
         case MeasureActionType.GET_MEASURE_REQUEST:
@@ -47,25 +47,19 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
                 isMeasureLoading: false,
                 measure: [...state.measure],
             };
-        case MeasureActionType.EDIT_MEASURE_ERROR:
-            return {
-                ...state,
-                isMeasureLoading: false,
-                error: action.payload.error,
-            };
-        case MeasureActionType.GET_MEASURE_REQUEST:
+        case MeasureActionType.GET_MEASURES_REQUEST:
             return {
                 ...state,
                 isLoading: true,
                 error: undefined,
             };
-        case MeasureActionType.GET_MEASURE_SUCCESS:
+        case MeasureActionType.GET_MEASURES_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
                 measure: action.payload,
             };
-        case MeasureActionType.GET_MEASURE_ERROR:
+        case MeasureActionType.GET_MEASURES_ERROR:
             return {
                 ...state,
                 isLoading: false,
@@ -80,7 +74,7 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
         case MeasureActionType.EDIT_MEASURE_SUCCESS:
             return {
                 ...state,
-                isMeasureLoading: false,
+                isLoading: false,
                 measure: state.measure.map(measure =>
                     measure.id === action.payload.id
                         ? action.payload
@@ -90,7 +84,7 @@ const measureReducer = (state: InitialMeasureState, action: MeasureAction) => {
         case MeasureActionType.EDIT_MEASURE_ERROR:
             return {
                 ...state,
-                isMeasureLoading: false,
+                isLoading: false,
                 error: action.payload.error,
             };
         case MeasureActionType.DEACTIVATE_MEASURE_REQUEST:

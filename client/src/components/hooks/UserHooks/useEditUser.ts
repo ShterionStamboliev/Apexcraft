@@ -3,23 +3,23 @@ import { UserFormType } from '@/types/user-types/userTypes';
 import useToastHook from '../custom-hooks/useToastHook';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FormValues, formSchema } from '@/components/models/user/editUserSchema';
+import { formSchema } from '@/components/models/user/editUserSchema';
 
 const useEditUser = (user: UserFormType, onSuccess?: () => void) => {
     const { editUser, isLoading } = useUser();
     const { fireToast } = useToastHook();
 
-    const form = useForm<FormValues>({
+    const form = useForm<UserFormType>({
         defaultValues: user && {
             ...user,
-            password: '*******',
+            password: '*******'
         },
         resolver: zodResolver(formSchema)
     });
 
     const { reset } = form;
 
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (data: UserFormType) => {
         try {
             if (user?.id) {
                 const isEditSuccess = await editUser(user.id, data);

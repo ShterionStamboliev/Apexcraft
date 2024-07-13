@@ -3,22 +3,22 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useActivity } from '@/context/Activity/ActivityContext';
 import { Activity } from '@/types/activity-types/activityTypes';
-import { FormValues, formSchema } from '@/components/models/activity/editActivitySchema';
+import { formSchema } from '@/components/models/activity/editActivitySchema';
 
-const useEditActivityForm = (activity: Activity, onSuccess?: () => void) => {
+const useEditActivity = (activity: Activity, onSuccess?: () => void) => {
     const { editActivity, isLoading } = useActivity();
     const { fireToast } = useToastHook();
 
-    const form = useForm<FormValues>({
+    const form = useForm<Activity>({
         defaultValues: activity && {
-            name: activity.name,
+            ...activity
         },
         resolver: zodResolver(formSchema)
     });
 
     const { reset } = form;
 
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (data: Activity) => {
         try {
             if (activity?.id) {
                 const isEditSuccess = await editActivity(activity.id, data);
@@ -48,4 +48,4 @@ const useEditActivityForm = (activity: Activity, onSuccess?: () => void) => {
     };
 };
 
-export default useEditActivityForm;
+export default useEditActivity;

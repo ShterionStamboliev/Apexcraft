@@ -9,12 +9,17 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
 import { useActivity } from '@/context/Activity/ActivityContext';
 import EditForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
-import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
+import { Activity } from '@/types/activity-types/activityTypes';
+import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 
-const ActivitiesTableBody = () => {
-    const { state, getActivities, isLoading, isActivityLoading } = useActivity();
+interface ActivitiesTableProps {
+    filteredData: Activity[];
+}
+
+const ActivitiesTableBody = ({ filteredData }: ActivitiesTableProps) => {
+    const { getActivities, isLoading, isActivityLoading } = useActivity();
     const {
         selectedEntity: selectedActivity,
         isDialogOpen,
@@ -32,37 +37,43 @@ const ActivitiesTableBody = () => {
     }, [getActivities, isModified]);
 
     if (isLoading) {
-        return <TableLoadingPage />
-    };
+        return <ActivitiesLoader />
+    }
 
     return (
         <>
             <TableBody>
-                {state.activity.map((activity, i) => (
-                    <TableRow key={i}>
-                        <TableCell className='text-right pr-10'>
-                            {activity.name}
-                        </TableCell>
-                        <TableCell className='text-center'>
-                            {activity.status}
-                        </TableCell>
-                        <TableCell className='text-start pl-10'>
-                            {onDesktop ? (
-                                <DesktopViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={activity.id!}
-                                />
-                            ) : (
-                                <MobileViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={activity.id!}
-                                />
-                            )}
+                {filteredData.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={2} className='text-center text-3xl'>
+                            No results found
                         </TableCell>
                     </TableRow>
-                ))}
+                ) : (
+                    filteredData.map((activity, index) => (
+                        <TableRow key={index}>
+                            <TableCell>
+                                {activity.name}
+                            </TableCell>
+                            <TableCell className='text-start w-[200px]'>
+                                {onDesktop ? (
+                                    <DesktopViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        hoverLabel='activity'
+                                        id={activity.id!}
+                                    />
+                                ) : (
+                                    <MobileViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={activity.id!}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )
+                    ))}
             </TableBody>
 
             <Dialog
@@ -80,7 +91,6 @@ const ActivitiesTableBody = () => {
                         />
                     )}
                 </DialogContent>
-
             </Dialog>
         </>
     )

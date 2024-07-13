@@ -12,7 +12,7 @@ const editMeasure = async (req, res) => {
 
     const query = 'UPDATE tbl_measures SET name = ? WHERE ID = ?';
 
-    
+    try {
         const values = [newName, measureId];
 
         const [result] = await db.execute(query, values);
@@ -20,7 +20,6 @@ const editMeasure = async (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Measure not found!' });
         };
-
 
         const updatedMeasure = {
             id: measureId,

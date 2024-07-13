@@ -17,7 +17,7 @@ const useUserApi = () => {
 
         try {
             const newUserData: User = await apiCall('/users/create', 'POST', token!, userData);
-
+            
             dispatch({
                 type: UserActionType.CREATE_USER_SUCCESS,
                 payload: newUserData

@@ -6,13 +6,13 @@ import {
 import { useUser } from '@/context/User/UserContext';
 import { useEffect } from 'react';
 import { FetchUser } from '@/types/user-types/userTypes';
-import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
 import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHook';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
+import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 
 interface UsersTableProps {
     filteredData: FetchUser[];
@@ -37,7 +37,7 @@ const UsersTableBody = ({ filteredData }: UsersTableProps) => {
     }, [getUsers, isModified]);
 
     if (isLoading) {
-        return <TableLoadingPage />
+        return <UsersLoader />
     };
 
     return (
@@ -71,6 +71,7 @@ const UsersTableBody = ({ filteredData }: UsersTableProps) => {
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}
                                         handleDisableClick={handleDeactivateClick}
+                                        hoverLabel='user'
                                         id={user.id!}
                                     />
                                 ) : (

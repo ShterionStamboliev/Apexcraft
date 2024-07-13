@@ -1,15 +1,14 @@
-const pool = require("../../db");
+const db = require("../../db");
 
 const getActivities = async (req, res) => {
 
     try {
-        const query = 'SELECT ID, name FROM tbl_activities';
+        const activityId = req.params.id
+        const query = 'SELECT * FROM tbl_activities';
 
-        const [rows] = await pool.query(query)
+        const [rows] = await db.execute(query)
 
-        let sortedActivities = rows.sort((a,b) => a.id - b.id)
-
-        res.json(sortedActivities);
+        res.json(rows);
     }
     catch (error) {
         res.status(500).json({ message: 'Server error!', error });

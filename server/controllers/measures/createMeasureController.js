@@ -21,7 +21,7 @@ const createMeasure = async (req, res) => {
             measureName
         };
 
-        res.status(201).json({ message: 'Measure created successfully!', measure: newMeasure  });
+        res.status(201).json({ message: 'Measure created successfully!', measure: newMeasure });
 
     } catch (error) {
         res.status(500).json({ message: 'Error creating the measure!', error });

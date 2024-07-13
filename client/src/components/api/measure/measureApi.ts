@@ -17,7 +17,7 @@ const useMeasureApi = () => {
 
         try {
             const newMeasureData: Measure = await apiCall('/measures/create', 'POST', token!, measureData);
-
+            
             dispatch({
                 type: MeasureActionType.CREATE_MEASURE_SUCCESS,
                 payload: newMeasureData
@@ -99,7 +99,7 @@ const useMeasureApi = () => {
         });
 
         try {
-            await apiCall(`/users/${measureId}/edit`, 'PUT', token!, measureData);
+            await apiCall(`/measures/${measureId}/edit`, 'PUT', token!, measureData);
 
             dispatch({
                 type: MeasureActionType.EDIT_MEASURE_SUCCESS,

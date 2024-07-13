@@ -34,7 +34,7 @@ const CreateActivity = () => {
         setIsOpen,
         form,
     } = useSubmitHandler<Activity>(handleCreateEntity, formOptions);
-
+    
     return (
         <>
             {isManager && (
@@ -68,7 +68,7 @@ const CreateActivity = () => {
                                 />
                                 <div className='flex flex-1 justify-between'>
                                     <StatusSelector
-                                        label='Статус'
+                                        label='Status'
                                         name='status'
                                         placeholder='active'
                                     />

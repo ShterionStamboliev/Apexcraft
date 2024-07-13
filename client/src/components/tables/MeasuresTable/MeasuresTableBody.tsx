@@ -4,13 +4,18 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMeasure } from '@/context/Measure/MeasureContext';
 import useMeasureEntityHandlers from '@/components/hooks/MeasuresHooks/useMeasuresEntityHook';
 import { useEffect } from 'react';
-import TableLoadingPage from '@/components/utils/UsersTableLoader/TableLoadingPage';
 import EditForm from '@/components/forms/measures-form/MeasureFormEdit/EditMeasure';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
+import { Measure } from '@/types/measure-types/measureTypes';
+import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader';
 
-const MeasuresTableBody = () => {
-    const { state, getMeasures, isLoading, isMeasureLoading } = useMeasure();
+interface MeasuresTableProps {
+    filteredData: Measure[]
+}
+
+const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
+    const { getMeasures, isLoading, isMeasureLoading } = useMeasure();
     const {
         selectedEntity: selectedMeasure,
         isDialogOpen,
@@ -28,34 +33,43 @@ const MeasuresTableBody = () => {
     }, [getMeasures, isModified]);
 
     if (isLoading) {
-        return <TableLoadingPage />
+        return <MeasuresLoader />
     };
 
     return (
         <>
             <TableBody>
-                {state.measure.map((measure, index) => (
-                    <TableRow key={index}>
-                        <TableCell className='text-right'>
-                            {measure.name}
-                        </TableCell>
-                        <TableCell className='text-center'>
-                            {onDesktop ? (
-                                <DesktopViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={measure.id!}
-                                />
-                            ) : (
-                                <MobileViewButtons
-                                    handleEditClick={handleEditClick}
-                                    handleDisableClick={handleDeactivateClick}
-                                    id={measure.id!}
-                                />
-                            )}
+                {filteredData.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={2} className='text-center text-3xl'>
+                            No results found
                         </TableCell>
                     </TableRow>
-                ))}
+                ) : (
+                    filteredData.map((measure, index) => (
+                        <TableRow key={index}>
+                            <TableCell>
+                                {measure.name}
+                            </TableCell>
+                            <TableCell className='text-start w-[200px]'>
+                                {onDesktop ? (
+                                    <DesktopViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        hoverLabel='measure'
+                                        id={measure.id!}
+                                    />
+                                ) : (
+                                    <MobileViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={measure.id!}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )
+                    ))}
             </TableBody>
 
             <Dialog

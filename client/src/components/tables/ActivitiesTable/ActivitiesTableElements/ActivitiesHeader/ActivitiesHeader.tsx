@@ -4,13 +4,10 @@ const ActivitiesHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='text-right pr-10'>
+                <TableHead className='w-[320px]'>
                     Activity
                 </TableHead>
-                <TableHead className='text-center'>
-                    Status
-                </TableHead>
-                <TableHead className='pl-10'>
+                <TableHead className='w-[200px]'>
                     Options
                 </TableHead>
             </TableRow>

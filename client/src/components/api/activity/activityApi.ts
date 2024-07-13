@@ -17,6 +17,8 @@ const useActivityApi = () => {
 
         try {
             const newActivityData: Activity = await apiCall('/activities/create', 'POST', token!, activityData);
+            console.log(newActivityData);
+            
 
             dispatch({
                 type: ActivityActionType.CREATE_ACTIVITY_SUCCESS,
@@ -46,12 +48,13 @@ const useActivityApi = () => {
 
         try {
             const activity: Activity = await apiCall(`/activities/${activityId}`, 'GET', token!);
-
+            
+            console.log(activity);
             dispatch({
                 type: ActivityActionType.GET_ACTIVITY_SUCCESS,
                 payload: activity,
             });
-
+            
             return activity;
         } catch (error: unknown) {
             if (error instanceof Error) {

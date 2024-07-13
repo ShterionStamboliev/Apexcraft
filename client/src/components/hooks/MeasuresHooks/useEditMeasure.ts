@@ -11,7 +11,7 @@ const useEditMeasure = (measure: Measure, onSuccess?: () => void) => {
 
     const form = useForm<Measure>({
         defaultValues: measure && {
-            name: measure.name,
+            ...measure
         },
         resolver: zodResolver(newMeasureSchema)
     });
@@ -20,8 +20,10 @@ const useEditMeasure = (measure: Measure, onSuccess?: () => void) => {
 
     const onSubmit = async (data: Measure) => {
         try {
-            if (measure?.id) {
+            if (measure.id) {
                 const isEditSuccess = await editMeasure(measure.id, data);
+                console.log(isEditSuccess);
+                
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();
