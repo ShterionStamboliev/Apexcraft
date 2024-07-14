@@ -1,4 +1,4 @@
-const pool = require("../../db");
+const db = require("../../db");
 
 const getCompanyById = async (req, res) => {
 
