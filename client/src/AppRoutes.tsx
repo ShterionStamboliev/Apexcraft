@@ -9,6 +9,7 @@ import Homepage from './components/pages/Homepage';
 import ActivitiesTablePage from './components/pages/ActivitiesTablePage';
 import MeasuresTablePage from './components/pages/MeasuresTablePage';
 import ProjectsTablePage from './components/pages/ProjectsTablePage';
+import CompaniesTablePage from './components/pages/CompaniesTablePage';
 
 const AppRoutes = () => {
     return (
@@ -19,6 +20,14 @@ const AppRoutes = () => {
                     element={
                         <LayoutUsersTable>
                             <UsersTablePage />
+                        </LayoutUsersTable>
+                    }
+                />
+                <Route
+                    path='/companies'
+                    element={
+                        <LayoutUsersTable>
+                            <CompaniesTablePage />
                         </LayoutUsersTable>
                     }
                 />
