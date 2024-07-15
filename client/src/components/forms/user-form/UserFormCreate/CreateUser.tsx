@@ -58,38 +58,38 @@ const CreateUser = () => {
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader
-                                    title='Добавете нов потребител'
+                                    title='Add new user'
                                 />
                                 <FormFieldInput
                                     type='text'
-                                    label='Име, Фамилия'
+                                    label='Name, Surname'
                                     name='name'
                                 />
                                 <FormFieldInput
                                     type='text'
-                                    label='Потребител'
+                                    label='Username'
                                     name='username'
                                 />
                                 <FormFieldInput
                                     type='password'
-                                    label='Парола'
+                                    label='Password'
                                     name='password'
                                 />
                                 <div className='flex flex-1 justify-between'>
                                     <RoleSelector
-                                        label='Роля'
+                                        label='Role'
                                         name='role'
-                                        placeholder='user'
+                                        placeholder=''
                                     />
                                     <StatusSelector
-                                        label='Статус'
+                                        label='Status'
                                         name='status'
                                         placeholder='active'
                                     />
                                 </div>
                                 <DialogFooter
                                     isLoading={isLoading}
-                                    label='Добавете'
+                                    label='Submit'
                                     formName='user-form'
                                 />
                             </DialogContent>

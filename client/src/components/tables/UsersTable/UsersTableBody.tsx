@@ -5,7 +5,7 @@ import {
 } from '@/components/ui/table';
 import { useUser } from '@/context/User/UserContext';
 import { useEffect } from 'react';
-import { FetchUser } from '@/types/user-types/userTypes';
+import { User } from '@/types/user-types/userTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
@@ -14,11 +14,7 @@ import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 
-interface UsersTableProps {
-    filteredData: FetchUser[];
-}
-
-const UsersTableBody = ({ filteredData }: UsersTableProps) => {
+const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
     const { getUsers, isLoading, isUserLoading } = useUser();
     const {
         selectedEntity: selectedUser,
@@ -52,20 +48,12 @@ const UsersTableBody = ({ filteredData }: UsersTableProps) => {
                 ) : (
                     filteredData.map((user, index) => (
                         <TableRow key={index}>
-                            {Object.keys(user)
-                                .filter(key => key !== 'role' && key !== 'status')
-                                .map((key, i) => {
-                                    const value = user[key as keyof FetchUser];
-                                    return key !== 'id' && (
-                                        <TableCell key={i}>
-                                            {
-                                                typeof value === 'object'
-                                                    ? JSON.stringify(value)
-                                                    : value
-                                            }
-                                        </TableCell>
-                                    )
-                                })}
+                            <TableCell>
+                                {user.name_and_family}
+                            </TableCell>
+                            <TableCell>
+                                {user.username}
+                            </TableCell>
                             <TableCell className="text-start w-[200px]">
                                 {onDesktop ? (
                                     <DesktopViewButtons
