@@ -17,8 +17,6 @@ const useActivityApi = () => {
 
         try {
             const newActivityData: Activity = await apiCall('/activities/create', 'POST', token!, activityData);
-            console.log(newActivityData);
-            
 
             dispatch({
                 type: ActivityActionType.CREATE_ACTIVITY_SUCCESS,

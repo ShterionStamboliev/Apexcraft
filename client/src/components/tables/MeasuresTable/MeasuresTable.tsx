@@ -1,36 +1,20 @@
 import { Table } from '@/components/ui/table'
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader'
 import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/CreateMeasure'
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { useMeasure } from '@/context/Measure/MeasureContext'
 import { Measure } from '@/types/measure-types/measureTypes'
 import FilterDropdown from '@/components/common/Filter/FilterDropdown'
 import SearchBar from '@/components/common/SearchBar/SearchBar'
 import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader'
+import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter'
 
 const MeasuresTableBody = lazy(() => import('@/components/tables/MeasuresTable/MeasuresTableBody'))
 
 const MeasuresTable = () => {
     const { state } = useMeasure();
-    const [searchQuery, setSearchQuery] = useState<string>('')
-    const [filteredData, setFilteredData] = useState<Measure[]>(state.measure);
-
-    useEffect(() => {
-        const fetchSearchResults = () => {
-            if (searchQuery.trim() === '') {
-                setFilteredData(state.measure);
-                return;
-            }
-            const filterData = state.measure.filter((value) => {
-                return value.name
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase());
-            });
-            setFilteredData(filterData);
-        }
-        fetchSearchResults();
-
-    }, [searchQuery, state.measure]);
+    const [searchQuery, setSearchQuery] = useState<string>('');
+    const filteredData = useSearchFilter<Measure>(state.measure, searchQuery);
 
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">

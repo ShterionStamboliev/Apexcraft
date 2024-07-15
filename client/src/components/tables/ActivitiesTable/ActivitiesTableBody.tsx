@@ -3,7 +3,7 @@ import {
     TableCell,
     TableRow
 } from '@/components/ui/table';
-import { useEffect } from 'react';
+import { useEffect, } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
@@ -14,12 +14,8 @@ import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import { Activity } from '@/types/activity-types/activityTypes';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 
-interface ActivitiesTableProps {
-    filteredData: Activity[];
-}
-
-const ActivitiesTableBody = ({ filteredData }: ActivitiesTableProps) => {
-    const { getActivities, isLoading, isActivityLoading } = useActivity();
+const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => {
+    const { isLoading, getActivities, isActivityLoading } = useActivity();
     const {
         selectedEntity: selectedActivity,
         isDialogOpen,

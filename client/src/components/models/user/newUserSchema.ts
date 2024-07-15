@@ -35,6 +35,6 @@ export const formDefaultValues: User = {
     name: '',
     username: '',
     password: '',
-    role: '',
+    role: 'user',
     status: 'active',
 }

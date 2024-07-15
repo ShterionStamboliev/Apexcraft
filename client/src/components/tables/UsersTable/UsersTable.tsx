@@ -1,36 +1,20 @@
 import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
 import { Table } from "../../ui/table"
-import { Suspense, lazy, useEffect, useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import FilterDropdown from '@/components/common/Filter/FilterDropdown';
 import { useUser } from '@/context/User/UserContext';
-import { FetchUser } from '@/types/user-types/userTypes';
+import { User } from '@/types/user-types/userTypes';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
+import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 
 const UsersTableBody = lazy(() => import('@/components/tables/UsersTable/UsersTableBody'));
 
 const UsersTable = () => {
     const { state } = useUser();
     const [searchQuery, setSearchQuery] = useState<string>('')
-    const [filteredData, setFilteredData] = useState<FetchUser[]>(state.user);
-
-    useEffect(() => {
-        const fetchSearchResults = () => {
-            if (searchQuery.trim() === '') {
-                setFilteredData(state.user);
-                return;
-            }
-            const filterData = state.user.filter((value) => {
-                return value.name_and_family
-                    .toLowerCase()
-                    .includes(searchQuery.toLowerCase());
-            });
-            setFilteredData(filterData);
-        }
-        fetchSearchResults();
-
-    }, [searchQuery, state.user]);
+    const filteredData = useSearchFilter<User>(state.user, searchQuery);
 
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">

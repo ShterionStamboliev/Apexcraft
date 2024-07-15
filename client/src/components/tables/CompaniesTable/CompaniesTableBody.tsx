@@ -11,11 +11,7 @@ import { Dialog } from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
-interface CompaniesTableProps {
-    filteredData: Company[];
-}
-
-const CompaniesTableBody = ({ filteredData }: CompaniesTableProps) => {
+const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
     const { getCompanies, isLoading, isCompanyLoading } = useCompany();
     const {
         selectedEntity: selectedCompany,
