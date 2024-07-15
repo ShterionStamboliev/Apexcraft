@@ -1,4 +1,4 @@
-import { useCompany } from '@/context/Companies/CompanyContext';
+import { useCompany } from '@/context/Company/CompanyContext';
 import useEntityHandlers from '../custom-hooks/useEntityHandlers';
 import { Company } from '@/types/company-types/companyTypes';
 
