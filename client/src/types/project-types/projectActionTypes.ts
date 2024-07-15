@@ -18,7 +18,7 @@ export enum ProjectActionType {
     DEACTIVATE_PROJECT_ERROR = 'DEACTIVATE_PROJECT_ERROR',
 }
 
-export type MeasureContextProps = {
+export type ProjectContextProps = {
     state: {
         project: Project[];
     }
