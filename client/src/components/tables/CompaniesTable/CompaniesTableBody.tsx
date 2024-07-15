@@ -5,7 +5,7 @@ import useCompanyEntityHandlers from '@/components/hooks/CompaniesHooks/useCompa
 import { DialogContent } from '@/components/ui/dialog';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/CompaniesLoader';
-import { useCompany } from '@/context/Companies/CompanyContext'
+import { useCompany } from '@/context/Company/CompanyContext'
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog } from '@radix-ui/react-dialog';
 import { useEffect } from 'react';

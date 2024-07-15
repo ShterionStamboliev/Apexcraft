@@ -2,7 +2,7 @@ import useToastHook from '../custom-hooks/useToastHook';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
-import { useCompany } from '@/context/Companies/CompanyContext';
+import { useCompany } from '@/context/Company/CompanyContext';
 import { newCompanySchema } from '@/components/models/company/newCompanySchema';
 
 const useEditCompany = (company: Company, onSuccess?: () => void) => {

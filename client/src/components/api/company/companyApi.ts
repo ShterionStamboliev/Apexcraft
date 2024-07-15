@@ -1,5 +1,5 @@
 import { useAuth } from '@/context/AuthContext';
-import companyReducer, { initialState } from '@/context/Companies/companyReducer'
+import companyReducer, { initialState } from '@/context/Company/companyReducer'
 import { CompanyActionType } from '@/types/company-types/companyActionTypes';
 import { Company } from '@/types/company-types/companyTypes';
 import { useCallback, useReducer } from 'react'

@@ -10,7 +10,7 @@ import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 import { ActivityProvider } from './context/Activity/ActivityContext'
 import { MeasureProvider } from './context/Measure/MeasureContext'
-import { CompanyProvider } from './context/Companies/CompanyContext'
+import { CompanyProvider } from './context/Company/CompanyContext'
 
 const queryClient = new QueryClient();
 
