@@ -1,9 +1,9 @@
 const db = require("../../db");
 
-const getActivities = async (req, res) => {
+const getArtisans = async (req, res) => {
 
     try {
-        const query = 'SELECT * FROM tbl_activities';
+        const query = 'SELECT * FROM tbl_artisans';
 
         const [rows] = await db.execute(query)
 
@@ -15,5 +15,5 @@ const getActivities = async (req, res) => {
 };
 
 module.exports = {
-    getActivities
+    getArtisans
 };

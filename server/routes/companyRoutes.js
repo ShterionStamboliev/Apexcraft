@@ -12,6 +12,6 @@ router.get('/companies', authenticateToken, getCompanies);
 router.get('/companies/:id', authenticateToken, getCompanyById);
 router.post('/companies/create', authenticateToken, createCompany);
 router.put('/companies/:id/edit', authenticateToken, editCompany);
-router.put('/companies/:id/delete', authenticateToken, modifyCompanyStatus);
+router.put('/companies/:id/modifyStatus', authenticateToken, modifyCompanyStatus);
 
 module.exports = router;

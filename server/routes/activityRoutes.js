@@ -13,7 +13,7 @@ router.get('/activities', authenticateToken, getActivities);
 router.get('/activities/:id', authenticateToken, getActivityById);
 router.post('/activities/create', authenticateToken, createActivity);
 router.put('/activities/:id/edit', authenticateToken, editActivity);
-router.put('/activities/:id/delete', authenticateToken, modifyActivityStatus)
+router.put('/activities/:id/modifyStatus', authenticateToken, modifyActivityStatus)
 
 
 module.exports = router;
