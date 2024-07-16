@@ -4,13 +4,13 @@ const ProjectsHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead>
+                <TableHead className='w-[250px]'>
                     Project name
                 </TableHead>
-                <TableHead>
+                <TableHead className='w-[200px]'>
                     Project company name
                 </TableHead>
-                <TableHead>
+                <TableHead className='w-[280px]'>
                     Options
                 </TableHead>
             </TableRow>

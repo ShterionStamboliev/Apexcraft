@@ -5,7 +5,6 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import { ProjectFormProps } from '@/types/project-types/projectTypes';
 import useEditProject from '@/components/hooks/ProjectsHooks/useEditProject';
-import { Textarea } from '@/components/ui/textarea';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 
 const EditForm = ({ project, onSuccess }: ProjectFormProps) => {

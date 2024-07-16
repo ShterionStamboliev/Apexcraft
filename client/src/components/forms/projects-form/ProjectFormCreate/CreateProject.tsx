@@ -10,7 +10,6 @@ import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySub
 import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
 import { newProjectSchema, projectDefaults } from '@/components/models/project/newProjectSchema';
 import { DialogContent } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/context/AuthContext';
 import { Project } from '@/types/project-types/projectTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -88,18 +87,13 @@ const CreateProject = () => {
                                         name='company_id'
                                     />
                                 </div>
+
                                 <FormTextareaInput
                                     name='note'
-                                    label='Enter text...'
+                                    label='Enter notes for your project'
                                     type='text'
                                 />
-
-                                {/* <FormFieldInput
-                                        type='text'
-                                        label='Note'
-                                        name='note'
-                                        className='py-3'
-                                    /> */}
+                                
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'
