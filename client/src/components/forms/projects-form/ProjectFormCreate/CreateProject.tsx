@@ -5,11 +5,11 @@ import DialogTriggerMobile from '@/components/common/DialogElements/DialogTrigge
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
 import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
 import { newProjectSchema, projectDefaults } from '@/components/models/project/newProjectSchema';
 import { DialogContent } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
 import { useAuth } from '@/context/AuthContext';
 import { Project } from '@/types/project-types/projectTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -87,19 +87,13 @@ const CreateProject = () => {
                                         name='company_id'
                                     />
                                 </div>
-                                {/* <Textarea
-                                    placeholder='Project notes...'
-                                    className='resize-none'
-                                    name='note'
-                                    typeof='string'
-                                /> */}
 
-                                <FormFieldInput
-                                    type='text'
-                                    label='Note'
+                                <FormTextareaInput
                                     name='note'
-                                    className='py-3'
+                                    label='Enter notes for your project'
+                                    type='text'
                                 />
+                                
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'

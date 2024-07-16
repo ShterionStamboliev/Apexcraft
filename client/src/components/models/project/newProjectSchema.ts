@@ -16,7 +16,7 @@ export const newProjectSchema = z.object({
     main_email: z.string().min(5, {
         message: 'Email must be at least 5 characters long'
     }).email('Please, enter a valid email'),
-    note: z.string().trim().min(10, {
+    note: z.string().min(10, {
         message: 'Note must be at least 10 characters long'
     }),
     status: z.nativeEnum(ProjectStatus, {

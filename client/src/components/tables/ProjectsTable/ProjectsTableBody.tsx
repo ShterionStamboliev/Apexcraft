@@ -13,6 +13,7 @@ import { useProject } from '@/context/Project/ProjectContext';
 import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
 import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
 import { useCompany } from '@/context/Company/CompanyContext';
+import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { getProjects, isLoading, isProjectLoading } = useProject();
@@ -34,9 +35,9 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
         getCompanies();
     }, [getProjects, isModified]);
 
-    // if (isLoading) {
-    //     return <UsersLoader />
-    // };
+    if (isLoading) {
+        return <ProjectsLoader />
+    };
 
     return (
         <>

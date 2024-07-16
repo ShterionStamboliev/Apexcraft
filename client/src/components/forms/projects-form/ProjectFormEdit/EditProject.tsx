@@ -5,7 +5,7 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import { ProjectFormProps } from '@/types/project-types/projectTypes';
 import useEditProject from '@/components/hooks/ProjectsHooks/useEditProject';
-import { Textarea } from '@/components/ui/textarea';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 
 const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
     const { form, isLoading, onSubmit } = useEditProject(project, onSuccess);
@@ -42,11 +42,12 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                     className='py-3'
                 />
 
-                <Textarea
+                <FormTextareaInput
                     placeholder='Project notes...'
                     className='resize-none'
-                    name='project_notes'
-                    defaultValue={project && project.note}
+                    name='note'
+                    type='text'
+                    label='Enter notes for your project'
                 />
 
                 <DialogFooter
