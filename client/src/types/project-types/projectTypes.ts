@@ -1,8 +1,13 @@
 export type Project = {
     id?: number;
-    project_name: string;
-    project_company: string;
-    project_email: string;
-    project_note: string;
+    name: string;
+    company_id: string;
+    main_email: string;
+    note: string;
     status: 'active' | 'inactive';
+}
+
+export interface ProjectFormProps {
+    onSuccess?: () => void;
+    project: Project;
 }

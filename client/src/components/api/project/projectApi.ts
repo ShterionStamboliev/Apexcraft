@@ -17,7 +17,7 @@ const useProjectApi = () => {
 
         try {
             const newProjectData: Project = await apiCall('/projects/create', 'POST', token!, projectData);
-
+            
             dispatch({
                 type: ProjectActionType.CREATE_PROJECT_SUCCESS,
                 payload: newProjectData

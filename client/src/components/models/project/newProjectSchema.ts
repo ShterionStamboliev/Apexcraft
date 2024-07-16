@@ -7,16 +7,16 @@ enum ProjectStatus {
 }
 
 export const newProjectSchema = z.object({
-    project_name: z.string().min(5, {
+    name: z.string().min(5, {
         message: 'Name of the project must be at least 5 characters long'
     }),
-    project_company: z.string().min(5, {
-        message: 'Name of the company must be at least 5 characters long'
+    company_id: z.string().min(1, {
+        message: 'Please select a company'
     }),
-    project_email: z.string().min(5, {
+    main_email: z.string().min(5, {
         message: 'Email must be at least 5 characters long'
     }).email('Please, enter a valid email'),
-    project_note: z.string().min(10, {
+    note: z.string().trim().min(10, {
         message: 'Note must be at least 10 characters long'
     }),
     status: z.nativeEnum(ProjectStatus, {
@@ -24,10 +24,10 @@ export const newProjectSchema = z.object({
     }),
 });
 
-export const projectDefaults: Project = {
-    project_name: '',
-    project_company: '',
-    project_email: '',
-    project_note: '',
-    status: 'active',
+export const projectDefaults: Partial<Project> = {
+    name: '',
+    company_id: '',
+    main_email: '',
+    note: '',
+    status: ProjectStatus.active
 }
