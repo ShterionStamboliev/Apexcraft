@@ -5,6 +5,7 @@ import DialogTriggerMobile from '@/components/common/DialogElements/DialogTrigge
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
 import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
 import { newProjectSchema, projectDefaults } from '@/components/models/project/newProjectSchema';
@@ -87,19 +88,18 @@ const CreateProject = () => {
                                         name='company_id'
                                     />
                                 </div>
-                                {/* <Textarea
-                                    placeholder='Project notes...'
-                                    className='resize-none'
+                                <FormTextareaInput
                                     name='note'
-                                    typeof='string'
-                                /> */}
-
-                                <FormFieldInput
+                                    label='Enter text...'
                                     type='text'
-                                    label='Note'
-                                    name='note'
-                                    className='py-3'
                                 />
+
+                                {/* <FormFieldInput
+                                        type='text'
+                                        label='Note'
+                                        name='note'
+                                        className='py-3'
+                                    /> */}
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'
