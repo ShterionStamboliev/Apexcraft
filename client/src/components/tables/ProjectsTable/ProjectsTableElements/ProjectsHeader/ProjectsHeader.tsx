@@ -10,6 +10,9 @@ const ProjectsHeader = () => {
                 <TableHead>
                     Project company name
                 </TableHead>
+                <TableHead>
+                    Options
+                </TableHead>
             </TableRow>
         </TableHeader>
     );

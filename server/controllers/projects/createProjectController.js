@@ -3,35 +3,35 @@ const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
 
 const createProject = async (req, res) => {
 
-    const { projectName, projectCompany, projectEmail, projectNotes } = req.body;
+    const { name, company_id, main_email, note } = req.body;
 
     try {
 
-        if (!projectName || !projectCompany || !projectEmail || !projectNotes) {
+        if (!name || !company_id || !main_email || !note) {
             return res.status(400).json({ message: 'All fields are required' });
         };
 
-        const companyId = await getCompanyIdByName(projectCompany);
+        const companyId = await getCompanyIdByName(company_id);
 
         if (!companyId) {
             return res.status(400).json({ message: 'Company not found' });
         }
 
         const query = `
-            INSERT INTO tbl_projects (name, company_id, main_email, notes, status)
+            INSERT INTO tbl_projects (name, company_id, main_email, note, status)
             VALUES (?, ?, ?, ?, 'active');
         `;
 
-        const values = [projectName, companyId, projectEmail, projectNotes];
+        const values = [name, companyId, main_email, note];
 
         const [result] = await db.query(query, values);
 
         const newProject = {
             id: result.insertId,
-            projectName,
-            projectCompany,
-            projectEmail,
-            projectNotes,
+            name,
+            company_id,
+            main_email,
+            note,
             status: "active"
         };
 

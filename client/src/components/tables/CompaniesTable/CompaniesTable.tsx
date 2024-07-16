@@ -32,9 +32,9 @@ const CompaniesTable = () => {
                 <Table className='w-full min-w-full'>
                     <CompaniesHeader />
                     <Suspense fallback={<CompaniesLoader />}>
-                        <CompaniesTableBody
-                            filteredData={filteredData}
-                        />
+                    <CompaniesTableBody
+                        filteredData={filteredData}
+                    />
                     </Suspense>
                 </Table>
             </div>
