@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
-import { MeasureContextProps } from '@/types/measure-types/measureActionTypes';
 import useMeasureApi from '@/components/api/measure/measureApi';
+import { Measure } from '@/types/measure-types/measureTypes';
+import { EntityContextProps } from '../EntityReducers/entityReducers';
 
-const MeasureContext = createContext<MeasureContextProps | undefined>(undefined);
+const MeasureContext = createContext<EntityContextProps<Measure> | undefined>(undefined);
 
 type MeasureProviderType = {
     children: React.ReactNode
@@ -21,13 +22,13 @@ export const MeasureProvider = ({ children }: MeasureProviderType) => {
     return (
         <MeasureContext.Provider value={{
             state,
-            createMeasure,
-            getMeasure,
-            getMeasures,
-            editMeasure,
-            deactivateMeasure,
+            createEntity: createMeasure,
+            getEntity: getMeasure,
+            getEntities: getMeasures,
+            editEntity: editMeasure,
+            deactivateEntity: deactivateMeasure,
             isLoading: state.isLoading || false,
-            isMeasureLoading: state.isMeasureLoading || false,
+            isEntityLoading: state.isEntityLoading || false,
         }}>
             {children}
         </MeasureContext.Provider>

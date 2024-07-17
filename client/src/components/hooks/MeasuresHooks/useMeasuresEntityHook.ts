@@ -4,10 +4,10 @@ import { Measure } from '@/types/measure-types/measureTypes';
 
 const useMeasureEntityHandlers = () => {
     const {
-        createMeasure,
-        getMeasure,
-        getMeasures,
-        deactivateMeasure,
+        createEntity: createMeasure,
+        getEntity: getMeasure,
+        getEntities: getMeasures,
+        deactivateEntity: deactivateMeasure,
         isLoading,
     } = useMeasure();
 

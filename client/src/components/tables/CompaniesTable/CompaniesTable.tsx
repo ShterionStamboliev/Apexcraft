@@ -14,7 +14,7 @@ const CompaniesTableBody = lazy(() => import('@/components/tables/CompaniesTable
 const CompaniesTable = () => {
     const { state } = useCompany();
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const filteredData = useSearchFilter<Company>(state.company, searchQuery);
+    const filteredData = useSearchFilter<Company>(state.data, searchQuery);
 
     return (
         <div className="flex flex-1 py-8 overflow-x-auto md:px-0">

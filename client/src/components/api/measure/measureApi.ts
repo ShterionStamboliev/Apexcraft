@@ -1,25 +1,27 @@
 import { useCallback, useReducer } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { apiCall } from '../apiCall';
-import measureReducer, { initialState } from '@/context/Measure/measureReducer';
 import { Measure } from '@/types/measure-types/measureTypes';
-import { MeasureActionType } from '@/types/measure-types/measureActionTypes';
+import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
+import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
 
 const useMeasureApi = () => {
-    const [state, dispatch] = useReducer(measureReducer, initialState);
+    const measuresInitialState = initialState<Measure>();
+    
+    const [state, dispatch] = useReducer(entityReducer<Measure>, measuresInitialState);
 
     const { token } = useAuth();
 
     const createMeasure = async (measureData: Measure): Promise<boolean> => {
         dispatch({
-            type: MeasureActionType.CREATE_MEASURE_REQUEST
+            type: EntityActionType.CREATE_REQUEST
         });
 
         try {
             const newMeasureData: Measure = await apiCall('/measures/create', 'POST', token!, measureData);
-            
+
             dispatch({
-                type: MeasureActionType.CREATE_MEASURE_SUCCESS,
+                type: EntityActionType.CREATE_SUCCESS,
                 payload: newMeasureData
             });
 
@@ -29,7 +31,7 @@ const useMeasureApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: MeasureActionType.CREATE_MEASURE_ERROR,
+                    type: EntityActionType.CREATE_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -41,14 +43,14 @@ const useMeasureApi = () => {
 
     const getMeasure = async (measureId: number): Promise<Measure | null> => {
         dispatch({
-            type: MeasureActionType.GET_MEASURE_REQUEST,
+            type: EntityActionType.GET_REQUEST,
         });
 
         try {
             const measure: Measure = await apiCall(`/measures/${measureId}`, 'GET', token!)
 
             dispatch({
-                type: MeasureActionType.GET_MEASURE_SUCCESS,
+                type: EntityActionType.GET_SUCCESS,
                 payload: measure,
             });
 
@@ -56,7 +58,7 @@ const useMeasureApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: MeasureActionType.GET_MEASURE_ERROR,
+                    type: EntityActionType.GET_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -68,14 +70,14 @@ const useMeasureApi = () => {
 
     const getMeasures = useCallback(async (): Promise<Measure[]> => {
         dispatch({
-            type: MeasureActionType.GET_MEASURES_REQUEST,
+            type: EntityActionType.GET_ALL_REQUEST,
         });
 
         try {
             const measures: Measure[] = await apiCall('/measures', 'GET', token!)
 
             dispatch({
-                type: MeasureActionType.GET_MEASURES_SUCCESS,
+                type: EntityActionType.GET_ALL_SUCCESS,
                 payload: measures,
             });
 
@@ -83,7 +85,7 @@ const useMeasureApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: MeasureActionType.GET_MEASURES_ERROR,
+                    type: EntityActionType.GET_ALL_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -95,14 +97,14 @@ const useMeasureApi = () => {
 
     const editMeasure = async (measureId: number, measureData: Measure): Promise<boolean> => {
         dispatch({
-            type: MeasureActionType.EDIT_MEASURE_REQUEST,
+            type: EntityActionType.EDIT_REQUEST,
         });
 
         try {
             await apiCall(`/measures/${measureId}/edit`, 'PUT', token!, measureData);
 
             dispatch({
-                type: MeasureActionType.EDIT_MEASURE_SUCCESS,
+                type: EntityActionType.EDIT_SUCCESS,
                 payload: measureData,
             });
 
@@ -110,7 +112,7 @@ const useMeasureApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: MeasureActionType.EDIT_MEASURE_ERROR,
+                    type: EntityActionType.EDIT_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -122,14 +124,14 @@ const useMeasureApi = () => {
 
     const deactivateMeasure = async (measureId: number): Promise<boolean> => {
         dispatch({
-            type: MeasureActionType.DEACTIVATE_MEASURE_REQUEST,
+            type: EntityActionType.DEACTIVATE_REQUEST,
         });
 
         try {
             const measure = await apiCall(`/measures/${measureId}/delete`, 'PUT', token!)
 
             dispatch({
-                type: MeasureActionType.DEACTIVATE_MEASURE_SUCCESS,
+                type: EntityActionType.DEACTIVATE_SUCCESS,
                 payload: measure
             });
 
@@ -137,7 +139,7 @@ const useMeasureApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: MeasureActionType.DEACTIVATE_MEASURE_ERROR,
+                    type: EntityActionType.DEACTIVATE_ERROR,
                     payload: {
                         error: error.message
                     }

@@ -15,7 +15,7 @@ import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 
 const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
-    const { getUsers, isLoading, isUserLoading } = useUser();
+    const { getEntities, isLoading, isEntityLoading } = useUser();
     const {
         selectedEntity: selectedUser,
         isDialogOpen,
@@ -29,8 +29,8 @@ const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getUsers();
-    }, [getUsers, isModified]);
+        getEntities();
+    }, [getEntities, isModified]);
 
     if (isLoading) {
         return <UsersLoader />
@@ -80,7 +80,7 @@ const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isUserLoading && selectedUser && (
+                    {!isEntityLoading && selectedUser && (
                         <EditForm
                             user={selectedUser}
                             onSuccess={() => {

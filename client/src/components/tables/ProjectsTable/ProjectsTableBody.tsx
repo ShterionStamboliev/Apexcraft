@@ -16,8 +16,8 @@ import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
-    const { getProjects, isLoading, isProjectLoading } = useProject();
-    const { getCompanies } = useCompany();
+    const { getEntities, isLoading, isEntityLoading } = useProject();
+    const { getEntities: getCompanies } = useCompany();
     const {
         selectedEntity: selectedProject,
         isDialogOpen,
@@ -31,9 +31,9 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getProjects();
+        getEntities();
         getCompanies();
-    }, [getProjects, isModified]);
+    }, [getEntities, isModified]);
 
     if (isLoading) {
         return <ProjectsLoader />
@@ -83,7 +83,7 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isProjectLoading && selectedProject && (
+                    {!isEntityLoading && selectedProject && (
                         <EditForm
                             project={selectedProject}
                             onSuccess={() => {

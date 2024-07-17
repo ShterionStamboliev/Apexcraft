@@ -6,7 +6,7 @@ import { useProject } from '@/context/Project/ProjectContext';
 import { newProjectSchema } from '@/components/models/project/newProjectSchema';
 
 const useEditProject = (project: Project, onSuccess?: () => void) => {
-    const { editProject, isLoading } = useProject();
+    const { editEntity, isLoading } = useProject();
     const { fireToast } = useToastHook();
 
     const form = useForm<Project>({
@@ -21,7 +21,7 @@ const useEditProject = (project: Project, onSuccess?: () => void) => {
     const onSubmit = async (data: Project) => {
         try {
             if (project?.id) {
-                const isEditSuccess = await editProject(project.id, data);
+                const isEditSuccess = await editEntity(project.id, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();

@@ -38,7 +38,7 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {state.company
+                            {state.data
                                 .filter((company) => company.id)
                                 .map((company) => (
                                     <SelectItem

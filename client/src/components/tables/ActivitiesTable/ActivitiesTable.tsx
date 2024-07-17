@@ -14,7 +14,7 @@ const ActivitiesTableBody = lazy(() => import('@/components/tables/ActivitiesTab
 const ActivitiesTable = () => {
     const { state } = useActivity();
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const filteredData = useSearchFilter<Activity>(state.activity, searchQuery);
+    const filteredData = useSearchFilter<Activity>(state.data, searchQuery);
 
     return (
         <div className="flex flex-1 py-8 overflow-x-auto md:px-0">

@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
-    const { getCompanies, isLoading, isCompanyLoading } = useCompany();
+    const { getEntities, isLoading, isEntityLoading } = useCompany();
     const {
         selectedEntity: selectedCompany,
         isDialogOpen,
@@ -26,8 +26,8 @@ const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getCompanies();
-    }, [getCompanies, isModified]);
+        getEntities();
+    }, [getEntities, isModified]);
 
     if (isLoading) {
         return <CompaniesLoader />
@@ -80,7 +80,7 @@ const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isCompanyLoading && selectedCompany && (
+                    {!isEntityLoading && selectedCompany && (
                         <EditForm
                             company={selectedCompany}
                             onSuccess={() => {

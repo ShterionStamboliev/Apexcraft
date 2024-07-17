@@ -1,8 +1,9 @@
 import useCompanyApi from '@/components/api/company/companyApi';
-import { CompanyContextProps } from '@/types/company-types/companyActionTypes'
 import { createContext, useContext } from 'react'
+import { Company } from '@/types/company-types/companyTypes';
+import { EntityContextProps } from '../EntityReducers/entityReducers';
 
-const CompanyContext = createContext<CompanyContextProps | undefined>(undefined);
+const CompanyContext = createContext<EntityContextProps<Company> | undefined>(undefined);
 
 type CompanyProviderType = {
     children: React.ReactNode
@@ -21,13 +22,13 @@ export const CompanyProvider = ({ children }: CompanyProviderType) => {
     return (
         <CompanyContext.Provider value={{
             state,
-            createCompany,
-            getCompany,
-            getCompanies,
-            editCompany,
-            deactivateCompany,
+            createEntity: createCompany,
+            getEntity: getCompany,
+            getEntities: getCompanies,
+            editEntity: editCompany,
+            deactivateEntity: deactivateCompany,
             isLoading: state.isLoading || false,
-            isCompanyLoading: state.isCompanyLoading || false,
+            isEntityLoading: state.isEntityLoading || false,
         }}>
             {children}
         </CompanyContext.Provider>

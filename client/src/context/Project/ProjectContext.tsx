@@ -1,8 +1,9 @@
 import useProjectApi from '@/components/api/project/projectApi';
-import { ProjectContextProps } from '@/types/project-types/projectActionTypes';
 import { createContext, useContext } from 'react';
+import { Project } from '@/types/project-types/projectTypes';
+import { EntityContextProps } from '../EntityReducers/entityReducers';
 
-const ProjectContext = createContext<ProjectContextProps | undefined>(undefined);
+const ProjectContext = createContext<EntityContextProps<Project> | undefined>(undefined);
 
 type ProjectProviderProps = {
     children: React.ReactNode;
@@ -21,13 +22,13 @@ export const ProjectProvider = ({ children }: ProjectProviderProps) => {
     return (
         <ProjectContext.Provider value={{
             state,
-            createProject,
-            getProject,
-            getProjects,
-            editProject,
-            deactivateProject,
+            createEntity: createProject,
+            getEntity: getProject,
+            getEntities: getProjects,
+            editEntity: editProject,
+            deactivateEntity: deactivateProject,
             isLoading: state.isLoading || false,
-            isProjectLoading: state.isProjectLoading || false,
+            isEntityLoading: state.isEntityLoading || false,
         }}>
             {children}
         </ProjectContext.Provider>
