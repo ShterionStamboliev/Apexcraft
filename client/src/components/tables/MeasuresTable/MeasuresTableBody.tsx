@@ -15,7 +15,7 @@ interface MeasuresTableProps {
 }
 
 const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
-    const { getMeasures, isLoading, isMeasureLoading } = useMeasure();
+    const { getEntities, isLoading, isEntityLoading } = useMeasure();
     const {
         selectedEntity: selectedMeasure,
         isDialogOpen,
@@ -29,8 +29,8 @@ const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getMeasures();
-    }, [getMeasures, isModified]);
+        getEntities();
+    }, [getEntities, isModified]);
 
     if (isLoading) {
         return <MeasuresLoader />
@@ -77,7 +77,7 @@ const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isMeasureLoading && selectedMeasure && (
+                    {!isEntityLoading && selectedMeasure && (
                         <EditForm
                             measure={selectedMeasure}
                             onSuccess={() => {

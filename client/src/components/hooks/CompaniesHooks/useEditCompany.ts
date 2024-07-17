@@ -6,7 +6,7 @@ import { useCompany } from '@/context/Company/CompanyContext';
 import { newCompanySchema } from '@/components/models/company/newCompanySchema';
 
 const useEditCompany = (company: Company, onSuccess?: () => void) => {
-    const { editCompany, isLoading } = useCompany();
+    const { editEntity, isLoading } = useCompany();
     const { fireToast } = useToastHook();
 
     const form = useForm<Company>({
@@ -21,7 +21,7 @@ const useEditCompany = (company: Company, onSuccess?: () => void) => {
     const onSubmit = async (data: Company) => {
         try {
             if (company?.id) {
-                const isEditSuccess = await editCompany(company.id, data);
+                const isEditSuccess = await editEntity(company.id, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();

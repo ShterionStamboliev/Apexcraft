@@ -1,25 +1,27 @@
 import { useAuth } from '@/context/AuthContext';
-import companyReducer, { initialState } from '@/context/Company/companyReducer'
-import { CompanyActionType } from '@/types/company-types/companyActionTypes';
 import { Company } from '@/types/company-types/companyTypes';
 import { useCallback, useReducer } from 'react'
 import { apiCall } from '../apiCall';
+import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
+import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
 
 const useCompanyApi = () => {
-    const [state, dispatch] = useReducer(companyReducer, initialState);
+    const initialCompanyState = initialState<Company>();
+
+    const [state, dispatch] = useReducer(entityReducer<Company>, initialCompanyState);
 
     const { token } = useAuth();
 
     const createCompany = async (companyData: Company): Promise<boolean> => {
         dispatch({
-            type: CompanyActionType.CREATE_COMPANY_REQUEST
+            type: EntityActionType.CREATE_REQUEST
         });
 
         try {
             const newCompanyData: Company = await apiCall('/companies/create', 'POST', token!, companyData);
 
             dispatch({
-                type: CompanyActionType.CREATE_COMPANY_SUCCESS,
+                type: EntityActionType.CREATE_SUCCESS,
                 payload: newCompanyData
             });
 
@@ -29,7 +31,7 @@ const useCompanyApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: CompanyActionType.CREATE_COMPANY_ERROR,
+                    type: EntityActionType.CREATE_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -41,14 +43,14 @@ const useCompanyApi = () => {
 
     const getCompany = async (companyId: number): Promise<Company | null> => {
         dispatch({
-            type: CompanyActionType.GET_COMPANY_REQUEST
+            type: EntityActionType.GET_REQUEST
         });
 
         try {
             const company: Company = await apiCall(`/companies/${companyId}`, 'GET', token!);
 
             dispatch({
-                type: CompanyActionType.GET_COMPANY_SUCCESS,
+                type: EntityActionType.GET_SUCCESS,
                 payload: company,
             });
 
@@ -56,7 +58,7 @@ const useCompanyApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: CompanyActionType.GET_COMPANY_ERROR,
+                    type: EntityActionType.GET_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -68,14 +70,14 @@ const useCompanyApi = () => {
 
     const getCompanies = useCallback(async (): Promise<Company[]> => {
         dispatch({
-            type: CompanyActionType.GET_COMPANIES_REQUEST,
+            type: EntityActionType.GET_ALL_REQUEST,
         });
 
         try {
             const companies: Company[] = await apiCall('/companies', 'GET', token!);
 
             dispatch({
-                type: CompanyActionType.GET_COMPANIES_SUCCESS,
+                type: EntityActionType.GET_ALL_SUCCESS,
                 payload: companies,
             });
 
@@ -83,7 +85,7 @@ const useCompanyApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: CompanyActionType.GET_COMPANIES_ERROR,
+                    type: EntityActionType.GET_ALL_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -95,14 +97,14 @@ const useCompanyApi = () => {
 
     const editCompany = async (companyId: number, companyData: Company): Promise<boolean> => {
         dispatch({
-            type: CompanyActionType.EDIT_COMPANY_REQUEST
+            type: EntityActionType.EDIT_REQUEST
         });
 
         try {
             await apiCall(`/companies/${companyId}/edit`, 'PUT', token!, companyData);
 
             dispatch({
-                type: CompanyActionType.EDIT_COMPANY_SUCCESS,
+                type: EntityActionType.EDIT_SUCCESS,
                 payload: companyData,
             });
 
@@ -110,7 +112,7 @@ const useCompanyApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: CompanyActionType.EDIT_COMPANY_ERROR,
+                    type: EntityActionType.EDIT_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -122,14 +124,14 @@ const useCompanyApi = () => {
 
     const deactivateCompany = async (companyId: number): Promise<boolean> => {
         dispatch({
-            type: CompanyActionType.DEACTIVATE_COMPANY_REQUEST,
+            type: EntityActionType.DEACTIVATE_REQUEST,
         });
 
         try {
             const company: Company = await apiCall(`/companies/${companyId}/edit`, 'PUT', token!);
 
             dispatch({
-                type: CompanyActionType.DEACTIVATE_COMPANY_SUCCESS,
+                type: EntityActionType.DEACTIVATE_SUCCESS,
                 payload: company
             });
 
@@ -137,7 +139,7 @@ const useCompanyApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: CompanyActionType.DEACTIVATE_COMPANY_ERROR,
+                    type: EntityActionType.DEACTIVATE_ERROR,
                     payload: {
                         error: error.message,
                     }

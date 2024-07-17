@@ -5,7 +5,6 @@ import { MeasureFormProps } from '@/types/measure-types/measureTypes';
 import useEditMeasure from '@/components/hooks/MeasuresHooks/useEditMeasure';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-// import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 
 const EditForm = ({ measure, onSuccess }: MeasureFormProps) => {
     const { form, isLoading, onSubmit } = useEditMeasure(measure, onSuccess);

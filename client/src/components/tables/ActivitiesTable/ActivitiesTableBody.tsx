@@ -15,7 +15,7 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 
 const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => {
-    const { isLoading, getActivities, isActivityLoading } = useActivity();
+    const { isLoading, getEntities, isEntityLoading } = useActivity();
     const {
         selectedEntity: selectedActivity,
         isDialogOpen,
@@ -29,8 +29,8 @@ const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getActivities();
-    }, [getActivities, isModified]);
+        getEntities();
+    }, [getEntities, isModified]);
 
     if (isLoading) {
         return <ActivitiesLoader />
@@ -77,7 +77,7 @@ const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => 
                 onOpenChange={handleCloseDialog}
             >
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isActivityLoading && selectedActivity && (
+                    {!isEntityLoading && selectedActivity && (
                         <EditForm
                             activity={selectedActivity}
                             onSuccess={() => {

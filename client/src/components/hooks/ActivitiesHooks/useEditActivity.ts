@@ -6,7 +6,7 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import { formSchema } from '@/components/models/activity/editActivitySchema';
 
 const useEditActivity = (activity: Activity, onSuccess?: () => void) => {
-    const { editActivity, isLoading } = useActivity();
+    const { editEntity, isLoading } = useActivity();
     const { fireToast } = useToastHook();
 
     const form = useForm<Activity>({
@@ -21,7 +21,7 @@ const useEditActivity = (activity: Activity, onSuccess?: () => void) => {
     const onSubmit = async (data: Activity) => {
         try {
             if (activity?.id) {
-                const isEditSuccess = await editActivity(activity.id, data);
+                const isEditSuccess = await editEntity(activity.id, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();

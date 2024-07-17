@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
-import { ActivityContextProps } from '@/types/activity-types/activityActionTypes';
 import useActivityApi from '@/components/api/activity/activityApi';
+import { Activity } from '@/types/activity-types/activityTypes';
+import { EntityContextProps } from '../EntityReducers/entityReducers';
 
-const ActivityContext = createContext<ActivityContextProps | undefined>(undefined);
+const ActivityContext = createContext<EntityContextProps<Activity> | undefined>(undefined);
 
 type ActivityProviderType = {
     children: React.ReactNode
@@ -21,13 +22,13 @@ export const ActivityProvider = ({ children }: ActivityProviderType) => {
     return (
         <ActivityContext.Provider value={{
             state,
-            createActivity,
-            getActivity,
-            getActivities,
-            editActivity,
-            deactivateActivity,
+            createEntity: createActivity,
+            getEntity: getActivity,
+            getEntities: getActivities,
+            editEntity: editActivity,
+            deactivateEntity: deactivateActivity,
             isLoading: state.isLoading || false,
-            isActivityLoading: state.isActivityLoading || false,
+            isEntityLoading: state.isEntityLoading || false,
         }}>
             {children}
         </ActivityContext.Provider>

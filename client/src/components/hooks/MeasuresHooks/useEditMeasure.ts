@@ -6,7 +6,7 @@ import { useMeasure } from '@/context/Measure/MeasureContext';
 import { newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
 
 const useEditMeasure = (measure: Measure, onSuccess?: () => void) => {
-    const { editMeasure, isLoading } = useMeasure();
+    const { editEntity, isLoading } = useMeasure();
     const { fireToast } = useToastHook();
 
     const form = useForm<Measure>({
@@ -21,7 +21,7 @@ const useEditMeasure = (measure: Measure, onSuccess?: () => void) => {
     const onSubmit = async (data: Measure) => {
         try {
             if (measure.id) {
-                const isEditSuccess = await editMeasure(measure.id, data);
+                const isEditSuccess = await editEntity(measure.id, data);
                 console.log(isEditSuccess);
                 
                 if (isEditSuccess && onSuccess) {

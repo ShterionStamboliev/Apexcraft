@@ -1,25 +1,27 @@
 import { useAuth } from '@/context/AuthContext';
-import activityReducer, { initialState } from '@/context/Activity/activityReducer';
 import { useCallback, useReducer } from 'react';
-import { ActivityActionType } from '@/types/activity-types/activityActionTypes';
 import { Activity } from '@/types/activity-types/activityTypes';
 import { apiCall } from '../apiCall';
+import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
+import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
 
 const useActivityApi = () => {
-    const [state, dispatch] = useReducer(activityReducer, initialState);
+    const activityInitialState = initialState<Activity>();
+
+    const [state, dispatch] = useReducer(entityReducer<Activity>, activityInitialState);
 
     const { token } = useAuth();
 
     const createActivity = async (activityData: Activity): Promise<boolean> => {
         dispatch({
-            type: ActivityActionType.CREATE_ACTIVITY_REQUEST,
+            type: EntityActionType.CREATE_REQUEST,
         });
 
         try {
             const newActivityData: Activity = await apiCall('/activities/create', 'POST', token!, activityData);
 
             dispatch({
-                type: ActivityActionType.CREATE_ACTIVITY_SUCCESS,
+                type: EntityActionType.CREATE_SUCCESS,
                 payload: newActivityData,
             });
 
@@ -29,7 +31,7 @@ const useActivityApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: ActivityActionType.CREATE_ACTIVITY_ERROR,
+                    type: EntityActionType.CREATE_ERROR,
                     payload: {
                         error: error.message
                     }
@@ -41,7 +43,7 @@ const useActivityApi = () => {
 
     const getActivity = async (activityId: number): Promise<Activity | null> => {
         dispatch({
-            type: ActivityActionType.GET_ACTIVITY_REQUEST,
+            type: EntityActionType.GET_REQUEST,
         });
 
         try {
@@ -49,7 +51,7 @@ const useActivityApi = () => {
             
             console.log(activity);
             dispatch({
-                type: ActivityActionType.GET_ACTIVITY_SUCCESS,
+                type: EntityActionType.GET_SUCCESS,
                 payload: activity,
             });
             
@@ -57,7 +59,7 @@ const useActivityApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: ActivityActionType.GET_ACTIVITY_ERROR,
+                    type: EntityActionType.GET_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -69,14 +71,14 @@ const useActivityApi = () => {
 
     const getActivities = useCallback(async (): Promise<Activity[]> => {
         dispatch({
-            type: ActivityActionType.GET_ACTIVITIES_REQUEST,
+            type: EntityActionType.GET_ALL_REQUEST,
         });
 
         try {
             const activities: Activity[] = await apiCall('/activities', 'GET', token!);
 
             dispatch({
-                type: ActivityActionType.GET_ACTIVITIES_SUCCESS,
+                type: EntityActionType.GET_ALL_SUCCESS,
                 payload: activities,
             });
 
@@ -84,7 +86,7 @@ const useActivityApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: ActivityActionType.GET_ACTIVITIES_ERROR,
+                    type: EntityActionType.GET_ALL_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -96,14 +98,14 @@ const useActivityApi = () => {
 
     const editActivity = async (activityId: number, activityData: Activity): Promise<boolean> => {
         dispatch({
-            type: ActivityActionType.EDIT_ACTIVITY_REQUEST,
+            type: EntityActionType.EDIT_REQUEST,
         });
 
         try {
             await apiCall(`/activities/${activityId}/edit`, 'PUT', token!, activityData);
 
             dispatch({
-                type: ActivityActionType.EDIT_ACTIVITY_SUCCESS,
+                type: EntityActionType.EDIT_SUCCESS,
                 payload: activityData,
             });
 
@@ -111,7 +113,7 @@ const useActivityApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: ActivityActionType.EDIT_ACTIVITY_ERROR,
+                    type: EntityActionType.EDIT_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -123,14 +125,14 @@ const useActivityApi = () => {
 
     const deactivateActivity = async (activityId: number): Promise<boolean> => {
         dispatch({
-            type: ActivityActionType.DEACTIVATE_ACTIVITY_REQUEST,
+            type: EntityActionType.DEACTIVATE_REQUEST,
         });
 
         try {
             const activity = await apiCall(`/activities/${activityId}/delete`, 'PUT', token!);
 
             dispatch({
-                type: ActivityActionType.DEACTIVATE_ACTIVITY_SUCCESS,
+                type: EntityActionType.DEACTIVATE_SUCCESS,
                 payload: activity,
             });
 
@@ -138,7 +140,7 @@ const useActivityApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: ActivityActionType.EDIT_ACTIVITY_ERROR,
+                    type: EntityActionType.DEACTIVATE_ERROR,
                     payload: {
                         error: error.message
                     }

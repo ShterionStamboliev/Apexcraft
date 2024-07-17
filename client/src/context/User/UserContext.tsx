@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
-import { UserContextProps } from '@/types/user-types/userActionTypes';
 import useUserApi from '@/components/api/user/userApi';
+import { User } from '@/types/user-types/userTypes';
+import { EntityContextProps } from '../EntityReducers/entityReducers';
 
-const UserContext = createContext<UserContextProps | undefined>(undefined);
+const UserContext = createContext<EntityContextProps<User> | undefined>(undefined);
 
 type UserProviderType = {
     children: React.ReactNode
@@ -21,13 +22,13 @@ export const UserProvider = ({ children }: UserProviderType) => {
     return (
         <UserContext.Provider value={{
             state,
-            createUser,
-            editUser,
-            getUser,
-            getUsers,
-            deactivateUser,
+            createEntity: createUser,
+            getEntity: getUser,
+            getEntities: getUsers,
+            editEntity: editUser,
+            deactivateEntity: deactivateUser,
             isLoading: state.isLoading || false,
-            isUserLoading: state.isUserLoading || false,
+            isEntityLoading: state.isEntityLoading || false,
         }}>
             {children}
         </UserContext.Provider>

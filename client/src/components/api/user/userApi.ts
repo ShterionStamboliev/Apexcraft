@@ -1,25 +1,27 @@
 import { FetchUser, User, UserTuple } from '@/types/user-types/userTypes'
-import { UserActionType } from '@/types/user-types/userActionTypes';
 import { useCallback, useReducer } from 'react';
-import userReducer, { initialState } from '@/context/User/userReducer';
 import { useAuth } from '@/context/AuthContext';
 import { apiCall } from '../apiCall';
+import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
+import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
 
 const useUserApi = () => {
-    const [state, dispatch] = useReducer(userReducer, initialState);
+    const initialUserState = initialState<User>();
+
+    const [state, dispatch] = useReducer(entityReducer<User>, initialUserState);
 
     const { token } = useAuth();
 
     const createUser = async (userData: UserTuple): Promise<boolean> => {
         dispatch({
-            type: UserActionType.CREATE_USER_REQUEST
+            type: EntityActionType.CREATE_REQUEST
         });
 
         try {
             const newUserData: User = await apiCall('/users/create', 'POST', token!, userData);
-            
+
             dispatch({
-                type: UserActionType.CREATE_USER_SUCCESS,
+                type: EntityActionType.CREATE_SUCCESS,
                 payload: newUserData
             });
 
@@ -29,7 +31,7 @@ const useUserApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: UserActionType.CREATE_USER_ERROR,
+                    type: EntityActionType.CREATE_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -41,14 +43,14 @@ const useUserApi = () => {
 
     const getUser = async (userId: number): Promise<FetchUser | null> => {
         dispatch({
-            type: UserActionType.GET_USER_REQUEST,
+            type: EntityActionType.GET_REQUEST,
         });
 
         try {
             const user: FetchUser = await apiCall(`/users/${userId}`, 'GET', token!)
 
             dispatch({
-                type: UserActionType.GET_USER_SUCCESS,
+                type: EntityActionType.GET_SUCCESS,
                 payload: user,
             });
 
@@ -56,7 +58,7 @@ const useUserApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: UserActionType.GET_USER_ERROR,
+                    type: EntityActionType.GET_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -68,14 +70,14 @@ const useUserApi = () => {
 
     const getUsers = useCallback(async (): Promise<FetchUser[]> => {
         dispatch({
-            type: UserActionType.GET_USERS_REQUEST,
+            type: EntityActionType.GET_ALL_REQUEST,
         });
 
         try {
             const users: FetchUser[] = await apiCall('/users', 'GET', token!)
 
             dispatch({
-                type: UserActionType.GET_USERS_SUCCESS,
+                type: EntityActionType.GET_ALL_SUCCESS,
                 payload: users,
             });
 
@@ -83,7 +85,7 @@ const useUserApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: UserActionType.GET_USERS_ERROR,
+                    type: EntityActionType.GET_ALL_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -95,14 +97,14 @@ const useUserApi = () => {
 
     const editUser = async (userId: number, userData: User): Promise<boolean> => {
         dispatch({
-            type: UserActionType.EDIT_USER_REQUEST,
+            type: EntityActionType.EDIT_REQUEST,
         });
 
         try {
             await apiCall(`/users/${userId}/edit`, 'PUT', token!, userData);
 
             dispatch({
-                type: UserActionType.EDIT_USER_SUCCESS,
+                type: EntityActionType.EDIT_SUCCESS,
                 payload: userData,
             });
 
@@ -110,7 +112,7 @@ const useUserApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: UserActionType.EDIT_USER_ERROR,
+                    type: EntityActionType.EDIT_ERROR,
                     payload: {
                         error: error.message,
                     }
@@ -122,14 +124,14 @@ const useUserApi = () => {
 
     const deactivateUser = async (userId: number): Promise<boolean> => {
         dispatch({
-            type: UserActionType.DEACTIVATE_USER_REQUEST,
+            type: EntityActionType.DEACTIVATE_REQUEST,
         });
 
         try {
             const user = await apiCall(`/users/${userId}/delete`, 'PUT', token!)
 
             dispatch({
-                type: UserActionType.DEACTIVATE_USER_SUCCESS,
+                type: EntityActionType.DEACTIVATE_SUCCESS,
                 payload: user
             });
 
@@ -137,7 +139,7 @@ const useUserApi = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
-                    type: UserActionType.DEACTIVATE_USER_ERROR,
+                    type: EntityActionType.DEACTIVATE_ERROR,
                     payload: {
                         error: error.message
                     }

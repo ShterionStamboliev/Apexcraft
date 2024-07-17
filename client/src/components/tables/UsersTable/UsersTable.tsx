@@ -14,7 +14,7 @@ const UsersTableBody = lazy(() => import('@/components/tables/UsersTable/UsersTa
 const UsersTable = () => {
     const { state } = useUser();
     const [searchQuery, setSearchQuery] = useState<string>('')
-    const filteredData = useSearchFilter<User>(state.user, searchQuery);
+    const filteredData = useSearchFilter<User>(state.data, searchQuery);
 
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">

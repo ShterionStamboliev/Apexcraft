@@ -14,7 +14,7 @@ const MeasuresTableBody = lazy(() => import('@/components/tables/MeasuresTable/M
 const MeasuresTable = () => {
     const { state } = useMeasure();
     const [searchQuery, setSearchQuery] = useState<string>('');
-    const filteredData = useSearchFilter<Measure>(state.measure, searchQuery);
+    const filteredData = useSearchFilter<Measure>(state.data, searchQuery);
 
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">

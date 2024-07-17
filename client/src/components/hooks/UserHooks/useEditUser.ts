@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { formSchema } from '@/components/models/user/editUserSchema';
 
 const useEditUser = (user: UserFormType, onSuccess?: () => void) => {
-    const { editUser, isLoading } = useUser();
+    const { editEntity, isLoading } = useUser();
     const { fireToast } = useToastHook();
 
     const form = useForm<UserFormType>({
@@ -22,7 +22,7 @@ const useEditUser = (user: UserFormType, onSuccess?: () => void) => {
     const onSubmit = async (data: UserFormType) => {
         try {
             if (user?.id) {
-                const isEditSuccess = await editUser(user.id, data);
+                const isEditSuccess = await editEntity(user.id, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
                     reset();

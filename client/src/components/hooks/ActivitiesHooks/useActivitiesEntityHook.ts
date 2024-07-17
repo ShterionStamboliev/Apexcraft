@@ -4,10 +4,10 @@ import { useActivity } from '@/context/Activity/ActivityContext';
 
 const useActivityEntityHandlers = () => {
     const {
-        createActivity,
-        getActivity,
-        getActivities,
-        deactivateActivity,
+        createEntity: createActivity,
+        getEntity: getActivity,
+        getEntities: getActivities,
+        deactivateEntity: deactivateActivity,
         isLoading,
     } = useActivity();
 

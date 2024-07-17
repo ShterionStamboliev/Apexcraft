@@ -4,10 +4,10 @@ import { Project } from '@/types/project-types/projectTypes';
 
 const useProjectEntityHandlers = () => {
     const {
-        createProject,
-        getProject,
-        getProjects,
-        deactivateProject,
+        createEntity: createProject,
+        getEntity: getProject,
+        getEntities: getProjects,
+        deactivateEntity: deactivateProject,
         isLoading,
     } = useProject();
 
