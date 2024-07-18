@@ -6,18 +6,18 @@ enum ArtisanStatus {
     inactive = 'inactive'
 }
 
-export const newProjectSchema = z.object({
+export const newArtisanSchema = z.object({
     name: z.string().min(5, {
-        message: 'Name of the project must be at least 5 characters long'
+        message: 'Artisan name must be at least 5 characters'
     }),
-    note: z.string().min(1, {
+    note: z.string().min(10, {
+        message: 'Note must be at least 10 characters long'
+    }),
+    company: z.string().min(1, {
         message: 'Please select a company'
     }),
-    company: z.string().min(5, {
-        message: 'Email must be at least 5 characters long'
-    }).email('Please, enter a valid email'),
-    user: z.string().min(10, {
-        message: 'Note must be at least 10 characters long'
+    user: z.string().min(1, {
+        message: 'Please select user'
     }),
     status: z.nativeEnum(ArtisanStatus, {
         message: 'Please, select a status'
@@ -29,5 +29,5 @@ export const artisanDefaults: Partial<Artisan> = {
     note: '',
     company: '',
     user: '',
-    status: ArtisanStatus.active
+    status: ArtisanStatus.inactive
 };

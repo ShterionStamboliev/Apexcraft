@@ -12,6 +12,7 @@ import { ActivityProvider } from './context/Activity/ActivityContext'
 import { MeasureProvider } from './context/Measure/MeasureContext'
 import { CompanyProvider } from './context/Company/CompanyContext'
 import { ProjectProvider } from './context/Project/ProjectContext'
+import { ArtisanProvider } from './context/Artisan/ArtisanContext'
 
 const queryClient = new QueryClient();
 
@@ -26,8 +27,10 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                 <MeasureProvider>
                                     <CompanyProvider>
                                         <ProjectProvider>
-                                            <AppRoutes />
-                                            <Toaster />
+                                            <ArtisanProvider>
+                                                <AppRoutes />
+                                                <Toaster />
+                                            </ArtisanProvider>
                                         </ProjectProvider>
                                     </CompanyProvider>
                                 </MeasureProvider>
