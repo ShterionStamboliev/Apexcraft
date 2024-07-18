@@ -5,7 +5,7 @@ const getArtisans = async (req, res) => {
     try {
         const query = 'SELECT * FROM tbl_artisans';
 
-        const [rows] = await db.execute(query)
+        const [rows] = await db.execute(query);
 
         res.json(rows);
     }
