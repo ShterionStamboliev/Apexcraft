@@ -9,6 +9,8 @@ const editArtisan = async (req, res) => {
 
     try {
 
+        let foundCompany = null;
+
         if (!name || !status) {
             return res.status(400).json({ message: 'Name and Status are required fields!' });
         };
@@ -38,7 +40,7 @@ const editArtisan = async (req, res) => {
         res.status(201).json({ message: 'Artisan created successfully!', artisan: updatedArtisan });
         
     } catch (error) {
-        res.status(500).json({ message: 'Error creating the activity!', error });
+        res.status(500).json({ message: 'Error updating the artisan!', error });
     }
 };
 
