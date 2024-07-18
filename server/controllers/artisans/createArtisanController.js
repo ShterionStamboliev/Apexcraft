@@ -37,7 +37,7 @@ const createArtisan = async (req, res) => {
         res.status(201).json({ message: 'Artisan created successfully!', artisan: newArtisan });
         
     } catch (error) {
-        res.status(500).json({ message: 'Error creating the activity!', error });
+        res.status(500).json({ message: 'Error creating the artisan!', error });
     }
 };
 

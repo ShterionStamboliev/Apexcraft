@@ -14,9 +14,9 @@ const modifyArtisansStatus = async (req, res) => {
 
         await db.execute(`UPDATE tbl_artisans SET status = ? WHERE id = ?`, [newStatus, id])
 
-        res.status(200).json({ message: 'Artisan status updated successfully' });
+        res.status(200).json({ message: 'Artisan status updated successfully!' });
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error!' });
     }
 };
 
