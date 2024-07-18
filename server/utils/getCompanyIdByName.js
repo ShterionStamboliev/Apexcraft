@@ -2,7 +2,7 @@ const pool = require("../db");
 
 const getCompanyIdByName = async (companyName) => {
     try {
-        const query = 'SELECT id FROM tbl_companies WHERE company_name = ?';
+        const query = 'SELECT id FROM tbl_companies WHERE name = ?';
         const [rows] = await pool.query(query, [companyName]);
 
         if (rows.length > 0) {
