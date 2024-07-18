@@ -34,6 +34,7 @@ const editArtisan = async (req, res) => {
             name,
             note, 
             company,
+            foundCompany,
             status,
         };
 
