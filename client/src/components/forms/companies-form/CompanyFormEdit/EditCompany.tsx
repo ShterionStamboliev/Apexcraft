@@ -72,7 +72,7 @@ const EditForm = ({ company, onSuccess }: CompanyFormProps) => {
                 </div>
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Редактирайте'
+                    label='Edit'
                     formName='form-edit'
                     className='mt-6'
                 />

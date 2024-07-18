@@ -10,6 +10,7 @@ import ActivitiesTablePage from './components/pages/ActivitiesTablePage';
 import MeasuresTablePage from './components/pages/MeasuresTablePage';
 import ProjectsTablePage from './components/pages/ProjectsTablePage';
 import CompaniesTablePage from './components/pages/CompaniesTablePage';
+import ArtisansTablePage from './components/pages/ArtisansTablePage';
 
 const AppRoutes = () => {
     return (
@@ -20,6 +21,14 @@ const AppRoutes = () => {
                     element={
                         <LayoutUsersTable>
                             <UsersTablePage />
+                        </LayoutUsersTable>
+                    }
+                />
+                <Route
+                    path='/artisans'
+                    element={
+                        <LayoutUsersTable>
+                            <ArtisansTablePage />
                         </LayoutUsersTable>
                     }
                 />
