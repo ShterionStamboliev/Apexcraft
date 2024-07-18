@@ -13,11 +13,8 @@ export const newArtisanSchema = z.object({
     note: z.string().min(10, {
         message: 'Note must be at least 10 characters long'
     }),
-    company: z.string().min(1, {
+    company_id: z.string().min(1, {
         message: 'Please select a company'
-    }),
-    user: z.string().min(1, {
-        message: 'Please select user'
     }),
     status: z.nativeEnum(ArtisanStatus, {
         message: 'Please, select a status'
@@ -27,7 +24,6 @@ export const newArtisanSchema = z.object({
 export const artisanDefaults: Partial<Artisan> = {
     name: '',
     note: '',
-    company: '',
-    user: '',
+    company_id: '',
     status: ArtisanStatus.inactive
 };

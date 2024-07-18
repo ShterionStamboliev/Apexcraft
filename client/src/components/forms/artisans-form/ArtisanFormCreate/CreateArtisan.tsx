@@ -6,7 +6,6 @@ import CompanySelector from '@/components/common/FormElements/FormCompanySelecto
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import UserSelector from '@/components/common/FormElements/FormUserSelector';
 import useArtisanEntityHandlers from '@/components/hooks/ArtisansHooks/useArtisansEntityHook';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
 import { artisanDefaults, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
@@ -58,18 +57,15 @@ const CreateArtisan = () => {
                                     <DialogTriggerMobile />
                                 )
                             }
-
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader
                                     title='Add new artisan'
                                 />
-
                                 <FormFieldInput
                                     type='text'
                                     label='Artisan name'
                                     name='name'
                                 />
-
                                 <div className='flex flex-1 justify-between'>
                                     <StatusSelector
                                         label='Status'
@@ -78,11 +74,7 @@ const CreateArtisan = () => {
                                     />
                                     <CompanySelector
                                         label='Select company'
-                                        name='company'
-                                    />
-                                    <UserSelector
-                                        label='Select user'
-                                        name='user'
+                                        name='company_id'
                                     />
                                 </div>
 
@@ -91,7 +83,6 @@ const CreateArtisan = () => {
                                     label='Enter note about the artisan'
                                     type='text'
                                 />
-
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'

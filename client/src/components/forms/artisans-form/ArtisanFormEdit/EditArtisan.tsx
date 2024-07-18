@@ -7,7 +7,6 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import useEditArtisan from '@/components/hooks/ArtisansHooks/useEditArtisan';
 import { ArtisanFormProps } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
-import UserSelector from '@/components/common/FormElements/FormUserSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 
 const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
@@ -28,7 +27,6 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     label='Artisan name'
                     name='name'
                 />
-
                 <div className='flex flex-1 justify-between'>
                     <StatusSelector
                         label='Status'
@@ -38,16 +36,10 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     />
                     <CompanySelector
                         label='Select company'
-                        name='company'
-                        defaultVal={artisan && artisan.company}
-                    />
-                    <UserSelector
-                        label='Select user'
-                        name='user'
-                        defaultVal={artisan && artisan.user}
+                        name='company_id'
+                        defaultVal={artisan && artisan.company_id}
                     />
                 </div>
-
                 <FormTextareaInput
                     name='note'
                     label='Enter note about the artisan'
