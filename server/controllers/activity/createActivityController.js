@@ -1,15 +1,18 @@
-const db = require('../../db')
+const db = require('../../db');
+const Validator = require('../../validators/controllerValidator');
+const { activitySchema } = require('../../validators/validationSchemas');
 
 const createActivity = async (req, res) => {
 
     const { name, status } = req.body;
+    const validator = new Validator(activitySchema);
+    const errors = validator.validate({ name, status });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
-
-        if (!name || !status) {
-            return res.status(400).json({ message: 'All fields are required' });
-        };
-
         const query = 'INSERT INTO tbl_activities(name, status) VALUES(?, ?)';
 
         const values = [name, status];
