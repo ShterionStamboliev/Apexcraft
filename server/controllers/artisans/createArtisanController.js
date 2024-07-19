@@ -23,6 +23,7 @@ const createArtisan = async (req, res) => {
         const query = 'INSERT INTO tbl_artisans(name, note, company_id, user_id, status) VALUES(?, ?, ?, ?, ?)';
 
         const values = [name, note, foundCompany, foundUser, status];
+        
 
         const [result] = await db.execute(query, values);
 
