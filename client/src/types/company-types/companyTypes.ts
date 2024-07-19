@@ -1,12 +1,12 @@
 export type Company = {
     id?: number;
-    company_name: string;
-    company_number: number;
-    company_address: string;
-    company_mol: string;
-    company_email: string;
-    company_phone: number;
-    company_dds: 'yes' | 'no';
+    name: string;
+    number: number;
+    address: string;
+    mol: string;
+    email: string;
+    phone: number;
+    dds: 'yes' | 'no';
     status: 'active' | 'inactive';
 }
 

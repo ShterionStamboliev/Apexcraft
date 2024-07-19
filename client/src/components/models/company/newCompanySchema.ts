@@ -12,10 +12,10 @@ enum CompanyDds {
 }
 
 export const newCompanySchema = z.object({
-    company_name: z.string().min(4, {
+    name: z.string().min(4, {
         message: 'Company name must be at least 4 characters'
     }),
-    company_number: z.string().min(10, {
+    number: z.string().min(10, {
         message: 'Number must be at least 10 characters'
     }).transform((val, ctx) => {
         const parsed = parseInt(val);
@@ -28,16 +28,16 @@ export const newCompanySchema = z.object({
         }
         return parsed;
     }),
-    company_address: z.string().min(5, {
+    address: z.string().min(5, {
         message: 'Address must be at least 5 characters'
     }),
-    company_mol: z.string().min(6, {
+    mol: z.string().min(6, {
         message: 'MOL name must be at least 6 characters'
     }),
-    company_email: z.string().min(6, {
+    email: z.string().min(6, {
         message: 'Email must be at least 6 characters'
     }).email('Please, enter a valid email'),
-    company_phone: z.string().min(10, {
+    phone: z.string().min(10, {
         message: 'Phone number must be at least 10 characters'
     }).transform((val, ctx) => {
         const parsed = parseInt(val);
@@ -50,7 +50,7 @@ export const newCompanySchema = z.object({
         }
         return parsed;
     }),
-    company_dds: z.nativeEnum(CompanyDds, {
+    dds: z.nativeEnum(CompanyDds, {
         message: 'DDS is required',
     }),
     status: z.nativeEnum(CompanyStatus, {
@@ -59,11 +59,11 @@ export const newCompanySchema = z.object({
 });
 
 export const formDefaultValues: Partial<Company> = {
-    company_name: '',
-    company_number: '' || undefined,
-    company_address: '',
-    company_mol: '',
-    company_phone: '' || undefined,
-    company_dds: 'no',
+    name: '',
+    number: '' || undefined,
+    address: '',
+    mol: '',
+    phone: '' || undefined,
+    dds: 'no',
     status: 'active',
 }

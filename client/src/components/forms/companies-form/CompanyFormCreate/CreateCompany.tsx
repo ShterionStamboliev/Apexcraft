@@ -65,37 +65,37 @@ const CreateCompany = () => {
                                 <FormFieldInput
                                     type='text'
                                     label='Company name'
-                                    name='company_name'
+                                    name='name'
                                 />
 
                                 <FormFieldInput
                                     type='text'
                                     label='Company number'
-                                    name='company_number'
+                                    name='number'
                                 />
 
                                 <FormFieldInput
                                     type='text'
                                     label='Company address'
-                                    name='company_address'
+                                    name='address'
                                 />
 
                                 <FormFieldInput
                                     type='text'
                                     label='Company MOL'
-                                    name='company_mol'
+                                    name='mol'
                                 />
 
                                 <FormFieldInput
                                     type='email'
                                     label='Company email'
-                                    name='company_email'
+                                    name='email'
                                 />
 
                                 <FormFieldInput
                                     type='text'
                                     label='Company phone'
-                                    name='company_phone'
+                                    name='phone'
                                 />
                                 <div className='flex flex-1 justify-between'>
 
@@ -106,7 +106,7 @@ const CreateCompany = () => {
                                     />
                                     <VatSelector 
                                         label='DDS'
-                                        name='company_dds'
+                                        name='dds'
                                         placeholder='no'
                                     />
                                 </div>

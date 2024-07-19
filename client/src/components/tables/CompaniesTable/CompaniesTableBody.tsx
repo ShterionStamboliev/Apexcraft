@@ -46,13 +46,13 @@ const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
                     filteredData.map((company, index) => (
                         <TableRow key={index}>
                             <TableCell>
-                                {company.company_name}
+                                {company.name}
                             </TableCell>
                             <TableCell>
-                                {company.company_number}
+                                {company.number}
                             </TableCell>
                             <TableCell>
-                                {company.company_mol}
+                                {company.mol}
                             </TableCell>
                             <TableCell className="text-start w-[200px]">
                                 {onDesktop ? (
