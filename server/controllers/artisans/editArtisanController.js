@@ -5,11 +5,11 @@ const { getUserIdByName } = require('../../utils/getUserIdByName');
 const editArtisan = async (req, res) => {
 
     const userId = req.params.id;
-    const { name, note, company, status } = req.body;
+    const { name, note, company_id, status } = req.body;
 
     try {
 
-        let foundCompany = null;
+        let companyName = null;
 
         if (!name || !status) {
             return res.status(400).json({ message: 'Name and Status are required fields!' });
@@ -19,27 +19,27 @@ const editArtisan = async (req, res) => {
         SET name = ?, note = ?, company_id = ?, user_id = ?, status = ?
         WHERE id = ?`;
 
-        if (company){
-            foundCompany = await getCompanyIdByName(company);
+        if (company_id) {
+            companyName = await getCompanyIdByName(company_id);
         };
-        
+
         const foundUser = await getUserIdByName(name);
 
-        const values = [name, note, foundCompany, foundUser, status, userId];
+        const values = [name, note, companyName, foundUser, status, userId];
 
         const [result] = await db.execute(query, values);
 
         const updatedArtisan = {
             id: userId,
             name,
-            note, 
-            company,
-            foundCompany,
+            note,
+            company_id,
+            companyName,
             status,
         };
 
         res.status(201).json({ message: 'Artisan created successfully!', artisan: updatedArtisan });
-        
+
     } catch (error) {
         res.status(500).json({ message: 'Error updating the artisan!', error });
     }

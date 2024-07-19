@@ -13,9 +13,15 @@ export const newArtisanSchema = z.object({
     note: z.string().min(10, {
         message: 'Note must be at least 10 characters long'
     }),
-    company_id: z.string().min(1, {
-        message: 'Please select a company'
-    }),
+    company_id: z.union([
+        z.string()
+            .min(1),
+        z.string()
+            .length(0)])
+        .transform(
+            companyName => companyName === ""
+                ? undefined
+                : companyName).optional(),
     status: z.nativeEnum(ArtisanStatus, {
         message: 'Please, select a status'
     }),

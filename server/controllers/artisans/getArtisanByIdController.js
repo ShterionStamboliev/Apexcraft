@@ -25,7 +25,7 @@ const getArtisanById = async (req, res) => {
         //     status: rows[0].status,
         // };
 
-        res.json([rows[0]])
+        res.json(rows[0])
     }
     catch (error) {
         res.status(500).json({ message: 'Server error!', error });
