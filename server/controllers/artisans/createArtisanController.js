@@ -4,25 +4,25 @@ const { getUserIdByName } = require('../../utils/getUserIdByName');
 
 const createArtisan = async (req, res) => {
 
-    const { name, note, company, status } = req.body;
+    const { name, note, company_id, status } = req.body;
 
     try {
 
-        let foundCompany = null;
+        let companyName = null;
 
         if (!name || !status) {
             return res.status(400).json({ message: 'Name and Status are required fields!' });
         };
 
-        if (company){
-            foundCompany = await getCompanyIdByName(company);
+        if (company_id){
+            companyName = await getCompanyIdByName(company_id);
         };
 
         const foundUser = await getUserIdByName(name);
         
         const query = 'INSERT INTO tbl_artisans(name, note, company_id, user_id, status) VALUES(?, ?, ?, ?, ?)';
 
-        const values = [name, note, foundCompany, foundUser, status];
+        const values = [name, note, companyName, foundUser, status];
         
 
         const [result] = await db.execute(query, values);
@@ -31,7 +31,7 @@ const createArtisan = async (req, res) => {
             id: result.insertId,
             name,
             note, 
-            company,
+            company_id,
             status,
         };
 

@@ -43,9 +43,9 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                                 .map((company) => (
                                     <SelectItem
                                         key={company.id}
-                                        value={company.company_name}
+                                        value={company.name}
                                     >
-                                        {company.company_name}
+                                        {company.name}
                                     </SelectItem>
                                 ))}
                         </SelectContent>

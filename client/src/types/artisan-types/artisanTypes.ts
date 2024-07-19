@@ -2,8 +2,8 @@ export type Artisan = {
     id?: number;
     name: string,
     note: string,
-    company: string;
-    user: string;
+    company_id: string;
+    companyName?: string;
     status: 'active' | 'inactive';
 }
 
