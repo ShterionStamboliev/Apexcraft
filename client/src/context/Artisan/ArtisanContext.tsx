@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
 import { EntityContextProps } from '../EntityReducers/entityReducers';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
-import useArtisanApi from '@/components/api/artisans/artisanApi';
+import useEntityApi from '@/components/api/entityApi';
 
 const ArtisanContext = createContext<EntityContextProps<Artisan> | undefined>(undefined);
 
@@ -12,21 +12,21 @@ type ArtisanProviderType = {
 export const ArtisanProvider = ({ children }: ArtisanProviderType) => {
     const {
         state,
-        createArtisan,
-        getArtisan,
-        getArtisans,
-        editArtisan,
-        deactivateArtisan,
-    } = useArtisanApi();
+        createEntity,
+        getEntity,
+        getEntities,
+        editEntity,
+        deactivateEntity,
+    } = useEntityApi<Artisan>('artisans');
 
     return (
         <ArtisanContext.Provider value={{
             state,
-            createEntity: createArtisan,
-            getEntity: getArtisan,
-            getEntities: getArtisans,
-            editEntity: editArtisan,
-            deactivateEntity: deactivateArtisan,
+            createEntity,
+            getEntity,
+            getEntities,
+            editEntity,
+            deactivateEntity,
             isLoading: state.isLoading || false,
             isEntityLoading: state.isEntityLoading || false,
         }}>

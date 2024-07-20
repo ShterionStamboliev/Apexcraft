@@ -4,18 +4,18 @@ import { Measure } from '@/types/measure-types/measureTypes';
 
 const useMeasureEntityHandlers = () => {
     const {
-        createEntity: createMeasure,
-        getEntity: getMeasure,
-        getEntities: getMeasures,
-        deactivateEntity: deactivateMeasure,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useMeasure();
 
     return useEntityHandlers<Measure>({
-        createEntity: createMeasure,
-        getEntity: getMeasure,
-        getEntities: getMeasures,
-        deactivateEntity: deactivateMeasure,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

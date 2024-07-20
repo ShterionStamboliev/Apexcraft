@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
-import useUserApi from '@/components/api/user/userApi';
 import { User } from '@/types/user-types/userTypes';
 import { EntityContextProps } from '../EntityReducers/entityReducers';
+import useEntityApi from '@/components/api/entityApi';
 
 const UserContext = createContext<EntityContextProps<User> | undefined>(undefined);
 
@@ -12,21 +12,21 @@ type UserProviderType = {
 export const UserProvider = ({ children }: UserProviderType) => {
     const {
         state,
-        createUser,
-        getUser,
-        getUsers,
-        editUser,
-        deactivateUser,
-    } = useUserApi();
+        createEntity,
+        getEntity,
+        getEntities,
+        editEntity,
+        deactivateEntity,
+    } = useEntityApi<User>('users');
 
     return (
         <UserContext.Provider value={{
             state,
-            createEntity: createUser,
-            getEntity: getUser,
-            getEntities: getUsers,
-            editEntity: editUser,
-            deactivateEntity: deactivateUser,
+            createEntity,
+            getEntity,
+            getEntities,
+            editEntity,
+            deactivateEntity,
             isLoading: state.isLoading || false,
             isEntityLoading: state.isEntityLoading || false,
         }}>

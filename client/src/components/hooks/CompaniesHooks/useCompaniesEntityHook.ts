@@ -4,18 +4,18 @@ import { Company } from '@/types/company-types/companyTypes';
 
 const useCompanyEntityHandlers = () => {
     const {
-        createEntity: createCompany,
-        getEntity: getCompany,
-        getEntities: getCompanies,
-        deactivateEntity: deactivateCompany,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useCompany();
 
     return useEntityHandlers<Company>({
-        createEntity: createCompany,
-        getEntity: getCompany,
-        getEntities: getCompanies,
-        deactivateEntity: deactivateCompany,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

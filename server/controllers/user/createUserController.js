@@ -11,8 +11,12 @@ const createUser = async (req, res) => {
         // Validate input
         // Additional validation will be added at a later point
         if (!name || !username || !password || !status || !role ) {
-            return res.status(400).json({ message: 'All fields are required' });
+            return res.status(400).json({ message: 'All fields are required!' });
         };
+
+        if (password.length < 6){
+            return res.status(400).json({ message: "Password is too short!"})
+        }
 
         // Manager should only be able to create users and not admin or other managers.
         

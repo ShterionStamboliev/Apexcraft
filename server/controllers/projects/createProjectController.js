@@ -3,11 +3,11 @@ const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
 
 const createProject = async (req, res) => {
 
-    const { name, company_id, main_email, note } = req.body;
+    const { name, company_id, email, note, status } = req.body;
 
     try {
 
-        if (!name || !company_id || !main_email || !note) {
+        if (!name || !company_id || !email || !note) {
             return res.status(400).json({ message: 'All fields are required' });
         };
 
@@ -18,11 +18,11 @@ const createProject = async (req, res) => {
         }
 
         const query = `
-            INSERT INTO tbl_projects (name, company_id, main_email, note, status)
+            INSERT INTO tbl_projects (name, company_id, email, note, status)
             VALUES (?, ?, ?, ?, 'active');
         `;
 
-        const values = [name, companyId, main_email, note];
+        const values = [name, companyId, email, note];
 
         const [result] = await db.query(query, values);
 
@@ -30,15 +30,15 @@ const createProject = async (req, res) => {
             id: result.insertId,
             name,
             company_id,
-            main_email,
+            email,
             note,
-            status: "active"
+            status
         };
 
-        res.status(201).json({ message: 'Project created successfully', project: newProject });
+        res.status(201).json({ message: 'Project created successfully!', project: newProject });
 
     } catch (error) {
-        res.status(500).json({ message: 'Error creating a project', error });
+        res.status(500).json({ message: 'Error creating a project!', error });
     };
 };
 

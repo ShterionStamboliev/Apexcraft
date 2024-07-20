@@ -1,16 +1,19 @@
 const db = require('../../db');
+const Validator = require('../../validators/controllerValidator');
+const { activitySchema } = require('../../validators/validationSchemas');
 
 const editActivity = async (req, res) => {
 
     const activityId = req.params.id;
     const { name, status } = req.body;
+    const validator = new Validator(activitySchema);
+    const errors = validator.validate({ name, status });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
-
-        if (!name || !status) {
-            return res.status(400).json({ message: 'All fields are required!' });
-        };
-
         const query = `UPDATE tbl_activities SET name = ?, status = ? WHERE id = ?`;
 
         const values = [name, status, activityId];

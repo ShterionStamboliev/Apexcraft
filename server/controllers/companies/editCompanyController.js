@@ -3,20 +3,20 @@ const pool = require("../../db");
 const editCompany = async (req, res) => {
 
     const company_id = req.params.id;
-    const { company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status } = req.body;
+    const { name, number, address, mol, email, phone, dds, status } = req.body;
 
     try {
        
-        if (!company_id || !company_name || !company_number || !company_address || !company_mol || !company_email || !company_phone || !company_dds || !status) {
+        if (!name || !number || !address || !mol || !email || !phone || !dds || !status) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
         const query = 
         `UPDATE tbl_companies
-        SET company_name = ?, company_number = ?, company_address = ?, company_mol = ?, company_email = ?, company_phone = ?, company_dds = ?, status = ?
+        SET name = ?, number = ?, address = ?, mol = ?, email = ?, phone = ?, dds = ?, status = ?
         WHERE id = ?;`;
 
-        const values = [company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status, company_id];
+        const values = [name, number, address, mol, email, phone, dds, status, company_id];
 
         const [result] = await pool.execute(query, values);
 
@@ -26,13 +26,13 @@ const editCompany = async (req, res) => {
 
         const updatedCompany = {
             id: company_id,
-            company_name, 
-            company_number, 
-            company_address, 
-            company_mol, 
-            company_email, 
-            company_phone, 
-            company_dds, 
+            name, 
+            number, 
+            address, 
+            mol, 
+            email, 
+            phone, 
+            dds, 
             status
         };
 

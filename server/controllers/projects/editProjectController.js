@@ -4,14 +4,14 @@ const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
 const editProject = async (req, res) => {
 
     const projectId = req.params.id;
-    const { projectName, projectCompany, projectEmail, projectNotes } = req.body;
+    const { name, company_id, email, note, status } = req.body;
 
     try {
-        if (!projectId || !projectName || !projectCompany || !projectEmail || !projectNotes) {
+        if (!name || !company_id || !email || !note) {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        const companyId = await getCompanyIdByName(projectCompany);
+        const companyId = await getCompanyIdByName(company_id);
 
         if (!companyId) {
             return res.status(400).json({ message: 'Company not found' });
@@ -19,25 +19,26 @@ const editProject = async (req, res) => {
 
         const query = `
             UPDATE tbl_projects
-            SET name = ?, company_id = ?, main_email = ?, notes = ?, status = 'active'
+            SET name = ?, company_id = ?, main_email = ?, notes = ?, status = ?
             WHERE id = ?;
         `;
 
-        const values = [projectName, companyId, projectEmail, projectNotes, projectId];
+        const values = [name, companyId, company_id, email, note, status, projectId];
 
         const [result] = await pool.query(query, values);
 
         if (result.affectedRows === 0) {
-            return res.status(404).json({ message: 'Project not found' });
+            return res.status(404).json({ message: 'Project not found!' });
         }
 
         const updatedProject = {
             id: projectId,
-            projectName,
-            projectCompany,
-            projectEmail,
-            projectNotes,
-            status: "active"
+            name,
+            company_id,
+            companyId,
+            email,
+            note,
+            status,
         };
 
         res.status(200).json({ message: 'Project updated successfully!', project: updatedProject });

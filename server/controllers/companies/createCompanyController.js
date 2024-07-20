@@ -2,32 +2,32 @@ const db = require('../../db')
 
 const createCompany = async (req, res) => {
 
-    const { company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status } = req.body;
+    const { name, number, address, mol, email, phone, dds, status } = req.body;
 
     try {
 
-        if (!company_name || !company_number || !company_address || !company_mol || !company_email || !company_phone || !company_dds || !status) {
+        if (!name || !number || !address || !mol || !email || !phone || !dds || !status) {
             return res.status(400).json({ message: 'All fields are required' });
         };
 
         const query = 
         `INSERT INTO 
-        tbl_companies(company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status)
+        tbl_companies(name, number, address, mol, email, phone, dds, status)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
 
-        const values = [company_name, company_number, company_address, company_mol, company_email, company_phone, company_dds, status];
+        const values = [name, number, address, mol, email, phone, dds, status];
 
         const [result] = await db.execute(query, values);
 
         const newCompany = {
             id: result.insertId,
-            company_name, 
-            company_number, 
-            company_address, 
-            company_mol, 
-            company_email, 
-            company_phone, 
-            company_dds, 
+            name, 
+            number, 
+            address, 
+            mol, 
+            email, 
+            phone, 
+            dds, 
             status
         };
 

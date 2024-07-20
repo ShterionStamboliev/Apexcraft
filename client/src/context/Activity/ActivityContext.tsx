@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
-import useActivityApi from '@/components/api/activity/activityApi';
 import { Activity } from '@/types/activity-types/activityTypes';
 import { EntityContextProps } from '../EntityReducers/entityReducers';
+import useEntityApi from '@/components/api/entityApi';
 
 const ActivityContext = createContext<EntityContextProps<Activity> | undefined>(undefined);
 
@@ -12,21 +12,21 @@ type ActivityProviderType = {
 export const ActivityProvider = ({ children }: ActivityProviderType) => {
     const {
         state,
-        createActivity,
-        getActivity,
-        getActivities,
-        editActivity,
-        deactivateActivity
-    } = useActivityApi();
+        createEntity,
+        getEntity,
+        getEntities,
+        editEntity,
+        deactivateEntity,
+    } = useEntityApi<Activity>('activities');
 
     return (
         <ActivityContext.Provider value={{
             state,
-            createEntity: createActivity,
-            getEntity: getActivity,
-            getEntities: getActivities,
-            editEntity: editActivity,
-            deactivateEntity: deactivateActivity,
+            createEntity,
+            getEntity,
+            getEntities,
+            editEntity,
+            deactivateEntity,
             isLoading: state.isLoading || false,
             isEntityLoading: state.isEntityLoading || false,
         }}>
