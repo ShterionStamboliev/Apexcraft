@@ -60,10 +60,11 @@ export const newCompanySchema = z.object({
 
 export const formDefaultValues: Partial<Company> = {
     name: '',
-    number: '' || undefined,
+    number: '',
     address: '',
     mol: '',
-    phone: '' || undefined,
+    phone: '',
+    email: '',
     dds: 'no',
     status: 'active',
 }
