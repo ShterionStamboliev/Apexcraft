@@ -13,8 +13,7 @@ const getActivityById = async (req, res) => {
         res.json(rows[0]);
     }
     catch (error) {
-        console.log('DB error', error);
-        res.status(500).json({ message: 'Server error!', error });
+        res.status(500).json({ error: 'Internal server error!' });
     }
 };
 
