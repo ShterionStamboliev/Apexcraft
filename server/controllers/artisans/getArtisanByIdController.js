@@ -16,19 +16,10 @@ const getArtisanById = async (req, res) => {
         
         rows[0].companyName = companyName;
 
-        // const artisanInfo = {
-        //     id: artisanId,
-        //     name: rows[0].name,
-        //     note: rows[0].note,
-        //     company: rows[0].company_id,
-        //     foundCompany: companyName,
-        //     status: rows[0].status,
-        // };
-
         res.json(rows[0])
     }
     catch (error) {
-        res.status(500).json({ message: 'Server error!', error });
+        res.status(500).json({ message: 'Internal server error!', error });
     }
 };
 

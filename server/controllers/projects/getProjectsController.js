@@ -10,7 +10,7 @@ const getProjects = async (req, res) => {
         res.json(rows);
     }
     catch (error) {
-        res.status(500).json({ message: 'Server error!', error });
+        res.status(500).json({ message: 'Internal server error!', error });
     }
 };
 

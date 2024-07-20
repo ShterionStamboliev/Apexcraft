@@ -1,20 +1,24 @@
 const db = require("../../db");
 const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
+const Validator = require('../../validators/controllerValidator');
+const { projectSchema } = require('../../validators/validationSchemas');
 
 const createProject = async (req, res) => {
 
-    const { name, company_id, email, note, status } = req.body;
+    const { name, company_name, email, note, status } = req.body;
+    const validator = new Validator(projectSchema);
+    const errors = validator.validate({ name, company_name, email, note, status });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
 
-        if (!name || !company_id || !email || !note) {
-            return res.status(400).json({ message: 'All fields are required' });
-        };
-
-        const companyId = await getCompanyIdByName(company_id);
+        const companyId = await getCompanyIdByName(company_name);
 
         if (!companyId) {
-            return res.status(400).json({ message: 'Company not found' });
+            return res.status(400).json({ message: 'Company not found!' });
         }
 
         const query = `
@@ -22,14 +26,14 @@ const createProject = async (req, res) => {
             VALUES (?, ?, ?, ?, 'active');
         `;
 
-        const values = [name, companyId, email, note];
+        const values = [name, companyId, company_name, email, note, status];
 
         const [result] = await db.query(query, values);
 
         const newProject = {
             id: result.insertId,
             name,
-            company_id,
+            company_name,
             email,
             note,
             status

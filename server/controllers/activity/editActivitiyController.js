@@ -34,7 +34,7 @@ const editActivity = async (req, res) => {
 
     } catch (error) {
         console.log('DB error', error);
-        res.status(500).json({ message: 'Error updating activity!', error });
+        res.status(500).json({ message: 'Error updating the activity!', error });
     }
 }
 
