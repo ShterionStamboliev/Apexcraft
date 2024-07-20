@@ -7,7 +7,7 @@ const editMeasure = async (req, res) => {
     const measureId = req.params.id;
     const newName = req.body.name;
     const validator = new Validator(measureSchema);
-    const errors = validator.validate({ measureName });
+    const errors = validator.validate({ newName });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
