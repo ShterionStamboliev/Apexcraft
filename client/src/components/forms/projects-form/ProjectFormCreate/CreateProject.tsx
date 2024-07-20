@@ -81,6 +81,7 @@ const CreateProject = () => {
                                     <StatusSelector
                                         label='Status'
                                         name='status'
+                                        defaultVal='active'
                                     />
                                     <CompanySelector
                                         label='Select company'
