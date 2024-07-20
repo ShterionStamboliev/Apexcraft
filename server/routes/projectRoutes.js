@@ -9,7 +9,7 @@ const { modifyProjectStatus } = require('../controllers/projects/modifyProjectSt
 const router = express.Router();
 
 router.get('/projects', authenticateToken, getProjects);
-router.get('/projects/id', authenticateToken, getProjectById);
+router.get('/projects/:id', authenticateToken, getProjectById);
 router.post('/projects/create', authenticateToken, createProject );
 router.put('/projects/:id/edit', authenticateToken, editProject );
 router.put('/projects/:id/modifyStatus', authenticateToken, modifyProjectStatus)
