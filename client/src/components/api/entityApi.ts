@@ -1,31 +1,34 @@
-import { FetchUser, User, UserTuple } from '@/types/user-types/userTypes'
-import { useCallback, useReducer } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { apiCall } from '../apiCall';
-import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
 import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
+import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
+import { useCallback, useReducer } from 'react';
+import { apiCall } from './apiCall';
 
-const useUserApi = () => {
-    const initialUserState = initialState<User>();
+interface Entity {
+    [key: string]: string | number;
+}
 
-    const [state, dispatch] = useReducer(entityReducer<User>, initialUserState);
+const useEntityApi = <T extends Entity>(entityPath: string) => {
+    const entityInitialState = initialState<T>();
+
+    const [state, dispatch] = useReducer(entityReducer<T>, entityInitialState);
 
     const { token } = useAuth();
 
-    const createUser = async (userData: UserTuple): Promise<boolean> => {
+    const createEntity = async (entityData: T): Promise<boolean> => {
         dispatch({
-            type: EntityActionType.CREATE_REQUEST
+            type: EntityActionType.CREATE_REQUEST,
         });
 
         try {
-            const newUserData: User = await apiCall('/users/create', 'POST', token!, userData);
+            const newEntityData: T = await apiCall(`/${entityPath}/create`, 'POST', token!, entityData);
 
             dispatch({
                 type: EntityActionType.CREATE_SUCCESS,
-                payload: newUserData
+                payload: newEntityData,
             });
 
-            await getUsers();
+            await getEntities();
 
             return true;
         } catch (error: unknown) {
@@ -33,28 +36,28 @@ const useUserApi = () => {
                 dispatch({
                     type: EntityActionType.CREATE_ERROR,
                     payload: {
-                        error: error.message,
+                        error: error.message
                     }
                 });
-            }
+            };
             return false;
         }
     };
 
-    const getUser = async (userId: number): Promise<FetchUser | null> => {
+    const getEntity = async (entityId: number): Promise<T | null> => {
         dispatch({
             type: EntityActionType.GET_REQUEST,
         });
 
         try {
-            const user: FetchUser = await apiCall(`/users/${userId}`, 'GET', token!)
+            const entity: T = await apiCall(`/${entityPath}/${entityId}`, 'GET', token!);
 
             dispatch({
                 type: EntityActionType.GET_SUCCESS,
-                payload: user,
+                payload: entity
             });
 
-            return user;
+            return entity;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -63,25 +66,25 @@ const useUserApi = () => {
                         error: error.message,
                     }
                 });
-            }
+            };
             return null;
         }
     };
 
-    const getUsers = useCallback(async (): Promise<FetchUser[]> => {
+    const getEntities = useCallback(async (): Promise<T[]> => {
         dispatch({
             type: EntityActionType.GET_ALL_REQUEST,
         });
 
         try {
-            const users: FetchUser[] = await apiCall('/users', 'GET', token!)
+            const entities: T[] = await apiCall(`/${entityPath}`, 'GET', token!);
 
             dispatch({
                 type: EntityActionType.GET_ALL_SUCCESS,
-                payload: users,
+                payload: entities,
             });
 
-            return users;
+            return entities;
         } catch (error: unknown) {
             if (error instanceof Error) {
                 dispatch({
@@ -90,22 +93,22 @@ const useUserApi = () => {
                         error: error.message,
                     }
                 });
-            }
+            };
             return [];
         }
     }, [token]);
 
-    const editUser = async (userId: number, userData: User): Promise<boolean> => {
+    const editEntity = async (entityId: number, entityData: T): Promise<boolean> => {
         dispatch({
             type: EntityActionType.EDIT_REQUEST,
         });
 
         try {
-            await apiCall(`/users/${userId}/edit`, 'PUT', token!, userData);
+            await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', token!, entityData);
 
             dispatch({
                 type: EntityActionType.EDIT_SUCCESS,
-                payload: userData,
+                payload: entityData,
             });
 
             return true;
@@ -122,17 +125,17 @@ const useUserApi = () => {
         }
     };
 
-    const deactivateUser = async (userId: number): Promise<boolean> => {
+    const deactivateEntity = async (entityId: number): Promise<boolean> => {
         dispatch({
             type: EntityActionType.DEACTIVATE_REQUEST,
         });
 
         try {
-            const user = await apiCall(`/users/${userId}/delete`, 'PUT', token!)
+            const entity = await apiCall(`/${entityPath}/${entityId}/delete`, 'PUT', token!);
 
             dispatch({
                 type: EntityActionType.DEACTIVATE_SUCCESS,
-                payload: user
+                payload: entity,
             });
 
             return true;
@@ -151,12 +154,12 @@ const useUserApi = () => {
 
     return {
         state,
-        createUser,
-        getUser,
-        getUsers,
-        editUser,
-        deactivateUser,
+        createEntity,
+        getEntity,
+        getEntities,
+        editEntity,
+        deactivateEntity,
     };
 };
 
-export default useUserApi;
+export default useEntityApi;

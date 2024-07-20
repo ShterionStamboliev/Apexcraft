@@ -13,7 +13,7 @@ export const newProjectSchema = z.object({
     company_id: z.string().min(1, {
         message: 'Please select a company'
     }),
-    main_email: z.string().min(5, {
+    email: z.string().min(5, {
         message: 'Email must be at least 5 characters long'
     }).email('Please, enter a valid email'),
     note: z.string().min(10, {
@@ -27,7 +27,7 @@ export const newProjectSchema = z.object({
 export const projectDefaults: Partial<Project> = {
     name: '',
     company_id: '',
-    main_email: '',
+    email: '',
     note: '',
     status: ProjectStatus.active
 }

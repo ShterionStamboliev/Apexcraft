@@ -8,13 +8,13 @@ const getCompanyById = async (req, res) => {
         const [rows] = await db.execute('SELECT * FROM tbl_companies WHERE id = ?', [companyId])
 
         if (rows.length === 0) {
-            return res.status(404).send('Company not found.')
+            return res.status(404).send('Company not found!')
         }
 
         res.json(rows[0]);
     }
     catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        res.status(500).json({ message: 'Server error!', error });
     }
 };
 

@@ -6,7 +6,7 @@ const modifyCompanyStatus = async (req, res) => {
         const [rows] = await db.execute(`SELECT status FROM tbl_companies WHERE id = ?`, [id]);
 
         if (rows.length === 0) {
-            return res.status(404).json({ error: 'Company not found' });
+            return res.status(404).json({ error: 'Company not found!' });
         }
 
         const currentStatus = rows[0].status;
@@ -14,9 +14,9 @@ const modifyCompanyStatus = async (req, res) => {
 
         await db.execute(`UPDATE tbl_companies SET status = ? WHERE id = ?`, [newStatus, id])
 
-        res.status(200).json({ message: 'Company status updated successfully' });
+        res.status(200).json({ message: 'Company status updated successfully!' });
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error!' });
     };
 };
 

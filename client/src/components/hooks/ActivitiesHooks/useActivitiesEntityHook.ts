@@ -4,18 +4,18 @@ import { useActivity } from '@/context/Activity/ActivityContext';
 
 const useActivityEntityHandlers = () => {
     const {
-        createEntity: createActivity,
-        getEntity: getActivity,
-        getEntities: getActivities,
-        deactivateEntity: deactivateActivity,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useActivity();
 
     return useEntityHandlers<Activity>({
-        createEntity: createActivity,
-        getEntity: getActivity,
-        getEntities: getActivities,
-        deactivateEntity: deactivateActivity,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

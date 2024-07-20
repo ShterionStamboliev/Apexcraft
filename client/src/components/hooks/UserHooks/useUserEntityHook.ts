@@ -4,18 +4,18 @@ import useEntityHandlers from '../custom-hooks/useEntityHandlers';
 
 const useUserEntityHandlers = () => {
     const {
-        createEntity: createUser,
-        getEntity: getUser,
-        getEntities: getUsers,
-        deactivateEntity: deactivateUser,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useUser();
 
     return useEntityHandlers<User>({
-        createEntity: createUser,
-        getEntity: getUser,
-        getEntities: getUsers,
-        deactivateEntity: deactivateUser,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

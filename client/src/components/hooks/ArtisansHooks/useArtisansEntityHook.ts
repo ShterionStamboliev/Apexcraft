@@ -4,18 +4,18 @@ import { Artisan } from '@/types/artisan-types/artisanTypes';
 
 const useArtisanEntityHandlers = () => {
     const {
-        createEntity: createArtisan,
-        getEntity: getArtisan,
-        getEntities: getArtisans,
-        deactivateEntity: deactivateArtisan,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useArtisan();
 
     return useEntityHandlers<Artisan>({
-        createEntity: createArtisan,
-        getEntity: getArtisan,
-        getEntities: getArtisans,
-        deactivateEntity: deactivateArtisan,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

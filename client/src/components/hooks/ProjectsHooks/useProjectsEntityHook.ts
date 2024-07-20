@@ -4,18 +4,18 @@ import { Project } from '@/types/project-types/projectTypes';
 
 const useProjectEntityHandlers = () => {
     const {
-        createEntity: createProject,
-        getEntity: getProject,
-        getEntities: getProjects,
-        deactivateEntity: deactivateProject,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     } = useProject();
 
     return useEntityHandlers<Project>({
-        createEntity: createProject,
-        getEntity: getProject,
-        getEntities: getProjects,
-        deactivateEntity: deactivateProject,
+        createEntity,
+        getEntity,
+        getEntities,
+        deactivateEntity,
         isLoading,
     });
 }

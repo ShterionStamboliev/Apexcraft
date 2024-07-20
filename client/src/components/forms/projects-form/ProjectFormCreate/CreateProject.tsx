@@ -73,7 +73,7 @@ const CreateProject = () => {
                                 <FormFieldInput
                                     type='email'
                                     label='Project email'
-                                    name='main_email'
+                                    name='email'
                                     className='py-3'
                                 />
 
