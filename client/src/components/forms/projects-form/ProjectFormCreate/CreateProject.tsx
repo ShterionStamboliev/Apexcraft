@@ -85,7 +85,7 @@ const CreateProject = () => {
                                     />
                                     <CompanySelector
                                         label='Select company'
-                                        name='company_id'
+                                        name='company_name'
                                     />
                                 </div>
 

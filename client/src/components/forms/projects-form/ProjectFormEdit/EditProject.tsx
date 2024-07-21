@@ -45,7 +45,8 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                     />
                     <CompanySelector
                         label='Select company'
-                        name='company_id'
+                        name='company_name'
+                        defaultVal={`${project && project.company_name}`}
                     />
                 </div>
 

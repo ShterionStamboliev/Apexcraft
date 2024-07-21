@@ -36,8 +36,8 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     />
                     <CompanySelector
                         label='Select company'
-                        name='company_id'
-                        defaultVal={artisan && artisan.companyName}
+                        name='company'
+                        defaultVal={artisan && artisan.companyId}
                     />
                 </div>
                 <FormTextareaInput

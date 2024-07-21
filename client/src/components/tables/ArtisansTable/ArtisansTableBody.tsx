@@ -14,12 +14,10 @@ import { useArtisan } from '@/context/Artisan/ArtisanContext';
 import useArtisanEntityHandlers from '@/components/hooks/ArtisansHooks/useArtisansEntityHook';
 import EditForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 import { useCompany } from '@/context/Company/CompanyContext';
-import { useUser } from '@/context/User/UserContext';
 
 const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
     const { isLoading, getEntities, isEntityLoading } = useArtisan();
     const { getEntities: getCompanies } = useCompany();
-    const { getEntities: getUsers } = useUser();
 
     const {
         selectedEntity: selectedArtisan,
@@ -36,7 +34,6 @@ const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
     useEffect(() => {
         getEntities();
         getCompanies();
-        getUsers();
     }, [getEntities, isModified]);
 
     if (isLoading) {

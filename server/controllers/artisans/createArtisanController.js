@@ -1,28 +1,32 @@
 const db = require('../../db');
 const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
 const { getUserIdByName } = require('../../utils/getUserIdByName');
+const Validator = require('../../validators/controllerValidator');
+const { artisanSchema } = require('../../validators/validationSchemas');
 
 const createArtisan = async (req, res) => {
 
-    const { name, note, company_id, status } = req.body;
+    const { name, note, company, status } = req.body;
+    const validator = new Validator(artisanSchema);
+    const errors = validator.validate({ name, note, status });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
 
-        let companyName = null;
+        let companyId = null;
 
-        if (!name || !status) {
-            return res.status(400).json({ message: 'Name and Status are required fields!' });
-        };
-
-        if (company_id){
-            companyName = await getCompanyIdByName(company_id);
+        if (company){
+            companyId = await getCompanyIdByName(company);
         };
 
         const foundUser = await getUserIdByName(name);
         
         const query = 'INSERT INTO tbl_artisans(name, note, company_id, user_id, status) VALUES(?, ?, ?, ?, ?)';
 
-        const values = [name, note, companyName, foundUser, status];
+        const values = [name, note, companyId, foundUser, status];
         
 
         const [result] = await db.execute(query, values);
@@ -31,7 +35,8 @@ const createArtisan = async (req, res) => {
             id: result.insertId,
             name,
             note, 
-            company_id,
+            company,
+            companyId,
             status,
         };
 

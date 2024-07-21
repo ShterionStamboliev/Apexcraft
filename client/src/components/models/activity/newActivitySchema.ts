@@ -7,11 +7,11 @@ enum ActivityStatus {
 }
 
 export const newActivitySchema = z.object({
-    name: z.string().min(4, {
-        message: 'Името трябва да е минимум 4 символа'
-    }),
+    name: z.string().min(3, {
+        message: 'Activity name must be at least 3 characters.'
+    }).max(50),
     status: z.nativeEnum(ActivityStatus, {
-        message: 'Моля селектирайте статус'
+        message: 'Please select status.'
     }),
 });
 

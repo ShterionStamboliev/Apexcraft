@@ -8,27 +8,18 @@ const getArtisanById = async (req, res) => {
 
         const [rows] = await pool.execute('SELECT * FROM tbl_artisans WHERE id = ?', [artisanId]);
 
-        const companyName = await getCompanyNameById(rows[0].company_id);
+        const companyId = await getCompanyNameById(rows[0].company_id);
 
         if (rows.length === 0) {
             return res.status(404).send('Artisan not found!')
         };
         
-        rows[0].companyName = companyName;
-
-        // const artisanInfo = {
-        //     id: artisanId,
-        //     name: rows[0].name,
-        //     note: rows[0].note,
-        //     company: rows[0].company_id,
-        //     foundCompany: companyName,
-        //     status: rows[0].status,
-        // };
+        rows[0].companyId = companyId;
 
         res.json(rows[0])
     }
     catch (error) {
-        res.status(500).json({ message: 'Server error!', error });
+        res.status(500).json({ message: 'Internal server error!', error });
     }
 };
 

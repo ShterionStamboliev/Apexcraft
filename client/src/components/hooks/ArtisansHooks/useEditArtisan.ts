@@ -12,7 +12,7 @@ const useEditArtisan = (artisan: Artisan, onSuccess?: () => void) => {
     const form = useForm<Artisan>({
         defaultValues: artisan && {
             ...artisan,
-            company_id: artisan.companyName
+            company: artisan.company
         },
         resolver: zodResolver(newArtisanSchema)
     });

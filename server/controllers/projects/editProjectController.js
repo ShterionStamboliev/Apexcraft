@@ -1,29 +1,30 @@
 const pool = require("../../db");
 const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
+const Validator = require('../../validators/controllerValidator');
+const { projectSchema } = require('../../validators/validationSchemas');
 
 const editProject = async (req, res) => {
 
     const projectId = req.params.id;
-    const { name, company_id, email, note, status } = req.body;
+    const { name, company_name, email, note, status } = req.body;
+    const validator = new Validator(projectSchema);
+    const errors = validator.validate({ name, company_name, email, note, status });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
-        if (!name || !company_id || !email || !note) {
-            return res.status(400).json({ message: 'All fields are required' });
-        }
 
-        const companyId = await getCompanyIdByName(company_id);
-
-        if (!companyId) {
-            return res.status(400).json({ message: 'Company not found' });
-        }
+        const companyId = await getCompanyIdByName(company_name);
 
         const query = `
             UPDATE tbl_projects
-            SET name = ?, company_id = ?, main_email = ?, notes = ?, status = ?
+            SET name = ?, company_id = ?, company_name = ?, email = ?, note = ?, status = ?
             WHERE id = ?;
         `;
 
-        const values = [name, companyId, company_id, email, note, status, projectId];
+        const values = [name, companyId, company_name, email, note, status, projectId];
 
         const [result] = await pool.query(query, values);
 
@@ -34,8 +35,8 @@ const editProject = async (req, res) => {
         const updatedProject = {
             id: projectId,
             name,
-            company_id,
             companyId,
+            company_name,
             email,
             note,
             status,

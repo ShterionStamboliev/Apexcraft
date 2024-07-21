@@ -1,24 +1,28 @@
-const db = require('../../db')
+const db = require('../../db');
+const Validator = require('../../validators/controllerValidator');
+const { measureSchema } = require('../../validators/validationSchemas');
 
 const createMeasure = async (req, res) => {
 
-    const measureName = req.body.name;
+    const name = req.body.name;
+    const validator = new Validator(measureSchema);
+    const errors = validator.validate({ name });
+
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
 
-        if (!measureName) {
-            return res.status(400).json({ message: 'Name is required!' });
-        };
-
         const query = 'INSERT INTO tbl_measures(name) VALUES(?)';
 
-        const values = [measureName];
+        const values = [name];
 
         const [result] = await db.execute(query, values);
 
         const newMeasure = {
             id: result.insertId,
-            measureName
+            name
         };
 
         res.status(201).json({ message: 'Measure created successfully!', measure: newMeasure });

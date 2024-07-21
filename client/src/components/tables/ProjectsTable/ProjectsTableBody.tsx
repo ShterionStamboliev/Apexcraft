@@ -55,7 +55,7 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                                 {project.name}
                             </TableCell>
                             <TableCell>
-                                {project.company_id}
+                                {project.company_name}
                             </TableCell>
                             <TableCell className="text-start w-[200px]">
                                 {onDesktop ? (

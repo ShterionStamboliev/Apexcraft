@@ -6,7 +6,7 @@ const modifyArtisansStatus = async (req, res) => {
         const [rows] = await db.execute(`SELECT status FROM tbl_artisans WHERE id = ?`, [id]);
 
         if (rows.length === 0) {
-            return res.status(404).json({ error: 'Artisan not found' });
+            return res.status(404).json({ error: 'Artisan not found!' });
         }
 
         const currentStatus = rows[0].status;

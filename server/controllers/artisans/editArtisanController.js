@@ -1,31 +1,35 @@
 const db = require('../../db');
 const { getCompanyIdByName } = require('../../utils/getCompanyIdByName');
 const { getUserIdByName } = require('../../utils/getUserIdByName');
+const Validator = require('../../validators/controllerValidator');
+const { artisanSchema } = require('../../validators/validationSchemas');
 
 const editArtisan = async (req, res) => {
 
     const userId = req.params.id;
-    const { name, note, company_id, status } = req.body;
+    const { name, note, company, status } = req.body;
+    const validator = new Validator(artisanSchema);
+    const errors = validator.validate({ name, note, status });
+    
+    if (errors.length > 0) {
+        return res.status(400).json({ errors });
+    };
 
     try {
 
-        let companyName = null;
-
-        if (!name || !status) {
-            return res.status(400).json({ message: 'Name and Status are required fields!' });
-        };
+        let companyId = null;
 
         const query = `UPDATE tbl_artisans
         SET name = ?, note = ?, company_id = ?, user_id = ?, status = ?
         WHERE id = ?`;
 
-        if (company_id) {
-            companyName = await getCompanyIdByName(company_id);
+        if (company) {
+            companyId = await getCompanyIdByName(company);
         };
 
         const foundUser = await getUserIdByName(name);
 
-        const values = [name, note, companyName, foundUser, status, userId];
+        const values = [name, note, companyId, foundUser, status, userId];
 
         const [result] = await db.execute(query, values);
 
@@ -33,8 +37,8 @@ const editArtisan = async (req, res) => {
             id: userId,
             name,
             note,
-            company_id,
-            companyName,
+            company,
+            companyId,
             status,
         };
 

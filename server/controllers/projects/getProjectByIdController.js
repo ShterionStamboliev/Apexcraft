@@ -14,7 +14,7 @@ const getProjectById = async (req, res) => {
         res.json(rows[0]);
 
     } catch (error) {
-        res.status(500).send('Internal Server Error!');
+        res.status(500).send('Internal server Error!');
     }
 };
 
