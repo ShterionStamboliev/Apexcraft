@@ -15,7 +15,7 @@ const createProject = async (req, res) => {
 
     try {
 
-
+        const companyId = await getCompanyIdByName(company_name);
 
         const query = `
             INSERT INTO tbl_projects (name, company_id, company_name, email, note, status)

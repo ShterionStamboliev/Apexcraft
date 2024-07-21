@@ -6,7 +6,7 @@ const { artisanSchema } = require('../../validators/validationSchemas');
 
 const createArtisan = async (req, res) => {
 
-    const { name, note, company_id, status } = req.body;
+    const { name, note, company, status } = req.body;
     const validator = new Validator(artisanSchema);
     const errors = validator.validate({ name, note, status });
 
@@ -18,8 +18,8 @@ const createArtisan = async (req, res) => {
 
         let companyId = null;
 
-        if (company_id){
-            companyId = await getCompanyIdByName(company_id);
+        if (company){
+            companyId = await getCompanyIdByName(company);
         };
 
         const foundUser = await getUserIdByName(name);
@@ -35,7 +35,8 @@ const createArtisan = async (req, res) => {
             id: result.insertId,
             name,
             note, 
-            company_id,
+            company,
+            companyId,
             status,
         };
 

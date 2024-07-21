@@ -18,13 +18,9 @@ const editProject = async (req, res) => {
 
         const companyId = await getCompanyIdByName(company_name);
 
-        if (!companyId) {
-            return res.status(400).json({ message: 'Company not found!' });
-        }
-
         const query = `
             UPDATE tbl_projects
-            SET name = ?, company_id = ?, company_name = ?, main_email = ?, notes = ?, status = ?
+            SET name = ?, company_id = ?, company_name = ?, email = ?, note = ?, status = ?
             WHERE id = ?;
         `;
 

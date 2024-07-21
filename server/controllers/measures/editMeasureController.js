@@ -5,9 +5,9 @@ const { measureSchema } = require('../../validators/validationSchemas');
 const editMeasure = async (req, res) => {
 
     const measureId = req.params.id;
-    const newName = req.body.name;
+    const name = req.body.name;
     const validator = new Validator(measureSchema);
-    const errors = validator.validate({ newName });
+    const errors = validator.validate({ name });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
@@ -17,7 +17,7 @@ const editMeasure = async (req, res) => {
 
         const query = 'UPDATE tbl_measures SET name = ? WHERE ID = ?';
 
-        const values = [newName, measureId];
+        const values = [name, measureId];
 
         const [result] = await db.execute(query, values);
 
@@ -27,7 +27,7 @@ const editMeasure = async (req, res) => {
 
         const updatedMeasure = {
             id: measureId,
-            newName
+            name
         };
 
         res.status(200).json({ message: 'Measure updated successfully!', measure: updatedMeasure });

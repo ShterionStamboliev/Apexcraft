@@ -76,11 +76,6 @@ const activitySchema = {
         minLength: 3,
         maxLength: 50,
     },
-    note: {
-        type: 'string',
-        min: 0,
-        max: 100,
-    },
     status: {
         type: 'string',
         required: true,
@@ -93,6 +88,12 @@ const artisanSchema = {
         required: true,
         minLength: 3,
         maxLength: 50,
+    },
+    note: {
+        type: 'string',
+        required: false,
+        min: 0,
+        max: 100,
     },
     status: {
         type: 'string',
@@ -175,6 +176,7 @@ const projectSchema = {
     },
     note: {
         type: 'string',
+        required: false,
         min: 0,
         max: 100,
     },
