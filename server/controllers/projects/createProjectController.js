@@ -15,15 +15,11 @@ const createProject = async (req, res) => {
 
     try {
 
-        const companyId = await getCompanyIdByName(company_name);
 
-        if (!companyId) {
-            return res.status(400).json({ message: 'Company not found!' });
-        }
 
         const query = `
-            INSERT INTO tbl_projects (name, company_id, email, note, status)
-            VALUES (?, ?, ?, ?, 'active');
+            INSERT INTO tbl_projects (name, company_id, company_name, email, note, status)
+            VALUES (?, ?, ?, ?, ?, ?);
         `;
 
         const values = [name, companyId, company_name, email, note, status];
@@ -33,6 +29,7 @@ const createProject = async (req, res) => {
         const newProject = {
             id: result.insertId,
             name,
+            companyId,
             company_name,
             email,
             note,
