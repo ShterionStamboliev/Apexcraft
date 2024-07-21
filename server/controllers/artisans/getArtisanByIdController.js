@@ -8,13 +8,13 @@ const getArtisanById = async (req, res) => {
 
         const [rows] = await pool.execute('SELECT * FROM tbl_artisans WHERE id = ?', [artisanId]);
 
-        const companyName = await getCompanyNameById(rows[0].company_id);
+        const companyId = await getCompanyNameById(rows[0].company_id);
 
         if (rows.length === 0) {
             return res.status(404).send('Artisan not found!')
         };
         
-        rows[0].companyName = companyName;
+        rows[0].companyId = companyId;
 
         res.json(rows[0])
     }

@@ -51,7 +51,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
 
         try {
             const entity: T = await apiCall(`/${entityPath}/${entityId}`, 'GET', token!);
-
+            
             dispatch({
                 type: EntityActionType.GET_SUCCESS,
                 payload: entity

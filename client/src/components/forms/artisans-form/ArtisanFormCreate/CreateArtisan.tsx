@@ -74,7 +74,7 @@ const CreateArtisan = () => {
                                     />
                                     <CompanySelector
                                         label='Select company'
-                                        name='company_id'
+                                        name='company'
                                     />
                                 </div>
 

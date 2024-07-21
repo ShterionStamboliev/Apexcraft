@@ -7,13 +7,13 @@ enum ArtisanStatus {
 }
 
 export const newArtisanSchema = z.object({
-    name: z.string().min(5, {
-        message: 'Artisan name must be at least 5 characters'
-    }),
-    note: z.string().min(10, {
-        message: 'Note must be at least 10 characters long'
-    }),
-    company_id: z.union([
+    name: z.string().min(3, {
+        message: 'Artisan name must be at least 3 characters.'
+    }).max(50),
+    note: z.string().min(0).max(100, {
+        message: 'Note cannot exceed 100 characters.'
+    }).optional(),
+    company: z.union([
         z.string()
             .min(1),
         z.string()
@@ -30,6 +30,6 @@ export const newArtisanSchema = z.object({
 export const artisanDefaults: Partial<Artisan> = {
     name: '',
     note: '',
-    company_id: '',
+    company: '',
     status: ArtisanStatus.inactive
 };

@@ -1,11 +1,11 @@
 import { z } from 'zod';
 
 export const formSchema = z.object({
-    name: z.string().min(4, {
-        message: 'Името трябва да е минимум 4 символа',
-    }),
+    name: z.string().min(3, {
+        message: 'Activity name must be at least 3 characters.',
+    }).max(50),
     status: z.union([z.literal('active'), z.literal('inactive')], {
-        message: 'Моля селектирайте статус'
+        message: 'Please select status.'
     }),
 });
 

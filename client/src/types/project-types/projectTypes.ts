@@ -1,7 +1,7 @@
 export type Project = {
     id?: number;
     name: string;
-    company_id: string;
+    company_name: string;
     email: string;
     note: string;
     status: 'active' | 'inactive';
