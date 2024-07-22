@@ -4,8 +4,8 @@ import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTrigg
 import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
+import { useActivityEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { activityDefaults, newActivitySchema } from '@/components/models/activity/newActivitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';
@@ -58,12 +58,12 @@ const CreateActivity = () => {
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader
-                                    title='Добавете нова дейност'
+                                    title='Add new activity'
                                 />
 
                                 <FormFieldInput
                                     type='text'
-                                    label='Вид дейност'
+                                    label='Activity type'
                                     name='name'
                                 />
                                 <div className='flex flex-1 justify-between'>
@@ -75,7 +75,7 @@ const CreateActivity = () => {
                                 </div>
                                 <DialogFooter
                                     isLoading={isLoading}
-                                    label='Добавете'
+                                    label='Submit'
                                     formName='activity-form'
                                 />
                             </DialogContent>

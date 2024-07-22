@@ -11,9 +11,9 @@ import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import { useArtisan } from '@/context/Artisan/ArtisanContext';
-import useArtisanEntityHandlers from '@/components/hooks/ArtisansHooks/useArtisansEntityHook';
 import EditForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 import { useCompany } from '@/context/Company/CompanyContext';
+import { useArtisanEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
     const { isLoading, getEntities, isEntityLoading } = useArtisan();

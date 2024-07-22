@@ -6,7 +6,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, UseFormProps } from 'react-hook-form'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
 import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile'
-import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHook'
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler'
 import { useMediaQuery } from 'usehooks-ts'
 import DialogHeader from '@/components/common/DialogElements/DialogHeader'
@@ -14,6 +13,7 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter'
 import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop'
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector'
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
+import { useUserEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler'
 
 const CreateUser = () => {
     const { role } = useAuth();

@@ -5,8 +5,8 @@ import DialogTriggerMobile from '@/components/common/DialogElements/DialogTrigge
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import useCompanyEntityHandlers from '@/components/hooks/CompaniesHooks/useCompaniesEntityHook';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
+import { useCompanyEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { formDefaultValues, newCompanySchema } from '@/components/models/company/newCompanySchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';

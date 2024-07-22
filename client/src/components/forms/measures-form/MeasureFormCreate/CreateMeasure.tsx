@@ -4,7 +4,7 @@ import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTrigg
 import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
-import useMeasureEntityHandlers from '@/components/hooks/MeasuresHooks/useMeasuresEntityHook';
+import { useMeasureEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { measureDefaults, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';

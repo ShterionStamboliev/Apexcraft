@@ -1,7 +1,7 @@
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import EditForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
-import useCompanyEntityHandlers from '@/components/hooks/CompaniesHooks/useCompaniesEntityHook';
+import { useCompanyEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { DialogContent } from '@/components/ui/dialog';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/CompaniesLoader';

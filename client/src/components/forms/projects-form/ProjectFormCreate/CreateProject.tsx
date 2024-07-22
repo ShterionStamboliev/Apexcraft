@@ -7,7 +7,7 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
-import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
+import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { newProjectSchema, projectDefaults } from '@/components/models/project/newProjectSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';

@@ -9,10 +9,10 @@ import { User } from '@/types/user-types/userTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import EditForm from '@/components/forms/user-form/UserFormEdit/EditUser';
-import useUserEntityHandlers from '@/components/hooks/UserHooks/useUserEntityHook';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
+import { useUserEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
     const { getEntities, isLoading, isEntityLoading } = useUser();
