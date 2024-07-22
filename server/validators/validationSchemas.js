@@ -89,6 +89,10 @@ const artisanSchema = {
         minLength: 3,
         maxLength: 50,
     },
+    company: {
+        type: 'string',
+        reuired: true
+    },
     note: {
         type: 'string',
         required: false,
