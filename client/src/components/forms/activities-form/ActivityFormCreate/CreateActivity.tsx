@@ -1,7 +1,6 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop';
-import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
+import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
@@ -12,14 +11,11 @@ import { useAuth } from '@/context/AuthContext';
 import { Activity } from '@/types/activity-types/activityTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, UseFormProps } from 'react-hook-form';
-import { useMediaQuery } from 'usehooks-ts';
 
 const CreateActivity = () => {
 
     const { role } = useAuth();
     const isManager = role === 'manager';
-
-    const onDesktop = useMediaQuery('(min-width: 768px)');
 
     const formOptions: Partial<UseFormProps<Activity>> = {
         resolver: zodResolver(newActivitySchema),
@@ -34,7 +30,7 @@ const CreateActivity = () => {
         setIsOpen,
         form,
     } = useSubmitHandler<Activity>(handleCreateEntity, formOptions);
-    
+
     return (
         <>
             {isManager && (
@@ -47,14 +43,7 @@ const CreateActivity = () => {
                             open={isOpen}
                             onOpenChange={setIsOpen}
                         >
-                            {onDesktop
-                                ? (
-                                    <DialogTriggerDesktop />
-                                )
-                                : (
-                                    <DialogTriggerMobile />
-                                )
-                            }
+                            <DialogTriggerButtons />
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader

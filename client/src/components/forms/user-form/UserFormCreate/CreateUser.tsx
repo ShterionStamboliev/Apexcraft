@@ -5,21 +5,17 @@ import { User } from '@/types/user-types/userTypes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, UseFormProps } from 'react-hook-form'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile'
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler'
-import { useMediaQuery } from 'usehooks-ts'
 import DialogHeader from '@/components/common/DialogElements/DialogHeader'
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
-import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop'
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector'
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import { useUserEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler'
+import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons'
 
 const CreateUser = () => {
     const { role } = useAuth();
     const isManager = role === 'manager';
-
-    const onDesktop = useMediaQuery('(min-width: 768px)');
 
     const formOptions: Partial<UseFormProps<User>> = {
         resolver: zodResolver(addNewUserSchema),
@@ -47,14 +43,7 @@ const CreateUser = () => {
                             open={isOpen}
                             onOpenChange={setIsOpen}
                         >
-                            {onDesktop
-                                ? (
-                                    <DialogTriggerDesktop />
-                                )
-                                : (
-                                    <DialogTriggerMobile />
-                                )
-                            }
+                            <DialogTriggerButtons />
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader

@@ -1,7 +1,6 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop';
-import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
+import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
@@ -15,13 +14,10 @@ import { Project } from '@/types/project-types/projectTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
 import { FormProvider, UseFormProps } from 'react-hook-form';
-import { useMediaQuery } from 'usehooks-ts';
 
 const CreateProject = () => {
     const { role } = useAuth();
     const isManager = role === 'manager';
-
-    const onDesktop = useMediaQuery('(min-width: 768px)');
 
     const formOptions: Partial<UseFormProps<Project>> = {
         resolver: zodResolver(newProjectSchema),
@@ -49,14 +45,7 @@ const CreateProject = () => {
                             open={isOpen}
                             onOpenChange={setIsOpen}
                         >
-                            {onDesktop
-                                ? (
-                                    <DialogTriggerDesktop />
-                                )
-                                : (
-                                    <DialogTriggerMobile />
-                                )
-                            }
+                            <DialogTriggerButtons />
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader
