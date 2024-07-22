@@ -18,13 +18,13 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
             >
 
                 <DialogHeader
-                    title='Редакция на дейност'
+                    title='Edit activity'
                     user={`${activity?.name}`}
                 />
 
                 <FormFieldInput
                     type='text'
-                    label='Дейност'
+                    label='Activity'
                     name='name'
                     className='py-3'
                 />
@@ -38,7 +38,7 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                 </div>
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Редактирайте'
+                    label='Submit'
                     formName='form-edit'
                     className='mt-6'
                 />

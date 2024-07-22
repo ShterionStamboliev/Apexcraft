@@ -15,8 +15,7 @@ export const newProjectSchema = z.object({
     company_name: z.string().min(1, {
         message: 'Please select a company.'
     }),
-    email: 
-    z.string().min(5, {
+    email: z.string().min(5, {
         message: 'Email must be at least 5 characters long.'
     }).max(50, {
         message: 'Email cannot exceed 50 characters.'
