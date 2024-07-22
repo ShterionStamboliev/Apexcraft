@@ -2,13 +2,13 @@ import { TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { useMediaQuery } from 'usehooks-ts';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMeasure } from '@/context/Measure/MeasureContext';
-import useMeasureEntityHandlers from '@/components/hooks/MeasuresHooks/useMeasuresEntityHook';
 import { useEffect } from 'react';
 import EditForm from '@/components/forms/measures-form/MeasureFormEdit/EditMeasure';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import { Measure } from '@/types/measure-types/measureTypes';
 import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader';
+import { useMeasureEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 interface MeasuresTableProps {
     filteredData: Measure[]

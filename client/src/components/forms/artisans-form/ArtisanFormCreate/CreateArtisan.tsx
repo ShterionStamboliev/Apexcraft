@@ -6,8 +6,8 @@ import CompanySelector from '@/components/common/FormElements/FormCompanySelecto
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import useArtisanEntityHandlers from '@/components/hooks/ArtisansHooks/useArtisansEntityHook';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
+import { useArtisanEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { artisanDefaults, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { useAuth } from '@/context/AuthContext';

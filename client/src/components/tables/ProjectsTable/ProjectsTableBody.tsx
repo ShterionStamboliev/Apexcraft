@@ -10,10 +10,10 @@ import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import { Project } from '@/types/project-types/projectTypes';
 import { useProject } from '@/context/Project/ProjectContext';
-import useProjectEntityHandlers from '@/components/hooks/ProjectsHooks/useProjectsEntityHook';
 import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
 import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
+import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { getEntities, isLoading, isEntityLoading } = useProject();

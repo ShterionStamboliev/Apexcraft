@@ -6,13 +6,13 @@ import {
 import { useEffect, } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import useActivityEntityHandlers from '@/components/hooks/ActivitiesHooks/useActivitiesEntityHook';
 import { useActivity } from '@/context/Activity/ActivityContext';
 import EditForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import { Activity } from '@/types/activity-types/activityTypes';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
+import { useActivityEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => {
     const { isLoading, getEntities, isEntityLoading } = useActivity();
