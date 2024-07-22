@@ -56,17 +56,17 @@ export const newCompanySchema = z.object({
         if (isNaN(parsed)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: 'Not a number',
+                message: 'Not a number.',
             });
             return z.NEVER;
         }
         return parsed;
     }),
     dds: z.nativeEnum(CompanyDds, {
-        message: 'DDS is required',
+        message: 'DDS is required.',
     }),
     status: z.nativeEnum(CompanyStatus, {
-        message: 'Please, select status'
+        message: 'Please, select status.'
     }),
 });
 
