@@ -6,7 +6,7 @@ type DialogHeaderProps = {
     user?: string;
 }
 
-const DialogHeader = ({ title = 'Добавете нов потребител', user }: DialogHeaderProps) => {
+const DialogHeader = ({ title = 'Add new user', user }: DialogHeaderProps) => {
     return (
         <>
             <Header>

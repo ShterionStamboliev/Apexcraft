@@ -1,7 +1,6 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerDesktop from '@/components/common/DialogElements/DialogTriggerDesktop';
-import DialogTriggerMobile from '@/components/common/DialogElements/DialogTriggerMobile';
+import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
@@ -14,13 +13,10 @@ import { Company } from '@/types/company-types/companyTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
 import { FormProvider, UseFormProps } from 'react-hook-form';
-import { useMediaQuery } from 'usehooks-ts';
 
 const CreateCompany = () => {
     const { role } = useAuth();
     const isManager = role === 'manager';
-
-    const onDesktop = useMediaQuery('(min-width: 768px)');
 
     const formOptions: Partial<UseFormProps<Company>> = {
         resolver: zodResolver(newCompanySchema),
@@ -48,14 +44,7 @@ const CreateCompany = () => {
                             open={isOpen}
                             onOpenChange={setIsOpen}
                         >
-                            {onDesktop
-                                ? (
-                                    <DialogTriggerDesktop />
-                                )
-                                : (
-                                    <DialogTriggerMobile />
-                                )
-                            }
+                            <DialogTriggerButtons />
 
                             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                                 <DialogHeader
@@ -104,7 +93,7 @@ const CreateCompany = () => {
                                         name='status'
                                         placeholder='active'
                                     />
-                                    <VatSelector 
+                                    <VatSelector
                                         label='DDS'
                                         name='dds'
                                         placeholder='no'
