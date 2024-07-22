@@ -37,7 +37,7 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     <CompanySelector
                         label='Select company'
                         name='company'
-                        defaultVal={artisan && artisan.companyId}
+                        defaultVal={artisan && artisan.company}
                     />
                 </div>
                 <FormTextareaInput
@@ -47,7 +47,7 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                 />
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Edit'
+                    label='Submit'
                     formName='form-edit'
                     className='mt-6'
                 />
