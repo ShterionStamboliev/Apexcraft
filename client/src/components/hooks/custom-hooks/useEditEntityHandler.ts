@@ -32,6 +32,7 @@ const useEditEntity = <T extends FieldValues>({
 
     const form = useForm<EntityForm<T>>({
         defaultValues: initialFormState,
+        mode: 'onChange',
         resolver: zodResolver(schema),
     });
 
@@ -48,6 +49,7 @@ const useEditEntity = <T extends FieldValues>({
                     reset();
                 } else {
                     fireErrorToast('There was an error submitting the form.');
+                    return;
                 }
             }
         } catch (error: unknown) {
