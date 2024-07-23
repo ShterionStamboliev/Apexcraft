@@ -20,7 +20,7 @@ type EntityFormOptions<T> = {
     onSuccess?: () => void
 };
 
-const useEditEntity = <T extends FieldValues> ({
+const useEditEntity = <T extends FieldValues>({
     entity,
     initialFormState,
     schema,
@@ -28,7 +28,7 @@ const useEditEntity = <T extends FieldValues> ({
     onSuccess,
 }: EntityFormOptions<T>) => {
     const { editEntity, isLoading } = useEntityContext();
-    const { fireToast } = useToastHook();
+    const { fireSuccessToast, fireErrorToast } = useToastHook();
 
     const form = useForm<EntityForm<T>>({
         defaultValues: initialFormState,
@@ -44,19 +44,15 @@ const useEditEntity = <T extends FieldValues> ({
                 const isEditSuccess = await editEntity(entityId, data);
                 if (isEditSuccess && onSuccess) {
                     onSuccess();
+                    fireSuccessToast('Edit successful.');
                     reset();
-                    fireToast({
-                        title: 'Edit successful',
-                        variant: 'success',
-                    });
+                } else {
+                    fireErrorToast('There was an error submitting the form.');
                 }
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
-                fireToast({
-                    title: error.message,
-                    variant: 'destructive',
-                });
+                fireErrorToast(error.message);
             };
         };
     };

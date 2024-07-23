@@ -14,12 +14,28 @@ const useToastHook = () => {
             title: title,
             duration: 3000,
         });
-    }
+    };
+
+    const fireSuccessToast = (title: string) => {
+        fireToast({
+            title,
+            variant: 'success',
+        });
+    };
+
+    const fireErrorToast = (title: string) => {
+        fireToast({
+            title,
+            variant: 'destructive',
+        });
+    };
 
     return {
         fireToast,
-    }
-}
+        fireSuccessToast,
+        fireErrorToast,
+    };
+};
 
-export default useToastHook
+export default useToastHook;
 

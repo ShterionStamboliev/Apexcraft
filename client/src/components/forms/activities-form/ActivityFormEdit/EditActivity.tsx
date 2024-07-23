@@ -16,12 +16,10 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                 id='form-edit'
                 onSubmit={form.handleSubmit(onSubmit)}
             >
-
                 <DialogHeader
                     title='Edit activity'
                     user={`${activity?.name}`}
                 />
-
                 <FormFieldInput
                     type='text'
                     label='Activity'

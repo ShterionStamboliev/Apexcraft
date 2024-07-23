@@ -49,7 +49,6 @@ const CreateActivity = () => {
                                 <DialogHeader
                                     title='Add new activity'
                                 />
-
                                 <FormFieldInput
                                     type='text'
                                     label='Activity type'

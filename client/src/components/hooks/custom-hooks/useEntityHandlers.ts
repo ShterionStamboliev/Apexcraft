@@ -31,29 +31,20 @@ const useEntityHandlers = <T>({
     const [isCreateSuccess, setIsCreateSuccess] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
     const [isModified, setIsModified] = useState<boolean>(false);
-    const { fireToast } = useToastHook();
+    const { fireSuccessToast, fireErrorToast } = useToastHook();
 
     const handleCreateEntity = async (data: T) => {
         try {
             const isCreateSuccessful = await createEntity(data);
             if (isCreateSuccessful) {
                 setIsCreateSuccess(true);
-                fireToast({
-                    title: 'Записът беше успешен',
-                    variant: 'success',
-                });
+                fireSuccessToast('Record has been created.');
             } else {
-                fireToast({
-                    title: 'Съществува запис с избраното име',
-                    variant: 'destructive',
-                });
+                fireErrorToast('There was an error submitting the form.');
             }
         } catch (error: unknown) {
             if (error instanceof Error) {
-                fireToast({
-                    title: error.message,
-                    variant: 'destructive',
-                })
+                fireErrorToast(error.message);
             }
         }
     };
