@@ -1,4 +1,5 @@
 const db = require('../../db');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 const Validator = require('../../validators/controllerValidator');
 const { activitySchema } = require('../../validators/validationSchemas');
 
@@ -13,6 +14,12 @@ const createActivity = async (req, res) => {
     };
 
     try {
+        const isUnique = await uniqueChecker("name", name, "tbl_activities");
+
+        if (isUnique.length > 0) {
+            return res.status(404).send(`${name} already exists!`)
+        };
+
         const query = 'INSERT INTO tbl_activities(name, start, end, status) VALUES(?, ?, ?, ?)';
 
         const values = [name, start, end, status];
