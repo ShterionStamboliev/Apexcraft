@@ -1,22 +1,34 @@
 const db = require('../../db');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 const Validator = require('../../validators/controllerValidator');
 const { activitySchema } = require('../../validators/validationSchemas');
+const { getCurrentActivity } = require('./getCurrentActivity');
 
 const editActivity = async (req, res) => {
 
     const activityId = req.params.id;
-    const { name, status } = req.body;
+    const { name, start, end, status } = req.body;
     const validator = new Validator(activitySchema);
-    const errors = validator.validate({ name, status });
+    const errors = validator.validate({ name, start, end, status });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     };
 
     try {
-        const query = `UPDATE tbl_activities SET name = ?, status = ? WHERE id = ?`;
+        const activity = await getCurrentActivity(activityId);
 
-        const values = [name, status, activityId];
+        if (activity.name !== name) {
+            const isUnique = await uniqueChecker("name", name, "tbl_activities");
+
+            if (isUnique.length > 0) {
+                return res.status(404).send(`${name} already exists!`)
+            };
+        }
+
+        const query = `UPDATE tbl_activities SET name = ?, start = ?, end = ?, status = ? WHERE id = ?`;
+
+        const values = [name, start, end, status, activityId];
 
         const [result] = await db.execute(query, values);
 
@@ -27,13 +39,14 @@ const editActivity = async (req, res) => {
         const updatedActivity = {
             id: activityId,
             name,
+            start,
+            end,
             status,
         };
 
         res.status(200).json({ message: 'Activity updated successfully!', activity: updatedActivity });
 
     } catch (error) {
-        console.log('DB error', error);
         res.status(500).json({ message: 'Error updating the activity!', error });
     }
 }
