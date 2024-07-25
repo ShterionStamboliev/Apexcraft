@@ -1,6 +1,5 @@
 import { Table } from '@/components/ui/table'
 import { lazy, Suspense, useState } from 'react'
-import FilterDropdown from '@/components/common/Filter/FilterDropdown'
 import SearchBar from '@/components/common/SearchBar/SearchBar'
 import CompaniesHeader from './CompanyTableElements/CompaniesHeader/CompaniesHeader'
 import { useCompany } from '@/context/Company/CompanyContext'
@@ -25,7 +24,6 @@ const CompaniesTable = () => {
                         setSearchQuery={setSearchQuery}
                     />
                     <div className='flex gap-4'>
-                        <FilterDropdown />
                         <CreateCompany />
                     </div>
                 </div>

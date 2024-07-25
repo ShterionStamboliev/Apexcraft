@@ -4,7 +4,6 @@ import CreateActivity from '@/components/forms/activities-form/ActivityFormCreat
 import { Suspense, lazy, useState } from 'react'
 import { useActivity } from '@/context/Activity/ActivityContext';
 import { Activity } from '@/types/activity-types/activityTypes';
-import FilterDropdown from '@/components/common/Filter/FilterDropdown';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
@@ -25,7 +24,6 @@ const ActivitiesTable = () => {
                         setSearchQuery={setSearchQuery}
                     />
                     <div className='flex gap-4'>
-                        <FilterDropdown />
                         <CreateActivity />
                     </div>
                 </div>
