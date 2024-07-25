@@ -5,18 +5,18 @@ const { activitySchema } = require('../../validators/validationSchemas');
 const editActivity = async (req, res) => {
 
     const activityId = req.params.id;
-    const { name, status } = req.body;
+    const { name, start, end, status } = req.body;
     const validator = new Validator(activitySchema);
-    const errors = validator.validate({ name, status });
+    const errors = validator.validate({ name, start, end, status });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
     };
 
     try {
-        const query = `UPDATE tbl_activities SET name = ?, status = ? WHERE id = ?`;
+        const query = `UPDATE tbl_activities SET name = ?, start = ?, end = ?, status = ? WHERE id = ?`;
 
-        const values = [name, status, activityId];
+        const values = [name, start, end, status, activityId];
 
         const [result] = await db.execute(query, values);
 
@@ -27,6 +27,8 @@ const editActivity = async (req, res) => {
         const updatedActivity = {
             id: activityId,
             name,
+            start,
+            end,
             status,
         };
 

@@ -76,6 +76,12 @@ const activitySchema = {
         minLength: 3,
         maxLength: 50,
     },
+    start: {
+        type: 'string',
+    },
+    end: {
+        type: 'string',
+    },
     status: {
         type: 'string',
         required: true,
