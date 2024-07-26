@@ -76,10 +76,10 @@ const activitySchema = {
         minLength: 3,
         maxLength: 50,
     },
-    start: {
+    dateFrom: {
         type: 'string',
     },
-    end: {
+    dateTo: {
         type: 'string',
     },
     status: {
@@ -196,9 +196,9 @@ const projectSchema = {
     },
 }
 
-module.exports = { 
-    activitySchema, 
-    artisanSchema, 
+module.exports = {
+    activitySchema,
+    artisanSchema,
     companySchema,
     measureSchema,
     projectSchema

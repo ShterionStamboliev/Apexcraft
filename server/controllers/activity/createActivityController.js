@@ -5,9 +5,9 @@ const { activitySchema } = require('../../validators/validationSchemas');
 
 const createActivity = async (req, res) => {
 
-    const { name, start, end, status } = req.body;
+    const { name, status, dateFrom, dateTo } = req.body;
     const validator = new Validator(activitySchema);
-    const errors = validator.validate({ name, start, end, status });
+    const errors = validator.validate({ name, status, dateFrom, dateTo });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
@@ -20,18 +20,17 @@ const createActivity = async (req, res) => {
             return res.status(404).send(`${name} already exists!`)
         };
 
-        const query = 'INSERT INTO tbl_activities(name, start, end, status) VALUES(?, ?, ?, ?)';
+        const query = 'INSERT INTO tbl_activities(name, status, dateFrom, dateTo) VALUES (?, ?, ?, ?)';
 
-        const values = [name, start, end, status];
-
+        const values = [name, status, dateFrom, dateTo];
         const [result] = await db.execute(query, values);
 
         const newActivity = {
             id: result.insertId,
             name,
-            start,
-            end,
             status,
+            dateFrom,
+            dateTo,
         };
 
         res.status(201).json({ message: 'Activity created successfully!', activity: newActivity });

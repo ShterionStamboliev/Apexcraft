@@ -3,10 +3,14 @@ const db = require("../../db");
 const getActivities = async (req, res) => {
 
     try {
-        const query = 'SELECT * FROM tbl_activities';
+        const query = `
+            SELECT id, name, status, 
+            DATE_FORMAT(dateFrom, '%Y-%m-%d') as dateFrom, 
+            DATE_FORMAT(dateTo, '%Y-%m-%d') as dateTo 
+            FROM tbl_activities
+        `;
 
         const [rows] = await db.execute(query)
-
         res.json(rows);
     }
     catch (error) {

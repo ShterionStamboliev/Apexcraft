@@ -45,7 +45,7 @@ const entityReducer = <T>(state: InitialEntityState<T>, action: EntityAction<T>)
         case EntityActionType.CREATE_ERROR:
             return {
                 ...state,
-                isMeasureLoading: false,
+                isEntityLoading: false,
                 error: (action.payload as { error: string }).error,
             };
         case EntityActionType.GET_REQUEST:
@@ -58,7 +58,7 @@ const entityReducer = <T>(state: InitialEntityState<T>, action: EntityAction<T>)
             return {
                 ...state,
                 isEntityLoading: false,
-                measure: [...state.data, action.payload as T],
+                entity: [...state.data, action.payload as T],
             };
         case EntityActionType.GET_ERROR:
             return {

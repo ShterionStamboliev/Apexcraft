@@ -24,6 +24,8 @@ const useSubmitHandler = <T extends FieldValues>(
         await handleCreateEntity(entityData);
         setIsOpen(false);
         reset();
+        console.log(entityData);
+        
     }, [handleCreateEntity, reset])
 
     return {

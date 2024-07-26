@@ -1,4 +1,3 @@
-
 import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import { ActivityFormProps } from '@/types/activity-types/activityTypes';
@@ -6,6 +5,7 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import useEditActivity from '@/components/hooks/ActivitiesHooks/useEditActivity';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 
 const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
     const { form, isLoading, onSubmit } = useEditActivity(activity, onSuccess);
@@ -26,12 +26,19 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                     name='name'
                     className='py-3'
                 />
+                <FormDatePicker
+                    name='dateFrom'
+                    label='Pick date'
+                />
+                <FormDatePicker
+                    name='dateTo'
+                    label='Pick date'
+                />
                 <div className='flex flex-1 justify-between'>
                     <StatusSelector
                         label='Status'
                         name='status'
                         placeholder='active'
-                        defaultVal={`${activity.status}`}
                     />
                 </div>
                 <DialogFooter
