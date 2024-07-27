@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
+import { useState } from 'react';
 
 type FormDateType = {
     label: string;
@@ -23,6 +24,7 @@ const FormDatePicker = ({
     name,
 }: FormDateType) => {
     const { control } = useFormContext();
+    const [calendarOpen, setCalendarOpen] = useState(false);
 
     return (
         <FormField
@@ -31,7 +33,7 @@ const FormDatePicker = ({
             render={({ field }) => (
                 <FormItem className="flex flex-col">
                     <FormLabel>{label}</FormLabel>
-                    <Popover>
+                    <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                         <PopoverTrigger asChild>
                             <Button
                                 variant={"outline"}
@@ -41,16 +43,23 @@ const FormDatePicker = ({
                                 )}
                             >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                                {field.value
+                                    ? (format(field.value, "PPP"))
+                                    : (<span>Pick a date</span>)
+                                }
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
                             <Calendar
                                 mode="single"
-                                selected={field.value}
-                                onSelect={field.onChange}
+                                selected={new Date(field.value)}
+                                onSelect={(date) => {
+                                    field.onChange(date);
+                                    setCalendarOpen(false);
+                                }}
+                                defaultMonth={field.value}
+                                fromDate={new Date()}
                                 initialFocus
-                                disabled={(date) => date < new Date()}
                             />
                         </PopoverContent>
                     </Popover>

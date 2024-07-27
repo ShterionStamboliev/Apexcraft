@@ -14,7 +14,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, UseFormProps } from 'react-hook-form';
 
 const CreateActivity = () => {
-
     const { role } = useAuth();
     const isManager = role === 'manager';
 

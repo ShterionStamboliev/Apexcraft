@@ -91,6 +91,13 @@ const entityReducer = <T>(state: InitialEntityState<T>, action: EntityAction<T>)
                 error: undefined,
             };
         case EntityActionType.EDIT_SUCCESS:
+            if (!action.payload || !(action.payload as any).id) {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: 'Invalid payload data.'
+                };
+            }
             return {
                 ...state,
                 isLoading: false,
@@ -113,6 +120,13 @@ const entityReducer = <T>(state: InitialEntityState<T>, action: EntityAction<T>)
                 error: undefined
             };
         case EntityActionType.DEACTIVATE_SUCCESS:
+            if (!action.payload || !(action.payload as any).id) {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: 'Invalid payload data.'
+                };
+            }
             return {
                 ...state,
                 isLoading: false,
