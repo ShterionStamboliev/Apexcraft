@@ -11,8 +11,8 @@ export const newActivitySchema = z.object({
     name: z.string().min(3, {
         message: 'Activity name must be at least 3 characters.'
     }).max(50),
-    dateFrom: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')),
-    dateTo: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')),
+    dateFrom: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),
+    dateTo: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),
     status: z.nativeEnum(ActivityStatus, {
         message: 'Please select status.'
     }),
