@@ -106,11 +106,12 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         });
 
         try {
-            await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', token!, entityData);
-
+            const updatedEntity: T = await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', token!, entityData);
+            console.log(updatedEntity);
+            
             dispatch({
                 type: EntityActionType.EDIT_SUCCESS,
-                payload: entityData,
+                payload: updatedEntity,
             });
 
             return true;

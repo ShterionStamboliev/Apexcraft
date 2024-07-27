@@ -3,7 +3,6 @@ import { Table } from "../../ui/table"
 import { Suspense, lazy, useState } from 'react';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import FilterDropdown from '@/components/common/Filter/FilterDropdown';
 import { useUser } from '@/context/User/UserContext';
 import { User } from '@/types/user-types/userTypes';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
@@ -25,7 +24,6 @@ const UsersTable = () => {
                         setSearchQuery={setSearchQuery}
                     />
                     <div className='flex gap-4'>
-                        <FilterDropdown />
                         <CreateUser />
                     </div>
                 </div>

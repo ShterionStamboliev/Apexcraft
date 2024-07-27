@@ -27,5 +27,5 @@ export const apiCall = async (
         return;
     }
 
-    return await response.json();
+    return response.json();
 }

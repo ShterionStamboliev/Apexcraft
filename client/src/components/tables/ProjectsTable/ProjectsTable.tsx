@@ -1,7 +1,6 @@
 import { Table } from "../../ui/table"
 import { Suspense, lazy, useState } from 'react';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import FilterDropdown from '@/components/common/Filter/FilterDropdown';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 import { useProject } from '@/context/Project/ProjectContext';
@@ -25,7 +24,6 @@ const UsersTable = () => {
                         setSearchQuery={setSearchQuery}
                     />
                     <div className='flex gap-4'>
-                        <FilterDropdown />
                         <CreateProject />
                     </div>
                 </div>
