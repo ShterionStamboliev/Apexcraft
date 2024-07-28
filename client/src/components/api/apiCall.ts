@@ -1,5 +1,3 @@
-import { UserTuple } from '@/types/user-types/userTypes';
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const apiCall = async (
