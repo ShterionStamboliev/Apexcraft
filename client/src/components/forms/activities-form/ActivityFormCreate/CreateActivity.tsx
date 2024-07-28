@@ -54,14 +54,18 @@ const CreateActivity = () => {
                                     label='Activity type'
                                     name='name'
                                 />
-                                <FormDatePicker
-                                    name='dateFrom'
-                                    label='Pick date'
-                                />
-                                <FormDatePicker
-                                    name='dateTo'
-                                    label='Pick date'
-                                />
+                                <div className='flex flex-col gap-2 mt-4'>
+                                    <FormDatePicker
+                                        name='dateFrom'
+                                        label='Choose a start date'
+                                        description=''
+                                    />
+                                    <FormDatePicker
+                                        name='dateTo'
+                                        label='Choose an end date'
+                                        description=''
+                                    />
+                                </div>
                                 <div className='flex flex-1 justify-between'>
                                     <StatusSelector
                                         label='Status'

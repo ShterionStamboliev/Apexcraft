@@ -1,12 +1,12 @@
 import { Table } from "../../ui/table"
 import { Suspense, lazy, useState } from 'react';
-import SearchBar from '@/components/common/SearchBar/SearchBar';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 import { useProject } from '@/context/Project/ProjectContext';
 import { Project } from '@/types/project-types/projectTypes';
 import CreateProject from '@/components/forms/projects-form/ProjectFormCreate/CreateProject';
 import ProjectsHeader from './ProjectsTableElements/ProjectsHeader/ProjectsHeader';
+import TableTopNavigation from '@/components/common/SearchBar/TableTopNavigation';
 
 const ProjectsTableBody = lazy(() => import('@/components/tables/ProjectsTable/ProjectsTableBody'));
 
@@ -18,15 +18,11 @@ const UsersTable = () => {
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">
             <div className='flex-1 pr-7 overflow-x-auto'>
-                <div className='flex gap-24 md:gap-34'>
-                    <SearchBar
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                    />
-                    <div className='flex gap-4'>
-                        <CreateProject />
-                    </div>
-                </div>
+                <TableTopNavigation
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    Component={CreateProject}
+                />
                 <Table className='w-full min-w-full'>
                     <ProjectsHeader />
                     <Suspense fallback={<UsersLoader />}>
