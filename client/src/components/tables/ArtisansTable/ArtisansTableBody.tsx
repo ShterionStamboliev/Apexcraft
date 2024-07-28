@@ -16,7 +16,7 @@ import { useCompany } from '@/context/Company/CompanyContext';
 import { useArtisanEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
-    const { isLoading, getEntities, isEntityLoading } = useArtisan();
+    const { state, isLoading, getEntities, isEntityLoading } = useArtisan();
     const { getEntities: getCompanies } = useCompany();
 
     const {
@@ -32,9 +32,11 @@ const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-        getCompanies();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+            getCompanies();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <ActivitiesLoader />

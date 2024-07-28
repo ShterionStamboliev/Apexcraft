@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
 const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
-    const { getEntities, isLoading, isEntityLoading } = useCompany();
+    const { state, getEntities, isLoading, isEntityLoading } = useCompany();
     const {
         selectedEntity: selectedCompany,
         isDialogOpen,
@@ -26,8 +26,10 @@ const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <CompaniesLoader />

@@ -3,6 +3,7 @@ import { EntityActionType, EntityAction } from './entityActionTypes';
 export type EntityContextProps<T> = {
     state: {
         data: T[];
+        isDataFetched: boolean;
     }
     isLoading?: boolean;
     isEntityLoading?: boolean;
@@ -16,6 +17,7 @@ export type EntityContextProps<T> = {
 
 interface InitialEntityState<T> {
     data: T[];
+    isDataFetched: boolean;
     isLoading: boolean;
     isEntityLoading: boolean;
     error?: string;
@@ -23,6 +25,7 @@ interface InitialEntityState<T> {
 
 export const initialState = <T>(): InitialEntityState<T> => ({
     data: [],
+    isDataFetched: false,
     isEntityLoading: false,
     isLoading: false,
     error: undefined,
@@ -77,6 +80,7 @@ const entityReducer = <T>(state: InitialEntityState<T>, action: EntityAction<T>)
                 ...state,
                 isLoading: false,
                 data: action.payload as T[],
+                isDataFetched: true,
             };
         case EntityActionType.GET_ALL_ERROR:
             return {
