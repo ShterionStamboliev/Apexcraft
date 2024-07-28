@@ -17,14 +17,18 @@ import { useState } from 'react';
 type FormDateType = {
     label: string;
     name: string;
+    description: string;
 }
 
 const FormDatePicker = ({
     label,
     name,
+    description,
 }: FormDateType) => {
     const { control } = useFormContext();
     const [calendarOpen, setCalendarOpen] = useState(false);
+
+    const dateToday = new Date().toLocaleDateString();
 
     return (
         <FormField
@@ -38,14 +42,14 @@ const FormDatePicker = ({
                             <Button
                                 variant={"outline"}
                                 className={cn(
-                                    "w-[280px] justify-start text-left font-normal",
+                                    "w-[200px] justify-start text-left font-normal",
                                     !field.value && "text-muted-foreground"
                                 )}
                             >
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value
                                     ? (format(field.value, "PPP"))
-                                    : (<span>Pick a date</span>)
+                                    : (<span>{`${dateToday}`}</span>)
                                 }
                             </Button>
                         </PopoverTrigger>
@@ -64,7 +68,7 @@ const FormDatePicker = ({
                         </PopoverContent>
                     </Popover>
                     <FormDescription>
-                        Your date of birth is used to calculate your age.
+                        {description}
                     </FormDescription>
                     <FormMessage />
                 </FormItem>
