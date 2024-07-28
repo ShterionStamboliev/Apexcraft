@@ -15,15 +15,6 @@ export type User = {
     role: 'user' | 'manager' | '';
 }
 
-export type FetchUser = {
-    id?: number;
-    name_and_family: string;
-    username: string;
-    password: string;
-    role: 'user' | 'manager';
-    status: 'active' | 'inactive';
-}
-
 export type UserFormType = {
     id?: number;
     name_and_family?: string;
@@ -37,5 +28,3 @@ export interface UserFormProps {
     onSuccess?: () => void;
     user: UserFormType;
 }
-
-export type UserTuple = Partial<User> | Partial<FetchUser> | Partial<FetchUser[]>;
