@@ -15,7 +15,7 @@ import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/Activ
 import { useActivityEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => {
-    const { isLoading, getEntities, isEntityLoading } = useActivity();
+    const { state, isLoading, getEntities, isEntityLoading } = useActivity();
     const {
         selectedEntity: selectedActivity,
         isDialogOpen,
@@ -29,8 +29,10 @@ const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <ActivitiesLoader />

@@ -15,7 +15,7 @@ import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import { useUserEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
-    const { getEntities, isLoading, isEntityLoading } = useUser();
+    const { state, getEntities, isLoading, isEntityLoading } = useUser();
     const {
         selectedEntity: selectedUser,
         isDialogOpen,
@@ -29,8 +29,10 @@ const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <UsersLoader />

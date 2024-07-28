@@ -16,7 +16,7 @@ import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsL
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
-    const { getEntities, isLoading, isEntityLoading } = useProject();
+    const { state, getEntities, isLoading, isEntityLoading } = useProject();
     const { getEntities: getCompanies } = useCompany();
     const {
         selectedEntity: selectedProject,
@@ -31,9 +31,11 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-        getCompanies();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+            getCompanies();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <ProjectsLoader />

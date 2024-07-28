@@ -15,7 +15,7 @@ interface MeasuresTableProps {
 }
 
 const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
-    const { getEntities, isLoading, isEntityLoading } = useMeasure();
+    const { state, getEntities, isLoading, isEntityLoading } = useMeasure();
     const {
         selectedEntity: selectedMeasure,
         isDialogOpen,
@@ -29,8 +29,10 @@ const MeasuresTableBody = ({ filteredData }: MeasuresTableProps) => {
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
     useEffect(() => {
-        getEntities();
-    }, [getEntities, isModified]);
+        if (!state.isDataFetched) {
+            getEntities();
+        }
+    }, [state.isDataFetched, getEntities, isModified]);
 
     if (isLoading) {
         return <MeasuresLoader />

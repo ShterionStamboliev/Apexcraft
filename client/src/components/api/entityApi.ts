@@ -23,7 +23,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         try {
             const newEntityData: T = await apiCall(`/${entityPath}/create`, 'POST', token!, entityData);
             console.log(newEntityData);
-            
+
             dispatch({
                 type: EntityActionType.CREATE_SUCCESS,
                 payload: newEntityData,
@@ -53,7 +53,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         try {
             const entity: T = await apiCall(`/${entityPath}/${entityId}`, 'GET', token!);
             console.log(entity);
-            
+
             dispatch({
                 type: EntityActionType.GET_SUCCESS,
                 payload: entity
@@ -108,11 +108,13 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         try {
             const updatedEntity: T = await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', token!, entityData);
             console.log(updatedEntity);
-            
+
             dispatch({
                 type: EntityActionType.EDIT_SUCCESS,
                 payload: updatedEntity,
             });
+
+            await getEntities();
 
             return true;
         } catch (error: unknown) {
@@ -140,6 +142,8 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
                 type: EntityActionType.DEACTIVATE_SUCCESS,
                 payload: entity,
             });
+
+            await getEntities();
 
             return true;
         } catch (error: unknown) {
