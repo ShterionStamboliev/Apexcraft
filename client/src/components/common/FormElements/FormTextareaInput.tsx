@@ -12,7 +12,6 @@ import { Textarea } from '@/components/ui/textarea';
 const FormTextareaInput = ({
     label,
     name,
-    type,
     className
 }: FormInputType) => {
     const { control } = useFormContext();

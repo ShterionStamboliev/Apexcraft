@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Edit, UserX } from 'lucide-react';
+import { Edit } from 'lucide-react';
 
 type DesktopViewButtonsProps = {
     handleEditClick: (userId: number) => void;
@@ -11,7 +11,6 @@ type DesktopViewButtonsProps = {
 
 const DesktopViewButtons = ({
     handleEditClick,
-    handleDisableClick,
     hoverLabel,
     id
 }: DesktopViewButtonsProps) => {
@@ -34,22 +33,6 @@ const DesktopViewButtons = ({
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>
-
-            {/* <TooltipProvider>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            onClick={() => handleDisableClick(id)}
-                        >
-                            <UserX />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side='right'>
-                        <p>Deactivate {hoverLabel}</p>
-                    </TooltipContent>
-                </Tooltip>
-            </TooltipProvider> */}
         </>
     )
 }

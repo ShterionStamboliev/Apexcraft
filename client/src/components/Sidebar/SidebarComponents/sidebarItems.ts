@@ -1,5 +1,5 @@
 import { SidebarItems } from '@/types/sidebar-types/sidebarItems';
-import { Activity, BrickWall, Building2, ContactRound, Home, Info, LogOut, Ruler, User, Users } from 'lucide-react';
+import { Activity, BrickWall, Building2, ContactRound, Home, Info, LogOut, Ruler, Users } from 'lucide-react';
 
 export const sidebarItems: SidebarItems = {
     links: [
@@ -16,7 +16,6 @@ export const sidebarItems: SidebarItems = {
 
 export const sidebarUserItems: SidebarItems = {
     links: [
-        // { label: 'Профил', href: '/profile', icon: User },
         { label: 'Sign out', href: '/sign-out', icon: LogOut },
     ]
 };
