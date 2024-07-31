@@ -29,10 +29,12 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                 <FormDatePicker
                     name='dateFrom'
                     label='Pick date'
+                    description=''
                 />
                 <FormDatePicker
                     name='dateTo'
                     label='Pick date'
+                    description=''
                 />
                 <div className='flex flex-1 justify-between'>
                     <StatusSelector
