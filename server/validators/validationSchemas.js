@@ -76,12 +76,6 @@ const activitySchema = {
         minLength: 3,
         maxLength: 50,
     },
-    dateFrom: {
-        type: 'string',
-    },
-    dateTo: {
-        type: 'string',
-    },
     status: {
         type: 'string',
         required: true,
