@@ -7,9 +7,9 @@ const { artisanSchema } = require('../../validators/validationSchemas');
 const editArtisan = async (req, res) => {
 
     const userId = req.params.id;
-    const { name, note, company, status } = req.body;
+    const { name, note, number, email, company, status } = req.body;
     const validator = new Validator(artisanSchema);
-    const errors = validator.validate({ name, note, company, status });
+    const errors = validator.validate({ name, note, number, email, status });
     
     if (errors.length > 0) {
         return res.status(400).json({ errors });
@@ -22,10 +22,10 @@ const editArtisan = async (req, res) => {
         const foundUser = await getUserIdByName(name);
 
         const query = `UPDATE tbl_artisans
-        SET name = ?, note = ?, company_id = ?, user_id = ?, status = ?
+        SET name = ?, note = ?, number = ?, email =?, company_id = ?, user_id = ?, status = ?
         WHERE id = ?`;
 
-        const values = [name, note, companyId, foundUser, status, userId];
+        const values = [name, note, number, email, companyId, foundUser, status, userId];
 
         const [result] = await db.execute(query, values);
 
@@ -33,6 +33,8 @@ const editArtisan = async (req, res) => {
             id: userId,
             name,
             note,
+            number,
+            email,
             company,
             companyId,
             status,
