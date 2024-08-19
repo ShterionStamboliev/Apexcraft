@@ -68,7 +68,7 @@ const CreateUser = () => {
                                     <RoleSelector
                                         label='Role'
                                         name='role'
-                                        placeholder=''
+                                        placeholder='user'
                                     />
                                     <StatusSelector
                                         label='Status'

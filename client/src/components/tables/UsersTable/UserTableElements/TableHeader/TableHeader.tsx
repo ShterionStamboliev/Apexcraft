@@ -11,16 +11,10 @@ const UsersHeader = () => {
                 <TableHead className='w-[250px]'>
                     Name, Surname
                 </TableHead>
-                <TableHead className='w-[200px]'>
+                <TableHead className='w-[200px] text-center'>
                     User
                 </TableHead>
-                {/* <TableHead className='w-[150px]'>
-                    Role
-                </TableHead>
-                <TableHead className='w-[150px]'>
-                    Status
-                </TableHead> */}
-                <TableHead className='w-[280px]'>
+                <TableHead className='w-[280px] text-end'>
                     Options
                 </TableHead>
             </TableRow>

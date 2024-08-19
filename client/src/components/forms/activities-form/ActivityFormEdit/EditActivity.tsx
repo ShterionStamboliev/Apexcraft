@@ -5,7 +5,6 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import useEditActivity from '@/components/hooks/ActivitiesHooks/useEditActivity';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 
 const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
     const { form, isLoading, onSubmit } = useEditActivity(activity, onSuccess);
@@ -25,16 +24,6 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                     label='Activity'
                     name='name'
                     className='py-3'
-                />
-                <FormDatePicker
-                    name='dateFrom'
-                    label='Pick date'
-                    description=''
-                />
-                <FormDatePicker
-                    name='dateTo'
-                    label='Pick date'
-                    description=''
                 />
                 <div className='flex flex-1 justify-between'>
                     <StatusSelector

@@ -53,10 +53,10 @@ const UsersTableBody = ({ filteredData }: { filteredData: User[] }) => {
                             <TableCell>
                                 {user.name_and_family}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className='text-center'>
                                 {user.username}
                             </TableCell>
-                            <TableCell className="text-start w-[200px]">
+                            <TableCell className="text-end w-[200px]">
                                 {onDesktop ? (
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}

@@ -53,7 +53,7 @@ const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => 
                             <TableCell>
                                 {activity.name}
                             </TableCell>
-                            <TableCell className='text-start w-[200px]'>
+                            <TableCell className='text-end w-[200px]'>
                                 {onDesktop ? (
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}

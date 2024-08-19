@@ -50,13 +50,13 @@ const CompaniesTableBody = ({ filteredData }: { filteredData: Company[] }) => {
                             <TableCell>
                                 {company.name}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className='text-center'>
                                 {company.number}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className='text-center'>
                                 {company.mol}
                             </TableCell>
-                            <TableCell className="text-start w-[200px]">
+                            <TableCell className="text-end w-[200px]">
                                 {onDesktop ? (
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}

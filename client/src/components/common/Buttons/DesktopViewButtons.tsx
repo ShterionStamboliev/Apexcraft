@@ -23,7 +23,7 @@ const DesktopViewButtons = ({
                             type="button"
                             variant="ghost"
                             onClick={() => handleEditClick(id)}
-                            className="mr-2"
+                            className="items-end"
                         >
                             <Edit />
                         </Button>

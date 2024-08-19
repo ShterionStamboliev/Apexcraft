@@ -2,6 +2,7 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
+import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
@@ -56,17 +57,22 @@ const CreateProject = () => {
                                     type='text'
                                     label='Project name'
                                     name='name'
-                                    className='py-3'
                                 />
 
                                 <FormFieldInput
                                     type='email'
                                     label='Project email'
                                     name='email'
-                                    className='py-3'
+                                />
+
+                                <FormFieldInput
+                                    type='text'
+                                    label='Project address'
+                                    name='address'
                                 />
 
                                 <div className='flex flex-1 justify-between'>
+
                                     <StatusSelector
                                         label='Status'
                                         name='status'
@@ -77,18 +83,29 @@ const CreateProject = () => {
                                         name='company_name'
                                     />
                                 </div>
+                                <div className='flex flex-col gap-2 mt-4'>
+                                    <FormDatePicker
+                                        name='start_date'
+                                        label='Choose a start date'
+                                        description=''
+                                    />
+                                    <FormDatePicker
+                                        name='end_date'
+                                        label='Choose an end date'
+                                        description=''
+                                    />
+                                </div>
 
                                 <FormTextareaInput
                                     name='note'
                                     label='Enter notes for your project'
                                     type='text'
                                 />
-                                
+
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='project-form'
-                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>

@@ -57,7 +57,7 @@ const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
                             <TableCell>
                                 {artisan.name}
                             </TableCell>
-                            <TableCell className='text-start w-[200px]'>
+                            <TableCell className='text-end w-[200px]'>
                                 {onDesktop ? (
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}

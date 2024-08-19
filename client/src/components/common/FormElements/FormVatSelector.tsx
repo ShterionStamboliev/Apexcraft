@@ -24,7 +24,7 @@ const VatSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectTy
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className='pt-2'>
+                <FormItem>
                     <FormLabel className='font-semibold'>
                         {label}
                     </FormLabel>

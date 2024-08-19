@@ -18,6 +18,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        logoDarkTheme: '#6987b0',
+        logoLightTheme: '#526989',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

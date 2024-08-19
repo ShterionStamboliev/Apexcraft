@@ -53,7 +53,6 @@ const ArtisansTable = () => {
                     setSearchQuery={setSearchQuery}
                     Component={CreateArtisan}
                 />
-                <span>Filter by:</span>
                 <div className='flex my-4 gap-4'>
                     <Badge
                         variant='secondary'
@@ -62,13 +61,6 @@ const ArtisansTable = () => {
                     >
                         active
                     </Badge>
-                    {/* <Badge
-                        variant='secondary'
-                        onClick={handleToggle}
-                        className={`${activeFilter.status ? 'bg-slate-800 text-white' : ''} cursor-pointer py-0 pb-0.5 text-center justify-center`}
-                    >
-                        inactive
-                    </Badge> */}
                 </div>
                 <Table className='w-full min-w-full'>
                     <ArtisansHeader />

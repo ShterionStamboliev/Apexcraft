@@ -56,10 +56,10 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                             <TableCell>
                                 {project.name}
                             </TableCell>
-                            <TableCell>
+                            <TableCell className='text-center'>
                                 {project.company_name}
                             </TableCell>
-                            <TableCell className="text-start w-[200px]">
+                            <TableCell className="text-end w-[200px]">
                                 {onDesktop ? (
                                     <DesktopViewButtons
                                         handleEditClick={handleEditClick}

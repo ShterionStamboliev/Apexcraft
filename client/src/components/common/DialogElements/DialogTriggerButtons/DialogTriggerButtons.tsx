@@ -1,7 +1,7 @@
 import { useMediaQuery } from 'usehooks-ts';
 import { DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { PlusSquare } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 const DialogTriggerButtons = () => {
     const onDesktop = useMediaQuery('(min-width: 768px)');
@@ -11,20 +11,20 @@ const DialogTriggerButtons = () => {
             {onDesktop
                 ? <DialogTrigger asChild>
                     <Button
-                        className='border border-zinc-800'
+                        className='border border-slate-800'
                         variant={'ghost'}
                         size={'icon'}
                     >
-                        <PlusSquare />
+                        <Plus />
                     </Button>
                 </DialogTrigger>
                 : <DialogTrigger asChild>
                     <Button
-                        className='border border-zinc-800 overflow-x-auto'
+                        className='border border-slate-800 overflow-x-auto'
                         variant={'ghost'}
                         size={'icon'}
                     >
-                        <PlusSquare />
+                        <Plus />
                     </Button>
                 </DialogTrigger>
             }

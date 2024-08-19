@@ -27,7 +27,7 @@ const DialogFooter = ({
                 <Button
                     type={type}
                     form={formName}
-                    className={cn("font-semibold w-full mt-2", className)}
+                    className={cn("bg-blue-600 hover:bg-blue-800 font-semibold w-full mt-2 border-none", className)}
                     variant='outline'
                 >
                     {label}
