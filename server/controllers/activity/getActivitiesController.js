@@ -5,8 +5,6 @@ const getActivities = async (req, res) => {
     try {
         const query = `
             SELECT id, name, status, 
-            DATE_FORMAT(dateFrom, '%Y-%m-%d') as dateFrom, 
-            DATE_FORMAT(dateTo, '%Y-%m-%d') as dateTo 
             FROM tbl_activities
         `;
 

@@ -7,9 +7,9 @@ const { getCurrentActivity } = require('./getCurrentActivity');
 const editActivity = async (req, res) => {
 
     const activityId = req.params.id;
-    const { name, status, dateFrom, dateTo } = req.body;
+    const { name, status } = req.body;
     const validator = new Validator(activitySchema);
-    const errors = validator.validate({ name, status, dateFrom, dateTo });
+    const errors = validator.validate({ name, status });
 
     if (errors.length > 0) {
         return res.status(400).json({ errors });
@@ -26,9 +26,9 @@ const editActivity = async (req, res) => {
             };
         }
 
-        const query = `UPDATE tbl_activities SET name = ?, status = ?, dateFrom = ?, dateTo = ? WHERE id = ?`;
+        const query = `UPDATE tbl_activities SET name = ?, status = ? WHERE id = ?`;
 
-        const values = [name, status, dateFrom, dateTo, activityId];
+        const values = [name, status, activityId];
 
         const [result] = await db.execute(query, values);
 
@@ -40,8 +40,6 @@ const editActivity = async (req, res) => {
             id: activityId,
             name,
             status,
-            dateFrom,
-            dateTo,
         };
 
         res.status(200).json({ message: 'Activity updated successfully!', activity: updatedActivity });
