@@ -4,21 +4,23 @@ const { getTaskIdByName } = require('../../utils/getTaskIdByName');
 const createWorkItem = async (req, res) => {
 
     const taskId = req.params.task_id;
-    const { finished, status } = req.body;
+    const { startDate, endDate, note, finishedWork, status } = req.body;
 
     try { 
 
-        const query = 'INSERT INTO tbl_workItems(task_id, finished, status) VALUES(?, ?, ?)';
+        const query = 'INSERT INTO tbl_workItems(task_id, start_date, end_date, note, finished_work, status) VALUES(?, ?, ?, ?, ?, ?)';
 
-        const values = [taskId, finished, status];
-        
+        const values = [taskId, startDate, endDate, note, finishedWork, status];
 
         const [result] = await db.execute(query, values);
 
         const newWorkItem = {
             id: result.insertId,
             taskId,
-            finished,
+            startDate,
+            endDate,
+            note,
+            finishedWork,
             status
         };
 

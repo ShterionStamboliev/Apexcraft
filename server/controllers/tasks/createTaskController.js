@@ -6,7 +6,7 @@ const { getProjectIdByName } = require('../../utils/getProjectIdByName');
 
 const createTask = async (req, res) => {
 
-    const { project, artisan, activity, measure, pricePerMeasure, totalPrice, totalWork, note, status } = req.body;
+    const { project, artisan, activity, measure, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status } = req.body;
 
     try { 
 
@@ -18,9 +18,9 @@ const createTask = async (req, res) => {
         const totalPrice = parseFloat(req.body.totalPrice);
         const totalWork = parseFloat(req.body.totalWork);
         
-        const query = 'INSERT INTO tbl_tasks(project_id, artisan_id, activity_id, measure_id, price_per_measure, total_price, total_work_in_selected_measure, note, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO tbl_tasks(project_id, artisan_id, activity_id, measure_id, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-        const values = [projectId, artisanId, activityId, measureId, pricePerMeasure, totalPrice, totalWork, note, status];
+        const values = [projectId, artisanId, activityId, measureId, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status];
         
 
         const [result] = await db.execute(query, values);
@@ -34,6 +34,8 @@ const createTask = async (req, res) => {
             pricePerMeasure, 
             totalPrice, 
             totalWork,
+            startDate,
+            endDate,
             note,
             status,
         };
