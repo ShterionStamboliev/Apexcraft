@@ -56,6 +56,16 @@ const CreateArtisan = () => {
                                     label='Artisan name'
                                     name='name'
                                 />
+                                <FormFieldInput
+                                    type='text'
+                                    label='Artisan phone'
+                                    name='number'
+                                />
+                                <FormFieldInput
+                                    type='text'
+                                    label='Artisan email'
+                                    name='email'
+                                />
                                 <div className='flex flex-1 justify-between'>
                                     <StatusSelector
                                         label='Status'

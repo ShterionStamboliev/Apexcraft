@@ -29,7 +29,7 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                     <StatusSelector
                         label='Status'
                         name='status'
-                        placeholder='active'
+                        placeholder={`${activity.status}`}
                     />
                 </div>
                 <DialogFooter

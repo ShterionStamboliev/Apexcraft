@@ -14,6 +14,8 @@ import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProje
 import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { state, getEntities, isLoading, isEntityLoading } = useProject();
@@ -43,6 +45,58 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
 
     return (
         <>
+            {filteredData.length === 0 ? (
+                <div>No results found</div>
+            ) : (
+                filteredData.map((project) => (
+                    <Card className='w-[300px]' key={project.id}>
+                        <CardHeader>
+                            <CardTitle>
+                                {project.name}
+                            </CardTitle>
+                        </CardHeader>
+
+                        <CardContent>
+                            <CardDescription>
+                                Address: {project.address}
+                            </CardDescription>
+                            <CardDescription>
+                                Deadline: {project.end_date?.slice(0, 10)}
+                            </CardDescription>
+                            <CardDescription>
+                                Status: {project.status}
+                            </CardDescription>
+                            <CardDescription>
+                                Company: {project.company_name}
+                            </CardDescription>
+                        </CardContent>
+                        <CardFooter>
+                            {onDesktop ? (
+                                <DesktopViewButtons
+                                    handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDeactivateClick}
+                                    hoverLabel='project'
+                                    id={project.id!}
+                                />
+                            ) : (
+                                <MobileViewButtons
+                                    handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDeactivateClick}
+                                    id={project.id!}
+                                />
+                            )}
+                        </CardFooter>
+                    </Card>
+                ))
+            )}
+        </>
+    );
+};
+
+export default ProjectsTableBody
+
+
+/*
             <TableBody>
                 {filteredData.length === 0 ? (
                     <TableRow>
@@ -96,8 +150,5 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                     )}
                 </DialogContent>
             </Dialog>
-        </>
-    );
-};
 
-export default ProjectsTableBody
+*/
