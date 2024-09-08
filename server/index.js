@@ -19,9 +19,19 @@ const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
+const allowedOrigins = [process.env.API_CORS, 'http://localhost', 'https://localhost', 'http://project34.online', 'https://project34.online'];
+
 app.use(cors({
-    origin: process.env.API_CORS,
-    credentials: true
+    origin: {
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true
+    }
 }));
 
 app.use('/auth', authRoutes);
