@@ -24,7 +24,7 @@ const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelec
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className='pt-2'>
+                <FormItem>
                     <FormLabel className='font-semibold'>
                         {label}
                     </FormLabel>

@@ -1,12 +1,12 @@
 import { Table } from "../../ui/table"
 import { Suspense, lazy, useState } from 'react';
-import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 import { useProject } from '@/context/Project/ProjectContext';
 import { Project } from '@/types/project-types/projectTypes';
 import CreateProject from '@/components/forms/projects-form/ProjectFormCreate/CreateProject';
 import ProjectsHeader from './ProjectsTableElements/ProjectsHeader/ProjectsHeader';
 import TableTopNavigation from '@/components/common/SearchBar/TableTopNavigation';
+import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 
 const ProjectsTableBody = lazy(() => import('@/components/tables/ProjectsTable/ProjectsTableBody'));
 
@@ -23,14 +23,16 @@ const UsersTable = () => {
                     setSearchQuery={setSearchQuery}
                     Component={CreateProject}
                 />
-                <Table className='w-full min-w-full'>
-                    <ProjectsHeader />
-                    <Suspense fallback={<UsersLoader />}>
+                {/* <Table className='w-full min-w-full'> */}
+                {/* <ProjectsHeader /> */}
+                <div className='flex flex-row flex-wrap gap-5'>
+                    <Suspense fallback={<ProjectsLoader />}>
                         <ProjectsTableBody
                             filteredData={filteredData}
                         />
                     </Suspense>
-                </Table>
+                </div>
+                {/* </Table> */}
             </div>
         </div>
     );

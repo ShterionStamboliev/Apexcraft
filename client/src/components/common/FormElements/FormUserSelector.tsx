@@ -24,7 +24,7 @@ const UserSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectT
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className='pt-2'>
+                <FormItem>
                     <FormLabel className='font-semibold'>
                         {label}
                     </FormLabel>

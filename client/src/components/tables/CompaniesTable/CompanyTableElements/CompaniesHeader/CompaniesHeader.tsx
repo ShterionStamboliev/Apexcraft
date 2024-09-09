@@ -7,13 +7,13 @@ const CompaniesHeader = () => {
                 <TableHead className='w-[375px]'>
                     Company name
                 </TableHead>
-                <TableHead className='w-[375px]'>
+                <TableHead className='w-[345px] text-center'>
                     Company number
                 </TableHead>
-                <TableHead className='w-[375px]'>
+                <TableHead className='w-[335px] text-center'>
                     MRP
                 </TableHead>
-                <TableHead className='w-[375px]'>
+                <TableHead className='w-[200px] text-end'>
                     Options
                 </TableHead>
             </TableRow>

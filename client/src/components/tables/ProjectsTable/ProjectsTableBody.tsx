@@ -14,6 +14,8 @@ import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProje
 import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { state, getEntities, isLoading, isEntityLoading } = useProject();
@@ -43,43 +45,50 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
 
     return (
         <>
-            <TableBody>
-                {filteredData.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={3} className='text-center text-3xl'>
-                            No results found
-                        </TableCell>
-                    </TableRow>
-                ) : (
-                    filteredData.map((project, index) => (
-                        <TableRow key={index}>
-                            <TableCell>
+            {filteredData.length === 0 ? (
+                <div>No results found</div>
+            ) : (
+                filteredData.map((project) => (
+                    <Card className='w-[300px]' key={project.id}>
+                        <CardHeader>
+                            <CardTitle>
                                 {project.name}
-                            </TableCell>
-                            <TableCell>
-                                {project.company_name}
-                            </TableCell>
-                            <TableCell className="text-start w-[200px]">
-                                {onDesktop ? (
-                                    <DesktopViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        hoverLabel='project'
-                                        id={project.id!}
-                                    />
-                                ) : (
-                                    <MobileViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        id={project.id!}
-                                    />
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    )
-                    ))}
-            </TableBody>
+                            </CardTitle>
+                        </CardHeader>
 
+                        <CardContent>
+                            <CardDescription>
+                                Address: {project.address}
+                            </CardDescription>
+                            <CardDescription>
+                                Deadline: {new Date(project.end_date!).toLocaleDateString().slice(0, 10)}
+                            </CardDescription>
+                            <CardDescription>
+                                Status: {project.status}
+                            </CardDescription>
+                            <CardDescription>
+                                Company: {project.company_name}
+                            </CardDescription>
+                        </CardContent>
+                        <CardFooter>
+                            {onDesktop ? (
+                                <DesktopViewButtons
+                                    handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDeactivateClick}
+                                    hoverLabel='project'
+                                    id={project.id!}
+                                />
+                            ) : (
+                                <MobileViewButtons
+                                    handleEditClick={handleEditClick}
+                                    handleDisableClick={handleDeactivateClick}
+                                    id={project.id!}
+                                />
+                            )}
+                        </CardFooter>
+                    </Card>
+                ))
+            )}
             <Dialog
                 open={isDialogOpen}
                 onOpenChange={handleCloseDialog}
@@ -101,3 +110,44 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
 };
 
 export default ProjectsTableBody
+
+/*
+            <TableBody>
+                {filteredData.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={3} className='text-center text-3xl'>
+                            No results found
+                        </TableCell>
+                    </TableRow>
+                ) : (
+                    filteredData.map((project, index) => (
+                        <TableRow key={index}>
+                            <TableCell>
+                                {project.name}
+                            </TableCell>
+                            <TableCell className='text-center'>
+                                {project.company_name}
+                            </TableCell>
+                            <TableCell className="text-end w-[200px]">
+                                {onDesktop ? (
+                                    <DesktopViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        hoverLabel='project'
+                                        id={project.id!}
+                                    />
+                                ) : (
+                                    <MobileViewButtons
+                                        handleEditClick={handleEditClick}
+                                        handleDisableClick={handleDeactivateClick}
+                                        id={project.id!}
+                                    />
+                                )}
+                            </TableCell>
+                        </TableRow>
+                    )
+                    ))}
+            </TableBody>
+
+
+*/

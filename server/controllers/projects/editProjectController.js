@@ -6,13 +6,13 @@ const { projectSchema } = require('../../validators/validationSchemas');
 const editProject = async (req, res) => {
 
     const projectId = req.params.id;
-    const { name, company_name, email, note, status } = req.body;
-    const validator = new Validator(projectSchema);
-    const errors = validator.validate({ name, company_name, email, note, status });
+    const { name, company_name, email, address, start_date, end_date, note, status } = req.body;
+    // const validator = new Validator(projectSchema);
+    // const errors = validator.validate({ name, company_name, email, note, status });
 
-    if (errors.length > 0) {
-        return res.status(400).json({ errors });
-    };
+    // if (errors.length > 0) {
+    //     return res.status(400).json({ errors });
+    // };
 
     try {
 
@@ -20,11 +20,11 @@ const editProject = async (req, res) => {
 
         const query = `
             UPDATE tbl_projects
-            SET name = ?, company_id = ?, company_name = ?, email = ?, note = ?, status = ?
-            WHERE id = ?;
+            SET name = ?, company_id = ?, company_name = ?, email = ?, address = ?, start_date = ?, end_date = ?, note = ?, status = ?
+            WHERE id = ?
         `;
 
-        const values = [name, companyId, company_name, email, note, status, projectId];
+        const values = [name, companyId, company_name, email, address, start_date, end_date, note, status, projectId];
 
         const [result] = await pool.query(query, values);
 
@@ -38,8 +38,11 @@ const editProject = async (req, res) => {
             companyId,
             company_name,
             email,
+            address,
+            start_date,
+            end_date,
             note,
-            status,
+            status
         };
 
         res.status(200).json({ message: 'Project updated successfully!', project: updatedProject });

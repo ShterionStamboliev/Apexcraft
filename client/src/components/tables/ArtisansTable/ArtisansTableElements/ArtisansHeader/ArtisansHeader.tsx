@@ -7,7 +7,7 @@ const ArtisansHeader = () => {
                 <TableHead className='w-[320px]'>
                     Name
                 </TableHead>
-                <TableHead className='w-[200px]'>
+                <TableHead className='w-[200px] text-end'>
                     Options
                 </TableHead>
             </TableRow>

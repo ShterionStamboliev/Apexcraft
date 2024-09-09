@@ -7,7 +7,7 @@ const MeasuresHeader = () => {
                 <TableHead className='w-[320px]'>
                     Measure
                 </TableHead>
-                <TableHead className='w-[200px]'>
+                <TableHead className='w-[200px] text-end'>
                     Options
                 </TableHead>
             </TableRow>

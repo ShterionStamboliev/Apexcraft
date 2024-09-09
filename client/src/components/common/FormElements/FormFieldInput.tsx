@@ -22,7 +22,7 @@ const FormFieldInput = ({
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className={cn('pt-2 flex-1', className)}>
+                <FormItem className={cn('flex-1', className)}>
                     <FormLabel className={cn('font-semibold', className)}>
                         {label}
                     </FormLabel>

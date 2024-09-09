@@ -1,7 +1,6 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
-import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
@@ -54,18 +53,7 @@ const CreateActivity = () => {
                                     label='Activity type'
                                     name='name'
                                 />
-                                <div className='flex flex-col gap-2 mt-4'>
-                                    <FormDatePicker
-                                        name='dateFrom'
-                                        label='Choose a start date'
-                                        description=''
-                                    />
-                                    <FormDatePicker
-                                        name='dateTo'
-                                        label='Choose an end date'
-                                        description=''
-                                    />
-                                </div>
+                                
                                 <div className='flex flex-1 justify-between'>
                                     <StatusSelector
                                         label='Status'

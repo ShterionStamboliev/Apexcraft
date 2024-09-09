@@ -76,12 +76,6 @@ const activitySchema = {
         minLength: 3,
         maxLength: 50,
     },
-    dateFrom: {
-        type: 'string',
-    },
-    dateTo: {
-        type: 'string',
-    },
     status: {
         type: 'string',
         required: true,
@@ -95,15 +89,27 @@ const artisanSchema = {
         minLength: 3,
         maxLength: 50,
     },
-    company: {
+    number: {
         type: 'string',
-        reuired: true
+        required: false,
+        minLength: 3,
+        maxLength: 11
+    },
+    email: {
+        type: 'string',
+        required: false,
+        minLength: 5,
+        maxLength: 50,
     },
     note: {
         type: 'string',
         required: false,
         min: 0,
         max: 100,
+    },
+    company: {
+        type: 'string',
+        required: true
     },
     status: {
         type: 'string',
@@ -176,7 +182,7 @@ const projectSchema = {
     },
     company_name: {
         type: 'string',
-        reuired: true
+        required: true
     },
     email: {
         type: 'string',
