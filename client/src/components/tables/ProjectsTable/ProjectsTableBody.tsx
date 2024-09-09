@@ -61,7 +61,7 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                                 Address: {project.address}
                             </CardDescription>
                             <CardDescription>
-                                Deadline: {project.end_date?.slice(0, 10)}
+                                Deadline: {new Date(project.end_date!).toLocaleDateString().slice(0, 10)}
                             </CardDescription>
                             <CardDescription>
                                 Status: {project.status}
@@ -89,12 +89,27 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                     </Card>
                 ))
             )}
+            <Dialog
+                open={isDialogOpen}
+                onOpenChange={handleCloseDialog}
+            >
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                    {!isEntityLoading && selectedProject && (
+                        <EditForm
+                            project={selectedProject}
+                            onSuccess={() => {
+                                handleCloseDialog();
+                                handleSuccess();
+                            }}
+                        />
+                    )}
+                </DialogContent>
+            </Dialog>
         </>
     );
 };
 
 export default ProjectsTableBody
-
 
 /*
             <TableBody>
@@ -134,21 +149,5 @@ export default ProjectsTableBody
                     ))}
             </TableBody>
 
-            <Dialog
-                open={isDialogOpen}
-                onOpenChange={handleCloseDialog}
-            >
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isEntityLoading && selectedProject && (
-                        <EditForm
-                            project={selectedProject}
-                            onSuccess={() => {
-                                handleCloseDialog();
-                                handleSuccess();
-                            }}
-                        />
-                    )}
-                </DialogContent>
-            </Dialog>
 
 */

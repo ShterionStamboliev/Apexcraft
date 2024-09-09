@@ -18,17 +18,17 @@ type FormDateType = {
     label: string;
     name: string;
     description: string;
+    selected: string;
 }
 
 const FormDatePicker = ({
     label,
     name,
     description,
+    selected
 }: FormDateType) => {
     const { control } = useFormContext();
     const [calendarOpen, setCalendarOpen] = useState(false);
-
-    const dateToday = new Date().toLocaleDateString();
 
     return (
         <FormField
@@ -49,19 +49,21 @@ const FormDatePicker = ({
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value
                                     ? (format(field.value, "PPP"))
-                                    : (<span>{`${dateToday}`}</span>)
+                                    : (<span>{selected}</span>)
                                 }
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0">
                             <Calendar
                                 mode="single"
-                                selected={new Date(field.value)}
+                                selected={field.value}
                                 onSelect={(date) => {
-                                    field.onChange(date);
-                                    setCalendarOpen(false);
+                                    if (date) {
+                                        field.onChange(date);
+                                        setCalendarOpen(false);
+                                    }
                                 }}
-                                defaultMonth={field.value}
+                                defaultMonth={field.value ? field.value : undefined}
                                 fromDate={new Date()}
                                 initialFocus
                             />

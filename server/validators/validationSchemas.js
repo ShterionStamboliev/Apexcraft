@@ -109,7 +109,7 @@ const artisanSchema = {
     },
     company: {
         type: 'string',
-        reuired: true
+        required: true
     },
     status: {
         type: 'string',
@@ -182,7 +182,7 @@ const projectSchema = {
     },
     company_name: {
         type: 'string',
-        reuired: true
+        required: true
     },
     email: {
         type: 'string',

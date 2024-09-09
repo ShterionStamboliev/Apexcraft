@@ -6,7 +6,7 @@ const { projectSchema } = require('../../validators/validationSchemas');
 const editProject = async (req, res) => {
 
     const projectId = req.params.id;
-    const { name, company_name, email, address, startDate, endDate, note, status } = req.body;
+    const { name, company_name, email, address, start_date, end_date, note, status } = req.body;
     // const validator = new Validator(projectSchema);
     // const errors = validator.validate({ name, company_name, email, note, status });
 
@@ -20,11 +20,11 @@ const editProject = async (req, res) => {
 
         const query = `
             UPDATE tbl_projects
-            SET name = ?, company_id = ?, email = ?, address = ?, start_date = ?, end_date = ?, note = ?, status = ?
-            WHERE id = ?;
+            SET name = ?, company_id = ?, company_name = ?, email = ?, address = ?, start_date = ?, end_date = ?, note = ?, status = ?
+            WHERE id = ?
         `;
 
-        const values = [name, companyId, email, address, startDate, endDate, note, status];
+        const values = [name, companyId, company_name, email, address, start_date, end_date, note, status, projectId];
 
         const [result] = await pool.query(query, values);
 
@@ -36,10 +36,11 @@ const editProject = async (req, res) => {
             id: projectId,
             name,
             companyId,
+            company_name,
             email,
             address,
-            startDate,
-            endDate,
+            start_date,
+            end_date,
             note,
             status
         };

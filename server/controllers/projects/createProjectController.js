@@ -5,7 +5,7 @@ const { projectSchema } = require('../../validators/validationSchemas');
 
 const createProject = async (req, res) => {
 
-    const { name, company_name, email, address, startDate, endDate, note, status } = req.body;
+    const { name, company_name, email, address, start_date, end_date, note, status } = req.body;
     // const validator = new Validator(projectSchema);
     // const errors = validator.validate({ name, company_name, email, note, status });
 
@@ -18,11 +18,11 @@ const createProject = async (req, res) => {
         const companyId = await getCompanyIdByName(company_name);
 
         const query = `
-            INSERT INTO tbl_projects (name, company_id, email, address, start_date, end_date, note, status)
-            VALUES (?, ?, ?, ?, ?, ?);
+            INSERT INTO tbl_projects (name, company_id, company_name, email, address, start_date, end_date, note, status)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
         `;
 
-        const values = [name, companyId, email, address, startDate, endDate, note, status];
+        const values = [name, companyId, company_name, email, address, start_date, end_date, note, status];
 
         const [result] = await db.query(query, values);
 
@@ -32,8 +32,8 @@ const createProject = async (req, res) => {
             companyId,
             email,
             address,
-            startDate,
-            endDate,
+            start_date,
+            end_date,
             note,
             status
         };
