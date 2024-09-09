@@ -1,8 +1,3 @@
-import {
-    TableBody,
-    TableCell,
-    TableRow
-} from '@/components/ui/table';
 import { useEffect } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
@@ -15,7 +10,6 @@ import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { state, getEntities, isLoading, isEntityLoading } = useProject();
