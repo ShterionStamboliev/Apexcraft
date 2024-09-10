@@ -1,4 +1,4 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 const getActivities = async (req, res) => {
 
@@ -8,7 +8,7 @@ const getActivities = async (req, res) => {
             FROM tbl_activities
         `;
 
-        const [rows] = await db.execute(query)
+        const [rows] = await pool.execute(query)
         res.json(rows);
     }
     catch (error) {

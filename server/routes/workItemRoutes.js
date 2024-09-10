@@ -3,10 +3,14 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 const { createWorkItem } = require('../controllers/workItems/createWorkItemController');
 const { getWorkItems } = require('../controllers/workItems/getWorkItemsController');
+const { getWorkItemById } = require('../controllers/workItems/getWorkItemControllerById');
+const { editWorkItem } = require('../controllers/workItems/editWorkItemController');
 
 const router = express.Router();
 
-router.post('/projects/:project_id/tasks/:task_id/workItems/create', createWorkItem);
-router.get ('/projects/:project_id/tasks/:task_id/workItems', getWorkItems);
+router.get ('/projects/:project_id/tasks/:task_id/workItems', authenticateToken, getWorkItems);
+router.get ('/projects/:project_id/tasks/:task_id/workItems/:id', authenticateToken, getWorkItemById);
+router.post('/projects/:project_id/tasks/:task_id/workItems/create', authenticateToken, createWorkItem);
+router.put('/projects/:project_id/tasks/:task_id/workItems/:id/edit', authenticateToken, editWorkItem);
 
 module.exports = router;

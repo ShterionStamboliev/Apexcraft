@@ -1,4 +1,4 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 const getActivityById = async (req, res) => {
     const activityId = req.params.id;
@@ -10,7 +10,7 @@ const getActivityById = async (req, res) => {
             WHERE id = ?
         `;
 
-        const [rows] = await db.execute(query, [activityId]);
+        const [rows] = await pool.execute(query, [activityId]);
 
         if (rows.length === 0) {
             return res.status(404).send('Activity not found!');

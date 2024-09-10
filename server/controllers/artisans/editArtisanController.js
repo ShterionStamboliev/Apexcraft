@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const { getCompanyIdByName } = require('../../utils/getCompanyIdByName');
 const { getUserIdByName } = require('../../utils/getUserIdByName');
 const Validator = require('../../validators/controllerValidator');
@@ -27,7 +27,7 @@ const editArtisan = async (req, res) => {
 
         const values = [name, note, number, email, companyId, foundUser, status, userId];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const updatedArtisan = {
             id: userId,

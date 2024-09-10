@@ -1,4 +1,4 @@
-const db = require("../../db");
+const pool = require("../../db");
 const Validator = require('../../validators/controllerValidator');
 const { measureSchema } = require('../../validators/validationSchemas');
 
@@ -19,7 +19,7 @@ const editMeasure = async (req, res) => {
 
         const values = [name, measureId];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Measure not found!' });

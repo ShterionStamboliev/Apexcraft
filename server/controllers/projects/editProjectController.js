@@ -47,7 +47,7 @@ const editProject = async (req, res) => {
 
         res.status(200).json({ message: 'Project updated successfully!', project: updatedProject });
     } catch (error) {
-        res.status(500).json({ message: 'Error updating a project!', error });
+        res.status(500).json({ message: 'Error updating the project!', error });
     }
 };
 

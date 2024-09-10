@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const Validator = require('../../validators/controllerValidator');
 const { companySchema } = require('../../validators/validationSchemas');
 
@@ -20,7 +20,7 @@ const createCompany = async (req, res) => {
 
         const values = [name, number, address, mol, email, phone, dds, status];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const newCompany = {
             id: result.insertId,
