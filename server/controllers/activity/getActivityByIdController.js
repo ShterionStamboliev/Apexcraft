@@ -5,7 +5,7 @@ const getActivityById = async (req, res) => {
 
     try {
         const query = `
-            SELECT id, name, status, 
+            SELECT id, name, status 
             FROM tbl_activities 
             WHERE id = ?
         `;

@@ -18,43 +18,40 @@ const EditForm = ({ user, onSuccess }: UserFormProps) => {
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <DialogHeader
-                    title='Редакция на потребител'
+                    title='Edit info for user'
                     user={`${user?.username}`}
                 />
                 <FormFieldInput
                     type='text'
-                    label='Име, Фамилия'
+                    label='Name, Surname'
                     name='name_and_family'
-                    className='py-3'
                 />
                 <FormFieldInput
                     type='text'
-                    label='Потребител'
+                    label='Username'
                     name='username'
-                    className='py-3'
                 />
                 <FormFieldInput
                     type='password'
-                    label='Парола'
+                    label='Password'
                     name='password'
-                    className='py-3'
                 />
-                <div className='flex flex-1 justify-between'>
+                <div className='flex flex-1 justify-between pt-2'>
                     <RoleSelector
-                        label='Роля'
+                        label='Role'
                         name='role'
-                        placeholder='Роля'
+                        placeholder='Role'
                         defaultVal={user && user.role}
                     />
                     <StatusSelector
-                        label='Статус'
+                        label='Status'
                         name='status'
                         defaultVal={user && user.status}
                     />
                 </div>
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Редактирайте'
+                    label='Submit'
                     formName='form-edit'
                     className='mt-6'
                 />
