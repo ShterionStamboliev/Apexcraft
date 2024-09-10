@@ -54,6 +54,7 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     name='note'
                     label='Enter note about the artisan'
                     type='text'
+                    className='pt-2'
                 />
                 <DialogFooter
                     isLoading={isLoading}
