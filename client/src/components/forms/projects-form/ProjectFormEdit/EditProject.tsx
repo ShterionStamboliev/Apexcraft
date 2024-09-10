@@ -28,17 +28,15 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                     type='text'
                     label='Project name'
                     name='name'
-                    className='py-3'
                 />
 
                 <FormFieldInput
                     type='email'
                     label='Project email'
                     name='email'
-                    className='py-3'
                 />
 
-                <div className='flex flex-1 justify-between'>
+                <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector
                         label='Status'
                         name='status'
@@ -50,7 +48,7 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                         defaultVal={`${project && project.company_name}`}
                     />
                 </div>
-                <div className='flex flex-col gap-2 mt-4'>
+                <div className='flex flex-col gap-2 pt-2'>
                     <FormDatePicker
                         name='start_date'
                         label='Choose new start date'
@@ -75,7 +73,7 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
 
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Edit'
+                    label='Submit'
                     formName='edit-project'
                     className='mt-6'
                 />

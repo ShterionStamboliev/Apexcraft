@@ -22,7 +22,7 @@ const DialogFooter = ({
     return (
         <Footer>
             {isLoading ? (
-                <LoaderButton label='Добавете' />
+                <LoaderButton label='Submit' />
             ) : (
                 <Button
                     type={type}

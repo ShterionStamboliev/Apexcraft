@@ -37,7 +37,7 @@ const EditForm = ({ artisan, onSuccess }: ArtisanFormProps) => {
                     label='Artisan email'
                     name='email'
                 />
-                <div className='flex flex-1 justify-between'>
+                <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector
                         label='Status'
                         name='status'

@@ -23,9 +23,8 @@ const EditForm = ({ activity, onSuccess }: ActivityFormProps) => {
                     type='text'
                     label='Activity'
                     name='name'
-                    className='py-3'
                 />
-                <div className='flex flex-1 justify-between'>
+                <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector
                         label='Status'
                         name='status'
