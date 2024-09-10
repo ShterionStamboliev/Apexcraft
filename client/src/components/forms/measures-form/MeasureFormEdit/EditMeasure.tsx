@@ -16,20 +16,19 @@ const EditForm = ({ measure, onSuccess }: MeasureFormProps) => {
                 onSubmit={form.handleSubmit(onSubmit)}
             >
                 <DialogHeader
-                    title='Редакция на мерна единица'
+                    title='Edit measure'
                     user={`${measure?.name}`}
                 />
 
                 <FormFieldInput
                     type='text'
-                    label='Наименование на единица'
+                    label='Type of measure'
                     name='name'
-                    className='py-3'
                 />
 
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Редактирайте'
+                    label='Submit'
                     formName='edit-measure'
                     className='mt-6'
                 />

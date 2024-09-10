@@ -56,7 +56,7 @@ const EditForm = ({ company, onSuccess }: CompanyFormProps) => {
                     label='Company phone'
                     name='phone'
                 />
-                <div className='flex flex-1 justify-between'>
+                <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector
                         label='Status'
                         name='status'
@@ -72,7 +72,7 @@ const EditForm = ({ company, onSuccess }: CompanyFormProps) => {
                 </div>
                 <DialogFooter
                     isLoading={isLoading}
-                    label='Edit'
+                    label='Submit'
                     formName='form-edit'
                     className='mt-6'
                 />
