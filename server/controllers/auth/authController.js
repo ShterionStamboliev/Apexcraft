@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
-const db = require('../../db');
+const pool = require('../../db');
 
 // Generate JWT token
 const generateToken = (user) => {
@@ -24,7 +24,7 @@ const login = async (req, res) => {
 
     try {
         // Retrieve user from the database
-        const [rows] = await db.execute('SELECT * FROM tbl_users WHERE username = ? AND status = "active"', [username]);
+        const [rows] = await pool.execute('SELECT * FROM tbl_users WHERE username = ? AND status = "active"', [username]);
 
         // Check if user exists
         if (!rows || rows.length === 0) {

@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const Validator = require('../../validators/controllerValidator');
 const { measureSchema } = require('../../validators/validationSchemas');
 
@@ -18,7 +18,7 @@ const createMeasure = async (req, res) => {
 
         const values = [name];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const newMeasure = {
             id: result.insertId,

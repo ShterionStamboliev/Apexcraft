@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 const Validator = require('../../validators/controllerValidator');
 const { activitySchema } = require('../../validators/validationSchemas');
@@ -23,7 +23,7 @@ const createActivity = async (req, res) => {
         const query = 'INSERT INTO tbl_activities(name, status) VALUES (?, ?)';
 
         const values = [name, status, dateFrom, dateTo];
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const newActivity = {
             id: result.insertId,

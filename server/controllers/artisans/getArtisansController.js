@@ -1,11 +1,11 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 const getArtisans = async (req, res) => {
 
     try {
         const query = 'SELECT * FROM tbl_artisans';
 
-        const [rows] = await db.execute(query);
+        const [rows] = await pool.execute(query);
 
         res.json(rows);
     }

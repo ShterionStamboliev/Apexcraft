@@ -1,9 +1,9 @@
-const db = require('../../db');
+const pool = require('../../db');
 
 const modifyProjectStatus = async (req, res) => {
     try {
         const id = req.params.id
-        const [rows] = await db.execute(`SELECT status FROM tbl_projects WHERE id = ?`, [id]);
+        const [rows] = await pool.execute(`SELECT status FROM tbl_projects WHERE id = ?`, [id]);
 
         if (rows.length === 0) {
             return res.status(404).json({ error: 'Project not found!' });

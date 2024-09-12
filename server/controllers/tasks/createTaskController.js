@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const { getActivityIdByName } = require('../../utils/getActivityIdByName');
 const { getArtisanIdByName } = require('../../utils/getArtisanIdByName');
 const { getMeasureIdByName } = require('../../utils/getMeasureIdByName');
@@ -14,16 +14,16 @@ const createTask = async (req, res) => {
         const artisanId = await getArtisanIdByName(artisan);
         const activityId = await getActivityIdByName(activity);
         const measureId = await getMeasureIdByName(measure);
-        const pricePerMeasure = parseFloat(req.body.pricePerMeasure);
-        const totalPrice = parseFloat(req.body.totalPrice);
-        const totalWork = parseFloat(req.body.totalWork);
+        const pricePerMeasure = parseFloat(pricePerMeasure);
+        const totalPrice = parseFloat(totalPrice);
+        const totalWork = parseFloat(totalWork);
         
         const query = 'INSERT INTO tbl_tasks(project_id, artisan_id, activity_id, measure_id, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
         const values = [projectId, artisanId, activityId, measureId, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status];
         
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const newTask = {
             id: result.insertId,

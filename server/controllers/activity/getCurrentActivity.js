@@ -1,9 +1,9 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 async function getCurrentActivity(activityId){
 
     try {
-        const [rows] = await db.execute('SELECT * FROM tbl_activities WHERE id = ?', [activityId])
+        const [rows] = await pool.execute('SELECT * FROM tbl_activities WHERE id = ?', [activityId])
 
         return rows[0];
     }
