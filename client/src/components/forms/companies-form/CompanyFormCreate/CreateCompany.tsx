@@ -46,7 +46,7 @@ const CreateCompany = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
                                 <DialogHeader
                                     title='Add new company'
                                 />
@@ -86,8 +86,7 @@ const CreateCompany = () => {
                                     label='Company phone'
                                     name='phone'
                                 />
-                                <div className='flex flex-1 justify-between'>
-
+                                <div className='flex flex-1 pt-2 justify-between'>
                                     <StatusSelector
                                         label='Status'
                                         name='status'
@@ -104,6 +103,7 @@ const CreateCompany = () => {
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='company-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>

@@ -45,7 +45,7 @@ const CreateUser = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
                                 <DialogHeader
                                     title='Add new user'
                                 />
@@ -64,7 +64,7 @@ const CreateUser = () => {
                                     label='Password'
                                     name='password'
                                 />
-                                <div className='flex flex-1 justify-between'>
+                                <div className='flex flex-1 pt-2 justify-between'>
                                     <RoleSelector
                                         label='Role'
                                         name='role'
@@ -80,6 +80,7 @@ const CreateUser = () => {
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='user-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>

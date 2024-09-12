@@ -48,16 +48,16 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                         defaultVal={`${project && project.company_name}`}
                     />
                 </div>
-                <div className='flex flex-col gap-2 pt-2'>
+                <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
                     <FormDatePicker
                         name='start_date'
-                        label='Choose new start date'
+                        label='Select new start date'
                         description=''
                         selected={new Date(`${project && project.start_date}`).toLocaleDateString().slice(0, 10)}
                     />
                     <FormDatePicker
                         name='end_date'
-                        label='Choose new end date'
+                        label='Select new end date'
                         description=''
                         selected={new Date(`${project && project.end_date}`).toLocaleDateString().slice(0, 10)}
                     />

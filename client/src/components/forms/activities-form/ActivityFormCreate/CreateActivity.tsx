@@ -44,7 +44,7 @@ const CreateActivity = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
                                 <DialogHeader
                                     title='Add new activity'
                                 />
@@ -54,7 +54,7 @@ const CreateActivity = () => {
                                     name='name'
                                 />
                                 
-                                <div className='flex flex-1 justify-between'>
+                                <div className='flex flex-1 pt-2 justify-between'>
                                     <StatusSelector
                                         label='Status'
                                         name='status'
@@ -65,6 +65,7 @@ const CreateActivity = () => {
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='activity-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>
