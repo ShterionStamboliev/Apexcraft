@@ -47,7 +47,7 @@ const CreateArtisan = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
                                 <DialogHeader
                                     title='Add new artisan'
                                 />
@@ -66,7 +66,7 @@ const CreateArtisan = () => {
                                     label='Artisan email'
                                     name='email'
                                 />
-                                <div className='flex flex-1 justify-between'>
+                                <div className='flex flex-1 pt-2 justify-between'>
                                     <StatusSelector
                                         label='Status'
                                         name='status'
@@ -82,11 +82,13 @@ const CreateArtisan = () => {
                                     name='note'
                                     label='Enter note about the artisan'
                                     type='text'
+                                    className='pt-2'
                                 />
                                 <DialogFooter
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='artisan-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>

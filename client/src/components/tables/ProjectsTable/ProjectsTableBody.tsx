@@ -87,7 +87,7 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                 open={isDialogOpen}
                 onOpenChange={handleCloseDialog}
             >
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px]'>
                     {!isEntityLoading && selectedProject && (
                         <EditForm
                             project={selectedProject}
@@ -104,44 +104,3 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
 };
 
 export default ProjectsTableBody
-
-/*
-            <TableBody>
-                {filteredData.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={3} className='text-center text-3xl'>
-                            No results found
-                        </TableCell>
-                    </TableRow>
-                ) : (
-                    filteredData.map((project, index) => (
-                        <TableRow key={index}>
-                            <TableCell>
-                                {project.name}
-                            </TableCell>
-                            <TableCell className='text-center'>
-                                {project.company_name}
-                            </TableCell>
-                            <TableCell className="text-end w-[200px]">
-                                {onDesktop ? (
-                                    <DesktopViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        hoverLabel='project'
-                                        id={project.id!}
-                                    />
-                                ) : (
-                                    <MobileViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        id={project.id!}
-                                    />
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    )
-                    ))}
-            </TableBody>
-
-
-*/

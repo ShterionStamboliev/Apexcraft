@@ -18,7 +18,7 @@ type FormDateType = {
     label: string;
     name: string;
     description: string;
-    selected: string;
+    selected?: string;
 }
 
 const FormDatePicker = ({
@@ -29,6 +29,8 @@ const FormDatePicker = ({
 }: FormDateType) => {
     const { control } = useFormContext();
     const [calendarOpen, setCalendarOpen] = useState(false);
+
+    const dateToday = new Date().toLocaleDateString();
 
     return (
         <FormField
@@ -50,6 +52,8 @@ const FormDatePicker = ({
                                 {field.value
                                     ? (format(field.value, "PPP"))
                                     : (<span>{selected}</span>)
+                                    ? (<span>E.g. {dateToday}</span>) 
+                                    : null
                                 }
                             </Button>
                         </PopoverTrigger>

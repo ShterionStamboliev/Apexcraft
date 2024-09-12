@@ -48,7 +48,7 @@ const CreateProject = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px] gap-0'>
                                 <DialogHeader
                                     title='Add new project'
                                 />
@@ -71,8 +71,7 @@ const CreateProject = () => {
                                     name='address'
                                 />
 
-                                <div className='flex flex-1 justify-between'>
-
+                                <div className='flex flex-1 pt-2 justify-between'>
                                     <StatusSelector
                                         label='Status'
                                         name='status'
@@ -83,15 +82,15 @@ const CreateProject = () => {
                                         name='company_name'
                                     />
                                 </div>
-                                <div className='flex flex-col gap-2 mt-4'>
+                                <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
                                     <FormDatePicker
                                         name='start_date'
-                                        label='Choose a start date'
+                                        label='Select a start date'
                                         description=''
                                     />
                                     <FormDatePicker
                                         name='end_date'
-                                        label='Choose an end date'
+                                        label='Select an end date'
                                         description=''
                                     />
                                 </div>
@@ -106,6 +105,7 @@ const CreateProject = () => {
                                     isLoading={isLoading}
                                     label='Submit'
                                     formName='project-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>

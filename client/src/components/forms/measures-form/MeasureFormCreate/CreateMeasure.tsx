@@ -44,21 +44,22 @@ const CreateMeasure = () => {
                         >
                             <DialogTriggerButtons />
 
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
+                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
                                 <DialogHeader
-                                    title='Добавете нова единица'
+                                    title='Add new measure'
                                 />
 
                                 <FormFieldInput
                                     type='text'
-                                    label='Вид единица'
+                                    label='Measure type'
                                     name='name'
                                 />
 
                                 <DialogFooter
                                     isLoading={isLoading}
-                                    label='Добавете'
+                                    label='Submit'
                                     formName='measure-form'
+                                    className='mt-6'
                                 />
                             </DialogContent>
                         </Dialog>
