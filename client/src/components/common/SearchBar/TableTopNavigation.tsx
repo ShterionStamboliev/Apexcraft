@@ -13,7 +13,7 @@ const TableTopNavigation = ({
     Component
 }: TableTopNavigationProps) => {
     return (
-        <div className='flex gap-16 md:gap-32'>
+        <div className='flex gap-4 md:gap-16'>
             <SearchBar
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}

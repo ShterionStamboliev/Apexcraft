@@ -10,8 +10,8 @@ const router = express.Router();
 
 router.get ('/projects/:id/tasks', authenticateToken, getTasks);
 router.get ('/projects/:id/tasks/:id', authenticateToken, getTaskById);
-router.post('/projects/:id/createTask', authenticateToken, createTask);
-router.put('/projects/:id/createTask/:id/edit', authenticateToken, editTask);
+router.post('/projects/:id/create-task', authenticateToken, createTask);
+router.put('/projects/:id/create-task/:id/edit', authenticateToken, editTask);
 
 
 module.exports = router;

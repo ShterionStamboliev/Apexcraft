@@ -25,7 +25,7 @@ const FormDatePicker = ({
     label,
     name,
     description,
-    selected
+    selected,
 }: FormDateType) => {
     const { control } = useFormContext();
     const [calendarOpen, setCalendarOpen] = useState(false);
@@ -51,9 +51,7 @@ const FormDatePicker = ({
                                 <CalendarIcon className="mr-2 h-4 w-4" />
                                 {field.value
                                     ? (format(field.value, "PPP"))
-                                    : (<span>{selected}</span>)
-                                    ? (<span>E.g. {dateToday}</span>) 
-                                    : null
+                                    : (<span>{selected || `E.g. ${dateToday}`}</span>)
                                 }
                             </Button>
                         </PopoverTrigger>

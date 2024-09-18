@@ -1,13 +1,8 @@
-import { TableBody } from "../../../ui/table"
-import ProjectsSkeleton from './ProjectsSkeleton'
-
 const ProjectsLoader = () => {
     return (
-        <>
-            {Array.from({ length: 7 }).map((_, i) => (
-                <ProjectsSkeleton key={i} />
-            ))}
-        </>
+        <div className='flex text-center items-center'>
+            <h1>Loading, please wait...</h1>
+        </div>
     )
 }
 
