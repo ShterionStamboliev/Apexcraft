@@ -1,4 +1,4 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 const getMeasureById = async (req, res) => {
 
@@ -6,7 +6,7 @@ const getMeasureById = async (req, res) => {
         const measureId = req.params.id;
         const query = 'SELECT * FROM tbl_measures WHERE id = ?';
 
-        const [rows] = await db.execute('SELECT * FROM tbl_measures WHERE id = ?', [measureId])
+        const [rows] = await pool.execute('SELECT * FROM tbl_measures WHERE id = ?', [measureId])
 
         if (rows.length === 0) {
             return res.status(404).send('Measure not found!')

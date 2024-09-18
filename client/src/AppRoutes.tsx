@@ -11,6 +11,8 @@ import MeasuresTablePage from './components/pages/MeasuresTablePage';
 import ProjectsTablePage from './components/pages/ProjectsTablePage';
 import CompaniesTablePage from './components/pages/CompaniesTablePage';
 import ArtisansTablePage from './components/pages/ArtisansTablePage';
+import ProjectTasksPage from './components/pages/ProjectTasksPage';
+import CreateTaskForm from './components/forms/tasks-form/TaskFormCreate/CreateTask';
 
 const AppRoutes = () => {
     return (
@@ -61,6 +63,22 @@ const AppRoutes = () => {
                     element={
                         <LayoutUsersTable>
                             <ProjectsTablePage />
+                        </LayoutUsersTable>
+                    }
+                />
+                <Route
+                    path='/projects/:id/tasks'
+                    element={
+                        <LayoutUsersTable>
+                            <ProjectTasksPage />
+                        </LayoutUsersTable>
+                    }
+                />
+                <Route
+                    path='/projects/:id/create-task'
+                    element={
+                        <LayoutUsersTable>
+                            <CreateTaskForm />
                         </LayoutUsersTable>
                     }
                 />

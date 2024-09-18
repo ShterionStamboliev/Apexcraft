@@ -1,11 +1,11 @@
-const db = require("../../db");
+const pool = require("../../db");
 
 const getCompanyById = async (req, res) => {
 
     try {
         const companyId = req.params.id;
 
-        const [rows] = await db.execute('SELECT * FROM tbl_companies WHERE id = ?', [companyId])
+        const [rows] = await pool.execute('SELECT * FROM tbl_companies WHERE id = ?', [companyId])
 
         if (rows.length === 0) {
             return res.status(404).send('Company not found!')

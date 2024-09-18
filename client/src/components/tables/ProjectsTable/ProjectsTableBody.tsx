@@ -10,10 +10,18 @@ import { useCompany } from '@/context/Company/CompanyContext';
 import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
+import { useArtisan } from '@/context/Artisan/ArtisanContext';
+import { useActivity } from '@/context/Activity/ActivityContext';
+import { useMeasure } from '@/context/Measure/MeasureContext';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     const { state, getEntities, isLoading, isEntityLoading } = useProject();
     const { getEntities: getCompanies } = useCompany();
+    const { getEntities: getArtisans } = useArtisan();
+    const { getEntities: getActivities } = useActivity();
+    const { getEntities: getMeasures } = useMeasure();
+
     const {
         selectedEntity: selectedProject,
         isDialogOpen,
@@ -29,7 +37,10 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
     useEffect(() => {
         if (!state.isDataFetched) {
             getEntities();
+            getArtisans();
             getCompanies();
+            getActivities();
+            getMeasures();
         }
     }, [state.isDataFetched, getEntities, isModified]);
 
@@ -46,7 +57,9 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
                     <Card className='w-[300px]' key={project.id}>
                         <CardHeader>
                             <CardTitle>
-                                {project.name}
+                                <Link to={`/projects/${project.id}/tasks`}>
+                                    {project.name}
+                                </Link>
                             </CardTitle>
                         </CardHeader>
 

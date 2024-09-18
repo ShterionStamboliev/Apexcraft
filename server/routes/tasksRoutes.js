@@ -3,11 +3,15 @@ const authenticateToken = require('../middlewares/authenticateToken');
 
 const { createTask } = require('../controllers/tasks/createTaskController');
 const { getTasks } = require('../controllers/tasks/getTasksController');
+const { getTaskById } = require('../controllers/tasks/getTaskByIdController');
+const { editTask } = require('../controllers/tasks/editTaskController');
 
 const router = express.Router();
 
-router.post('/projects/:id/createTask', createTask);
-router.get ('/projects/:id/tasks', getTasks);
+router.get ('/projects/:id/tasks', authenticateToken, getTasks);
+router.get ('/projects/:id/tasks/:id', authenticateToken, getTaskById);
+router.post('/projects/:id/create-task', authenticateToken, createTask);
+router.put('/projects/:id/create-task/:id/edit', authenticateToken, editTask);
 
 
 module.exports = router;

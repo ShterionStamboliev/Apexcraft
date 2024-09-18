@@ -1,4 +1,4 @@
-const db = require("../../db");
+const pool = require("../../db");
 const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
 const Validator = require('../../validators/controllerValidator');
 const { projectSchema } = require('../../validators/validationSchemas');
@@ -24,7 +24,7 @@ const createProject = async (req, res) => {
 
         const values = [name, companyId, company_name, email, address, start_date, end_date, note, status];
 
-        const [result] = await db.query(query, values);
+        const [result] = await pool.query(query, values);
 
         const newProject = {
             id: result.insertId,
@@ -41,7 +41,7 @@ const createProject = async (req, res) => {
         res.status(201).json({ message: 'Project created successfully!', project: newProject });
 
     } catch (error) {
-        res.status(500).json({ message: 'Error creating a project!', error });
+        res.status(500).json({ message: 'Error creating the project!', error });
     };
 };
 

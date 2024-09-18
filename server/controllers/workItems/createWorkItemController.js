@@ -1,5 +1,4 @@
-const db = require('../../db');
-const { getTaskIdByName } = require('../../utils/getTaskIdByName');
+const pool = require('../../db');
 
 const createWorkItem = async (req, res) => {
 
@@ -12,7 +11,7 @@ const createWorkItem = async (req, res) => {
 
         const values = [taskId, startDate, endDate, note, finishedWork, status];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         const newWorkItem = {
             id: result.insertId,
@@ -24,10 +23,10 @@ const createWorkItem = async (req, res) => {
             status
         };
 
-        res.status(201).json({ message: 'Task created successfully!', workItem: newWorkItem });
+        res.status(201).json({ message: 'Work item created successfully!', workItem: newWorkItem });
         
     } catch (error) {
-        res.status(500).json({ message: 'Error creating the task!', error });
+        res.status(500).json({ message: 'Error creating the work item!', error });
     }
 };
 

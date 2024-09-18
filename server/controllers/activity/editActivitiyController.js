@@ -1,4 +1,4 @@
-const db = require('../../db');
+const pool = require('../../db');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 const Validator = require('../../validators/controllerValidator');
 const { activitySchema } = require('../../validators/validationSchemas');
@@ -30,7 +30,7 @@ const editActivity = async (req, res) => {
 
         const values = [name, status, activityId];
 
-        const [result] = await db.execute(query, values);
+        const [result] = await pool.execute(query, values);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Activity not found!' });

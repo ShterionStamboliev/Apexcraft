@@ -2,10 +2,12 @@ const pool = require("../../db");
 
 const getTasks = async (req, res) => {
 
-    try {
-        const query = 'SELECT * FROM tbl_tasks';
+    const projectId = req.params.id;
 
-        const [rows] = await pool.query(query)
+    try {
+        const query = 'SELECT * FROM tbl_tasks WHERE project_id = ?';
+
+        const [rows] = await pool.query(query, [projectId]);
 
         res.json(rows);
     }

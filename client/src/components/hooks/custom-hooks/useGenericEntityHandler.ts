@@ -14,7 +14,7 @@ import { useCompany } from '@/context/Company/CompanyContext';
 
 type GenericEntityHandlerContext<T> = {
     isLoading?: boolean;
-    createEntity: (entity: T) => Promise<boolean>;
+    createEntity: (entity: T, projectId?: number) => Promise<boolean>;
     getEntity: (entityId: number) => Promise<T | null>;
     getEntities: () => Promise<T[]>;
     editEntity?: (entityId: number, entityData: T) => Promise<boolean>;
@@ -30,8 +30,12 @@ const useGenericEntityHandler = <T>(useContextHook: () => GenericEntityHandlerCo
         isLoading
     } = useContextHook();
 
+    const createEntityWithProjectId = async (entityData: T, projectId?: number) => {
+        return createEntity(entityData, projectId);
+    }
+
     return useEntityHandlers<T>({
-        createEntity,
+        createEntity: createEntityWithProjectId,
         getEntity,
         getEntities,
         deactivateEntity,

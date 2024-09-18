@@ -8,8 +8,9 @@ import {
 } from 'react-hook-form';
 
 const useSubmitHandler = <T extends FieldValues>(
-    handleCreateEntity: (entityData: T) => Promise<void>,
-    formOptions: Partial<UseFormProps<T>>
+    handleCreateEntity: (entityData: T, projectId?: number) => Promise<void>,
+    formOptions: Partial<UseFormProps<T>>,
+    projectId?: number
 ): {
     form: UseFormReturn<T>,
     onSubmit: SubmitHandler<T>,
@@ -21,12 +22,12 @@ const useSubmitHandler = <T extends FieldValues>(
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const onSubmit: SubmitHandler<T> = useCallback(async (entityData: T) => {
-        await handleCreateEntity(entityData);
+        await handleCreateEntity(entityData, projectId);
         setIsOpen(false);
         reset();
         console.log(entityData);
         
-    }, [handleCreateEntity, reset])
+    }, [handleCreateEntity, projectId, reset])
 
     return {
         onSubmit,
