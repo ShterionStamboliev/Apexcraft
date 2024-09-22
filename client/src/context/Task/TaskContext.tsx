@@ -48,6 +48,7 @@ const taskReducer = (state: TaskState, action: TaskAction): TaskState => {
             return {
                 ...state,
                 tasks: [],
+                task: null,
                 isLoading: false,
                 isDataFetched: false,
             };

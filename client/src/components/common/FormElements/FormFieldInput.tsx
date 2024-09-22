@@ -13,6 +13,7 @@ const FormFieldInput = ({
     label,
     name,
     type,
+    value,
     className
 }: FormInputType) => {
     const { control } = useFormContext();
@@ -29,6 +30,7 @@ const FormFieldInput = ({
                     <FormControl>
                         <Input {...field}
                             type={type}
+                            value={value}
                         />
                     </FormControl>
                 </FormItem>

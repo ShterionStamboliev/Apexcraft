@@ -1,4 +1,3 @@
-import { useAuth } from '@/context/AuthContext';
 import { EntityActionType } from '@/context/EntityReducers/entityActionTypes';
 import entityReducer, { initialState } from '@/context/EntityReducers/entityReducers';
 import { useCallback, useReducer } from 'react';
@@ -13,15 +12,13 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
 
     const [state, dispatch] = useReducer(entityReducer<T>, entityInitialState);
 
-    const { token } = useAuth();
-
     const createEntity = async (entityData: T): Promise<boolean> => {
         dispatch({
             type: EntityActionType.CREATE_REQUEST,
         });
 
         try {
-            const newEntityData: T = await apiCall(`/${entityPath}/create`, 'POST', token!, entityData);
+            const newEntityData: T = await apiCall(`/${entityPath}/create`, 'POST', entityData);
             console.log(newEntityData);
 
             dispatch({
@@ -51,7 +48,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         });
 
         try {
-            const entity: T = await apiCall(`/${entityPath}/${entityId}`, 'GET', token!);
+            const entity: T = await apiCall(`/${entityPath}/${entityId}`, 'GET');
             console.log(entity);
 
             dispatch({
@@ -79,7 +76,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         });
 
         try {
-            const entities: T[] = await apiCall(`/${entityPath}`, 'GET', token!);
+            const entities: T[] = await apiCall(`/${entityPath}`, 'GET');
 
             dispatch({
                 type: EntityActionType.GET_ALL_SUCCESS,
@@ -98,7 +95,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
             };
             return [];
         }
-    }, [token]);
+    }, []);
 
     const editEntity = async (entityId: number, entityData: T): Promise<boolean> => {
         dispatch({
@@ -106,7 +103,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         });
 
         try {
-            const updatedEntity: T = await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', token!, entityData);
+            const updatedEntity: T = await apiCall(`/${entityPath}/${entityId}/edit`, 'PUT', entityData);
             console.log(updatedEntity);
 
             dispatch({
@@ -136,7 +133,7 @@ const useEntityApi = <T extends Entity>(entityPath: string) => {
         });
 
         try {
-            const entity = await apiCall(`/${entityPath}/${entityId}/delete`, 'PUT', token!);
+            const entity = await apiCall(`/${entityPath}/${entityId}/delete`, 'PUT');
 
             dispatch({
                 type: EntityActionType.DEACTIVATE_SUCCESS,

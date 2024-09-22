@@ -10,7 +10,6 @@ const LayoutHomepage = ({ children }: LayoutHomepageProps) => {
         <div className="flex flex-col min-h-screen">
             <LayoutHeader />
 
-            {/* Main content */}
             <div className="flex-1">
                 {children}
             </div>

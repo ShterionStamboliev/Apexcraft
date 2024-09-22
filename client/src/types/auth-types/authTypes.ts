@@ -1,6 +1,13 @@
+export interface User {
+    id?: number;
+    username: string;
+    name_and_family: string;
+    role: string;
+    status: string;
+}
+
 export interface AuthState {
-    user?: string | null,
-    token: string | null;
+    user?: User | null,
     isLoading?: boolean;
     error?: string | undefined;
     role?: string | null;
@@ -10,7 +17,7 @@ export interface AuthState {
 
 export interface AuthContextProps extends AuthState {
     login: (username: string, password: string) => Promise<boolean>;
-    logout: () => void;
+    logout: () => Promise<void>;
 }
 
 export enum AuthActionType {
@@ -21,11 +28,5 @@ export enum AuthActionType {
 }
 export interface AuthAction {
     type: AuthActionType;
-    payload?: {
-        user?: string;
-        token?: string;
-        tokenExpiration?: string;
-        error?: string;
-        role?: string;
-    }
+    payload?: any;
 }

@@ -13,84 +13,94 @@ import CompaniesTablePage from './components/pages/CompaniesTablePage';
 import ArtisansTablePage from './components/pages/ArtisansTablePage';
 import ProjectTasksPage from './components/pages/ProjectTasksPage';
 import CreateTaskForm from './components/forms/tasks-form/TaskFormCreate/CreateTask';
+import EditTask from './components/forms/tasks-form/TaskFormEdit/EditTask';
+import TaskEditPage from './components/pages/TaskEditPage';
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route element={<RouteGuard />}>
-                <Route
-                    path='/users'
-                    element={
-                        <LayoutUsersTable>
-                            <UsersTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/artisans'
-                    element={
-                        <LayoutUsersTable>
-                            <ArtisansTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/companies'
-                    element={
-                        <LayoutUsersTable>
-                            <CompaniesTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/activities'
-                    element={
-                        <LayoutUsersTable>
-                            <ActivitiesTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/measures'
-                    element={
-                        <LayoutUsersTable>
-                            <MeasuresTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/projects'
-                    element={
-                        <LayoutUsersTable>
-                            <ProjectsTablePage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/projects/:id/tasks'
-                    element={
-                        <LayoutUsersTable>
-                            <ProjectTasksPage />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/projects/:id/create-task'
-                    element={
-                        <LayoutUsersTable>
-                            <CreateTaskForm />
-                        </LayoutUsersTable>
-                    }
-                />
-                <Route
-                    path='/'
-                    element={
-                        <LayoutHomepage>
-                            <Homepage />
-                        </LayoutHomepage>
-                    }
-                />
-            </Route>
+            {/* <Route element={<RouteGuard />}> */}
+            <Route
+                path='/users'
+                element={
+                    <LayoutUsersTable>
+                        <UsersTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/artisans'
+                element={
+                    <LayoutUsersTable>
+                        <ArtisansTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/companies'
+                element={
+                    <LayoutUsersTable>
+                        <CompaniesTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/activities'
+                element={
+                    <LayoutUsersTable>
+                        <ActivitiesTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/measures'
+                element={
+                    <LayoutUsersTable>
+                        <MeasuresTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/projects'
+                element={
+                    <LayoutUsersTable>
+                        <ProjectsTablePage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/projects/:id/tasks'
+                element={
+                    <LayoutUsersTable>
+                        <ProjectTasksPage />
+                    </LayoutUsersTable>
+                }
+            />
+            {/* <Route
+                path='/projects/:id/create-task'
+                element={
+                    <LayoutUsersTable>
+                        <ProjectTasksPage />
+                    </LayoutUsersTable>
+                }
+            /> */}
+            <Route
+                path='/projects/:id/tasks/:taskId/edit'
+                element={
+                    <LayoutUsersTable>
+                        <TaskEditPage />
+                    </LayoutUsersTable>
+                }
+            />
+            <Route
+                path='/'
+                element={
+                    <LayoutHomepage>
+                        <Homepage />
+                    </LayoutHomepage>
+                }
+            />
+            {/* </Route> */}
 
             <Route
                 path='/login'

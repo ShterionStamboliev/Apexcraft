@@ -1,10 +1,10 @@
 const pool = require("../../db");
 
 const getUsers = async (req, res) => {
+    // Get currently logged in user by their ID;
+    const currentUserId = req.user.id;
+    
     try {
-        // Get currently logged in user by their ID;
-        const currentUserId = req.user.id;
-
         let query = '';
         let queryParams = [];
 
@@ -37,7 +37,6 @@ const getUsers = async (req, res) => {
         res.status(500).json({ message: 'Server error', error });
     }
 };
-
 
 module.exports = {
     getUsers,

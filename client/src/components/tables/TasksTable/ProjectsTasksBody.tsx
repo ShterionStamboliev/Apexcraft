@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useTaskContext } from '@/context/Task/TaskContext';
 import useTasksApi from '@/components/api/tasksApi';
@@ -6,8 +6,8 @@ import { Task } from '@/types/task-types/taskTypes';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
-    const { id } = useParams();
-    const { getTasks } = useTasksApi();
+    const { id} = useParams();
+    const { getTasks} = useTasksApi();
     const { dispatch, state } = useTaskContext();
 
     useEffect(() => {
@@ -15,12 +15,11 @@ const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
             dispatch({
                 type: 'RESET_TASKS'
             });
-
             getTasks(dispatch, id);
         }
     }, [id, dispatch]);
 
-    if (state.isLoading) {
+    if (state.isLoading) { 
         return <div>Loading... please wait</div>;
     }
 
@@ -35,11 +34,13 @@ const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
                     <Card className='w-[300px]' key={task.id}>
                         <CardHeader>
                             <CardTitle>
-                                {task.name}
+                                <Link to={`/projects/${id}/tasks/${task.id}/edit`}>
+                                    {task.name}
+                                </Link>
                             </CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <CardDescription>
+                            {/* <CardDescription>
                                 Price per measure: {task.price_per_measure}
                             </CardDescription>
                             <CardDescription>
@@ -47,7 +48,7 @@ const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
                             </CardDescription>
                             <CardDescription>
                                 Total price: {task.total_price}
-                            </CardDescription>
+                            </CardDescription> */}
                             <CardDescription>
                                 Start date: {new Date(task.start_date!).toLocaleDateString().slice(0, 10)}
                             </CardDescription>

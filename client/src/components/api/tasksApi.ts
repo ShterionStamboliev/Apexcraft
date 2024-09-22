@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 const API_URL = import.meta.env.VITE_API_URL;
 
 const useTasksApi = () => {
-    const { token } = useAuth();
+    // const { token } = useAuth();
 
     const getTasks = async (dispatch: Dispatch<TaskAction>, projectId: string): Promise<void> => {
         dispatch({
@@ -14,19 +14,18 @@ const useTasksApi = () => {
 
         try {
             const response = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
+                // headers: {
+                //     // Authorization: `Bearer ${token}`
+                // },
+                credentials: 'include',
             });
 
             const data: Task[] = await response.json();
-            console.log(data);
             
             dispatch({
                 type: 'GET_TASKS',
                 payload: data
             });
-
         } catch (error) {
             dispatch({
                 type: 'ERROR',
@@ -39,13 +38,17 @@ const useTasksApi = () => {
         dispatch({
             type: 'LOADING'
         });
+
         try {
             const response = await fetch(`${API_URL}/projects/${projectId}/tasks/${taskId}`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                },
+                // headers: {
+                //     // Authorization: `Bearer ${token}`
+                // },
+                credentials: 'include',
             });
+
             const data: Task = await response.json();
+
             dispatch({
                 type: 'GET_TASK_BY_ID',
                 payload: data
@@ -62,16 +65,20 @@ const useTasksApi = () => {
         dispatch({
             type: 'LOADING'
         });
+
         try {
             const response = await fetch(`${API_URL}/projects/${projectId}/create-task`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
+                credentials: 'include',
             });
+
             const data: Task = await response.json();
+
             dispatch({
                 type: 'CREATE_TASK',
                 payload: data
@@ -87,17 +94,22 @@ const useTasksApi = () => {
     const editTask = async (dispatch: Dispatch<TaskAction>, projectId: string, taskId: string, taskData: Task): Promise<void> => {
         dispatch({
             type: 'LOADING'
+
         });
+
         try {
-            const response = await fetch(`${API_URL}/projects/${projectId}/createTask/${taskId}/edit`, {
+            const response = await fetch(`${API_URL}/projects/${projectId}/create-task/${taskId}/edit`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
+                    // Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
+                credentials: 'include',
             });
+
             const data: Task = await response.json();
+
             dispatch({
                 type: 'EDIT_TASK',
                 payload: data

@@ -16,6 +16,6 @@ export const sidebarItems: SidebarItems = {
 
 export const sidebarUserItems: SidebarItems = {
     links: [
-        { label: 'Sign out', href: '/sign-out', icon: LogOut },
+        { label: 'Sign out', href: '/logout', icon: LogOut },
     ]
 };
