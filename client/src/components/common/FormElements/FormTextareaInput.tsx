@@ -13,7 +13,6 @@ const FormTextareaInput = ({
     label,
     name,
     className,
-    value
 }: FormInputType) => {
     const { control } = useFormContext();
 
@@ -21,7 +20,7 @@ const FormTextareaInput = ({
         <FormField
             control={control}
             name={name}
-            render={({}) => (
+            render={({ field }) => (
                 <FormItem className={cn('flex-1', className)}>
                     <FormLabel className={cn('font-semibold', className)}>
                         {label}
@@ -30,7 +29,7 @@ const FormTextareaInput = ({
                         <Textarea
                             placeholder='Project notes...'
                             className='resize-none'
-                            value={value}
+                            {...field}
                         />
                     </FormControl>
                 </FormItem>

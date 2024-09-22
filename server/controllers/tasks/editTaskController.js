@@ -6,7 +6,7 @@ const { getProjectIdByName } = require("../../utils/getProjectIdByName");
 
 const editTask = async (req, res) => {
 
-    const tasktId = req.params.id;
+    const taskId = req.params.id;
     const { project, artisan, activity, measure, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status } = req.body;
   
     try {
@@ -15,9 +15,9 @@ const editTask = async (req, res) => {
         const artisanId = await getArtisanIdByName(artisan);
         const activityId = await getActivityIdByName(activity);
         const measureId = await getMeasureIdByName(measure);
-        const pricePerMeasure = parseFloat(pricePerMeasure);
-        const totalPrice = parseFloat(totalPrice);
-        const totalWork = parseFloat(totalWork);
+        // const pricePerMeasure = parseFloat(pricePerMeasure);
+        // const totalPrice = parseFloat(totalPrice);
+        // const totalWork = parseFloat(totalWork);
 
         const query = `
             UPDATE tbl_tasks
@@ -25,7 +25,7 @@ const editTask = async (req, res) => {
             WHERE id = ?
         `;
 
-        const values = [projectId, artisanId, activityId, measureId, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status, tasktId];
+        const values = [projectId, artisanId, activityId, measureId, pricePerMeasure, totalPrice, totalWork, startDate, endDate, note, status, taskId];
 
         const [result] = await pool.query(query, values);
 
@@ -34,7 +34,7 @@ const editTask = async (req, res) => {
         }
 
         const updatedTask = {
-            id: tasktId,
+            id: taskId,
             projectId,
             artisanId,
             activityId,

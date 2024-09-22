@@ -91,14 +91,14 @@ const useTasksApi = () => {
         }
     };
 
-    const editTask = async (dispatch: Dispatch<TaskAction>, projectId: string, taskId: string, taskData: Task): Promise<void> => {
+    const editTask = async (dispatch: Dispatch<TaskAction>, id: string, taskId: string, taskData: Task): Promise<void> => {
         dispatch({
             type: 'LOADING'
 
         });
 
         try {
-            const response = await fetch(`${API_URL}/projects/${projectId}/create-task/${taskId}/edit`, {
+            const response = await fetch(`${API_URL}/projects/${id}/task/${taskId}/edit`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ const useTasksApi = () => {
             });
 
             const data: Task = await response.json();
-
+            
             dispatch({
                 type: 'EDIT_TASK',
                 payload: data
