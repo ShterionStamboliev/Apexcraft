@@ -76,14 +76,6 @@ const AppRoutes = () => {
                     </LayoutUsersTable>
                 }
             />
-            {/* <Route
-                path='/projects/:id/create-task'
-                element={
-                    <LayoutUsersTable>
-                        <ProjectTasksPage />
-                    </LayoutUsersTable>
-                }
-            /> */}
             <Route
                 path='/projects/:id/tasks/:taskId/edit'
                 element={
