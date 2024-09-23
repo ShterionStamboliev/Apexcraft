@@ -25,7 +25,7 @@ const EditTask = () => {
         <>
             {task && (
                 <div className="container mx-auto p-4">
-                    <h1 className="text-2xl font-bold mb-6 text-center">Task View and Edit</h1>
+                    <h1 className="text-2xl font-bold mb-6 text-center">Task management</h1>
                     <div className="grid md:grid-cols-2 gap-20">
                         <TaskInformationCard
                             task={task}
