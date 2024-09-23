@@ -12,8 +12,6 @@ import ProjectsTablePage from './components/pages/ProjectsTablePage';
 import CompaniesTablePage from './components/pages/CompaniesTablePage';
 import ArtisansTablePage from './components/pages/ArtisansTablePage';
 import ProjectTasksPage from './components/pages/ProjectTasksPage';
-import CreateTaskForm from './components/forms/tasks-form/TaskFormCreate/CreateTask';
-import EditTask from './components/forms/tasks-form/TaskFormEdit/EditTask';
 import TaskEditPage from './components/pages/TaskEditPage';
 
 const AppRoutes = () => {
