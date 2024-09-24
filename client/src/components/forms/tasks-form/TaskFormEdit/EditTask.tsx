@@ -5,6 +5,7 @@ import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
+import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 
 const EditTask = () => {
     const { task, isLoading, handleEditTask } = useEditTaskHandler();
@@ -32,7 +33,7 @@ const EditTask = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>
+        return <TaskViewEditSkeleton />
     }
 
     return (

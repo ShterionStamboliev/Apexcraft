@@ -20,6 +20,7 @@ const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
                             type='text'
                             label='Task name'
                             name='name'
+                            className='p-0'
                         />
                         <FormFieldInput
                             type='text'
