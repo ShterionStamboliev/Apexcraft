@@ -9,28 +9,31 @@ type SidebarComponent = {
 const SidebarLinks = ({ Component }: SidebarComponent) => {
 
     return (
-        <div className='min-h-full'>
-            <div className='mt-1 px-2 flex flex-col w-full gap-1'>
-                {sidebarItems.links.map((link, i) => (
+        <div className='mt-1 px-2 flex flex-col w-full gap-1'>
+            {sidebarItems.links.map((link, i) => {
+                const isActive = link.href === '/'
+                    ? location.pathname === link.href
+                    : location.pathname === link.href || (
+                        link.href !== '/' && location.pathname.startsWith(link.href)
+                    );
+
+                return (
                     <Link
                         to={link.href}
                         key={i}
                         className='pb-1'
                     >
                         <SidebarButton
-                            variant={location.pathname === link.href
-                                ? 'secondary'
-                                : 'ghost'
-                            }
+                            variant={isActive ? 'secondary' : 'ghost'}
                             icon={link.icon}
                             className='w-full'
                         >
                             {link.label}
                         </SidebarButton>
                     </Link>
-                ))}
-                <Component />
-            </div>
+                )
+            })}
+            <Component />
         </div>
     )
 }

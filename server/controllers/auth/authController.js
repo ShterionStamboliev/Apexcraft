@@ -1,18 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const pool = require('../../db');
-
-// Generate JWT token
-const generateToken = (user) => {
-    const payload = {
-        id: user.id,
-        role: user.role,
-    };
-
-    return jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN
-    });
-};
+const { generateTokenSetCookie } = require('../../utils/generateTokenCookieSetter');
 
 // Login function
 const login = async (req, res) => {
@@ -29,37 +18,94 @@ const login = async (req, res) => {
         // Check if user exists
         if (!rows || rows.length === 0) {
             console.log('No user found with the provided username');
-            return res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(401).json({
+                error: 'Invalid username or password'
+            });
         }
 
         const user = rows[0];
 
-        // Verify password 
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
+
         if (!isPasswordCorrect) {
             console.log('Password does not match for the provided username');
-            return res.status(401).json({ error: 'Invalid username or password' });
+            return res.status(401).json({
+                error: 'Invalid username or password'
+            });
         }
 
-        // Generate JWT token
-        const token = generateToken(user);
-        console.log('Login successful, token generated');
+        generateTokenSetCookie(res, user);
 
-        // Send token in response
-        res.status(200).json({ token, user: user.username, role: user.role });
-
+        res.status(201).json({
+            success: 'true',
+            message: 'Login successful',
+            user: {
+                username: user.username,
+                name_and_family: user.name_and_family,
+                role: user.role,
+                status: user.status,
+            }
+        });
     } catch (error) {
         console.error('Error authenticating user:', error.message);
         res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-//TO DO Logout
 const logout = (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'prod',
+        sameSite: 'strict',
+    });
+    res.status(200).json({
+        success: true,
+        message: 'Logged out'
+    })
+};
 
-}
+const authCheck = async (req, res) => {
+    const userId = req.user.id;
+
+    if (!userId) {
+        return res.status(400).json({
+            success: false,
+            message: 'User not authenticated'
+        });
+    }
+
+    try {
+        const [rows] = await pool.execute('SELECT * FROM tbl_users WHERE id = ?', [userId]);
+
+        if (!rows || rows.length === 0) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        const user = rows[0];
+
+        res.status(200).json({
+            success: true,
+            user: {
+                username: user.username,
+                name_and_family: user.name_and_family,
+                role: user.role,
+                status: user.status,
+            }
+        })
+    } catch (error) {
+        console.log('Error in auth', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Server error'
+        })
+    }
+};
 
 module.exports = {
     login,
-    logout
+    logout,
+    authCheck
 };

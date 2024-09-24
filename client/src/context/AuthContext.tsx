@@ -1,17 +1,15 @@
 import { createContext, useContext, useEffect, useReducer } from 'react'
-import { useQueryClient } from '@tanstack/react-query'
 import {
-    AuthAction,
     AuthState,
     AuthActionType,
     AuthContextProps
 } from '@/types/auth-types/authTypes';
 import { User } from '@/types/user-types/userTypes';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import authReducer from './authReducer';
 
 const initialState: AuthState = {
     user: null,
-    token: null,
     error: undefined,
     role: null,
     isLoading: false,
@@ -19,42 +17,6 @@ const initialState: AuthState = {
 };
 
 const API_URL = import.meta.env.VITE_API_URL;
-
-const authReducer = (state: AuthState, action: AuthAction): AuthState => {
-    switch (action.type) {
-        case AuthActionType.LOGIN_REQUEST:
-            return {
-                ...state,
-                isLoading: true,
-                error: undefined,
-            };
-        case AuthActionType.LOGIN_SUCCESS:
-            return {
-                ...state,
-                isLoading: false,
-                user: action.payload?.user || null,
-                token: action.payload?.token || null,
-                tokenExpiration: action.payload?.tokenExpiration || null,
-                role: action.payload?.role || null,
-            };
-        case AuthActionType.LOGIN_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload?.error
-            };
-        case AuthActionType.LOGOUT:
-            return {
-                ...state,
-                user: null,
-                token: null,
-                tokenExpiration: null,
-                role: null,
-            };
-        default:
-            return state;
-    }
-};
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
@@ -64,26 +26,23 @@ type AuthProviderProps = {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
-
-    const queryClient = useQueryClient();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    useEffect(() => {
-        const tokenExpirationCheck = setInterval(() => {
-            const expiration = state.tokenExpiration
-                ? new Date(state.tokenExpiration)
-                : null;
-            if (expiration && new Date() >= expiration) {
-                dispatch({
-                    type: AuthActionType.LOGOUT
-                });
-                queryClient.clear();
-                navigate('/login');
-            }
-        }, 60000);
+    // useEffect(() => {
+    //     const checkTokenExpiration = () => {
+    //         const expiration = state.tokenExpiration ? new Date(state.tokenExpiration) : null;
+    //         if (expiration && new Date() >= expiration) {
+    //             dispatch({
+    //                 type: AuthActionType.LOGOUT
+    //             });
+    //             navigate('/login');
+    //         }
+    //     };
+    //     const tokenExpirationCheck = setInterval(checkTokenExpiration, 60000);
 
-        return () => clearInterval(tokenExpirationCheck);
-    }, [state.tokenExpiration, queryClient, navigate]);
+    //     return () => clearInterval(tokenExpirationCheck);
+    // }, [state.tokenExpiration, navigate]);
 
     const login = async (username: string, password: string): Promise<boolean> => {
         dispatch({
@@ -100,12 +59,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     username,
                     password
                 }),
+                credentials: 'include',
             });
 
-            const userData: User = await response.json();
+            const userData: { user: User } = await response.json();
 
             if (!response.ok) {
-                throw new Error('Грешен потребител или парола');
+                throw new Error('Wrong username or password');
             }
 
             const expiration = new Date();
@@ -114,13 +74,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
-                    token: userData.token || undefined,
-                    user: userData.user || undefined,
-                    role: userData.role || undefined,
+                    user: userData.user,
                     tokenExpiration: expiration.toISOString(),
                 }
             });
 
+            sessionStorage.setItem('user', JSON.stringify(userData.user));
             return true;
         } catch (error: unknown) {
             if (error instanceof Error)
@@ -135,24 +94,108 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     };
 
     const logout = async () => {
-        const token = state.token;
+        await fetch(`${API_URL}/auth/logout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+        });
 
-        if (token) {
-            await fetch(`${API_URL}/auth/logout`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-        }
+        sessionStorage.removeItem('user');
 
         dispatch({
             type: AuthActionType.LOGOUT,
-        })
-        queryClient.clear();
+        });
+
         navigate('/login');
     };
+
+    const checkAuth = async (refreshToken = false) => {
+        try {
+            if (refreshToken) {
+                const response = await fetch(`${API_URL}/auth/refresh-token`, {
+                    method: 'POST',
+                    credentials: 'include',
+                });
+    
+                if (!response.ok) {
+                    throw new Error('Failed to refresh token');
+                }
+    
+                const userData = await response.json();
+                const expiration = new Date();
+                expiration.setHours(expiration.getHours() + 1);
+    
+                dispatch({
+                    type: AuthActionType.LOGIN_SUCCESS,
+                    payload: {
+                        user: userData.user,
+                        role: userData.user.role,
+                        tokenExpiration: expiration.toISOString(),
+                    }
+                });
+            } else {
+                const response = await fetch(`${API_URL}/auth/auth-check`, {
+                    method: 'POST',
+                    credentials: 'include',
+                });
+    
+                if (!response.ok) {
+                    throw new Error('User not authenticated');
+                }
+    
+                const userData = await response.json();
+                console.log('Auth check user data:', userData);
+    
+                const expiration = new Date();
+                expiration.setHours(expiration.getHours() + 1);
+    
+                dispatch({
+                    type: AuthActionType.LOGIN_SUCCESS,
+                    payload: {
+                        user: userData.user,
+                        role: userData.user.role,
+                        tokenExpiration: expiration.toISOString(),
+                    }
+                });
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                dispatch({
+                    type: AuthActionType.LOGOUT
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem('user');
+
+        if (location.pathname !== '/login') {
+            if (storedUser) {
+                const parsedUser = JSON.parse(storedUser);
+                const expiration = new Date();
+                expiration.setHours(expiration.getHours() + 1);
+
+                dispatch({
+                    type: AuthActionType.LOGIN_SUCCESS,
+                    payload: {
+                        user: parsedUser,
+                        role: parsedUser.role,
+                        tokenExpiration: expiration.toISOString(),
+                    }
+                });
+            }
+            checkAuth();
+
+            const checkTokenInterval = setInterval(() => {
+                checkAuth(true);
+            }, 900000);
+
+            return () => clearInterval(checkTokenInterval);
+        }
+    }, [location.pathname]);
 
     return (
         <AuthContext.Provider value={{ ...state, login, logout }}>
@@ -161,7 +204,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     )
 }
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextProps => {
     const context = useContext(AuthContext);
     if (!context) {
         throw new Error('useAuth must be used within an AuthProvider component');

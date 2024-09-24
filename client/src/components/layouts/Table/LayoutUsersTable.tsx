@@ -10,12 +10,11 @@ const LayoutUsersTable = ({ children }: LayoutUsersTableProps) => {
         <div className="flex flex-col min-h-screen">
             <LayoutHeader />
 
-            {/* Main content */}
-            <div className="flex-1">
+            <div className="flex-1 overflow-hidden">
                 {children}
             </div>
 
-            <LayoutFooter />
+            {/* <LayoutFooter /> */}
         </div>
     );
 }

@@ -8,10 +8,16 @@ import { useTheme } from '@/context/ThemeContext'
 import { Switch } from '@/components/ui/switch'
 import { PopoverClose } from '@radix-ui/react-popover'
 import { useState } from 'react'
+import { useAuth } from '@/context/AuthContext'
 
 const SidebarUserDropdown = () => {
     const { theme, setTheme } = useTheme();
     const [isChecked, setIsChecked] = useState<boolean>(false);
+    const { logout } = useAuth();
+
+    const handleLogoutClick = async () => {
+        await logout();
+    }
 
     const themeToggleHandler = () => {
         if (theme === 'dark') {
@@ -50,6 +56,7 @@ const SidebarUserDropdown = () => {
                             className='w-full p-1.5 text-sm'
                             size='sm'
                             icon={link.icon}
+                            onClick={link.label === 'Sign out' ? handleLogoutClick : undefined}
                         >
                             {link.label}
                         </SidebarButton>

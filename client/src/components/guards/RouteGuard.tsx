@@ -2,17 +2,21 @@ import { useAuth } from '@/context/AuthContext'
 import { Navigate, Outlet } from 'react-router-dom'
 
 const RouteGuard = () => {
-    const { user, role, isLoading } = useAuth();
+    const { user, role } = useAuth();
 
-    if (isLoading) {
-        return null;
+    if (!user) {
+        return <Navigate to='/login' />;
     }
 
-    if (user && role === 'manager') {
+    if (role === 'manager') {
+        return <Outlet />;
+    }
+
+    if (role === 'user') {
         return <Outlet />
     }
 
-    return <Navigate to='/login' />
+    return null;
 }
 
 export default RouteGuard

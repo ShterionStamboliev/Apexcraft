@@ -10,9 +10,8 @@ const artisansRoutes = require('./routes/artisansRoutes');
 const companyRoutes = require('./routes/companyRoutes');
 const taskRoutes = require('./routes/tasksRoutes');
 const workItemRoutes = require('./routes/workItemRoutes');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
-
-require('dotenv').config();
 
 require('dotenv').config();
 
@@ -20,20 +19,19 @@ const app = express();
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const allowedOrigins = [process.env.API_CORS, 'http://localhost', 'https://localhost', 'http://project34.online', 'https://project34.online'];
 
 app.use(cors({
-    origin: {
-        origin: function (origin, callback) {
-            if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
-            }
-        },
-        credentials: true
-    }
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
 }));
 
 app.use('/auth', authRoutes);
