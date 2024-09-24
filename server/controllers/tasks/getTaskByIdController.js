@@ -1,9 +1,9 @@
 const pool = require("../../db");
 
 const getTaskById = async (req, res) => {
+    const taskId = req.params.taskId;
 
     try {
-        const taskId = req.params.id;
 
         const [rows] = await pool.execute('SELECT * FROM tbl_tasks WHERE id = ?', [taskId])
 

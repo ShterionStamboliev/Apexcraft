@@ -3,11 +3,11 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FormProvider } from 'react-hook-form'
 
 const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
-    
+
     return (
         <Card>
             <CardHeader>
@@ -36,7 +36,7 @@ const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
                             label='Total price'
                             name='total_price'
                         />
-                        <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
+                        <div className='flex flex-col flex-wrap pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
                             <FormDatePicker
                                 name='start_date'
                                 label='Select new start date'
@@ -63,15 +63,13 @@ const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
                                 label='Task notes'
                             />
                         </div>
-                    </CardContent>
-                    <CardFooter>
                         <DialogFooter
                             isLoading={isLoading}
                             label='Save changes'
                             formName='task-edit'
                             className='mt-6'
                         />
-                    </CardFooter>
+                    </CardContent>
                 </form>
             </FormProvider>
         </Card>

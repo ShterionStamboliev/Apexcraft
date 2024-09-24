@@ -34,7 +34,7 @@ const TaskInformationCard = ({ task }: { task: Task }) => {
                 </div>
                 <Separator />
                 <div className="flex items-center pt-4">
-                    <CalendarIcon className="mr-2 text-green-500" />
+                    <CalendarIcon className="mr-2 text-blue-600" />
                     <h3 className='mr-2'>Start:</h3>
                     <span className='text-gray-400'>{format((task.start_date as string), "PPP")}</span>
                 </div>

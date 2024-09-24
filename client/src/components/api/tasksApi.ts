@@ -1,12 +1,9 @@
 import { Dispatch } from 'react';
 import { Task, TaskAction } from '@/types/task-types/taskTypes';
-import { useAuth } from '@/context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const useTasksApi = () => {
-    // const { token } = useAuth();
-
     const getTasks = async (dispatch: Dispatch<TaskAction>, projectId: string): Promise<void> => {
         dispatch({
             type: 'LOADING'
@@ -14,9 +11,6 @@ const useTasksApi = () => {
 
         try {
             const response = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
-                // headers: {
-                //     // Authorization: `Bearer ${token}`
-                // },
                 credentials: 'include',
             });
 
@@ -41,9 +35,6 @@ const useTasksApi = () => {
 
         try {
             const response = await fetch(`${API_URL}/projects/${projectId}/tasks/${taskId}`, {
-                // headers: {
-                //     // Authorization: `Bearer ${token}`
-                // },
                 credentials: 'include',
             });
 
@@ -71,7 +62,6 @@ const useTasksApi = () => {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
                 credentials: 'include',
@@ -102,7 +92,6 @@ const useTasksApi = () => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    // Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
                 credentials: 'include',

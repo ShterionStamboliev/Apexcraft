@@ -9,7 +9,7 @@ const { editTask } = require('../controllers/tasks/editTaskController');
 const router = express.Router();
 
 router.get ('/projects/:id/tasks', authenticateToken, getTasks);
-router.get ('/projects/:id/tasks/:id', authenticateToken, getTaskById);
+router.get ('/projects/:id/tasks/:taskId', authenticateToken, getTaskById);
 router.post('/projects/:id/create-task', authenticateToken, createTask);
 router.put('/projects/:id/task/:taskId/edit', authenticateToken, editTask);
 
