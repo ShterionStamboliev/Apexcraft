@@ -17,6 +17,7 @@ import ActivitySelector from '@/components/common/FormElements/FormActivitySelec
 import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector';
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
+import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 
 const CreateTask = () => {
     const { role } = useAuth();
@@ -25,6 +26,8 @@ const CreateTask = () => {
     const { createTask, getTasks } = useTasksApi();
     const { dispatch, state } = useTaskContext();
     const { isLoading } = state;
+
+    const { fireErrorToast, fireSuccessToast } = useToastHook();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -35,13 +38,18 @@ const CreateTask = () => {
 
     const onSubmit = async (data: TaskSchema) => {
         if (id) {
-            await createTask(dispatch, id, {
-                ...data,
-                id,
-            });
-            setIsDialogOpen(false);
-            form.reset();
-            await getTasks(dispatch, id);
+            try {
+                await createTask(dispatch, id, {
+                    ...data,
+                    id,
+                });
+                setIsDialogOpen(false);
+                fireSuccessToast('Task created')
+                form.reset();
+                await getTasks(dispatch, id);
+            } catch (error) {
+                fireErrorToast('Something went wrong')
+            }
         }
     };
 
@@ -90,7 +98,7 @@ const CreateTask = () => {
                                         <StatusSelector
                                             label='Status'
                                             name='status'
-                                            defaultVal='active'
+                                            defaultVal=''
                                         />
                                         <ArtisanSelector
                                             label='Select artisans'

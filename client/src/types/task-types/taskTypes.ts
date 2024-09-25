@@ -4,9 +4,9 @@ export type Task = {
     artisan?: string;
     activity?: string;
     measure?: string;
-    price_per_measure?: string;
-    total_price?: string;
-    total_work_in_selected_measure?: string;
+    price_per_measure?: string | number;
+    total_price?: string | number;
+    total_work_in_selected_measure?: string | number;
     start_date?: string;
     end_date?: string;
     note?: string;
