@@ -21,9 +21,7 @@ export const newArtisanSchema = z.object({
     }).max(50, {
         message: 'Email cannot exceed 50 characters.'
     }).email('Please, enter a valid email.'),
-    company: z.string().min(1, {
-        message: 'Please select a company.'
-    }),
+    company: z.string(),
     status: z.nativeEnum(ArtisanStatus, {
         message: 'Please, select a status'
     }),

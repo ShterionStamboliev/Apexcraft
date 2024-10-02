@@ -1,121 +1,35 @@
-import { Dispatch } from 'react';
-import { Task, TaskAction } from '@/types/task-types/taskTypes';
-
-const API_URL = import.meta.env.VITE_API_URL;
+import { Task } from '@/types/task-types/taskTypes';
+import { apiCall } from './apiCall';
+import { QueryKey } from '@tanstack/react-query';
 
 const useTasksApi = () => {
-    const getTasks = async (dispatch: Dispatch<TaskAction>, projectId: string): Promise<void> => {
-        dispatch({
-            type: 'LOADING'
-        });
-
-        try {
-            const response = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
-                credentials: 'include',
-            });
-
-            const data: Task[] = await response.json();
-            
-            dispatch({
-                type: 'GET_TASKS',
-                payload: data
-            });
-        } catch (error) {
-            dispatch({
-                type: 'ERROR',
-                payload: (error as Error).message
-            });
-        }
+    const createTask = async (id: string, taskData: Task): Promise<void> => {
+        const data = await apiCall(`/projects/${id}/create-task`, 'POST', taskData);
+        return data;
     };
 
-    const getTaskById = async (dispatch: Dispatch<TaskAction>, projectId: string, taskId: string): Promise<void> => {
-        dispatch({
-            type: 'LOADING'
-        });
-
-        try {
-            const response = await fetch(`${API_URL}/projects/${projectId}/tasks/${taskId}`, {
-                credentials: 'include',
-            });
-
-            const data: Task = await response.json();
-
-            dispatch({
-                type: 'GET_TASK_BY_ID',
-                payload: data
-            });
-        } catch (error) {
-            dispatch({
-                type: 'ERROR',
-                payload: (error as Error).message
-            });
-        }
+    const getTasks = async ({ queryKey }: { queryKey: QueryKey }): Promise<Task[]> => {
+        const id = queryKey[1] as string;
+        const data: Task[] = await apiCall(`/projects/${id}/tasks`, 'GET');
+        return data;
     };
 
-    const createTask = async (dispatch: Dispatch<TaskAction>, projectId: string, taskData: Task): Promise<void> => {
-        dispatch({
-            type: 'LOADING'
-        });
-
-        try {
-            const response = await fetch(`${API_URL}/projects/${projectId}/create-task`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(taskData),
-                credentials: 'include',
-            });
-
-            const data: Task = await response.json();
-
-            dispatch({
-                type: 'CREATE_TASK',
-                payload: data
-            });
-        } catch (error) {
-            dispatch({
-                type: 'ERROR',
-                payload: (error as Error).message
-            });
-        }
+    const getTaskById = async ({ queryKey }: { queryKey: QueryKey }): Promise<Task> => {
+        const projectId = queryKey[1] as string;
+        const taskId = queryKey[2] as string;
+        const data: Task = await apiCall(`/projects/${projectId}/tasks/${taskId}`, 'GET');
+        return data;
     };
 
-    const editTask = async (dispatch: Dispatch<TaskAction>, id: string, taskId: string, taskData: Task): Promise<void> => {
-        dispatch({
-            type: 'LOADING'
-
-        });
-
-        try {
-            const response = await fetch(`${API_URL}/projects/${id}/task/${taskId}/edit`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(taskData),
-                credentials: 'include',
-            });
-
-            const data: Task = await response.json();
-            
-            dispatch({
-                type: 'EDIT_TASK',
-                payload: data
-            });
-        } catch (error) {
-            dispatch({
-                type: 'ERROR',
-                payload: (error as Error).message
-            });
-        }
+    const editTask = async (id: string, taskId: string, taskData: Task): Promise<void> => {
+        await apiCall(`/projects/${id}/task/${taskId}/edit`, 'PUT', taskData);
     };
 
     return {
         createTask,
-        editTask,
+        getTasks,
         getTaskById,
-        getTasks
+        editTask,
     }
 }
 

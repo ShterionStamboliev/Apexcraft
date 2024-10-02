@@ -12,7 +12,6 @@ export interface AuthState {
     error?: string | undefined;
     role?: string | null;
     status?: string | null;
-    tokenExpiration?: string | null;
 }
 
 export interface AuthContextProps extends AuthState {

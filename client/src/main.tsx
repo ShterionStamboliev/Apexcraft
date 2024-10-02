@@ -14,6 +14,7 @@ import { CompanyProvider } from './context/Company/CompanyContext'
 import { ProjectProvider } from './context/Project/ProjectContext'
 import { ArtisanProvider } from './context/Artisan/ArtisanContext'
 import { TaskProvider } from './context/Task/TaskContext'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                                                 <TaskProvider>
                                                     <AppRoutes />
                                                     <Toaster />
+                                                    <ReactQueryDevtools />
                                                 </TaskProvider>
                                             </ArtisanProvider>
                                         </ProjectProvider>

@@ -11,7 +11,7 @@ enum CompanyDds {
     no = 'no',
 }
 
-export const phoneValidator = /^(\+\d{1,3}[- ]?)?\d{11}$/;
+export const phoneValidator = /^(\+\d{1,3}[- ]?)?\d{99}$/;
 
 export const newCompanySchema = z.object({
     name: z.string()

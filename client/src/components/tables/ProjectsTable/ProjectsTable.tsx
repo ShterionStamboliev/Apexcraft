@@ -1,12 +1,10 @@
-import { Suspense, lazy, useState } from 'react';
+import { useState } from 'react';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 import { useProject } from '@/context/Project/ProjectContext';
 import { Project } from '@/types/project-types/projectTypes';
 import CreateProject from '@/components/forms/projects-form/ProjectFormCreate/CreateProject';
 import TableTopNavigation from '@/components/common/SearchBar/TableTopNavigation';
-import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
-
-const ProjectsTableBody = lazy(() => import('@/components/tables/ProjectsTable/ProjectsTableBody'));
+import ProjectsTableBody from './ProjectsTableBody';
 
 const ProjectsTable = () => {
     const { state } = useProject();
@@ -22,11 +20,9 @@ const ProjectsTable = () => {
                     Component={CreateProject}
                 />
                 <div className='flex flex-row flex-wrap gap-5'>
-                    <Suspense fallback={<ProjectsLoader />}>
-                        <ProjectsTableBody
-                            filteredData={filteredData}
-                        />
-                    </Suspense>
+                    <ProjectsTableBody
+                        filteredData={filteredData}
+                    />
                 </div>
             </div>
         </div>

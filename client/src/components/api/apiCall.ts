@@ -1,10 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const apiCall = async (
-    endpoint: string,
-    method: string,
-    data?: any
-) => {
+export const apiCall = async (endpoint: string, method: string, data?: any) => {
     const response = await fetch(`${API_URL}${endpoint}`, {
         method,
         headers: {

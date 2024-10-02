@@ -1,5 +1,4 @@
 import { useForm, FormProvider } from 'react-hook-form';
-import { useTaskContext } from '@/context/Task/TaskContext';
 import { useParams } from 'react-router-dom';
 import useTasksApi from '@/components/api/tasksApi';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -18,39 +17,42 @@ import MeasureSelector from '@/components/common/FormElements/FormMeasureSelecto
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const CreateTask = () => {
     const { role } = useAuth();
     const isManager = role === 'manager';
     const { id } = useParams<{ id: string }>();
-    const { createTask, getTasks } = useTasksApi();
-    const { dispatch, state } = useTaskContext();
-    const { isLoading } = state;
-
-    const { fireErrorToast, fireSuccessToast } = useToastHook();
+    
+    const { createTask } = useTasksApi();
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const queryClient = useQueryClient();
+    const { fireErrorToast, fireSuccessToast } = useToastHook();
 
     const form = useForm<TaskSchema>({
+        defaultValues: taskDefaults,
         resolver: zodResolver(newTaskSchema),
-        defaultValues: taskDefaults
+        mode: 'onChange'
+    });
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: (task: TaskSchema) => createTask(id!, task),
+        onSuccess: () => {
+            fireSuccessToast('Tasks created successfully!');
+            queryClient.invalidateQueries({
+                queryKey: ['projects', id, 'tasks']
+            });
+            setIsDialogOpen(false);
+            form.reset();
+        },
+        onError: () => {
+            fireErrorToast('Failed to create task. Please try again.')
+        },
     });
 
     const onSubmit = async (data: TaskSchema) => {
-        if (id) {
-            try {
-                await createTask(dispatch, id, {
-                    ...data,
-                    id,
-                });
-                setIsDialogOpen(false);
-                fireSuccessToast('Task created')
-                form.reset();
-                await getTasks(dispatch, id);
-            } catch (error) {
-                fireErrorToast('Something went wrong')
-            }
-        }
+        mutate(data);
     };
 
     return (
@@ -71,7 +73,6 @@ const CreateTask = () => {
                                 <DialogHeader
                                     title='Create new task'
                                 />
-
                                 <FormFieldInput
                                     type='text'
                                     label='Task name'
@@ -92,7 +93,6 @@ const CreateTask = () => {
                                     label='Total price'
                                     name='total_price'
                                 />
-
                                 <div className='flex flex-col flex-1 pt-2 justify-between'>
                                     <div className='flex justify-between'>
                                         <StatusSelector
@@ -101,7 +101,7 @@ const CreateTask = () => {
                                             defaultVal=''
                                         />
                                         <ArtisanSelector
-                                            label='Select artisans'
+                                            label='Select artisan'
                                             name='artisan'
                                             defaultVal=''
                                         />
@@ -131,14 +131,14 @@ const CreateTask = () => {
                                         description=''
                                     />
                                 </div>
-
                                 <FormTextareaInput
                                     name='note'
                                     label='Enter notes for your project'
                                     type='text'
                                 />
                                 <DialogFooter
-                                    isLoading={isLoading}
+                                    disabled={isPending}
+                                    isLoading={isPending}
                                     label='Submit'
                                     formName='task-form'
                                     className='mt-6'

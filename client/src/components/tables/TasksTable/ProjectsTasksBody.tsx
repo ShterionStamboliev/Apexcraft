@@ -1,66 +1,50 @@
 import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useTaskContext } from '@/context/Task/TaskContext';
 import useTasksApi from '@/components/api/tasksApi';
 import { Task } from '@/types/task-types/taskTypes';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
 
 const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
-    const { id} = useParams();
-    const { getTasks} = useTasksApi();
-    const { dispatch, state } = useTaskContext();
+    const { id } = useParams();
+    const { getTasks } = useTasksApi();
 
-    useEffect(() => {
-        if (id) {
-            dispatch({
-                type: 'RESET_TASKS'
-            });
-            getTasks(dispatch, id);
-        }
-    }, [id, dispatch]);
+    const { data, isLoading } = useFetchQuery<Task[]>(['projects', id, 'tasks'], getTasks, {
+        staleTime: 0,
+    });
 
-    if (state.isLoading) { 
-        return <div>Loading... please wait</div>;
+    if (isLoading) {
+        return <ProjectTasksSkeleton data={data} />
     }
 
-    if (filteredData.length === 0) {
-        return <div>No results found</div>;
+    if (data?.length === 0) {
+        return <h1>No results found.</h1>
     }
 
     return (
         <>
-            {
-                filteredData.map((task) => (
-                    <Card className='w-[300px]' key={task.id}>
-                        <CardHeader>
-                            <CardTitle>
-                                <Link to={`/projects/${id}/tasks/${task.id}/edit`}>
-                                    {task.name}
-                                </Link>
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                            {/* <CardDescription>
-                                Price per measure: {task.price_per_measure}
-                            </CardDescription>
-                            <CardDescription>
-                                Total work: {task.total_work_in_selected_measure}
-                            </CardDescription>
-                            <CardDescription>
-                                Total price: {task.total_price}
-                            </CardDescription> */}
-                            <CardDescription>
-                                Start date: {new Date(task.start_date!).toLocaleDateString().slice(0, 10)}
-                            </CardDescription>
-                            <CardDescription>
-                                End date: {new Date(task.end_date!).toLocaleDateString().slice(0, 10)}
-                            </CardDescription>
-                            <CardDescription>
-                                Task status: {task.status}
-                            </CardDescription>
-                        </CardContent>
-                    </Card>
-                ))
+            {data && data.map((task) => (
+                <Card className='w-[300px]' key={task.id}>
+                    <CardHeader>
+                        <CardTitle>
+                            <Link to={`/projects/${id}/tasks/${task.id}/edit`}>
+                                {task.name}
+                            </Link>
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <CardDescription>
+                            Start date: {new Date(task.start_date!).toLocaleDateString().slice(0, 10)}
+                        </CardDescription>
+                        <CardDescription>
+                            End date: {new Date(task.end_date!).toLocaleDateString().slice(0, 10)}
+                        </CardDescription>
+                        <CardDescription>
+                            Task status: {task.status}
+                        </CardDescription>
+                    </CardContent>
+                </Card>
+            ))
             }
         </>
     )
