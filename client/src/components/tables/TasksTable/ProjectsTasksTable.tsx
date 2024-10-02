@@ -1,12 +1,11 @@
 import { Suspense, lazy, useState } from 'react';
 import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter';
 import TableTopNavigation from '@/components/common/SearchBar/TableTopNavigation';
-import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { Task } from '@/types/task-types/taskTypes';
 import { useTaskContext } from '@/context/Task/TaskContext';
 import CreateTask from '@/components/forms/tasks-form/TaskFormCreate/CreateTask';
+import ProjectsTasksBody from './ProjectsTasksBody';
 
-const ProjectsTasksBody = lazy(() => import('@/components/tables/TasksTable/ProjectsTasksBody'));
 
 const ProjectsTasks = () => {
     const { state } = useTaskContext();
@@ -23,11 +22,9 @@ const ProjectsTasks = () => {
                     Component={CreateTask}
                 />
                 <div className='flex flex-row flex-wrap gap-5'>
-                    <Suspense fallback={<ProjectsLoader />}>
-                        <ProjectsTasksBody
-                            filteredData={filteredData}
-                        />
-                    </Suspense>
+                    <ProjectsTasksBody
+                        filteredData={filteredData}
+                    />
                 </div>
             </div>
         </div>

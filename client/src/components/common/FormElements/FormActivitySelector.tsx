@@ -1,3 +1,5 @@
+import useActivitiesApi from '@/components/api/activitiesApi'
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
     FormField,
@@ -11,13 +13,17 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { useActivity } from '@/context/Activity/ActivityContext'
+import { Activity } from '@/types/activity-types/activityTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
 const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
-    const { state } = useActivity();
     const { control } = useFormContext();
+
+    const { getActivities } = useActivitiesApi();
+    const { data } = useFetchQuery<Activity[]>(['activities'], getActivities, {
+        staleTime: Infinity
+    });
 
     return (
         <FormField
@@ -38,8 +44,7 @@ const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSel
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {state.data
-                                .filter((activity) => activity.id)
+                            {data && data
                                 .map((activity) => (
                                     <SelectItem
                                         key={activity.id}

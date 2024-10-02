@@ -13,7 +13,6 @@ const initialState: AuthState = {
     error: undefined,
     role: null,
     isLoading: false,
-    tokenExpiration: null,
 };
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -28,21 +27,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [state, dispatch] = useReducer(authReducer, initialState);
     const navigate = useNavigate();
     const location = useLocation();
-
-    // useEffect(() => {
-    //     const checkTokenExpiration = () => {
-    //         const expiration = state.tokenExpiration ? new Date(state.tokenExpiration) : null;
-    //         if (expiration && new Date() >= expiration) {
-    //             dispatch({
-    //                 type: AuthActionType.LOGOUT
-    //             });
-    //             navigate('/login');
-    //         }
-    //     };
-    //     const tokenExpirationCheck = setInterval(checkTokenExpiration, 60000);
-
-    //     return () => clearInterval(tokenExpirationCheck);
-    // }, [state.tokenExpiration, navigate]);
 
     const login = async (username: string, password: string): Promise<boolean> => {
         dispatch({
@@ -68,18 +52,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 throw new Error('Wrong username or password');
             }
 
-            const expiration = new Date();
-            expiration.setHours(expiration.getHours() + 1);
-
             dispatch({
                 type: AuthActionType.LOGIN_SUCCESS,
                 payload: {
                     user: userData.user,
-                    tokenExpiration: expiration.toISOString(),
                 }
             });
 
             sessionStorage.setItem('user', JSON.stringify(userData.user));
+
             return true;
         } catch (error: unknown) {
             if (error instanceof Error)
@@ -111,89 +92,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         navigate('/login');
     };
 
-    const checkAuth = async (refreshToken = false) => {
-        try {
-            if (refreshToken) {
-                const response = await fetch(`${API_URL}/auth/refresh-token`, {
-                    method: 'POST',
-                    credentials: 'include',
-                });
-    
-                if (!response.ok) {
-                    throw new Error('Failed to refresh token');
-                }
-    
-                const userData = await response.json();
-                const expiration = new Date();
-                expiration.setHours(expiration.getHours() + 1);
-    
-                dispatch({
-                    type: AuthActionType.LOGIN_SUCCESS,
-                    payload: {
-                        user: userData.user,
-                        role: userData.user.role,
-                        tokenExpiration: expiration.toISOString(),
-                    }
-                });
-            } else {
-                const response = await fetch(`${API_URL}/auth/auth-check`, {
-                    method: 'POST',
-                    credentials: 'include',
-                });
-    
-                if (!response.ok) {
-                    throw new Error('User not authenticated');
-                }
-    
-                const userData = await response.json();
-                console.log('Auth check user data:', userData);
-    
-                const expiration = new Date();
-                expiration.setHours(expiration.getHours() + 1);
-    
-                dispatch({
-                    type: AuthActionType.LOGIN_SUCCESS,
-                    payload: {
-                        user: userData.user,
-                        role: userData.user.role,
-                        tokenExpiration: expiration.toISOString(),
-                    }
-                });
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                dispatch({
-                    type: AuthActionType.LOGOUT
-                });
-            }
-        }
-    };
-
     useEffect(() => {
         const storedUser = sessionStorage.getItem('user');
 
         if (location.pathname !== '/login') {
             if (storedUser) {
                 const parsedUser = JSON.parse(storedUser);
-                const expiration = new Date();
-                expiration.setHours(expiration.getHours() + 1);
-
                 dispatch({
                     type: AuthActionType.LOGIN_SUCCESS,
                     payload: {
                         user: parsedUser,
                         role: parsedUser.role,
-                        tokenExpiration: expiration.toISOString(),
                     }
                 });
             }
-            checkAuth();
-
-            const checkTokenInterval = setInterval(() => {
-                checkAuth(true);
-            }, 900000);
-
-            return () => clearInterval(checkTokenInterval);
         }
     }, [location.pathname]);
 

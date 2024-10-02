@@ -64,47 +64,48 @@ const logout = (req, res) => {
     })
 };
 
-const authCheck = async (req, res) => {
-    const userId = req.user.id;
+// const authCheck = async (req, res) => {
+//     const userId = req.user.id;
 
-    if (!userId) {
-        return res.status(400).json({
-            success: false,
-            message: 'User not authenticated'
-        });
-    }
+//     if (!userId) {
+//         return res.status(400).json({
+//             success: false,
+//             message: 'User not authenticated'
+//         });
+//     }
 
-    try {
-        const [rows] = await pool.execute('SELECT * FROM tbl_users WHERE id = ?', [userId]);
+//     try {
+//         const [rows] = await pool.execute('SELECT * FROM tbl_users WHERE id = ?', [userId]);
 
-        if (!rows || rows.length === 0) {
-            return res.status(404).json({
-                success: false,
-                message: 'User not found'
-            });
-        }
+//         if (!rows || rows.length === 0) {
+//             return res.status(404).json({
+//                 success: false,
+//                 message: 'User not found'
+//             });
+//         }
 
-        const user = rows[0];
+//         const user = rows[0];
 
-        res.status(200).json({
-            success: true,
-            user: {
-                username: user.username,
-                name_and_family: user.name_and_family,
-                role: user.role,
-                status: user.status,
-            }
-        })
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            message: 'Server error'
-        })
-    }
-};
+//         res.status(200).json({
+//             success: true,
+//             user: {
+//                 username: user.username,
+//                 name_and_family: user.name_and_family,
+//                 role: user.role,
+//                 status: user.status,
+//             }
+//         })
+//     } catch (error) {
+//         console.log('Error in auth', error);
+//         return res.status(500).json({
+//             success: false,
+//             message: 'Server error'
+//         })
+//     }
+// };
 
 module.exports = {
     login,
     logout,
-    authCheck
+    // authCheck
 };

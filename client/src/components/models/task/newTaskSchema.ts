@@ -68,9 +68,9 @@ export const taskEditSchema = z.object({
 
 export const taskDefaults = {
     name: '',
-    price_per_measure: undefined,
-    total_price: undefined,
-    total_work_in_selected_measure: undefined,
+    price_per_measure: 0,
+    total_price: 0,
+    total_work_in_selected_measure: 0,
     artisan: '',
     activity: '',
     measure: '',

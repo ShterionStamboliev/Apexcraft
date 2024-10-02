@@ -1,5 +1,3 @@
-import useMeasuresApi from '@/components/api/measuresApi'
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
     FormField,
@@ -9,22 +7,17 @@ import {
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { Measure } from '@/types/measure-types/measureTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
-const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
-    const { control } = useFormContext();
+const taskStatus = ['done', 'in_progress'] as const;
 
-    const { getMeasures } = useMeasuresApi();
-    const { data } = useFetchQuery<Measure[]>(['measures'], getMeasures, {
-        staleTime: Infinity
-    });
+const TaskItemStatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+    const { control } = useFormContext();
 
     return (
         <FormField
@@ -45,17 +38,14 @@ const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            <SelectGroup>
-                                {data && data
-                                    .map((measure) => (
-                                        <SelectItem
-                                            key={measure.id}
-                                            value={measure.name}
-                                        >
-                                            {measure.name}
-                                        </SelectItem>
-                                    ))}
-                            </SelectGroup>
+                            {taskStatus.map((status, index: number) => (
+                                <SelectItem
+                                    key={index}
+                                    value={status}
+                                >
+                                    {status}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                 </FormItem>
@@ -64,4 +54,4 @@ const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
     )
 }
 
-export default MeasureSelector;
+export default TaskItemStatusSelector
