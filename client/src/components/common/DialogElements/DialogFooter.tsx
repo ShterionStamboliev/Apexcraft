@@ -9,6 +9,7 @@ type DialogFooterProps = {
     type?: "submit" | "reset" | "button" | undefined;
     formName: string;
     className?: string;
+    disabled?: boolean;
 }
 
 const DialogFooter = ({
@@ -16,6 +17,7 @@ const DialogFooter = ({
     label,
     type,
     formName,
+    disabled,
     className
 }: DialogFooterProps) => {
 
@@ -25,6 +27,7 @@ const DialogFooter = ({
                 <LoaderButton label='Submit' />
             ) : (
                 <Button
+                    disabled={disabled}
                     type={type}
                     form={formName}
                     className={cn("bg-blue-600 hover:bg-blue-800 font-semibold w-full border-none", className)}

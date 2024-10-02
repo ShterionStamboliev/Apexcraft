@@ -1,3 +1,5 @@
+import useCompanyApi from '@/components/api/companiesApi'
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
     FormField,
@@ -11,13 +13,17 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { useCompany } from '@/context/Company/CompanyContext'
+import { Company } from '@/types/company-types/companyTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
 const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
-    const { state } = useCompany();
     const { control } = useFormContext();
+
+    const { getCompanies } = useCompanyApi();
+    const { data } = useFetchQuery<Company[]>(['companies'], getCompanies, {
+        staleTime: Infinity
+    });
 
     return (
         <FormField
@@ -38,8 +44,7 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {state.data
-                                .filter((company) => company.id)
+                            {data && data
                                 .map((company) => (
                                     <SelectItem
                                         key={company.id}

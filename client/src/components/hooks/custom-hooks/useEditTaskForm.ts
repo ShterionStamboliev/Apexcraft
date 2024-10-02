@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 export const useEditTaskForm = (task: Task) => {
 
     const form = useForm<EditTaskSchema>({
-        resolver: zodResolver(taskEditSchema),
         defaultValues: {
             name: task?.name,
             price_per_measure: task?.price_per_measure,
@@ -17,7 +16,9 @@ export const useEditTaskForm = (task: Task) => {
             end_date: task?.end_date,
             status: task?.status,
             note: task?.note
-        }
+        },
+        resolver: zodResolver(taskEditSchema),
+        mode: 'onChange'
     });
 
     const { reset } = form;

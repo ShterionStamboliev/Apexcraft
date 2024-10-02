@@ -4,17 +4,38 @@ import { EditTaskSchema } from '@/components/models/task/newTaskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
-import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
+import CreateTaskItem from '../TaskItemFormCreate/CreateTaskItem';
+import useTaskItemQuery from '@/components/api/task-items/taskItemsQuery';
+import { useInView } from 'react-intersection-observer'
+import { useEffect } from 'react';
+import TaskList from './TaskFormUtils/TaskList';
+import { Separator } from '@/components/ui/separator';
+import { ChevronDown } from 'lucide-react';
 
 const EditTask = () => {
-    const { task, isLoading, handleEditTask } = useEditTaskHandler();
-    const form = useEditTaskForm(task!);
-
-    const { fireErrorToast, fireSuccessToast } = useToastHook();
+    const { data, isLoading, mutate } = useEditTaskHandler();
+    const form = useEditTaskForm(data!);
 
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id, taskId } = useParams();
+
+    const { ref, inView } = useInView();
+
+    const { getTaskItemsInfinity } = useTaskItemQuery();
+
+    const {
+        data: tasksData,
+        isLoading: isTaskItemLoading,
+        fetchNextPage,
+        isFetchingNextPage
+    } = getTaskItemsInfinity(id!, taskId!);
+
+    useEffect(() => {
+        if (inView) {
+            fetchNextPage();
+        }
+    }, [fetchNextPage, inView]);
 
     const submitFormHandler = async (formData: EditTaskSchema) => {
         const updatedTask = {
@@ -22,13 +43,7 @@ const EditTask = () => {
             start_date: formData.start_date?.toString(),
             end_date: formData.end_date?.toString(),
         }
-
-        try {
-            await handleEditTask(updatedTask);
-            fireSuccessToast('Task edit success');
-        } catch (error) {
-            fireErrorToast('Error while submitting');
-        }
+        mutate(updatedTask);
         navigate(`/projects/${id}/tasks`);
     };
 
@@ -38,18 +53,37 @@ const EditTask = () => {
 
     return (
         <>
-            {task && (
+            {data && (
                 <div className="container mx-auto p-4">
-                    <h1 className="text-2xl font-bold mb-6 text-center">Task management</h1>
+                    <CreateTaskItem />
                     <div className="grid md:grid-cols-2 gap-20">
                         <TaskInformationCard
-                            task={task}
+                            task={data}
                         />
                         <TaskEditForm
                             form={form}
-                            task={task}
+                            task={data}
                             isLoading={isLoading}
                             submitFormHandler={submitFormHandler}
+                        />
+                    </div>
+                    <div className='mt-10'>
+                        <div className='flex justify-center items-center'>
+                            <div className='flex justify-center items-center '>
+                                <Separator className='flex-grow' />
+                                <span className='px-4 text-lg text-muted-foreground flex-shrink-0'>
+                                    Task items list
+                                </span>
+                                <Separator className='flex-grow' />
+                            </div>
+                        </div>
+                        <div className='flex items-center justify-center'>
+                            <ChevronDown />
+                        </div>
+                        <TaskList
+                            tasksData={tasksData}
+                            isFetchingNextPage={isFetchingNextPage}
+                            scrollRef={ref}
                         />
                     </div>
                 </div>
@@ -59,3 +93,4 @@ const EditTask = () => {
 }
 
 export default EditTask;
+

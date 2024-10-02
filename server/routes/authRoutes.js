@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/login', login);
 router.post('/logout', logout);
-router.post('/auth-check', authenticateToken, authCheck);
-router.post('/refresh-token', authenticateToken, refreshTokenAPI);
+router.post('/auth-check', authenticateToken);
+// router.post('/refresh-token', authenticateToken, refreshTokenAPI);
 
 module.exports = router;

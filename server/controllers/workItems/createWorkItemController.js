@@ -3,23 +3,24 @@ const pool = require('../../db');
 const createWorkItem = async (req, res) => {
 
     const taskId = req.params.task_id;
-    const { startDate, endDate, note, finishedWork, status } = req.body;
+    const { name, start_date, end_date, note, finished_work, status } = req.body;
 
     try { 
 
-        const query = 'INSERT INTO tbl_workItems(task_id, start_date, end_date, note, finished_work, status) VALUES(?, ?, ?, ?, ?, ?)';
+        const query = 'INSERT INTO tbl_workItems(task_id, name, start_date, end_date, note, finished_work, status) VALUES(?, ?, ?, ?, ?, ?, ?)';
 
-        const values = [taskId, startDate, endDate, note, finishedWork, status];
+        const values = [taskId, name, start_date, end_date, note, finished_work, status];
 
         const [result] = await pool.execute(query, values);
 
         const newWorkItem = {
             id: result.insertId,
             taskId,
-            startDate,
-            endDate,
+            name,
+            start_date,
+            end_date,
             note,
-            finishedWork,
+            finished_work,
             status
         };
 

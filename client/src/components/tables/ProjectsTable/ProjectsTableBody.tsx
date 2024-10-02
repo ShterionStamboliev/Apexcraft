@@ -7,20 +7,25 @@ import { Project } from '@/types/project-types/projectTypes';
 import { useProject } from '@/context/Project/ProjectContext';
 import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
 import { useCompany } from '@/context/Company/CompanyContext';
-import ProjectsLoader from '@/components/utils/SkeletonLoader/Projects/ProjectsLoader';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
 import { useArtisan } from '@/context/Artisan/ArtisanContext';
 import { useActivity } from '@/context/Activity/ActivityContext';
 import { useMeasure } from '@/context/Measure/MeasureContext';
+import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
+import useQueryHooks from '@/components/api/projects/projectsQuery';
 
 const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
-    const { state, getEntities, isLoading, isEntityLoading } = useProject();
-    const { getEntities: getCompanies } = useCompany();
-    const { getEntities: getArtisans } = useArtisan();
-    const { getEntities: getActivities } = useActivity();
-    const { getEntities: getMeasures } = useMeasure();
+    const { state, getEntities, isEntityLoading } = useProject();
+    // const { getEntities: getCompanies } = useCompany();
+    // const { getEntities: getArtisans } = useArtisan();
+    // const { getEntities: getActivities } = useActivity();
+    // const { getEntities: getMeasures } = useMeasure();
+
+    const { useGetProjectsQuery } = useQueryHooks();
+
+    const { data, isLoading, isError } = useGetProjectsQuery();
 
     const {
         selectedEntity: selectedProject,
@@ -34,26 +39,30 @@ const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
-    useEffect(() => {
-        if (!state.isDataFetched) {
-            getEntities();
-            getArtisans();
-            getCompanies();
-            getActivities();
-            getMeasures();
-        }
-    }, [state.isDataFetched, getEntities, isModified]);
+    // useEffect(() => {
+    //     if (!state.isDataFetched) {
+    //         getEntities();
+    //         // getArtisans();
+    //         // getCompanies();
+    //         // getActivities();
+    //         // getMeasures();
+    //     }
+    // }, [state.isDataFetched, getEntities, isModified]);
+
+    if (data?.length === 0) {
+        return <div>No results found.</div>
+    };
 
     if (isLoading) {
-        return <ProjectsLoader />
+        return <ProjectsSkeletonCard data={data!} />
     };
 
     return (
         <>
-            {filteredData.length === 0 ? (
+            {data?.length === 0 ? (
                 <div>No results found</div>
             ) : (
-                filteredData.map((project) => (
+                data && data.map((project) => (
                     <Card className='w-[300px]' key={project.id}>
                         <CardHeader>
                             <CardTitle>

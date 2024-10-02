@@ -9,7 +9,7 @@ import logo from '../../assets/project-title.png';
 
 const LayoutHeader = () => {
     const { user, role } = useAuth();
-
+    
     return (
         <>
             <div className="py-4 w-full">

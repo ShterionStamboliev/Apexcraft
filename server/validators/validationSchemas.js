@@ -107,10 +107,6 @@ const artisanSchema = {
         min: 0,
         max: 100,
     },
-    company: {
-        type: 'string',
-        required: true
-    },
     status: {
         type: 'string',
         required: true,
