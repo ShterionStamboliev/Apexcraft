@@ -96,7 +96,6 @@ const authCheck = async (req, res) => {
             }
         })
     } catch (error) {
-        console.log('Error in auth', error);
         return res.status(500).json({
             success: false,
             message: 'Server error'

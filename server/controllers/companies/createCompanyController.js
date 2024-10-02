@@ -1,5 +1,4 @@
 const pool = require('../../db');
-const Validator = require('../../validators/controllerValidator');
 const { companySchema } = require('../../validators/validationSchemas');
 
 const createCompany = async (req, res) => {

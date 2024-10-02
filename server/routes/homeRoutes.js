@@ -1,8 +1,9 @@
 const express = require('express');
-const { home } = require('../controllers/home/homeController');
+const { homePage } = require('../controllers/home/homeController');
+const authenticateToken = require('../middlewares/authenticateToken');
 
 const router = express.Router();
 
-router.get('/', home);
+router.get('/', authenticateToken, homePage);
 
 module.exports = router;
