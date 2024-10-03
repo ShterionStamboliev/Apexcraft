@@ -1,6 +1,5 @@
 const express = require('express');
 const authenticateToken = require('../middlewares/authenticateToken');
-
 const { createTask } = require('../controllers/tasks/createTaskController');
 const { getTasks } = require('../controllers/tasks/getTasksController');
 const { getTaskById } = require('../controllers/tasks/getTaskByIdController');

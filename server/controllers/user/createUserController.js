@@ -7,7 +7,7 @@ const createUser = async (req, res) => {
     const loggedUserId = req.user.id;
 
     try {
-        const isUnique = await uniqueChecker("name", name, "tbl_users");
+        const isUnique = await uniqueChecker("username", username, "tbl_users");
 
         if (isUnique.length > 0) {
             return res.status(404).send(`${name} already exists!`)
