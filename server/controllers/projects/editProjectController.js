@@ -1,20 +1,23 @@
 const pool = require("../../db");
 const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
-const Validator = require('../../validators/controllerValidator');
-const { projectSchema } = require('../../validators/validationSchemas');
+const { getCurrentId } = require('../../utils/getCurrentId');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const editProject = async (req, res) => {
 
     const projectId = req.params.id;
     const { name, company_name, email, address, start_date, end_date, note, status } = req.body;
-    // const validator = new Validator(projectSchema);
-    // const errors = validator.validate({ name, company_name, email, note, status });
-
-    // if (errors.length > 0) {
-    //     return res.status(400).json({ errors });
-    // };
-
+    
     try {
+        const activity = await getCurrentId("tbl_projects", projectId);
+
+        if (activity.name !== name) {
+            const isUnique = await uniqueChecker("name", name, "tbl_projects");
+
+            if (isUnique.length > 0) {
+                return res.status(404).send(`${name} already exists!`)
+            };
+        };
 
         const companyId = await getCompanyIdByName(company_name);
 

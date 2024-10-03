@@ -1,15 +1,11 @@
 const pool = require("../../db");
 
 const getUsers = async (req, res) => {
-    // Get currently logged in user by their ID;
     const currentUserId = req.user.id;
     
     try {
         let query = '';
         let queryParams = [];
-
-        // Filter the associated users to be dispalyed based on privilege of the logged in user.
-        // Aadmin can see all, managers can see only associated to them users.
 
         if (req.user.role === 'manager') {
             query = 'SELECT id, name_and_family, username, role, status FROM tbl_users WHERE manager = ?';

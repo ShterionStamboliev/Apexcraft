@@ -1,19 +1,22 @@
 const pool = require("../../db");
-const Validator = require('../../validators/controllerValidator');
-const { measureSchema } = require('../../validators/validationSchemas');
+const { getCurrentId } = require('../../utils/getCurrentId');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const editMeasure = async (req, res) => {
 
     const measureId = req.params.id;
     const name = req.body.name;
-    const validator = new Validator(measureSchema);
-    const errors = validator.validate({ name });
-
-    if (errors.length > 0) {
-        return res.status(400).json({ errors });
-    };
 
     try {
+        const activity = await getCurrentId("tbl_measures", measureId);
+
+        if (activity.name !== name) {
+            const isUnique = await uniqueChecker("name", name, "tbl_measures");
+
+            if (isUnique.length > 0) {
+                return res.status(404).send(`${name} already exists!`)
+            };
+        };
 
         const query = 'UPDATE tbl_measures SET name = ? WHERE ID = ?';
 

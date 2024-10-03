@@ -1,12 +1,23 @@
 const pool = require("../../db");
+const { getCurrentId } = require('../../utils/getCurrentId');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const editWorkItem = async (req, res) => {
 
     const workItemId = req.params.id;
     const taskId = req.params.task_id;
-    const { startDate, endDate, note, finishedWork, status } = req.body;
+    const { name, startDate, endDate, note, finishedWork, status } = req.body;
 
     try {
+        const activity = await getCurrentId("tbl_workItems", workItemId);
+
+        if (activity.name !== name) {
+            const isUnique = await uniqueChecker("name", name, "tbl_workItems");
+
+            if (isUnique.length > 0) {
+                return res.status(404).send(`${name} already exists!`)
+            };
+        };
 
         const query = `
             UPDATE tbl_workItems
@@ -25,6 +36,7 @@ const editWorkItem = async (req, res) => {
         const updatedWorkItem = {
             id: workItemId,
             taskId,
+            name,
             startDate,
             endDate,
             note,
