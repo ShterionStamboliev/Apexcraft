@@ -1,5 +1,5 @@
 export type Measure = {
-    id?: number;
+    id?: string;
     name: string;
 }
 export interface MeasureFormProps {

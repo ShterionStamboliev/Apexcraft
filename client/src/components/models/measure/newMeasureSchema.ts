@@ -12,3 +12,5 @@ export const newMeasureSchema = z.object({
 export const measureDefaults: Measure = {
     name: '',
 }
+
+export type MeasureSchema = z.infer<typeof newMeasureSchema>;

@@ -1,72 +1,69 @@
+import useMeasuresQuery from '@/components/api/measures/measuresQuery';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
-import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
-import { useMeasureEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
-import { measureDefaults, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
-import { DialogContent } from '@/components/ui/dialog';
-import { useAuth } from '@/context/AuthContext';
-import { Measure } from '@/types/measure-types/measureTypes';
+import { measureDefaults, MeasureSchema, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
+import { Button } from '@/components/ui/button';
+import { DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
-import { FormProvider, UseFormProps } from 'react-hook-form';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import { FormProvider, useForm, } from 'react-hook-form';
 
 const CreateMeasure = () => {
-    const { role } = useAuth();
-    const isManager = role === 'manager';
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const formOptions: Partial<UseFormProps<Measure>> = {
+    const { useCreateMeasure } = useMeasuresQuery();
+    const { mutate, isPending } = useCreateMeasure({ setIsOpen });
+
+    const form = useForm<MeasureSchema>({
         resolver: zodResolver(newMeasureSchema),
-        mode: 'onChange',
         defaultValues: measureDefaults,
+        mode: 'onChange'
+    });
+
+    const handleSubmit = async (measureData: MeasureSchema) => {
+        mutate(measureData);
     };
 
-    const { handleCreateEntity, isLoading } = useMeasureEntityHandlers();
-    const {
-        onSubmit,
-        isOpen,
-        setIsOpen,
-        form,
-    } = useSubmitHandler<Measure>(handleCreateEntity, formOptions);
-
     return (
-        <>
-            {isManager && (
-                <FormProvider {...form}>
-                    <form
-                        id='measure-form'
-                        onSubmit={form.handleSubmit(onSubmit)}
-                    >
-                        <Dialog
-                            open={isOpen}
-                            onOpenChange={setIsOpen}
+        <div className='mb-4'>
+            <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+            >
+                <DialogTrigger asChild>
+                    <Button className='w-full lg:max-w-[11rem]' variant="outline">
+                        <Plus className="mr-2 h-4 w-4" />
+                        <span className='font-bold'>Add new measure</span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                    <DialogHeader
+                        title='Add new measure'
+                    />
+                    <FormProvider {...form}>
+                        <form
+                            id='measure-form'
+                            onSubmit={form.handleSubmit(handleSubmit)}
                         >
-                            <DialogTriggerButtons />
-
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                                <DialogHeader
-                                    title='Add new measure'
-                                />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Measure type'
-                                    name='name'
-                                />
-
-                                <DialogFooter
-                                    isLoading={isLoading}
-                                    label='Submit'
-                                    formName='measure-form'
-                                    className='mt-6'
-                                />
-                            </DialogContent>
-                        </Dialog>
-                    </form>
-                </FormProvider>
-            )}
-        </>
+                            <FormFieldInput
+                                type='text'
+                                label='Measure type'
+                                name='name'
+                            />
+                            <DialogFooter
+                                isLoading={isPending}
+                                label='Submit'
+                                formName='measure-form'
+                                className='mt-6'
+                            />
+                        </form>
+                    </FormProvider>
+                </DialogContent>
+            </Dialog>
+        </div>
     )
 }
 

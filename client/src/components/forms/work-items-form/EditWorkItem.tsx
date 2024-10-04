@@ -50,7 +50,7 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTrigger asChild>
                 <Button variant='ghost' size='icon'>
-                    <Edit  />
+                    <Edit />
                 </Button>
             </DialogTrigger>
             <DialogContent className='rounded-lg'>
