@@ -1,4 +1,4 @@
-import useActivitiesApi from '@/components/api/activitiesApi'
+import useActivitiesApi from '@/components/api/activities/activitiesApi'
 import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,

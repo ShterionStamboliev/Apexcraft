@@ -8,7 +8,6 @@ import { AuthProvider } from './context/AuthContext'
 import { UserProvider } from './context/User/UserContext'
 import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
-import { ActivityProvider } from './context/Activity/ActivityContext'
 import { CompanyProvider } from './context/Company/CompanyContext'
 import { ProjectProvider } from './context/Project/ProjectContext'
 import { ArtisanProvider } from './context/Artisan/ArtisanContext'
@@ -24,19 +23,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                 <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
                     <AuthProvider>
                         <UserProvider>
-                            <ActivityProvider>
-                                <CompanyProvider>
-                                    <ProjectProvider>
-                                        <ArtisanProvider>
-                                            <TaskProvider>
-                                                <AppRoutes />
-                                                <Toaster />
-                                                <ReactQueryDevtools />
-                                            </TaskProvider>
-                                        </ArtisanProvider>
-                                    </ProjectProvider>
-                                </CompanyProvider>
-                            </ActivityProvider>
+                            <CompanyProvider>
+                                <ProjectProvider>
+                                    <ArtisanProvider>
+                                        <TaskProvider>
+                                            <AppRoutes />
+                                            <Toaster />
+                                            <ReactQueryDevtools />
+                                        </TaskProvider>
+                                    </ArtisanProvider>
+                                </ProjectProvider>
+                            </CompanyProvider>
                         </UserProvider>
                     </AuthProvider>
                 </ThemeProvider>

@@ -1,16 +1,11 @@
 import { Activity } from '@/types/activity-types/activityTypes';
 import { z } from 'zod';
 
-enum ActivityStatus {
-    active = 'active',
-    inactive = 'inactive',
-}
-
 export const newActivitySchema = z.object({
     name: z.string().min(3, {
         message: 'Activity name must be at least 3 characters.'
     }).max(50),
-    status: z.nativeEnum(ActivityStatus, {
+    status: z.enum(['active', 'inactive'], {
         message: 'Please select status.'
     }),
 });
@@ -19,3 +14,5 @@ export const activityDefaults: Activity = {
     name: '',
     status: 'active',
 }
+
+export type ActivitySchema = z.infer<typeof newActivitySchema>;
