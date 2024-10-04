@@ -1,17 +1,9 @@
 const pool = require('../../db');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
-const Validator = require('../../validators/controllerValidator');
-const { activitySchema } = require('../../validators/validationSchemas');
 
 const createActivity = async (req, res) => {
 
     const { name, status } = req.body;
-    const validator = new Validator(activitySchema);
-    const errors = validator.validate({ name, status });
-
-    if (errors.length > 0) {
-        return res.status(400).json({ errors });
-    };
 
     try {
         const isUnique = await uniqueChecker("name", name, "tbl_activities");

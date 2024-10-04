@@ -3,6 +3,8 @@ const { getActivityIdByName } = require("../../utils/getActivityIdByName");
 const { getArtisanIdByName } = require("../../utils/getArtisanIdByName");
 const { getMeasureIdByName } = require("../../utils/getMeasureIdByName");
 const { getProjectIdByName } = require("../../utils/getProjectIdByName");
+const { getCurrentId } = require('../../utils/getCurrentId');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const editTask = async (req, res) => {
     const taskId = req.params.taskId;
@@ -10,14 +12,20 @@ const editTask = async (req, res) => {
     const { name, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status } = req.body;
     
     try {
+        const activity = await getCurrentId("tbl_tasks", taskId);
+
+        if (activity.name !== name) {
+            const isUnique = await uniqueChecker("name", name, "tbl_tasks");
+
+            if (isUnique.length > 0) {
+                return res.status(404).send(`${name} already exists!`)
+            };
+        };
 
         // const projectId = await getProjectIdByName(project);
         // const artisanId = await getArtisanIdByName(artisan);
         // const activityId = await getActivityIdByName(activity);
         // const measureId = await getMeasureIdByName(measure);
-        // const pricePerMeasure = parseFloat(pricePerMeasure);
-        // const totalPrice = parseFloat(totalPrice);
-        // const totalWork = parseFloat(totalWork);
 
         const query = `
             UPDATE tbl_tasks

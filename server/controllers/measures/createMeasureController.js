@@ -1,18 +1,16 @@
 const pool = require('../../db');
-const Validator = require('../../validators/controllerValidator');
-const { measureSchema } = require('../../validators/validationSchemas');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createMeasure = async (req, res) => {
 
     const name = req.body.name;
-    const validator = new Validator(measureSchema);
-    const errors = validator.validate({ name });
-
-    if (errors.length > 0) {
-        return res.status(400).json({ errors });
-    };
 
     try {
+        const isUnique = await uniqueChecker("name", name, "tbl_measures");
+
+        if (isUnique.length > 0) {
+            return res.status(404).send(`${name} already exists!`)
+        };
 
         const query = 'INSERT INTO tbl_measures(name) VALUES(?)';
 

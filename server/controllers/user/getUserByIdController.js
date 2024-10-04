@@ -1,13 +1,11 @@
-const db = require("../../db")
+const pool = require("../../db")
 
-
-// Function to handle fetching a user by id
 const getUserById = async (req, res) => {
 
     try {
         const userId = req.params.id;
 
-        const [rows] = await db.execute('SELECT id, name_and_family, username, role, status, manager FROM tbl_users WHERE id = ?', [userId])
+        const [rows] = await pool.execute('SELECT id, name_and_family, username, role, status, manager FROM tbl_users WHERE id = ?', [userId])
 
         if (rows.length === 0) {
             return res.status(404).send('User not found.')
