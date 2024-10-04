@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
@@ -6,16 +5,13 @@ import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
 import { Project } from '@/types/project-types/projectTypes';
 import { useProject } from '@/context/Project/ProjectContext';
 import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
-import { useCompany } from '@/context/Company/CompanyContext';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
-import { useArtisan } from '@/context/Artisan/ArtisanContext';
-import { useActivity } from '@/context/Activity/ActivityContext';
 import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
 import useQueryHooks from '@/components/api/projects/projectsQuery';
 
-const ProjectsTableBody = ({ filteredData }: { filteredData: Project[] }) => {
+const ProjectsTableBody = () => {
     const { state, getEntities, isEntityLoading } = useProject();
     // const { getEntities: getCompanies } = useCompany();
     // const { getEntities: getArtisans } = useArtisan();

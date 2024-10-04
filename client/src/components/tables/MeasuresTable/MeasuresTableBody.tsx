@@ -5,7 +5,6 @@ import EditMeasureForm from '@/components/forms/measures-form/MeasureFormEdit/Ed
 
 const MeasuresTableBody = () => {
     const { useGetMeasures } = useMeasuresQuery();
-
     const { data: measures, isPending, isError, error } = useGetMeasures();
 
     if (isPending) {

@@ -14,7 +14,7 @@ const createActivity = async (req, res) => {
 
         const query = 'INSERT INTO tbl_activities(name, status) VALUES (?, ?)';
 
-        const values = [name, status, dateFrom, dateTo];
+        const values = [name, status];
         const [result] = await pool.execute(query, values);
 
         const newActivity = {

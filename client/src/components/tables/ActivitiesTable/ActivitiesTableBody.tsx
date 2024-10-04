@@ -1,95 +1,43 @@
-import {
-    TableBody,
-    TableCell,
-    TableRow
-} from '@/components/ui/table';
-import { useEffect, } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import { useActivity } from '@/context/Activity/ActivityContext';
-import EditForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
-import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
-import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
-import { Activity } from '@/types/activity-types/activityTypes';
+import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
-import { useActivityEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
+import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
+import EditActivityForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
 
-const ActivitiesTableBody = ({ filteredData }: { filteredData: Activity[] }) => {
-    const { state, isLoading, getEntities, isEntityLoading } = useActivity();
-    const {
-        selectedEntity: selectedActivity,
-        isDialogOpen,
-        isModified,
-        handleCloseDialog,
-        handleDeactivateClick,
-        handleEditClick,
-        handleSuccess,
-    } = useActivityEntityHandlers();
+const ActivitiesTableBody = () => {
+    const { useGetActivities } = useActivitiesQuery();
+    const { data: activities, isPending, isError, error } = useGetActivities();
 
-    const onDesktop = useMediaQuery('(min-width: 960px)');
-
-    useEffect(() => {
-        if (!state.isDataFetched) {
-            getEntities();
-        }
-    }, [state.isDataFetched, getEntities, isModified]);
-
-    if (isLoading) {
+    if (isPending) {
         return <ActivitiesLoader />
-    }
+    };
+
+    if (isError) {
+        return <div>Error: {error.message}</div>
+    };
 
     return (
         <>
             <TableBody>
-                {filteredData.length === 0 ? (
+                {activities?.length === 0 ? (
                     <TableRow>
                         <TableCell colSpan={2} className='text-center text-3xl'>
                             No results found
                         </TableCell>
                     </TableRow>
-                ) : (
-                    filteredData.map((activity, index) => (
-                        <TableRow key={index}>
-                            <TableCell>
-                                {activity.name}
-                            </TableCell>
-                            <TableCell className='text-end w-[200px]'>
-                                {onDesktop ? (
-                                    <DesktopViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        hoverLabel='activity'
-                                        id={activity.id!}
-                                    />
-                                ) : (
-                                    <MobileViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        id={activity.id!}
-                                    />
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    )
-                    ))}
+                ) : (activities.map((activity) => (
+                    <TableRow key={activity.id}>
+                        <TableCell>
+                            {activity.name}
+                        </TableCell>
+                        <TableCell className='text-end w-[200px]'>
+                            <EditActivityForm
+                                activity={activity}
+                                activityId={activity.id!}
+                            />
+                        </TableCell>
+                    </TableRow>
+                )))}
             </TableBody>
-
-            <Dialog
-                open={isDialogOpen}
-                onOpenChange={handleCloseDialog}
-            >
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isEntityLoading && selectedActivity && (
-                        <EditForm
-                            activity={selectedActivity}
-                            onSuccess={() => {
-                                handleCloseDialog();
-                                handleSuccess();
-                            }}
-                        />
-                    )}
-                </DialogContent>
-            </Dialog>
         </>
     )
 }

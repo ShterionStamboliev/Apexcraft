@@ -28,7 +28,8 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
         resolver: zodResolver(newMeasureSchema),
         defaultValues: {
             name: measure.name
-        }
+        },
+        mode: 'onChange'
     });
 
     const handleSubmit = (measureData: MeasureSchema) => {
