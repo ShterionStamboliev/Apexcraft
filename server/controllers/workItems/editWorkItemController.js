@@ -4,17 +4,18 @@ const editWorkItem = async (req, res) => {
 
     const workItemId = req.params.id;
     const taskId = req.params.task_id;
-    const { startDate, endDate, note, finishedWork, status } = req.body;
+
+    const { name, start_date, end_date, note, finished_work, status } = req.body;
 
     try {
 
         const query = `
             UPDATE tbl_workItems
-            SET task_id = ?, start_date = ?, end_date = ?, note = ?, finished_work = ?, status = ?
+            SET task_id = ?, name = ?, start_date = ?, end_date = ?, note = ?, finished_work = ?, status = ?
             WHERE id = ?
         `;
 
-        const values = [taskId, startDate, endDate, note, finishedWork, status];
+        const values = [taskId, name, start_date, end_date, note, finished_work, status, workItemId];
 
         const [result] = await pool.query(query, values);
 
@@ -25,10 +26,11 @@ const editWorkItem = async (req, res) => {
         const updatedWorkItem = {
             id: workItemId,
             taskId,
-            startDate,
-            endDate,
+            name,
+            start_date,
+            end_date,
             note,
-            finishedWork,
+            finished_work,
             status
         };
 

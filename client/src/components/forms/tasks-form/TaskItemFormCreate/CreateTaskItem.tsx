@@ -1,11 +1,11 @@
-import useTaskItemQuery from '@/components/api/task-items/taskItemsQuery'
+import useTaskItemQuery from '@/components/api/work-items/workItemsQuery'
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { taskItemDefaults, taskItemSchema, TaskItemSchema } from '@/types/task-types/taskItemType'
+import { WorkItemSchema, workItemDefaults, workItemSchema } from '@/types/task-types/workItemType'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
@@ -16,17 +16,17 @@ const CreateTaskItem = () => {
     const { id, taskId } = useParams();
     const [isOpen, setIsOpen] = useState(false);
 
-    const form = useForm<TaskItemSchema>({
-        defaultValues: taskItemDefaults,
-        resolver: zodResolver(taskItemSchema),
+    const form = useForm<WorkItemSchema>({
+        defaultValues: workItemDefaults,
+        resolver: zodResolver(workItemSchema),
         mode: 'onChange'
     });
     
-    const { useCreateTaskItem } = useTaskItemQuery();
+    const { useCreateWorkItem } = useTaskItemQuery();
 
-    const { mutate } = useCreateTaskItem(id!, taskId!, setIsOpen);
+    const { mutate } = useCreateWorkItem(id!, taskId!, setIsOpen);
 
-    const onSubmit = (data: TaskItemSchema) => {
+    const onSubmit = (data: WorkItemSchema) => {
         mutate(data);
         form.reset();
         setIsOpen(false);
@@ -39,7 +39,7 @@ const CreateTaskItem = () => {
                 onOpenChange={setIsOpen}
             >
                 <DialogTrigger asChild>
-                    <Button variant="outline">
+                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
                         <Plus className="mr-2 h-4 w-4" />
                         <span className='font-bold'>Add new work item</span>
                     </Button>

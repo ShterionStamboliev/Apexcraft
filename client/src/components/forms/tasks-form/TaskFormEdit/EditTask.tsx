@@ -6,7 +6,7 @@ import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 import CreateTaskItem from '../TaskItemFormCreate/CreateTaskItem';
-import useTaskItemQuery from '@/components/api/task-items/taskItemsQuery';
+import useTaskItemQuery from '@/components/api/work-items/workItemsQuery';
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react';
 import TaskList from './TaskFormUtils/TaskList';
@@ -22,14 +22,13 @@ const EditTask = () => {
 
     const { ref, inView } = useInView();
 
-    const { getTaskItemsInfinity } = useTaskItemQuery();
+    const { useGetWorkItemsInfinity } = useTaskItemQuery();
 
     const {
         data: tasksData,
-        isLoading: isTaskItemLoading,
         fetchNextPage,
         isFetchingNextPage
-    } = getTaskItemsInfinity(id!, taskId!);
+    } = useGetWorkItemsInfinity(id!, taskId!);
 
     useEffect(() => {
         if (inView) {
@@ -56,7 +55,7 @@ const EditTask = () => {
             {data && (
                 <div className="container mx-auto p-4">
                     <CreateTaskItem />
-                    <div className="grid md:grid-cols-2 gap-20">
+                    <div className="grid lg:grid-cols-2 gap-20">
                         <TaskInformationCard
                             task={data}
                         />
@@ -70,11 +69,11 @@ const EditTask = () => {
                     <div className='mt-10'>
                         <div className='flex justify-center items-center'>
                             <div className='flex justify-center items-center '>
-                                <Separator className='flex-grow' />
+                                <Separator className='flex-grow w-[5rem] md:w-[10rem]' />
                                 <span className='px-4 text-lg text-muted-foreground flex-shrink-0'>
-                                    Task items list
+                                    Work items list
                                 </span>
-                                <Separator className='flex-grow' />
+                                <Separator className='flex-grow w-[5rem] md:w-[10rem]' />
                             </div>
                         </div>
                         <div className='flex items-center justify-center'>

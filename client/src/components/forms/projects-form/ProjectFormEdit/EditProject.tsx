@@ -31,6 +31,12 @@ const EditForm = ({ project, onSuccess }: ProjectFormProps) => {
                 />
 
                 <FormFieldInput
+                    type='text'
+                    label='Project address'
+                    name='address'
+                />
+
+                <FormFieldInput
                     type='email'
                     label='Project email'
                     name='email'

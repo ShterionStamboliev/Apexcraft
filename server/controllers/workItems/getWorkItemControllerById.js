@@ -1,10 +1,10 @@
 const pool = require("../../db");
 
 const getWorkItemById = async (req, res) => {
+    const workItemId = req.params.itemId;
 
     try {
-        const workItemId = req.params.id;
-
+        
         const [rows] = await pool.execute('SELECT * FROM tbl_workItems WHERE id = ?', [workItemId])
 
         if (rows.length === 0) {
