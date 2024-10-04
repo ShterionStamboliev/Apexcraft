@@ -1,27 +1,16 @@
 const hashPassword = require('../../utils/hashPassword');
-const db = require("../../db")
-
+const pool = require("../../db")
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createUser = async (req, res) => {
     const { name, username, password, status, role } = req.body;
     const loggedUserId = req.user.id;
 
     try {
-        
-        // Validate input
-        // Additional validation will be added at a later point
-        if (!name || !username || !password || !status || !role ) {
-            return res.status(400).json({ message: 'All fields are required!' });
-        };
+        const isUnique = await uniqueChecker("username", username, "tbl_users");
 
-        if (password.length < 6){
-            return res.status(400).json({ message: "Password is too short!"})
-        }
-
-        // Manager should only be able to create users and not admin or other managers.
-        
-        if (req.user.role === 'manager' && role !== 'user') {
-            return res.status(403).json({ message: 'Managers can only create users with role user' });
+        if (isUnique.length > 0) {
+            return res.status(404).send(`${name} already exists!`)
         };
 
         const hashedPassword = await hashPassword(password);
@@ -33,7 +22,7 @@ const createUser = async (req, res) => {
 
         const values = [name, username, hashedPassword, role, status, loggedUserId];
 
-        const [result] = await db.query(query, values);
+        const [result] = await pool.query(query, values);
 
         const newUser = {
             id: result.insertId,
@@ -48,7 +37,6 @@ const createUser = async (req, res) => {
         res.status(201).json({ message: 'User created successfully', user: newUser });
 
     } catch (error) {
-        console.error('Error creating user:', error);
         res.status(500).json({ message: 'Error creating user', error });
     }
 };

@@ -1,4 +1,5 @@
 const pool = require('../../db');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createWorkItem = async (req, res) => {
 
@@ -6,6 +7,11 @@ const createWorkItem = async (req, res) => {
     const { name, start_date, end_date, note, finished_work, status } = req.body;
 
     try { 
+        const isUnique = await uniqueChecker("name", name, "tbl_workItems");
+
+        if (isUnique.length > 0) {
+            return res.status(404).send(`${name} already exists!`)
+        };
 
         const query = 'INSERT INTO tbl_workItems(task_id, name, start_date, end_date, note, finished_work, status) VALUES(?, ?, ?, ?, ?, ?, ?)';
 

@@ -9,7 +9,6 @@ import { UserProvider } from './context/User/UserContext'
 import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 import { ActivityProvider } from './context/Activity/ActivityContext'
-import { MeasureProvider } from './context/Measure/MeasureContext'
 import { CompanyProvider } from './context/Company/CompanyContext'
 import { ProjectProvider } from './context/Project/ProjectContext'
 import { ArtisanProvider } from './context/Artisan/ArtisanContext'
@@ -26,19 +25,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <AuthProvider>
                         <UserProvider>
                             <ActivityProvider>
-                                <MeasureProvider>
-                                    <CompanyProvider>
-                                        <ProjectProvider>
-                                            <ArtisanProvider>
-                                                <TaskProvider>
-                                                    <AppRoutes />
-                                                    <Toaster />
-                                                    <ReactQueryDevtools />
-                                                </TaskProvider>
-                                            </ArtisanProvider>
-                                        </ProjectProvider>
-                                    </CompanyProvider>
-                                </MeasureProvider>
+                                <CompanyProvider>
+                                    <ProjectProvider>
+                                        <ArtisanProvider>
+                                            <TaskProvider>
+                                                <AppRoutes />
+                                                <Toaster />
+                                                <ReactQueryDevtools />
+                                            </TaskProvider>
+                                        </ArtisanProvider>
+                                    </ProjectProvider>
+                                </CompanyProvider>
                             </ActivityProvider>
                         </UserProvider>
                     </AuthProvider>

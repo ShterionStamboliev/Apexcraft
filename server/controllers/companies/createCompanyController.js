@@ -1,25 +1,23 @@
 const pool = require('../../db');
-const Validator = require('../../validators/controllerValidator');
-const { companySchema } = require('../../validators/validationSchemas');
+const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createCompany = async (req, res) => {
 
     const { name, number, address, mol, email, phone, dds, status } = req.body;
-    const validator = new Validator(companySchema);
-    const errors = validator.validate({ name, number, address, mol, email, phone, dds, status });
-
-    if (errors.length > 0) {
-        return res.status(400).json({ errors });
-    };
 
     try {
+        const isUnique = await uniqueChecker("name", name, "tbl_companies");
+
+        if (isUnique.length > 0) {
+            return res.status(404).send(`${name} already exists!`)
+        };
+
         const query = 
         `INSERT INTO 
         tbl_companies(name, number, address, mol, email, phone, dds, status)
         VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
 
         const values = [name, number, address, mol, email, phone, dds, status];
-
         const [result] = await pool.execute(query, values);
 
         const newCompany = {

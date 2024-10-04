@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { z } from 'zod';
 
-export type TaskItem = {
+export type WorkItem = {
     id?: string | number;
     task_id?: string;
     name?: string;
@@ -12,7 +12,7 @@ export type TaskItem = {
     status?: 'done' | 'in_progress';
 }
 
-export const taskItemSchema = z.object({
+export const workItemSchema = z.object({
     name: z.string().min(3, {
         message: 'Task name must be at least 3 characters long.'
     }).max(50, {
@@ -34,7 +34,7 @@ export const taskItemSchema = z.object({
     path: ['end_date']
 });
 
-export const taskItemDefaults = {
+export const workItemDefaults = {
     name: '',
     start_date: '',
     end_date: '',
@@ -43,4 +43,4 @@ export const taskItemDefaults = {
     status: undefined,
 }
 
-export type TaskItemSchema = z.infer<typeof taskItemSchema>;
+export type WorkItemSchema = z.infer<typeof workItemSchema>;

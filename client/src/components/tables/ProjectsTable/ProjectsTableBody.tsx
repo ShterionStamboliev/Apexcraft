@@ -12,7 +12,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Link } from 'react-router-dom';
 import { useArtisan } from '@/context/Artisan/ArtisanContext';
 import { useActivity } from '@/context/Activity/ActivityContext';
-import { useMeasure } from '@/context/Measure/MeasureContext';
 import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
 import useQueryHooks from '@/components/api/projects/projectsQuery';
 

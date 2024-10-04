@@ -1,4 +1,4 @@
-import useMeasuresApi from '@/components/api/measuresApi'
+import useMeasuresApi from '@/components/api/measures/measuresApi'
 import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,

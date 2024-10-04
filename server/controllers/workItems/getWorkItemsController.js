@@ -2,7 +2,7 @@ const pool = require("../../db");
 
 const getWorkItems = async (req, res) => {
     const { task_id } = req.params;
-    const { _page = 1, _limit = 5 } = req.query;
+    const { _page = 1, _limit = 4 } = req.query;
 
     const offset = (_page - 1) * _limit;
 
