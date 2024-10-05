@@ -17,13 +17,13 @@ export const newTaskSchema = z.object({
         message: 'Please enter a valid price.'
     }),
     artisan: z.string().min(1, {
-        message: 'Please select an artisan.'
+        message: 'Please select artisan.'
     }),
     activity: z.string().min(1, {
-        message: 'Please select an artisan.'
+        message: 'Please select activity.'
     }),
     measure: z.string().min(1, {
-        message: 'Please select an artisan.'
+        message: 'Please select measure.'
     }),
     start_date: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),
     end_date: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),
@@ -52,6 +52,15 @@ export const taskEditSchema = z.object({
     }),
     total_work_in_selected_measure: z.coerce.number().gte(1, {
         message: 'Please enter a valid price.'
+    }),
+    artisan: z.string().min(1, {
+        message: 'Please select an artisan.'
+    }),
+    activity: z.string().min(1, {
+        message: 'Please select an activity.'
+    }),
+    measure: z.string().min(1, {
+        message: 'Please select an artisan.'
     }),
     start_date: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),
     end_date: z.coerce.date().transform((date) => format(date, 'yyyy-MM-dd')).optional(),

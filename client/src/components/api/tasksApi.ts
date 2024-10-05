@@ -22,7 +22,7 @@ const useTasksApi = () => {
     };
 
     const editTask = async (id: string, taskId: string, taskData: Task): Promise<void> => {
-        await apiCall(`/projects/${id}/task/${taskId}/edit`, 'PUT', taskData);
+        await apiCall(`/projects/${id}/tasks/${taskId}/edit`, 'PUT', taskData);
     };
 
     return {

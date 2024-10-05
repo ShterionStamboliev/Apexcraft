@@ -37,13 +37,11 @@ const EditTask = () => {
     }, [fetchNextPage, inView]);
 
     const submitFormHandler = async (formData: EditTaskSchema) => {
-        const updatedTask = {
-            ...formData,
-            start_date: formData.start_date?.toString(),
-            end_date: formData.end_date?.toString(),
-        }
-        mutate(updatedTask);
-        navigate(`/projects/${id}/tasks`);
+        mutate(formData, {
+            onSuccess: () => {
+                navigate(`/projects/${id}/tasks`);
+            }
+        });
     };
 
     if (isLoading) {
