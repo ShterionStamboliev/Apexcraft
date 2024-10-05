@@ -1,5 +1,5 @@
 const pool = require("../../db");
-const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
+const { getControllerIdByName } = require("../../utils/getControllerIdByName");
 const { getCurrentId } = require('../../utils/getCurrentId');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 
@@ -19,7 +19,7 @@ const editProject = async (req, res) => {
             };
         };
 
-        const companyId = await getCompanyIdByName(company_name);
+        const companyId = await getControllerIdByName(company_name, "tbl_companies");
 
         const query = `
             UPDATE tbl_projects

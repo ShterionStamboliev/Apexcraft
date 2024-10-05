@@ -1,6 +1,5 @@
 const pool = require('../../db');
-const { getCompanyIdByName } = require('../../utils/getCompanyIdByName');
-const { getUserIdByName } = require('../../utils/getUserIdByName');
+const { getControllerIdByName } = require('../../utils/getControllerIdByName');
 
 const editArtisan = async (req, res) => {
 
@@ -8,9 +7,9 @@ const editArtisan = async (req, res) => {
     const { name, note, number, email, company, status } = req.body;
    
     try {
-        const companyId = await getCompanyIdByName(company);
-
-        const foundUser = await getUserIdByName(name);
+        const companyId = await getControllerIdByName(company, "tbl_companies");
+        
+        const foundUser = await getControllerIdByName(name, "tbl_users");
 
         const query = `UPDATE tbl_artisans
         SET name = ?, note = ?, number = ?, email =?, company_id = ?, user_id = ?, status = ?

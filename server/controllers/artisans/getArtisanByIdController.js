@@ -1,5 +1,5 @@
 const pool = require("../../db");
-const { getCompanyNameById } = require("../../utils/getCompanyNameById");
+const { getControllerNameById } = require("../../utils/getControllerNameById");
 
 const getArtisanById = async (req, res) => {
 
@@ -8,7 +8,7 @@ const getArtisanById = async (req, res) => {
 
         const [rows] = await pool.execute('SELECT * FROM tbl_artisans WHERE id = ?', [artisanId]);
 
-        const company = await getCompanyNameById(rows[0].company_id);
+        const company = await getControllerNameById(rows[0].company_id, "tbl_companies");
 
         if (rows.length === 0) {
             return res.status(404).send('Artisan not found!')

@@ -1,15 +1,14 @@
 const pool = require('../../db');
-const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
-const { getUserIdByName } = require('../../utils/getUserIdByName');
+const { getControllerIdByName } = require('../../utils/getControllerIdByName');
 
 const createArtisan = async (req, res) => {
 
     const { name, note, number, email, company, status } = req.body;
   
     try {
-        const foundCompanyId = await getCompanyIdByName(company);
+        const foundCompanyId = await getControllerIdByName(company, "tbl_companies");
         
-        const foundUser = await getUserIdByName(name);
+        const foundUser = await getControllerIdByName(name, "tbl_users");
         
         const query = 'INSERT INTO tbl_artisans(name, note, number, email, company_id, user_id, status) VALUES(?, ?, ?, ?, ?, ?, ?)';
 

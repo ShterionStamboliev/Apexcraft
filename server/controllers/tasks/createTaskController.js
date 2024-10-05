@@ -1,7 +1,5 @@
 const db = require('../../db');
-const { getActivityIdByName } = require('../../utils/getActivityIdByName');
-const { getArtisanIdByName } = require('../../utils/getArtisanIdByName');
-const { getMeasureIdByName } = require('../../utils/getMeasureIdByName');
+const { getControllerIdByName } = require('../../utils/getControllerIdByName');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createTask = async (req, res) => {
@@ -16,9 +14,9 @@ const createTask = async (req, res) => {
             return res.status(404).send(`${name} already exists!`)
         };
 
-        const artisanId = await getArtisanIdByName(artisan);
-        const activityId = await getActivityIdByName(activity);
-        const measureId = await getMeasureIdByName(measure);
+        const artisanId = await getControllerIdByName(artisan, "tbl_artisans");
+        const activityId = await getControllerIdByName(activity, "tbl_activities");
+        const measureId = await getControllerIdByName(measure, "tbl_measures");
 
         const query = 'INSERT INTO tbl_tasks(project_id, name, artisan_id, activity_id, measure_id, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 

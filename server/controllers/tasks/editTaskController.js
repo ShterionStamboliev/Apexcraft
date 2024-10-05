@@ -1,20 +1,18 @@
 const pool = require("../../db");
-const { getActivityIdByName } = require("../../utils/getActivityIdByName");
-const { getArtisanIdByName } = require("../../utils/getArtisanIdByName");
-const { getMeasureIdByName } = require("../../utils/getMeasureIdByName");
-const { getProjectIdByName } = require("../../utils/getProjectIdByName");
 const { getCurrentId } = require('../../utils/getCurrentId');
 const { uniqueChecker } = require('../../utils/uniqueChecker');
+const { getControllerIdByName } = require("../../utils/getControllerIdByName");
 
 const editTask = async (req, res) => {
+    const projectId = req.params.id;
     const taskId = req.params.taskId;
     
-    const { name, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status } = req.body;
+    const { name, artisan, activity, measure, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status } = req.body;
     
     try {
-        const activity = await getCurrentId("tbl_tasks", taskId);
+        const currentActivity = await getCurrentId("tbl_tasks", taskId);
 
-        if (activity.name !== name) {
+        if (currentActivity.name !== name) {
             const isUnique = await uniqueChecker("name", name, "tbl_tasks");
 
             if (isUnique.length > 0) {
@@ -22,18 +20,17 @@ const editTask = async (req, res) => {
             };
         };
 
-        // const projectId = await getProjectIdByName(project);
-        // const artisanId = await getArtisanIdByName(artisan);
-        // const activityId = await getActivityIdByName(activity);
-        // const measureId = await getMeasureIdByName(measure);
+        const artisanId = await getControllerIdByName(artisan, "tbl_artisans");
+        const activityId = await getControllerIdByName(activity, "tbl_activities");
+        const measureId = await getControllerIdByName(measure, "tbl_measures");
 
         const query = `
             UPDATE tbl_tasks
-            SET name = ?, price_per_measure = ?, total_price = ?, total_work_in_selected_measure = ?, start_date = ?, end_date = ?, note = ?, status = ?
+            SET name = ?, artisan_id = ?, activity_id = ?, measure_id = ?, price_per_measure = ?, total_price = ?, total_work_in_selected_measure = ?, start_date = ?, end_date = ?, note = ?, status = ?
             WHERE id = ?
         `;
 
-        const values = [name, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status, taskId];
+        const values = [name, artisanId, activityId, measureId, price_per_measure, total_price, total_work_in_selected_measure, start_date, end_date, note, status, taskId];
 
         const [result] = await pool.query(query, values);
 
@@ -43,11 +40,11 @@ const editTask = async (req, res) => {
 
         const updatedTask = {
             id: taskId,
+            projectId,
             name,
-            // projectId,
-            // artisanId,
-            // activityId,
-            // measureId,
+            artisanId,
+            activityId,
+            measureId,
             price_per_measure,
             total_price,
             total_work_in_selected_measure,

@@ -1,5 +1,5 @@
 const pool = require("../../db");
-const { getCompanyIdByName } = require("../../utils/getCompanyIdByName");
+const { getControllerIdByName } = require("../../utils/getControllerIdByName");
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createProject = async (req, res) => {
@@ -13,7 +13,7 @@ const createProject = async (req, res) => {
             return res.status(404).send(`${name} already exists!`)
         };
 
-        const companyId = await getCompanyIdByName(company_name);
+        const companyId = await getControllerIdByName(company_name, "tbl_companies");
 
         const query = `
             INSERT INTO tbl_projects (name, company_id, company_name, email, address, start_date, end_date, note, status)
