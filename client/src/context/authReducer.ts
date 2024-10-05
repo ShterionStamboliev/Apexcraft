@@ -13,7 +13,6 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
                 ...state,
                 user: action.payload?.user || null,
                 role: action.payload?.user.role || null,
-                tokenExpiration: action.payload?.tokenExpiration || null,
                 isLoading: false,
             };
         case AuthActionType.LOGIN_ERROR:
@@ -26,7 +25,6 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
             return {
                 ...state,
                 user: null,
-                tokenExpiration: null,
                 role: null,
             };
         default:

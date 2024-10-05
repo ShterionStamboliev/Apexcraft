@@ -1,93 +1,90 @@
-import { addNewUserSchema, formDefaultValues } from '@/components/models/user/newUserSchema'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-import { useAuth } from '@/context/AuthContext'
-import { User } from '@/types/user-types/userTypes'
+import { addNewUserSchema, formDefaultValues, UserSchema } from '@/components/models/user/newUserSchema'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, UseFormProps } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler'
 import DialogHeader from '@/components/common/DialogElements/DialogHeader'
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector'
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
-import { useUserEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler'
-import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons'
+import useUsersQuery from '@/components/api/users/usersQuery'
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 
 const CreateUser = () => {
-    const { role } = useAuth();
-    const isManager = role === 'manager';
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const formOptions: Partial<UseFormProps<User>> = {
+    const { useCreateUser } = useUsersQuery();
+    const { mutate, isPending } = useCreateUser({ setIsOpen });
+
+    const form = useForm<UserSchema>({
         resolver: zodResolver(addNewUserSchema),
-        mode: 'onChange',
         defaultValues: formDefaultValues,
+        mode: 'onChange'
+    });
+
+    const handleSubmit = async (userData: UserSchema) => {
+        mutate(userData);
     };
 
-    const { handleCreateEntity, isLoading } = useUserEntityHandlers();
-    const {
-        onSubmit,
-        isOpen,
-        setIsOpen,
-        form,
-    } = useSubmitHandler<User>(handleCreateEntity, formOptions);
-
     return (
-        <>
-            {isManager && (
-                <FormProvider {...form}>
-                    <form
-                        id='user-form'
-                        onSubmit={form.handleSubmit(onSubmit)}
-                    >
-                        <Dialog
-                            open={isOpen}
-                            onOpenChange={setIsOpen}
+        <div className='mb-4'>
+            <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+            >
+                <DialogTrigger asChild>
+                    <Button className='w-full lg:max-w-[10rem]' variant="outline">
+                        <Plus className="mr-2 h-4 w-4" />
+                        <span className='font-bold'>Add new user</span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                    <DialogHeader title='Add new user' />
+                    <FormProvider {...form}>
+                        <form
+                            id='user-form'
+                            onSubmit={form.handleSubmit(handleSubmit)}
                         >
-                            <DialogTriggerButtons />
-
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                                <DialogHeader
-                                    title='Add new user'
+                            <FormFieldInput
+                                type='text'
+                                label='Name, Surname'
+                                name='name_and_family'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Username'
+                                name='username'
+                            />
+                            <FormFieldInput
+                                type='password'
+                                label='Password'
+                                name='password'
+                            />
+                            <div className='flex flex-1 pt-2 justify-between'>
+                                <RoleSelector
+                                    label='Role'
+                                    name='role'
+                                    placeholder='user'
                                 />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Name, Surname'
-                                    name='name'
+                                <StatusSelector
+                                    label='Status'
+                                    name='status'
+                                    placeholder='active'
                                 />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Username'
-                                    name='username'
-                                />
-                                <FormFieldInput
-                                    type='password'
-                                    label='Password'
-                                    name='password'
-                                />
-                                <div className='flex flex-1 pt-2 justify-between'>
-                                    <RoleSelector
-                                        label='Role'
-                                        name='role'
-                                        placeholder='user'
-                                    />
-                                    <StatusSelector
-                                        label='Status'
-                                        name='status'
-                                        placeholder='active'
-                                    />
-                                </div>
-                                <DialogFooter
-                                    isLoading={isLoading}
-                                    label='Submit'
-                                    formName='user-form'
-                                    className='mt-6'
-                                />
-                            </DialogContent>
-                        </Dialog>
-                    </form>
-                </FormProvider>
-            )}
-        </>
+                            </div>
+                            <DialogFooter
+                                isLoading={isPending}
+                                label='Submit'
+                                formName='user-form'
+                                className='mt-6'
+                            />
+                        </form>
+                    </FormProvider>
+                </DialogContent>
+            </Dialog>
+        </div >
     )
 }
 
