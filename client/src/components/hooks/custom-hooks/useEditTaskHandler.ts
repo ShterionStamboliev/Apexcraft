@@ -9,44 +9,25 @@ import useToastHook from './useToastHook';
 export const useEditTaskHandler = () => {
     const { id, taskId } = useParams();
     const queryClient = useQueryClient();
+
     const { getTaskById, editTask } = useTasksApi();
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { data, isLoading } = useFetchQuery<Task>(['task', id, taskId], getTaskById, {
-        staleTime: 0,
-    });
+    const { data, isLoading } = useFetchQuery<Task>(['task', id, taskId], getTaskById);
 
     const handleEditTask = async (updatedTaskData: EditTaskSchema): Promise<void> => {
         await editTask(id!, taskId!, updatedTaskData);
     };
 
     const { mutate, isPending, isSuccess } = useMutation({
-        mutationFn: handleEditTask,
-        onMutate: async (updatedTask) => {
-            await queryClient.cancelQueries(
-                { queryKey: ['projects', id, 'tasks'] }
-            );
-
-            const previousTasks = queryClient.getQueryData(['projects', id, 'tasks']);
-            queryClient.setQueryData(
-                ['projects', id, 'tasks'],
-                (oldData: Task) => [oldData, updatedTask]
-            );
-
-            return { previousTasks }
+        mutationFn: (taskData: EditTaskSchema) => handleEditTask(taskData),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['task', id, taskId] });
+            queryClient.invalidateQueries({ queryKey: ['projects', id, 'tasks'] })
+            fireSuccessToast('Task item updated successfully!');
         },
-        onError: (err, updatedTask, context) => {
-            queryClient.setQueryData(
-                ['projects', id, 'tasks'],
-                context?.previousTasks
-            )
+        onError: () => {
             fireErrorToast('Something went wrong. Please try again.');
-        },
-        onSettled: () => {
-            fireSuccessToast('Task updated successfully,');
-            queryClient.invalidateQueries({
-                queryKey: ['projects', id, 'tasks']
-            });
         }
     });
 

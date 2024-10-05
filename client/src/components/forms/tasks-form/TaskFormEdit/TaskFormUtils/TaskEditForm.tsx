@@ -1,6 +1,9 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
+import ActivitySelector from '@/components/common/FormElements/FormActivitySelector'
+import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
+import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector'
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -51,19 +54,38 @@ const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
                                 selected={new Date(`${task && task.end_date}`).toLocaleDateString().slice(0, 10)}
                             />
                         </div>
-                        <div className='flex flex-col flex-1 justify-between'>
-                            <StatusSelector
-                                label='Status'
-                                name='status'
-                                defaultVal={`${task && task.status}`}
-                            />
-                            <FormTextareaInput
-                                className='resize-none pt-2'
-                                name='note'
-                                type='text'
-                                label='Task notes'
-                            />
+                        <div className='flex flex-wrap justify-between'>
+                            <div>
+                                <ArtisanSelector
+                                    name='artisan'
+                                    label='Select artisan'
+                                    defaultVal={`${task && task.artisanName}`}
+                                />
+                                <MeasureSelector
+                                    name='measure'
+                                    label='Select measure'
+                                    defaultVal={`${task && task.measureName}`}
+                                />
+                            </div>
+                            <div>
+                                <ActivitySelector
+                                    name='activity'
+                                    label='Select activity'
+                                    defaultVal={`${task && task.activityName}`}
+                                />
+                                <StatusSelector
+                                    label='Status'
+                                    name='status'
+                                    defaultVal={`${task && task.status}`}
+                                />
+                            </div>
                         </div>
+                        <FormTextareaInput
+                            className='resize-none pt-2'
+                            name='note'
+                            type='text'
+                            label='Task notes'
+                        />
                         <DialogFooter
                             isLoading={isLoading}
                             label='Save changes'

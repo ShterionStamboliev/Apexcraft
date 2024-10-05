@@ -9,12 +9,16 @@ const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
     const { id } = useParams();
     const { getTasks } = useTasksApi();
 
-    const { data, isLoading } = useFetchQuery<Task[]>(['projects', id, 'tasks'], getTasks, {
+    const { data, isLoading, isError, error } = useFetchQuery<Task[]>(['projects', id, 'tasks'], getTasks, {
         staleTime: 0,
     });
 
     if (isLoading) {
         return <ProjectTasksSkeleton data={data} />
+    }
+
+    if (isError) {
+        return <div>Error: {error.message}</div>
     }
 
     if (data?.length === 0) {

@@ -5,7 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 const TaskViewEditSkeleton = () => {
     return (
         <div className="container mx-auto p-4">
-            <Skeleton className='h-8 w-[15rem] mx-auto mb-6' />
+            <Skeleton className='h-8 w-[15rem] mb-7' />
             <div className="grid md:grid-cols-2 gap-20">
                 {/* Task information skeleton card */}
                 <Card>
@@ -80,15 +80,25 @@ const TaskViewEditSkeleton = () => {
                                 <Skeleton className='h-9 w-[14rem]' />
                             </div>
                         </div>
-                        <div className='flex flex-col flex-1 justify-between space-y-2'>
-                            <Skeleton className='h-4 w-[5rem]' />
-                            <Skeleton className='h-9 w-[8rem]' />
+                        <div className='flex flex-col lg:flex-row flex-1 justify-between'>
+                            <div className='space-y-2'>
+                                <Skeleton className='h-4 w-[5rem]' />
+                                <Skeleton className='h-9 w-[8rem]' />
+                                <Skeleton className='h-4 w-[5rem]' />
+                                <Skeleton className='h-9 w-[8rem]' />
+                            </div>
+                            <div className='space-y-2'>
+                                <Skeleton className='h-4 w-[5rem]' />
+                                <Skeleton className='h-9 w-[8rem]' />
+                                <Skeleton className='h-4 w-[5rem]' />
+                                <Skeleton className='h-9 w-[8rem]' />
+                            </div>
                         </div>
                         <div className='flex flex-col space-y-2'>
                             <Skeleton className='h-4 w-[5rem]' />
                             <Skeleton className='h-12 w-full' />
                         </div>
-                        <Skeleton className='w-full h-9'/>
+                        <Skeleton className='w-full h-9' />
                     </CardContent>
                 </Card>
             </div>
