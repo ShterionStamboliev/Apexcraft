@@ -4,7 +4,7 @@ export type UserLoginFormData = {
 }
 
 export type User = {
-    id?: number;
+    id?: string;
     name?: string;
     user?: string;
     username: string;
@@ -12,7 +12,7 @@ export type User = {
     token?: string;
     name_and_family?: string;
     status: 'active' | 'inactive';
-    role: 'user' | 'manager' | '';
+    role: 'user' | 'manager';
 }
 
 export type UserFormType = {
@@ -20,7 +20,7 @@ export type UserFormType = {
     name_and_family?: string;
     username: string;
     password: string;
-    role: 'user' | 'manager' | '';
+    role: 'user' | 'manager';
     status: 'active' | 'inactive';
 }
 

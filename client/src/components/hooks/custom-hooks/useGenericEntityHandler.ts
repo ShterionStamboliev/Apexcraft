@@ -1,6 +1,4 @@
-import { User } from '@/types/user-types/userTypes';
 import useEntityHandlers from './useEntityHandlers';
-import { useUser } from '@/context/User/UserContext';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import { useArtisan } from '@/context/Artisan/ArtisanContext';
 import { Project } from '@/types/project-types/projectTypes';
@@ -39,7 +37,6 @@ const useGenericEntityHandler = <T>(useContextHook: () => GenericEntityHandlerCo
     });
 };
 
-export const useUserEntityHandlers = () => useGenericEntityHandler<User>(useUser);
 export const useArtisanEntityHandlers = () => useGenericEntityHandler<Artisan>(useArtisan);
 export const useProjectEntityHandlers = () => useGenericEntityHandler<Project>(useProject);
 export const useCompanyEntityHandlers = () => useGenericEntityHandler<Company>(useCompany);

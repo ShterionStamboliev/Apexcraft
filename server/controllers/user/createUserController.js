@@ -3,7 +3,7 @@ const pool = require("../../db")
 const { uniqueChecker } = require('../../utils/uniqueChecker');
 
 const createUser = async (req, res) => {
-    const { name, username, password, status, role } = req.body;
+    const { name_and_family, username, password, status, role } = req.body;
     const loggedUserId = req.user.id;
 
     try {
@@ -20,13 +20,13 @@ const createUser = async (req, res) => {
         VALUES (?, ?, ?, ?, ?, ?);
         `;
 
-        const values = [name, username, hashedPassword, role, status, loggedUserId];
+        const values = [name_and_family, username, hashedPassword, role, status, loggedUserId];
 
         const [result] = await pool.query(query, values);
 
         const newUser = {
             id: result.insertId,
-            name,
+            name_and_family,
             username,
             password,
             role,

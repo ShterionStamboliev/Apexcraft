@@ -4,37 +4,30 @@ import { z } from 'zod';
 export const userStatus = ['active', 'inactive'] as const;
 export const userRoles = ['user'] as const;
 
-enum UserRoles {
-    user = 'user'
-}
-
-enum UserStatus {
-    active = 'active',
-    inactive = 'inactive',
-}
-
 export const addNewUserSchema = z.object({
-    username: z.string().min(5, {
-        message: 'Потребителското име трябва да е минимум 5 символа',
+    name_and_family: z.string().min(7, {
+        message: 'Name must be at least 7 characters',
     }),
-    name: z.string().min(7, {
-        message: 'Името трябва да е минимум 7 символа',
+    username: z.string().min(5, {
+        message: 'Username must be at least 5 characters',
     }),
     password: z.string().min(5, {
-        message: 'Паролата трябва да е минимум 5 символа',
+        message: 'Password must be at least 5 characters',
     }),
-    role: z.nativeEnum(UserRoles, {
-        message: 'Моля селектирайте роля'
+    role: z.enum(['user', 'manager'], {
+        message: 'Please select role'
     }),
-    status: z.nativeEnum(UserStatus, {
-        message: 'Моля селектирайте статус'
+    status: z.enum(['active', 'inactive'], {
+        message: 'Please select status'
     }),
 });
 
 export const formDefaultValues: User = {
-    name: '',
+    name_and_family: '',
     username: '',
     password: '',
     role: 'user',
     status: 'active',
 }
+
+export type UserSchema = z.infer<typeof addNewUserSchema>;

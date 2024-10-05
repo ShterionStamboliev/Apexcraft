@@ -40,9 +40,7 @@ const CreateActivity = () => {
                     </Button>
                 </DialogTrigger>
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader
-                        title='Add new activity'
-                    />
+                    <DialogHeader title='Add new activity' />
                     <FormProvider {...form}>
                         <form
                             id='activity-form'

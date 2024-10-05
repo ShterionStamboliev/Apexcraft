@@ -1,38 +1,37 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook'
-import { MeasureSchema } from '@/components/models/measure/newMeasureSchema';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import useMeasuresApi from './measuresApi';
+import useUsersApi from './usersApi';
+import { UserSchema } from '@/components/models/user/newUserSchema';
 import React from 'react';
 
-
 type DialogStateAction = {
-    measureId?: string;
+    userId?: string;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const useMeasuresQuery = () => {
+const useUsersQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
-    
-    const { createMeasure, getMeasures, editMeasure } = useMeasuresApi();
-    
-    const useGetMeasures = () => {
+
+    const { createUser, getUsers, editUser } = useUsersApi();
+
+    const useGetUsers = () => {
         return useQuery({
-            queryKey: ['measures'],
-            queryFn: getMeasures,
+            queryKey: ['users'],
+            queryFn: getUsers,
             staleTime: 0
         });
     };
 
-    const useCreateMeasure = ({ setIsOpen }: DialogStateAction) => {
+    const useCreateUser = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
 
         return useMutation({
-            mutationFn: (measureData: MeasureSchema) => createMeasure(measureData),
+            mutationFn: (userData: UserSchema) => createUser(userData),
             onSuccess: () => {
                 client.invalidateQueries({
-                    queryKey: ['measures']
+                    queryKey: ['users']
                 });
-                fireSuccessToast('Measure created successfully!');
+                fireSuccessToast('User created successfully!');
                 setIsOpen(false);
             },
             onError: () => {
@@ -41,29 +40,29 @@ const useMeasuresQuery = () => {
         });
     };
 
-    const useEditMeasure = ({ setIsOpen, measureId }: DialogStateAction) => {
+    const useEditUser = ({ userId, setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
 
         return useMutation({
-            mutationFn: (measureData: MeasureSchema) => editMeasure(measureId!, measureData),
+            mutationFn: (userData: UserSchema) => editUser(userId!, userData),
             onSuccess: () => {
                 client.invalidateQueries({
-                    queryKey: ['measures']
+                    queryKey: ['users']
                 });
-                fireSuccessToast('Measure updated successfully!');
+                fireSuccessToast('User updated successfully!');
                 setIsOpen(false);
             },
             onError: () => {
                 fireErrorToast('Something went wrong. Please try again.');
             }
-        });
+        })
     };
 
     return {
-        useCreateMeasure,
-        useGetMeasures,
-        useEditMeasure,
+        useCreateUser,
+        useGetUsers,
+        useEditUser,
     }
 };
 
-export default useMeasuresQuery;
+export default useUsersQuery;
