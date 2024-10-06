@@ -10,7 +10,7 @@ const LoadingSpinnerButton = ({ isLoading }: UserLoginFormButtonsProps) => {
         <>
             {isLoading ? (
                 <LoaderButton
-                    label="Вход"
+                    label="Submit"
                 />
             ) : (
                 <Button
@@ -18,7 +18,7 @@ const LoadingSpinnerButton = ({ isLoading }: UserLoginFormButtonsProps) => {
                     className="font-semibold w-full"
                     variant='outline'
                 >
-                    Вход
+                    Submit
                 </Button>
             )}
         </>

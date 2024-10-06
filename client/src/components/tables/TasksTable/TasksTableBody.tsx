@@ -1,33 +1,29 @@
 import { Link, useParams } from 'react-router-dom';
-import useTasksApi from '@/components/api/tasksApi';
-import { Task } from '@/types/task-types/taskTypes';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook';
 import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
+import useTasksQuery from '@/components/api/tasks/tasksQuery';
 
-const ProjectsTasksBody = ({ filteredData }: { filteredData: Task[] }) => {
+const ProjectsTasksBody = () => {
     const { id } = useParams();
-    const { getTasks } = useTasksApi();
 
-    const { data, isLoading, isError, error } = useFetchQuery<Task[]>(['projects', id, 'tasks'], getTasks, {
-        staleTime: 0,
-    });
+    const { useGetTasks } = useTasksQuery();
+    const { data: projects, isPending, isError, error } = useGetTasks();
 
-    if (isLoading) {
-        return <ProjectTasksSkeleton data={data} />
+    if (isPending) {
+        return <ProjectTasksSkeleton data={projects} />
     }
 
     if (isError) {
         return <div>Error: {error.message}</div>
     }
 
-    if (data?.length === 0) {
+    if (projects?.length === 0) {
         return <h1>No results found.</h1>
     }
 
     return (
         <>
-            {data && data.map((task) => (
+            {projects.map((task) => (
                 <Card className='w-[300px]' key={task.id}>
                     <CardHeader>
                         <CardTitle>

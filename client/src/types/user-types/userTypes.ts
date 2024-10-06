@@ -23,8 +23,3 @@ export type UserFormType = {
     role: 'user' | 'manager';
     status: 'active' | 'inactive';
 }
-
-export interface UserFormProps {
-    onSuccess?: () => void;
-    user: UserFormType;
-}

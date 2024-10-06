@@ -6,7 +6,6 @@ import { format } from 'date-fns'
 import { CalendarIcon, ClockIcon } from 'lucide-react'
 
 const TaskInformationCard = ({ task }: { task: Task }) => {
-
     return (
         <Card>
             <CardHeader>

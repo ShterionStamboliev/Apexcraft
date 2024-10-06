@@ -5,7 +5,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const useEditTaskForm = (task: Task) => {
-
     const form = useForm<EditTaskSchema>({
         resolver: zodResolver(taskEditSchema),
         defaultValues: {

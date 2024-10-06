@@ -7,7 +7,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { AuthProvider } from './context/AuthContext'
 import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
-import { TaskProvider } from './context/Task/TaskContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 const queryClient = new QueryClient();
@@ -18,11 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <QueryClientProvider client={queryClient}>
                 <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
                     <AuthProvider>
-                            <TaskProvider>
-                                <AppRoutes />
-                                <Toaster />
-                                <ReactQueryDevtools />
-                            </TaskProvider>
+                        <AppRoutes />
+                        <Toaster />
+                        <ReactQueryDevtools />
                     </AuthProvider>
                 </ThemeProvider>
             </QueryClientProvider>
