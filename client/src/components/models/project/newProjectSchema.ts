@@ -2,11 +2,6 @@ import { Project } from '@/types/project-types/projectTypes';
 import { format } from 'date-fns';
 import { z } from 'zod';
 
-enum ProjectStatus {
-    active = 'active',
-    inactive = 'inactive',
-}
-
 export const newProjectSchema = z.object({
     name: z.string().min(3, {
         message: 'Project name must be at least 3 characters long.'
@@ -29,12 +24,12 @@ export const newProjectSchema = z.object({
     note: z.string().min(0).max(100, {
         message: 'Note cannot exceed 100 characters.'
     }).optional(),
-    status: z.nativeEnum(ProjectStatus, {
+    status: z.enum(['active', 'inactive'], {
         message: 'Please, select a status.'
     }),
 });
 
-export const projectDefaults: Partial<Project> = {
+export const projectDefaults: Project = {
     name: '',
     company_name: '',
     email: '',
@@ -42,5 +37,7 @@ export const projectDefaults: Partial<Project> = {
     end_date: '',
     address: '',
     note: '',
-    status: ProjectStatus.active
+    status: 'active'
 }
+
+export type ProjectSchema = z.infer<typeof newProjectSchema>;
