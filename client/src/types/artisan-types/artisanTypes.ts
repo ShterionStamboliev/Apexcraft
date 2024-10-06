@@ -1,11 +1,11 @@
 export type Artisan = {
-    id?: number;
+    id?: string;
     name: string,
-    note: string,
+    note?: string,
     number: string,
     email: string,
     company: string;
-    status: 'active' | 'inactive';
+    status?: 'active' | 'inactive';
 }
 
 export interface ArtisanFormProps {

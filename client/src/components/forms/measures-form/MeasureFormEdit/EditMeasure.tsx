@@ -47,10 +47,7 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
                 </Button>
             </DialogTrigger>
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                <DialogHeader
-                    title='Edit measure'
-                    user={`${measure?.name}`}
-                />
+                <DialogHeader title='Edit measure' />
                 <FormProvider {...form}>
                     <form
                         id='edit-measure'
