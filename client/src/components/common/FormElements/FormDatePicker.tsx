@@ -17,7 +17,7 @@ import { useState } from 'react';
 type FormDateType = {
     label: string;
     name: string;
-    description: string;
+    description?: string;
     selected?: string;
 }
 

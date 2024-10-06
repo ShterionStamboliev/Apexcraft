@@ -112,7 +112,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                             label='Enter notes for your project'
                         />
                         <DialogFooter
-                            isLoading={isPending}
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit'
                             formName='edit-project'
                             className='mt-6'

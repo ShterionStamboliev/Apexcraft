@@ -9,7 +9,7 @@ import FormTextareaInput from '@/components/common/FormElements/FormTextareaInpu
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FormProvider } from 'react-hook-form'
 
-const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
+const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }: any) => {
     return (
         <Card>
             <CardHeader>
@@ -86,7 +86,7 @@ const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
                             label='Task notes'
                         />
                         <DialogFooter
-                            isLoading={isLoading}
+                            disabled={!isFormDirty || isLoading}
                             label='Save changes'
                             formName='task-edit'
                             className='mt-6'

@@ -59,6 +59,7 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
                             name='name'
                         />
                         <DialogFooter
+                            disabled={!form.formState.isDirty || isPending}
                             isLoading={isPending}
                             label='Submit changes'
                             formName='edit-measure'

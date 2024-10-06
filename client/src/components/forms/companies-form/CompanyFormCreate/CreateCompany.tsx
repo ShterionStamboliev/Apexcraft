@@ -91,7 +91,7 @@ const CreateCompany = () => {
                                 />
                             </div>
                             <DialogFooter
-                                isLoading={isPending}
+                                disabled={!form.formState.isDirty || isPending}
                                 label='Submit'
                                 formName='company-form'
                                 className='mt-6'

@@ -54,6 +54,7 @@ const CreateMeasure = () => {
                                 name='name'
                             />
                             <DialogFooter
+                                disabled={!form.formState.isDirty}
                                 isLoading={isPending}
                                 label='Submit'
                                 formName='measure-form'

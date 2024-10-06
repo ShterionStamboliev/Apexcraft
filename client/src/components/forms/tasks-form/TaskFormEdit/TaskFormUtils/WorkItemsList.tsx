@@ -1,4 +1,4 @@
-import EditWorkItemForm from '@/components/forms/work-items-form/EditWorkItem'
+import EditWorkItemForm from '@/components/forms/work-items-form/WorkItemFormEdit/EditWorkItem'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import WorkItemSkeleton from '@/components/utils/SkeletonLoader/WorkItems/WorkItemSkeleton'
@@ -6,16 +6,17 @@ import { format } from "date-fns"
 import { Hourglass } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 
-interface TaskListProps {
-    tasksData: any
+interface WorkItemsListProps {
+    workItemsData: any
     isFetchingNextPage: boolean
     scrollRef: (node?: Element | null) => void
+    isWorkItemsLoading: boolean
 }
 
-const TaskList = ({ tasksData, isFetchingNextPage, scrollRef }: TaskListProps) => {
+const WorkItemsList = ({ workItemsData, isFetchingNextPage, isWorkItemsLoading, scrollRef }: WorkItemsListProps) => {
     const { id, taskId } = useParams();
 
-    const noResultsFound = !tasksData?.pages || tasksData.pages.every((page: any) => page.length === 0);
+    const noResultsFound = !workItemsData?.pages || workItemsData.pages.every((page: any) => page.length === 0);
 
     return (
         <div className="mt-10 space-y-4">
@@ -25,7 +26,7 @@ const TaskList = ({ tasksData, isFetchingNextPage, scrollRef }: TaskListProps) =
                         There are currently no work items for this task
                     </CardContent>
                 </Card>
-            ) : (tasksData?.pages && tasksData.pages.map((page: any, pageIndex: any) => (
+            ) : (workItemsData?.pages && workItemsData.pages.map((page: any, pageIndex: any) => (
                 <div key={pageIndex} className="grid sm:grid-cols-2 md:grid-cols-2 gap-4">
                     {page.map((task: any) => (
                         <Card key={task.id}>
@@ -75,7 +76,7 @@ const TaskList = ({ tasksData, isFetchingNextPage, scrollRef }: TaskListProps) =
             ))
             )}
             <div ref={scrollRef}>
-                {isFetchingNextPage && (
+                {(isFetchingNextPage || isWorkItemsLoading) && (
                     <WorkItemSkeleton />
                 )}
             </div>
@@ -83,4 +84,4 @@ const TaskList = ({ tasksData, isFetchingNextPage, scrollRef }: TaskListProps) =
     )
 }
 
-export default TaskList;
+export default WorkItemsList;

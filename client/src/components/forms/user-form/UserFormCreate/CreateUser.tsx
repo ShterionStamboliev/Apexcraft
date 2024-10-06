@@ -75,7 +75,7 @@ const CreateUser = () => {
                                 />
                             </div>
                             <DialogFooter
-                                isLoading={isPending}
+                                disabled={!form.formState.isDirty || isPending}
                                 label='Submit'
                                 formName='user-form'
                                 className='mt-6'

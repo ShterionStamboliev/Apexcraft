@@ -4,14 +4,14 @@ import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
-import CreateTaskItem from '../TaskItemFormCreate/CreateTaskItem';
 import useTaskItemQuery from '@/components/api/work-items/workItemsQuery';
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react';
-import TaskList from './TaskFormUtils/TaskList';
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
 import useTasksQuery from '@/components/api/tasks/tasksQuery';
+import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateTaskItem';
+import WorkItemsList from './TaskFormUtils/WorkItemsList';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();
@@ -20,17 +20,19 @@ const EditTaskForm = () => {
 
     const { useEditTask, useGetTask } = useTasksQuery();
 
-    const { data: task } = useGetTask();
+    const { data: task, isLoading } = useGetTask();
 
     const { mutate, isPending } = useEditTask();
 
     const form = useEditTaskForm(task!);
+    const isFormDirty = form.formState.isDirty;
 
     const { useGetWorkItemsInfinity } = useTaskItemQuery();
     const {
-        data: tasksData,
+        data: workItemsData,
         fetchNextPage,
-        isFetchingNextPage
+        isFetchingNextPage,
+        isLoading: isWorkItemsLoading,
     } = useGetWorkItemsInfinity(id!, taskId!);
 
     useEffect(() => {
@@ -40,14 +42,16 @@ const EditTaskForm = () => {
     }, [fetchNextPage, inView]);
 
     const handleSubmit = async (formData: EditTaskSchema) => {
-        mutate(formData, {
-            onSuccess: () => {
-                navigate(`/projects/${id}/tasks`);
-            }
-        });
+        setTimeout(() => {
+            mutate(formData, {
+                onSuccess: () => {
+                    navigate(`/projects/${id}/tasks`);
+                }
+            });
+        }, 3000)
     };
 
-    if (isPending) {
+    if (isLoading) {
         return <TaskViewEditSkeleton />
     };
 
@@ -55,7 +59,7 @@ const EditTaskForm = () => {
         <>
             {task && (
                 <div className="container mx-auto p-4">
-                    <CreateTaskItem />
+                    <CreateWorkItem />
                     <div className="grid lg:grid-cols-2 gap-20">
                         <TaskInformationCard
                             task={task}
@@ -65,6 +69,7 @@ const EditTaskForm = () => {
                             task={task}
                             isLoading={isPending}
                             submitFormHandler={handleSubmit}
+                            isFormDirty={isFormDirty}
                         />
                     </div>
                     <div className='mt-10'>
@@ -80,10 +85,11 @@ const EditTaskForm = () => {
                         <div className='flex items-center justify-center'>
                             <ChevronDown />
                         </div>
-                        <TaskList
-                            tasksData={tasksData}
+                        <WorkItemsList
+                            workItemsData={workItemsData}
                             isFetchingNextPage={isFetchingNextPage}
                             scrollRef={ref}
+                            isWorkItemsLoading={isWorkItemsLoading}
                         />
                     </div>
                 </div>
