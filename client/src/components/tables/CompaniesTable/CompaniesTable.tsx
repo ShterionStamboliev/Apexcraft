@@ -1,35 +1,16 @@
 import { Table } from '@/components/ui/table'
-import { lazy, Suspense, useState } from 'react'
 import CompaniesHeader from './CompanyTableElements/CompaniesHeader/CompaniesHeader'
-import { useCompany } from '@/context/Company/CompanyContext'
-import { Company } from '@/types/company-types/companyTypes'
 import CreateCompany from '@/components/forms/companies-form/CompanyFormCreate/CreateCompany'
-import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/CompaniesLoader'
-import useSearchFilter from '@/components/hooks/custom-hooks/useSearchFilter'
-import TableTopNavigation from '@/components/common/SearchBar/TableTopNavigation'
-
-const CompaniesTableBody = lazy(() => import('@/components/tables/CompaniesTable/CompaniesTableBody'))
+import CompaniesTableBody from '@/components/tables/CompaniesTable/CompaniesTableBody'
 
 const CompaniesTable = () => {
-    const { state } = useCompany();
-    const [searchQuery, setSearchQuery] = useState<string>('');
-    const filteredData = useSearchFilter<Company>(state.data, searchQuery);
-
     return (
         <div className="flex flex-1 py-8 overflow-x-auto md:px-0">
             <div className='flex-1 pr-7 overflow-x-auto'>
-                <TableTopNavigation
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                    Component={CreateCompany}
-                />
+                <CreateCompany />
                 <Table className='w-full min-w-full'>
                     <CompaniesHeader />
-                    <Suspense fallback={<CompaniesLoader />}>
-                        <CompaniesTableBody
-                            filteredData={filteredData}
-                        />
-                    </Suspense>
+                    <CompaniesTableBody />
                 </Table>
             </div>
         </div>

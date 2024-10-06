@@ -1,116 +1,106 @@
+import useCompaniesQuery from '@/components/api/companies/companiesQuery';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
-import { useCompanyEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
-import { formDefaultValues, newCompanySchema } from '@/components/models/company/newCompanySchema';
-import { DialogContent } from '@/components/ui/dialog';
-import { useAuth } from '@/context/AuthContext';
-import { Company } from '@/types/company-types/companyTypes';
+import { companyDefaults, CompanySchema, newCompanySchema } from '@/components/models/company/newCompanySchema';
+import { Button } from '@/components/ui/button';
+import { DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
-import { FormProvider, UseFormProps } from 'react-hook-form';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const CreateCompany = () => {
-    const { role } = useAuth();
-    const isManager = role === 'manager';
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const formOptions: Partial<UseFormProps<Company>> = {
+    const { useCreateCompany } = useCompaniesQuery();
+    const { mutate, isPending } = useCreateCompany({ setIsOpen });
+
+    const form = useForm<CompanySchema>({
         resolver: zodResolver(newCompanySchema),
-        mode: 'onChange',
-        defaultValues: formDefaultValues
+        defaultValues: companyDefaults,
+        mode: 'onChange'
+    });
+
+    const handleSubmit = (companyData: CompanySchema) => {
+        mutate(companyData);
     };
 
-    const { handleCreateEntity, isLoading } = useCompanyEntityHandlers();
-    const {
-        onSubmit,
-        isOpen,
-        setIsOpen,
-        form,
-    } = useSubmitHandler<Company>(handleCreateEntity, formOptions);
-
     return (
-        <>
-            {isManager && (
-                <FormProvider {...form}>
-                    <form
-                        id='company-form'
-                        onSubmit={form.handleSubmit(onSubmit)}
-                    >
-                        <Dialog
-                            open={isOpen}
-                            onOpenChange={setIsOpen}
+        <div className='mb-4'>
+            <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+            >
+                <DialogTrigger asChild>
+                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
+                        <Plus className="mr-2 h-4 w-4" />
+                        <span className='font-bold'>Add new company</span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                    <DialogHeader title='Add new company' />
+                    <FormProvider {...form}>
+                        <form
+                            id='company-form'
+                            onSubmit={form.handleSubmit(handleSubmit)}
                         >
-                            <DialogTriggerButtons />
-
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                                <DialogHeader
-                                    title='Add new company'
+                            <FormFieldInput
+                                type='text'
+                                label='Company name'
+                                name='name'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Company number'
+                                name='number'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Company address'
+                                name='address'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Company MOL'
+                                name='mol'
+                            />
+                            <FormFieldInput
+                                type='email'
+                                label='Company email'
+                                name='email'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Company phone'
+                                name='phone'
+                            />
+                            <div className='flex flex-1 pt-2 justify-between'>
+                                <StatusSelector
+                                    label='Status'
+                                    name='status'
+                                    placeholder='active'
                                 />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Company name'
-                                    name='name'
+                                <VatSelector
+                                    label='DDS'
+                                    name='dds'
+                                    placeholder='no'
                                 />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Company number'
-                                    name='number'
-                                />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Company address'
-                                    name='address'
-                                />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Company MOL'
-                                    name='mol'
-                                />
-
-                                <FormFieldInput
-                                    type='email'
-                                    label='Company email'
-                                    name='email'
-                                />
-
-                                <FormFieldInput
-                                    type='text'
-                                    label='Company phone'
-                                    name='phone'
-                                />
-                                <div className='flex flex-1 pt-2 justify-between'>
-                                    <StatusSelector
-                                        label='Status'
-                                        name='status'
-                                        placeholder='active'
-                                    />
-                                    <VatSelector
-                                        label='DDS'
-                                        name='dds'
-                                        placeholder='no'
-                                    />
-                                </div>
-
-                                <DialogFooter
-                                    isLoading={isLoading}
-                                    label='Submit'
-                                    formName='company-form'
-                                    className='mt-6'
-                                />
-                            </DialogContent>
-                        </Dialog>
-                    </form>
-                </FormProvider>
-            )}
-        </>
+                            </div>
+                            <DialogFooter
+                                isLoading={isPending}
+                                label='Submit'
+                                formName='company-form'
+                                className='mt-6'
+                            />
+                        </form>
+                    </FormProvider>
+                </DialogContent>
+            </Dialog >
+        </div >
     )
 }
 

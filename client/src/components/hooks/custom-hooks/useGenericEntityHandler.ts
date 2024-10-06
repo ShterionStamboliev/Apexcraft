@@ -1,8 +1,6 @@
 import useEntityHandlers from './useEntityHandlers';
 import { Project } from '@/types/project-types/projectTypes';
 import { useProject } from '@/context/Project/ProjectContext';
-import { Company } from '@/types/company-types/companyTypes';
-import { useCompany } from '@/context/Company/CompanyContext';
 
 type GenericEntityHandlerContext<T> = {
     isLoading?: boolean;
@@ -36,6 +34,5 @@ const useGenericEntityHandler = <T>(useContextHook: () => GenericEntityHandlerCo
 };
 
 export const useProjectEntityHandlers = () => useGenericEntityHandler<Project>(useProject);
-export const useCompanyEntityHandlers = () => useGenericEntityHandler<Company>(useCompany);
 
 export default useGenericEntityHandler;

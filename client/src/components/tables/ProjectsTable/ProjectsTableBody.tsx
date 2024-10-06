@@ -2,7 +2,6 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { useMediaQuery } from 'usehooks-ts';
 import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
 import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
-import { Project } from '@/types/project-types/projectTypes';
 import { useProject } from '@/context/Project/ProjectContext';
 import EditForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
 import { useProjectEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
@@ -12,20 +11,14 @@ import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/Pro
 import useQueryHooks from '@/components/api/projects/projectsQuery';
 
 const ProjectsTableBody = () => {
-    const { state, getEntities, isEntityLoading } = useProject();
-    // const { getEntities: getCompanies } = useCompany();
-    // const { getEntities: getArtisans } = useArtisan();
-    // const { getEntities: getActivities } = useActivity();
-    // const { getEntities: getMeasures } = useMeasure();
-
+    const { isEntityLoading } = useProject();
     const { useGetProjectsQuery } = useQueryHooks();
 
-    const { data, isLoading, isError } = useGetProjectsQuery();
+    const { data, isLoading, } = useGetProjectsQuery();
 
     const {
         selectedEntity: selectedProject,
         isDialogOpen,
-        isModified,
         handleCloseDialog,
         handleDeactivateClick,
         handleEditClick,
@@ -34,15 +27,6 @@ const ProjectsTableBody = () => {
 
     const onDesktop = useMediaQuery('(min-width: 960px)');
 
-    // useEffect(() => {
-    //     if (!state.isDataFetched) {
-    //         getEntities();
-    //         // getArtisans();
-    //         // getCompanies();
-    //         // getActivities();
-    //         // getMeasures();
-    //     }
-    // }, [state.isDataFetched, getEntities, isModified]);
 
     if (data?.length === 0) {
         return <div>No results found.</div>

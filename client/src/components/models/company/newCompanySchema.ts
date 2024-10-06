@@ -1,16 +1,6 @@
 import { Company } from '@/types/company-types/companyTypes';
 import { z } from 'zod';
 
-enum CompanyStatus {
-    active = 'active',
-    inactive = 'inactive',
-}
-
-enum CompanyDds {
-    yes = 'yes',
-    no = 'no',
-}
-
 export const phoneValidator = /^([0-9|\\+])[0-9\\s.\\/-]{6,20}$/;
 
 export const newCompanySchema = z.object({
@@ -32,11 +22,11 @@ export const newCompanySchema = z.object({
         .email('Please, enter a valid email.'),
     phone: z.string()
         .regex(phoneValidator, { message: 'Invalid phone format' }),
-    dds: z.nativeEnum(CompanyDds, { message: 'DDS is required.', }),
-    status: z.nativeEnum(CompanyStatus, { message: 'Please, select status.' }),
+    dds: z.enum(['yes', 'no'], { message: 'DDS is required.', }),
+    status: z.enum(['active', 'inactive'], { message: 'Please, select status.' }),
 });
 
-export const formDefaultValues: Partial<Company> = {
+export const companyDefaults: Company = {
     name: '',
     number: '',
     address: '',
@@ -46,3 +36,5 @@ export const formDefaultValues: Partial<Company> = {
     dds: 'no',
     status: 'active',
 }
+
+export type CompanySchema = z.infer<typeof newCompanySchema>;

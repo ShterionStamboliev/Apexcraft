@@ -1,4 +1,4 @@
-import useCompanyApi from '@/components/api/companiesApi'
+import useCompanyApi from '@/components/api/companies/companiesApi'
 import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
