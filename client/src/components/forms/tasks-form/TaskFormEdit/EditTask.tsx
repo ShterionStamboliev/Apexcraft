@@ -1,5 +1,4 @@
 import { useEditTaskForm } from '@/components/hooks/custom-hooks/useEditTaskForm';
-import { useEditTaskHandler } from '@/components/hooks/custom-hooks/useEditTaskHandler';
 import { EditTaskSchema } from '@/components/models/task/newTaskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
@@ -12,18 +11,22 @@ import { useEffect } from 'react';
 import TaskList from './TaskFormUtils/TaskList';
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
+import useTasksQuery from '@/components/api/tasks/tasksQuery';
 
-const EditTask = () => {
-    const { data, isLoading, mutate } = useEditTaskHandler();
-    const form = useEditTaskForm(data!);
-
-    const navigate = useNavigate();
+const EditTaskForm = () => {
     const { id, taskId } = useParams();
-
+    const navigate = useNavigate();
     const { ref, inView } = useInView();
 
-    const { useGetWorkItemsInfinity } = useTaskItemQuery();
+    const { useEditTask, useGetTask } = useTasksQuery();
 
+    const { data: task } = useGetTask();
+
+    const { mutate, isPending } = useEditTask();
+
+    const form = useEditTaskForm(task!);
+
+    const { useGetWorkItemsInfinity } = useTaskItemQuery();
     const {
         data: tasksData,
         fetchNextPage,
@@ -36,7 +39,7 @@ const EditTask = () => {
         }
     }, [fetchNextPage, inView]);
 
-    const submitFormHandler = async (formData: EditTaskSchema) => {
+    const handleSubmit = async (formData: EditTaskSchema) => {
         mutate(formData, {
             onSuccess: () => {
                 navigate(`/projects/${id}/tasks`);
@@ -44,24 +47,24 @@ const EditTask = () => {
         });
     };
 
-    if (isLoading) {
+    if (isPending) {
         return <TaskViewEditSkeleton />
-    }
+    };
 
     return (
         <>
-            {data && (
+            {task && (
                 <div className="container mx-auto p-4">
                     <CreateTaskItem />
                     <div className="grid lg:grid-cols-2 gap-20">
                         <TaskInformationCard
-                            task={data}
+                            task={task}
                         />
                         <TaskEditForm
                             form={form}
-                            task={data}
-                            isLoading={isLoading}
-                            submitFormHandler={submitFormHandler}
+                            task={task}
+                            isLoading={isPending}
+                            submitFormHandler={handleSubmit}
                         />
                     </div>
                     <div className='mt-10'>
@@ -89,5 +92,5 @@ const EditTask = () => {
     )
 }
 
-export default EditTask;
+export default EditTaskForm;
 

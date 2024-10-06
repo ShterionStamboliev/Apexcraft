@@ -10,12 +10,10 @@ const UserLoginForm = () => {
 
     return (
         <FormProvider {...form}>
-
             <FormHeader
-                title='Добре дошли'
-                description='Вход в системата'
+                title='Welcome'
+                description='Please enter your details'
             />
-
             <form
                 id='login-form'
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -24,12 +22,12 @@ const UserLoginForm = () => {
                 <div className="space-y-4">
                     <FormFieldInput
                         name='username'
-                        label='Потребител'
+                        label='Username'
                         type='text'
                     />
                     <FormFieldInput
                         name='password'
-                        label='Парола'
+                        label='Password'
                         type='password'
                     />
                 </div>

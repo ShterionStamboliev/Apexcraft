@@ -10,7 +10,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { FormProvider } from 'react-hook-form'
 
 const TaskEditForm = ({ form, task, isLoading, submitFormHandler }: any) => {
-
     return (
         <Card>
             <CardHeader>

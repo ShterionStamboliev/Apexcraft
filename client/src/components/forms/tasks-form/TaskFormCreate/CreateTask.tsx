@@ -1,8 +1,6 @@
 import { useForm, FormProvider } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import useTasksApi from '@/components/api/tasksApi';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
@@ -14,21 +12,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
 import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector';
-import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
-import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import useTasksQuery from '@/components/api/tasks/tasksQuery';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 const CreateTask = () => {
-    const { role } = useAuth();
-    const isManager = role === 'manager';
-    const { id } = useParams<{ id: string }>();
-    
-    const { createTask } = useTasksApi();
+    const { id } = useParams();
 
-    const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const queryClient = useQueryClient();
-    const { fireErrorToast, fireSuccessToast } = useToastHook();
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+
+    const { useCreateTask } = useTasksQuery();
+    const { mutate, isPending } = useCreateTask({ id, setIsOpen });
 
     const form = useForm<TaskSchema>({
         defaultValues: taskDefaults,
@@ -36,118 +31,103 @@ const CreateTask = () => {
         mode: 'onChange'
     });
 
-    const { mutate, isPending } = useMutation({
-        mutationFn: (task: TaskSchema) => createTask(id!, task),
-        onSuccess: () => {
-            fireSuccessToast('Tasks created successfully!');
-            queryClient.invalidateQueries({
-                queryKey: ['projects', id, 'tasks']
-            });
-            setIsDialogOpen(false);
-            form.reset();
-        },
-        onError: () => {
-            fireErrorToast('Failed to create task. Please try again.')
-        },
-    });
-
-    const onSubmit = async (data: TaskSchema) => {
-        mutate(data);
+    const handleSubmit = async (taskData: TaskSchema) => {
+        mutate(taskData);
     };
 
     return (
-        <div className="flex gap-2 md:gap-8">
-            {isManager && (
-                <FormProvider {...form}>
-                    <form
-                        id='task-form'
-                        onSubmit={form.handleSubmit(onSubmit)}
-                    >
-                        <Dialog
-                            open={isDialogOpen}
-                            onOpenChange={setIsDialogOpen}
+        <div className='mb-4'>
+            <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+            >
+                <DialogTrigger asChild>
+                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
+                        <Plus className="mr-2 h-4 w-4" />
+                        <span className='font-bold'>Add new task</span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px] gap-0'>
+                    <DialogHeader title='Create new task' />
+                    <FormProvider {...form}>
+                        <form
+                            id='task-form'
+                            onSubmit={form.handleSubmit(handleSubmit)}
                         >
-                            <DialogTriggerButtons />
-
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px] gap-0'>
-                                <DialogHeader
-                                    title='Create new task'
-                                />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Task name'
-                                    name='name'
-                                />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Price per measure'
-                                    name='price_per_measure'
-                                />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Total work in selected measure'
-                                    name='total_work_in_selected_measure'
-                                />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Total price'
-                                    name='total_price'
-                                />
-                                <div className='flex flex-col flex-1 pt-2 justify-between'>
-                                    <div className='flex justify-between'>
-                                        <StatusSelector
-                                            label='Status'
-                                            name='status'
-                                            defaultVal=''
-                                        />
-                                        <ArtisanSelector
-                                            label='Select artisan'
-                                            name='artisan'
-                                            defaultVal=''
-                                        />
-                                    </div>
-                                    <div className='flex justify-between'>
-                                        <ActivitySelector
-                                            label='Select activity type'
-                                            name='activity'
-                                            defaultVal=''
-                                        />
-                                        <MeasureSelector
-                                            label='Select measure type'
-                                            name='measure'
-                                            defaultVal=''
-                                        />
-                                    </div>
-                                </div>
-                                <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
-                                    <FormDatePicker
-                                        name='start_date'
-                                        label='Select a start date'
-                                        description=''
+                            <FormFieldInput
+                                type='text'
+                                label='Task name'
+                                name='name'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Price per measure'
+                                name='price_per_measure'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Total work in selected measure'
+                                name='total_work_in_selected_measure'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Total price'
+                                name='total_price'
+                            />
+                            <div className='flex flex-col flex-1 pt-2 justify-between'>
+                                <div className='flex justify-between'>
+                                    <StatusSelector
+                                        label='Status'
+                                        name='status'
+                                        defaultVal=''
                                     />
-                                    <FormDatePicker
-                                        name='end_date'
-                                        label='Select an end date'
-                                        description=''
+                                    <ArtisanSelector
+                                        label='Select artisan'
+                                        name='artisan'
+                                        defaultVal=''
                                     />
                                 </div>
-                                <FormTextareaInput
-                                    name='note'
-                                    label='Enter notes for your project'
-                                    type='text'
+                                <div className='flex justify-between'>
+                                    <ActivitySelector
+                                        label='Select activity type'
+                                        name='activity'
+                                        defaultVal=''
+                                    />
+                                    <MeasureSelector
+                                        label='Select measure type'
+                                        name='measure'
+                                        defaultVal=''
+                                    />
+                                </div>
+                            </div>
+                            <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
+                                <FormDatePicker
+                                    name='start_date'
+                                    label='Select a start date'
+                                    description=''
                                 />
-                                <DialogFooter
-                                    disabled={isPending}
-                                    isLoading={isPending}
-                                    label='Submit'
-                                    formName='task-form'
-                                    className='mt-6'
+                                <FormDatePicker
+                                    name='end_date'
+                                    label='Select an end date'
+                                    description=''
                                 />
-                            </DialogContent>
-                        </Dialog>
-                    </form>
-                </FormProvider>
-            )}
+                            </div>
+                            <FormTextareaInput
+                                name='note'
+                                label='Enter notes for your project'
+                                type='text'
+                            />
+                            <DialogFooter
+                                disabled={isPending}
+                                isLoading={isPending}
+                                label='Submit'
+                                formName='task-form'
+                                className='mt-6'
+                            />
+                        </form>
+                    </FormProvider>
+                </DialogContent>
+            </Dialog>
         </div>
     );
 };

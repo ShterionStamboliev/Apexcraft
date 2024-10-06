@@ -7,8 +7,3 @@ export type Artisan = {
     company: string;
     status?: 'active' | 'inactive';
 }
-
-export interface ArtisanFormProps {
-    onSuccess?: () => void;
-    artisan: Artisan;
-}

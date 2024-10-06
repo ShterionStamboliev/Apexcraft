@@ -1,4 +1,3 @@
-import LayoutFooter from '../Footer/LayoutFooter';
 import LayoutHeader from '../Header/LayoutHeader';
 
 type LayoutUsersTableProps = {
@@ -13,8 +12,6 @@ const LayoutUsersTable = ({ children }: LayoutUsersTableProps) => {
             <div className="flex-1 overflow-hidden">
                 {children}
             </div>
-
-            {/* <LayoutFooter /> */}
         </div>
     );
 }

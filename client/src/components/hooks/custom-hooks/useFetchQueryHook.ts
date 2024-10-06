@@ -1,10 +1,6 @@
 import {
-    MutationFunction,
     QueryFunctionContext,
     QueryKey,
-    useMutation,
-    UseMutationOptions,
-    UseMutationResult,
     useQuery,
     UseQueryOptions,
     UseQueryResult
@@ -22,14 +18,4 @@ export const useFetchQuery = <TData>(
         queryFn: queryFunc,
         ...options,
     })
-};
-
-export const useMutationQuery = <TData, TVariables = void>(
-    mutationFunc: MutationFunction<TData, TVariables>,
-    options?: UseMutationOptions<TData, unknown, TVariables>
-): UseMutationResult<TData, unknown, TVariables> => {
-    return useMutation({
-        mutationFn: mutationFunc,
-        ...options
-    });
 };
