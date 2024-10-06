@@ -11,7 +11,7 @@ const ProjectsSkeletonCard = ({ data }: ProjectTypeProps) => {
     return (
         <>
             {data && data.map((project) => (
-                <Card className='w-[300px]' key={project.id} >
+                <Card className='w-[18rem]' key={project.id} >
                     <CardHeader>
                         <CardTitle>
                             <Skeleton className='w-full h-[1rem]' />

@@ -16,7 +16,6 @@ import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
 const RoleSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
-
     const { control } = useFormContext();
 
     return (
