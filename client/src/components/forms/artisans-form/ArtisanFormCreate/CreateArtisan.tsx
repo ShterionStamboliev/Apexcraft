@@ -1,101 +1,97 @@
+import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtons from '@/components/common/DialogElements/DialogTriggerButtons/DialogTriggerButtons';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import useSubmitHandler from '@/components/hooks/custom-hooks/useCreateEntitySubmitHandler';
-import { useArtisanEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
-import { artisanDefaults, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
-import { DialogContent } from '@/components/ui/dialog';
-import { useAuth } from '@/context/AuthContext';
-import { Artisan } from '@/types/artisan-types/artisanTypes';
+import { artisanDefaults, ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
+import { Button } from '@/components/ui/button';
+import { DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog } from '@radix-ui/react-dialog';
-import { FormProvider, UseFormProps } from 'react-hook-form';
+import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const CreateArtisan = () => {
-    const { role } = useAuth();
-    const isManager = role === 'manager';
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const formOptions: Partial<UseFormProps<Artisan>> = {
+    const { useCreateArtisan } = useArtisansQuery();
+    const { mutate, isPending } = useCreateArtisan({ setIsOpen });
+
+    const form = useForm<ArtisanSchema>({
         resolver: zodResolver(newArtisanSchema),
-        mode: 'onChange',
-        defaultValues: artisanDefaults
+        defaultValues: artisanDefaults,
+        mode: 'onChange'
+    });
+
+    const handleSubmit = (artisanData: ArtisanSchema) => {
+        mutate(artisanData);
     };
 
-    const { handleCreateEntity, isLoading } = useArtisanEntityHandlers();
-    const {
-        onSubmit,
-        isOpen,
-        setIsOpen,
-        form,
-    } = useSubmitHandler<Artisan>(handleCreateEntity, formOptions);
-
     return (
-        <>
-            {isManager && (
-                <FormProvider {...form}>
-                    <form
-                        id='artisan-form'
-                        onSubmit={form.handleSubmit(onSubmit)}
-                    >
-                        <Dialog
-                            open={isOpen}
-                            onOpenChange={setIsOpen}
+        <div className='mb-4'>
+            <Dialog
+                open={isOpen}
+                onOpenChange={setIsOpen}
+            >
+                <DialogTrigger asChild>
+                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
+                        <Plus className="mr-2 h-4 w-4" />
+                        <span className='font-bold'>Add new artisan</span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                    <DialogHeader title='Add new artisan' />
+                    <FormProvider {...form}>
+                        <form
+                            id='artisan-form'
+                            onSubmit={form.handleSubmit(handleSubmit)}
                         >
-                            <DialogTriggerButtons />
-
-                            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                                <DialogHeader
-                                    title='Add new artisan'
+                            <FormFieldInput
+                                type='text'
+                                label='Artisan name'
+                                name='name'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Artisan phone'
+                                name='number'
+                            />
+                            <FormFieldInput
+                                type='text'
+                                label='Artisan email'
+                                name='email'
+                            />
+                            <div className='flex flex-1 pt-2 justify-between'>
+                                <StatusSelector
+                                    label='Status'
+                                    name='status'
+                                    placeholder='inactive'
                                 />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Artisan name'
-                                    name='name'
+                                <CompanySelector
+                                    label='Select company'
+                                    name='company'
                                 />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Artisan phone'
-                                    name='number'
-                                />
-                                <FormFieldInput
-                                    type='text'
-                                    label='Artisan email'
-                                    name='email'
-                                />
-                                <div className='flex flex-1 pt-2 justify-between'>
-                                    <StatusSelector
-                                        label='Status'
-                                        name='status'
-                                        placeholder='inactive'
-                                    />
-                                    <CompanySelector
-                                        label='Select company'
-                                        name='company'
-                                    />
-                                </div>
-
-                                <FormTextareaInput
-                                    name='note'
-                                    label='Enter note about the artisan'
-                                    type='text'
-                                    className='pt-2'
-                                />
-                                <DialogFooter
-                                    isLoading={isLoading}
-                                    label='Submit'
-                                    formName='artisan-form'
-                                    className='mt-6'
-                                />
-                            </DialogContent>
-                        </Dialog>
-                    </form>
-                </FormProvider>
-            )}
-        </>
+                            </div>
+                            <FormTextareaInput
+                                name='note'
+                                label='Enter note about the artisan'
+                                type='text'
+                                className='pt-2'
+                            />
+                            <DialogFooter
+                                isLoading={isPending}
+                                label='Submit'
+                                formName='artisan-form'
+                                className='mt-6'
+                            />
+                        </form>
+                    </FormProvider>
+                </DialogContent>
+            </Dialog >
+        </div>
     )
 }
 

@@ -16,29 +16,27 @@ const MeasuresTableBody = () => {
     };
 
     return (
-        <>
-            <TableBody>
-                {measures?.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={2} className='text-center text-3xl'>
-                            No results found
-                        </TableCell>
-                    </TableRow>
-                ) : (measures.map((measure) => (
-                    <TableRow key={measure.id}>
-                        <TableCell>
-                            {measure.name}
-                        </TableCell>
-                        <TableCell className='text-end w-[200px]'>
-                            <EditMeasureForm
-                                measure={measure}
-                                measureId={measure.id!}
-                            />
-                        </TableCell>
-                    </TableRow>
-                )))}
-            </TableBody>
-        </>
+        <TableBody>
+            {measures?.length === 0 ? (
+                <TableRow>
+                    <TableCell colSpan={2} className='text-center text-3xl'>
+                        No results found
+                    </TableCell>
+                </TableRow>
+            ) : (measures.map((measure) => (
+                <TableRow key={measure.id}>
+                    <TableCell>
+                        {measure.name}
+                    </TableCell>
+                    <TableCell className='text-end w-[200px]'>
+                        <EditMeasureForm
+                            measure={measure}
+                            measureId={measure.id!}
+                        />
+                    </TableCell>
+                </TableRow>
+            )))}
+        </TableBody>
     )
 }
 

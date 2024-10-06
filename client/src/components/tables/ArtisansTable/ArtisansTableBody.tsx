@@ -1,100 +1,43 @@
-import {
-    TableBody,
-    TableCell,
-    TableRow
-} from '@/components/ui/table';
-import { useEffect, } from 'react';
-import { useMediaQuery } from 'usehooks-ts';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
-import DesktopViewButtons from '@/components/common/Buttons/DesktopViewButtons';
-import MobileViewButtons from '@/components/common/Buttons/MobileViewButtons';
+import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
-import { Artisan } from '@/types/artisan-types/artisanTypes';
-import { useArtisan } from '@/context/Artisan/ArtisanContext';
-import EditForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
-import { useCompany } from '@/context/Company/CompanyContext';
-import { useArtisanEntityHandlers } from '@/components/hooks/custom-hooks/useGenericEntityHandler';
+import useArtisansQuery from '@/components/api/artisans/artisansQuery';
+import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 
-const ArtisansTableBody = ({ filteredData }: { filteredData: Artisan[] }) => {
-    const { state, isLoading, getEntities, isEntityLoading } = useArtisan();
-    const { getEntities: getCompanies } = useCompany();
+const ArtisansTableBody = () => {
+    const { useGetArtisans } = useArtisansQuery();
+    const { data: artisans, isPending, isError, error } = useGetArtisans();
 
-    const {
-        selectedEntity: selectedArtisan,
-        isDialogOpen,
-        isModified,
-        handleCloseDialog,
-        handleDeactivateClick,
-        handleEditClick,
-        handleSuccess,
-    } = useArtisanEntityHandlers();
-
-    const onDesktop = useMediaQuery('(min-width: 960px)');
-
-    useEffect(() => {
-        if (!state.isDataFetched) {
-            getEntities();
-            getCompanies();
-        }
-    }, [state.isDataFetched, getEntities, isModified]);
-
-    if (isLoading) {
+    if (isPending) {
         return <ActivitiesLoader />
-    }
+    };
+
+    if (isError) {
+        return <div>Error: {error.message}</div>
+    };
 
     return (
-        <>
-            <TableBody>
-                {filteredData.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={2} className='text-center text-3xl'>
-                            No results found
+        <TableBody>
+            {artisans.length === 0 ? (
+                <TableRow>
+                    <TableCell colSpan={2} className='text-center text-3xl'>
+                        No results found
+                    </TableCell>
+                </TableRow>
+            ) : (
+                artisans.map((artisan) => (
+                    <TableRow key={artisan.id}>
+                        <TableCell>
+                            {artisan.name}
+                        </TableCell>
+                        <TableCell className='text-end w-[200px]'>
+                            <EditArtisanForm
+                                artisan={artisan}
+                                artisanId={artisan.id!}
+                            />
                         </TableCell>
                     </TableRow>
-                ) : (
-                    filteredData.map((artisan, index) => (
-                        <TableRow key={index}>
-                            <TableCell>
-                                {artisan.name}
-                            </TableCell>
-                            <TableCell className='text-end w-[200px]'>
-                                {onDesktop ? (
-                                    <DesktopViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        hoverLabel='artisan'
-                                        id={artisan.id!}
-                                    />
-                                ) : (
-                                    <MobileViewButtons
-                                        handleEditClick={handleEditClick}
-                                        handleDisableClick={handleDeactivateClick}
-                                        id={artisan.id!}
-                                    />
-                                )}
-                            </TableCell>
-                        </TableRow>
-                    )
-                    ))}
-            </TableBody>
-
-            <Dialog
-                open={isDialogOpen}
-                onOpenChange={handleCloseDialog}
-            >
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                    {!isEntityLoading && selectedArtisan && (
-                        <EditForm
-                            artisan={selectedArtisan}
-                            onSuccess={() => {
-                                handleCloseDialog();
-                                handleSuccess();
-                            }}
-                        />
-                    )}
-                </DialogContent>
-            </Dialog>
-        </>
+                )))}
+        </TableBody>
     )
 }
 

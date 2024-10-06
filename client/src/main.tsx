@@ -9,7 +9,6 @@ import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 import { CompanyProvider } from './context/Company/CompanyContext'
 import { ProjectProvider } from './context/Project/ProjectContext'
-import { ArtisanProvider } from './context/Artisan/ArtisanContext'
 import { TaskProvider } from './context/Task/TaskContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
@@ -23,13 +22,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
                     <AuthProvider>
                         <CompanyProvider>
                             <ProjectProvider>
-                                <ArtisanProvider>
-                                    <TaskProvider>
-                                        <AppRoutes />
-                                        <Toaster />
-                                        <ReactQueryDevtools />
-                                    </TaskProvider>
-                                </ArtisanProvider>
+                                <TaskProvider>
+                                    <AppRoutes />
+                                    <Toaster />
+                                    <ReactQueryDevtools />
+                                </TaskProvider>
                             </ProjectProvider>
                         </CompanyProvider>
                     </AuthProvider>

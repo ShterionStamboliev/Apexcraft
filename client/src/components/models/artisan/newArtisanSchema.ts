@@ -2,11 +2,6 @@ import { Artisan } from '@/types/artisan-types/artisanTypes';
 import { z } from 'zod';
 import { phoneValidator } from '../company/newCompanySchema';
 
-enum ArtisanStatus {
-    active = 'active',
-    inactive = 'inactive'
-}
-
 export const newArtisanSchema = z.object({
     name: z.string().min(3, {
         message: 'Artisan name must be at least 3 characters.'
@@ -21,17 +16,21 @@ export const newArtisanSchema = z.object({
     }).max(50, {
         message: 'Email cannot exceed 50 characters.'
     }).email('Please, enter a valid email.'),
-    company: z.string(),
-    status: z.nativeEnum(ArtisanStatus, {
+    company: z.string().min(1, {
+        message: 'Please select company'
+    }),
+    status: z.enum(['active', 'inactive'], {
         message: 'Please, select a status'
     }),
 });
 
-export const artisanDefaults: Partial<Artisan> = {
+export const artisanDefaults: Artisan = {
     name: '',
     note: '',
     email: '',
     number: '',
     company: '',
-    status: ArtisanStatus.inactive
+    status: undefined
 };
+
+export type ArtisanSchema = z.infer<typeof newArtisanSchema>;

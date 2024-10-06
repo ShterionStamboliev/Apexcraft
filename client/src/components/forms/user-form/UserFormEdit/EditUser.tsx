@@ -53,15 +53,12 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
                 </Button>
             </DialogTrigger>
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
-                <DialogHeader title='Edit activity' />
+                <DialogHeader title='Edit user info' />
                 <FormProvider {...form}>
                     <form
                         id='form-edit'
                         onSubmit={form.handleSubmit(handleSubmit)}
                     >
-                        <DialogHeader
-                            title='Edit user info'
-                        />
                         <FormFieldInput
                             type='text'
                             label='Name, Surname'

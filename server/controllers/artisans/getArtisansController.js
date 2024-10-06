@@ -1,4 +1,5 @@
 const pool = require("../../db");
+const { getControllerNameById } = require('../../utils/getControllerNameById');
 
 const getArtisans = async (req, res) => {
 
@@ -7,10 +8,21 @@ const getArtisans = async (req, res) => {
 
         const [rows] = await pool.execute(query);
 
-        res.json(rows);
+        const artisansCompanyNames = await Promise.all(
+            rows.map(async (artisan) => {
+                const companyName = await getControllerNameById(artisan.company_id, "tbl_companies");
+                return {
+                    ...artisan,
+                    company: companyName || null
+                };
+            })
+        );
+
+        // console.log(artisansCompanyNames);
+        res.status(200).json(artisansCompanyNames);
     }
     catch (error) {
-        res.status(500).json({ message: 'Internal erver error!', error });
+        res.status(500).json({ message: 'Internal server error!', error });
     }
 };
 

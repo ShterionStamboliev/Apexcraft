@@ -44,15 +44,14 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {data && data
-                                .map((company) => (
-                                    <SelectItem
-                                        key={company.id}
-                                        value={company.name}
-                                    >
-                                        {company.name}
-                                    </SelectItem>
-                                ))}
+                            {data && data.map((company) => (
+                                <SelectItem
+                                    key={company.id}
+                                    value={company.name}
+                                >
+                                    {company.name}
+                                </SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                 </FormItem>

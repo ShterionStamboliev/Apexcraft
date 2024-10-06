@@ -1,4 +1,4 @@
-import useArtisanApi from '@/components/api/artisansApi'
+import useArtisansApi from '@/components/api/artisans/artisansApi'
 import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
@@ -21,8 +21,8 @@ import { useFormContext } from 'react-hook-form'
 const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { fetchArtisans } = useArtisanApi();
-    const { data } = useFetchQuery<Artisan[]>(['artisans'], fetchArtisans, {
+    const { getArtisans } = useArtisansApi();
+    const { data } = useFetchQuery<Artisan[]>(['artisans'], getArtisans, {
         staleTime: Infinity
     });
 
