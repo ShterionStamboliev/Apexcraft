@@ -94,13 +94,11 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                             <FormDatePicker
                                 name='start_date'
                                 label='Select new start date'
-                                description=''
                                 selected={new Date(`${project && project.start_date}`).toLocaleDateString().slice(0, 10)}
                             />
                             <FormDatePicker
                                 name='end_date'
                                 label='Select new end date'
-                                description=''
                                 selected={new Date(`${project && project.end_date}`).toLocaleDateString().slice(0, 10)}
                             />
                         </div>

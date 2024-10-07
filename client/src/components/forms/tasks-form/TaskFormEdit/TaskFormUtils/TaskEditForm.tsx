@@ -43,13 +43,11 @@ const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }:
                             <FormDatePicker
                                 name='start_date'
                                 label='Select new start date'
-                                description=''
                                 selected={new Date(`${task && task.start_date}`).toLocaleDateString().slice(0, 10)}
                             />
                             <FormDatePicker
                                 name='end_date'
                                 label='Select new end date'
-                                description=''
                                 selected={new Date(`${task && task.end_date}`).toLocaleDateString().slice(0, 10)}
                             />
                         </div>
