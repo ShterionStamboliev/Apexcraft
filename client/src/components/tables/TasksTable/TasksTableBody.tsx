@@ -7,23 +7,23 @@ const ProjectsTasksBody = () => {
     const { id } = useParams();
 
     const { useGetTasks } = useTasksQuery();
-    const { data: projects, isPending, isError, error } = useGetTasks();
+    const { data: tasks, isPending, isError, error } = useGetTasks();
 
     if (isPending) {
-        return <ProjectTasksSkeleton data={projects} />
-    }
+        return <ProjectTasksSkeleton count={5} />
+    };
 
     if (isError) {
         return <div>Error: {error.message}</div>
-    }
+    };
 
-    if (projects?.length === 0) {
+    if (tasks?.length === 0) {
         return <h1>No results found.</h1>
-    }
+    };
 
     return (
         <>
-            {projects.map((task) => (
+            {tasks.map((task) => (
                 <Card className='w-[300px]' key={task.id}>
                     <CardHeader>
                         <CardTitle>
@@ -44,8 +44,7 @@ const ProjectsTasksBody = () => {
                         </CardDescription>
                     </CardContent>
                 </Card>
-            ))
-            }
+            ))}
         </>
     )
 }

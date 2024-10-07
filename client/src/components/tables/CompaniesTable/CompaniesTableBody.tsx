@@ -42,7 +42,8 @@ const CompaniesTableBody = () => {
                             />
                         </TableCell>
                     </TableRow>
-                )))}
+                )))
+            }
         </TableBody>
     )
 }

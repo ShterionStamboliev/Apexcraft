@@ -4,7 +4,6 @@ import CreateActivity from '@/components/forms/activities-form/ActivityFormCreat
 import ActivitiesTableBody from './ActivitiesTableBody';
 
 const ActivitiesTable = () => {
-
     return (
         <div className="flex flex-1 py-8 overflow-x-auto md:px-0">
             <div className='flex-1 pr-7 overflow-x-auto'>

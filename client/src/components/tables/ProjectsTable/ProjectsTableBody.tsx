@@ -9,18 +9,20 @@ const ProjectsTableBody = () => {
     const { data: projects, isPending, isError, error } = useGetProjects();
 
     if (isPending) {
-        return <ProjectsSkeletonCard data={projects!} />
+        return <ProjectsSkeletonCard count={5} />
     };
 
     if (isError) {
         return <div>Error: {error.message}</div>
     };
 
+    if (projects.length === 0) {
+        return <div>No results found</div>
+    };
+
     return (
         <>
-            {projects?.length === 0 ? (
-                <div>No results found</div>
-            ) : (projects.map((project) => (
+            {projects.map((project) => (
                 <Card className='w-[18rem]' key={project.id}>
                     <CardHeader>
                         <CardTitle>
@@ -54,7 +56,7 @@ const ProjectsTableBody = () => {
                         />
                     </CardFooter>
                 </Card>
-            )))}
+            ))}
         </>
     );
 };

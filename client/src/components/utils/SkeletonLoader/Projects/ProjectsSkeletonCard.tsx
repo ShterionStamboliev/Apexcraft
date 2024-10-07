@@ -1,17 +1,16 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Project } from '@/types/project-types/projectTypes'
 
 type ProjectTypeProps = {
-    data: Project[];
+    count: number;
 }
 
-const ProjectsSkeletonCard = ({ data }: ProjectTypeProps) => {
+const ProjectsSkeletonCard = ({ count }: ProjectTypeProps) => {
 
     return (
         <>
-            {data && data.map((project) => (
-                <Card className='w-[18rem]' key={project.id} >
+            {Array.from({ length: count }).map((_, index) => (
+                <Card className='w-[18rem]' key={index}>
                     <CardHeader>
                         <CardTitle>
                             <Skeleton className='w-full h-[1rem]' />

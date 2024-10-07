@@ -1,15 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Task } from '@/types/task-types/taskTypes'
 
-type TasksDataLength = {
-    data?: Task[]
+type TasksProps = {
+    count: number
 }
-const ProjectTasksSkeleton = ({ data }: TasksDataLength) => {
+const ProjectTasksSkeleton = ({ count }: TasksProps) => {
 
     return (
         <>
-            {data && data.map((_, index) => (
+            {Array.from({ length: count }).map((_, index) => (
                 <Card className='w-[300px]' key={index}>
                     <CardHeader>
                         <CardTitle>
