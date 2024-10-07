@@ -41,7 +41,7 @@ const CreateArtisan = () => {
                 onOpenChange={setIsOpen}
             >
                 <DialogTrigger asChild>
-                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
+                    <Button className='w-full md:max-w-[12rem]' variant="outline">
                         <Plus className="mr-2 h-4 w-4" />
                         <span className='font-bold'>Add new artisan</span>
                     </Button>
