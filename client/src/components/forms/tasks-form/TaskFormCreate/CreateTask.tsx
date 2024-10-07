@@ -108,12 +108,10 @@ const CreateTask = () => {
                                 <FormDatePicker
                                     name='start_date'
                                     label='Select a start date'
-                                    description=''
                                 />
                                 <FormDatePicker
                                     name='end_date'
                                     label='Select an end date'
-                                    description=''
                                 />
                             </div>
                             <FormTextareaInput
