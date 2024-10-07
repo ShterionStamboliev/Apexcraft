@@ -94,7 +94,7 @@ const CreateProject = () => {
                                 type='text'
                             />
                             <DialogFooter
-                                isLoading={isPending}
+                                disabled={!form.formState.isDirty || isPending}
                                 label='Submit'
                                 formName='project-form'
                                 className='mt-6'

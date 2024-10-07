@@ -88,7 +88,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
                             />
                         </div>
                         <DialogFooter
-                            isLoading={isPending}
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit'
                             formName='form-edit'
                             className='mt-6'

@@ -67,7 +67,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
                             />
                         </div>
                         <DialogFooter
-                            isLoading={isPending}
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit changes'
                             formName='form-edit'
                             className='mt-6'

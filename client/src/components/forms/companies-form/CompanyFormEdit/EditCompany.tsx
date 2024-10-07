@@ -106,7 +106,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
                             />
                         </div>
                         <DialogFooter
-                            isLoading={isPending}
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit'
                             formName='form-edit'
                             className='mt-6'

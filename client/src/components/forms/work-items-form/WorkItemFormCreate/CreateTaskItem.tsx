@@ -12,24 +12,26 @@ import { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-const CreateTaskItem = () => {
+const CreateWorkItem = () => {
     const { id, taskId } = useParams();
     const [isOpen, setIsOpen] = useState(false);
 
     const form = useForm<WorkItemSchema>({
-        defaultValues: workItemDefaults,
         resolver: zodResolver(workItemSchema),
+        defaultValues: workItemDefaults,
         mode: 'onChange'
     });
-    
+
     const { useCreateWorkItem } = useTaskItemQuery();
+    const { mutate, isPending } = useCreateWorkItem(id!, taskId!, setIsOpen);
 
-    const { mutate } = useCreateWorkItem(id!, taskId!, setIsOpen);
-
-    const onSubmit = (data: WorkItemSchema) => {
-        mutate(data);
-        form.reset();
-        setIsOpen(false);
+    const onSubmit = (workItemData: WorkItemSchema) => {
+        mutate(workItemData, {
+            onSuccess: () => {
+                form.reset();
+                setIsOpen(false);
+            },
+        });
     };
 
     return (
@@ -70,12 +72,10 @@ const CreateTaskItem = () => {
                                 <FormDatePicker
                                     name='start_date'
                                     label='Select a start date'
-                                    description=''
                                 />
                                 <FormDatePicker
                                     name='end_date'
                                     label='Select an end date'
-                                    description=''
                                 />
                             </div>
                             <TaskItemStatusSelector
@@ -84,10 +84,10 @@ const CreateTaskItem = () => {
                                 defaultVal=''
                             />
                             <DialogFooter
+                                disabled={!form.formState.isDirty || isPending}
                                 className='mt-6'
                                 formName='task-item'
                                 label='Submit'
-                            // isLoading={isLoading}
                             />
                         </form>
                     </FormProvider>
@@ -97,4 +97,4 @@ const CreateTaskItem = () => {
     )
 }
 
-export default CreateTaskItem
+export default CreateWorkItem

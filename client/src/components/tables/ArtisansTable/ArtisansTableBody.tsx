@@ -36,7 +36,8 @@ const ArtisansTableBody = () => {
                             />
                         </TableCell>
                     </TableRow>
-                )))}
+                )))
+            }
         </TableBody>
     )
 }

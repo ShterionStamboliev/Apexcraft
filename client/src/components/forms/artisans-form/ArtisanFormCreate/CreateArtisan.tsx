@@ -82,7 +82,7 @@ const CreateArtisan = () => {
                                 className='pt-2'
                             />
                             <DialogFooter
-                                isLoading={isPending}
+                                disabled={!form.formState.isDirty || isPending}
                                 label='Submit'
                                 formName='artisan-form'
                                 className='mt-6'

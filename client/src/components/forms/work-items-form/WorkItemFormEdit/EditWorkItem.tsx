@@ -6,27 +6,24 @@ import FormTextareaInput from '@/components/common/FormElements/FormTextareaInpu
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { workItemSchema } from '@/types/task-types/workItemType'
+import { WorkItemSchema, workItemSchema } from '@/types/task-types/workItemType'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { Edit } from 'lucide-react';
 import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { z } from 'zod'
-
-type FormValues = z.infer<typeof workItemSchema>;
 
 interface EditWorkItemProps {
     id: string;
     taskId: string;
     workItemId: string;
-    task: FormValues;
+    task: WorkItemSchema;
 }
 
 const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const form = useForm<FormValues>({
+    const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
         defaultValues: {
             name: task.name,
@@ -39,11 +36,14 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
     });
 
     const { useEditWorkItem } = useWorkItemsQuery();
+    const { mutate, isPending } = useEditWorkItem(id, taskId, workItemId, setIsOpen);
 
-    const { mutate } = useEditWorkItem(id, taskId, workItemId, setIsOpen);
-
-    const handleSubmit = (data: FormValues) => {
-        mutate(data);
+    const handleSubmit = (workItemData: WorkItemSchema) => {
+        mutate(workItemData, {
+            onSuccess: () => {
+                setIsOpen(false)
+            }
+        });
     };
 
     return (
@@ -80,12 +80,10 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
                             <FormDatePicker
                                 name='start_date'
                                 label='Select a start date'
-                                description=''
                             />
                             <FormDatePicker
                                 name='end_date'
                                 label='Select an end date'
-                                description=''
                             />
                         </div>
                         <TaskItemStatusSelector
@@ -94,6 +92,7 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
                             defaultVal={`${task.status}`}
                         />
                         <DialogFooter
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit changes'
                             formName='work-item-edit'
                             className='mt-6'

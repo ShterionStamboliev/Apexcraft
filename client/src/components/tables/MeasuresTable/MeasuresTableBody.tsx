@@ -35,7 +35,8 @@ const MeasuresTableBody = () => {
                         />
                     </TableCell>
                 </TableRow>
-            )))}
+            )))
+            }
         </TableBody>
     )
 }

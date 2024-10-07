@@ -94,7 +94,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
                             className='pt-2'
                         />
                         <DialogFooter
-                            isLoading={isPending}
+                            disabled={!form.formState.isDirty || isPending}
                             label='Submit'
                             formName='form-edit'
                             className='mt-6'
