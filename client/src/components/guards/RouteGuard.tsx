@@ -1,22 +1,16 @@
 import { useAuth } from '@/context/AuthContext'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
-const RouteGuard = () => {
-    const { user, role } = useAuth();
+type RouteGuardProps = {           // In this string[] we can further add more roles,
+    allowedRoles: string[];        // or even filter future managers by their names
+};                          
 
-    if (!user) {
-        return <Navigate to='/login' />;
-    }
+const RouteGuard = ({ allowedRoles }: RouteGuardProps) => {
+    const { user } = useAuth();
 
-    if (role === 'manager') {
-        return <Outlet />;
-    }
-
-    if (role === 'user') {
-        return <Outlet />
-    }
-
-    return null;
+    if (!user || !allowedRoles.includes(user.role)) {
+        return <Navigate to='/' replace />
+    };
 }
 
 export default RouteGuard

@@ -10,7 +10,7 @@ export const sidebarItems: SidebarItems = {
         { label: 'Artisans', href: '/artisans', icon: ContactRound },
         { label: 'Companies', href: '/companies', icon: Building2 },
         { label: 'Projects', href: '/projects', icon: BrickWall },
-        { label: 'About', href: '/about', icon: Info },
+        { label: 'My projects', href: '/my-projects', icon: Info },
     ]
 };
 
