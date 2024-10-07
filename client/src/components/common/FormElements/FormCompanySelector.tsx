@@ -21,7 +21,7 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
     const { control } = useFormContext();
 
     const { getCompanies } = useCompanyApi();
-    const { data } = useFetchQuery<Company[]>(['companies'], getCompanies, {
+    const { data: companies } = useFetchQuery<Company[]>(['companies'], getCompanies, {
         staleTime: Infinity
     });
 
@@ -44,14 +44,15 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {data && data.map((company) => (
-                                <SelectItem
-                                    key={company.id}
-                                    value={company.name}
-                                >
-                                    {company.name}
-                                </SelectItem>
-                            ))}
+                            {companies && companies.filter(company => company.status === 'active')
+                                .map((company) => (
+                                    <SelectItem
+                                        key={company.id}
+                                        value={company.name}
+                                    >
+                                        {company.name}
+                                    </SelectItem>
+                                ))}
                         </SelectContent>
                     </Select>
                 </FormItem>
