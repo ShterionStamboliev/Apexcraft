@@ -24,7 +24,11 @@ const CreateActivity = () => {
     });
 
     const handleSubmit = async (activityData: ActivitySchema) => {
-        mutate(activityData);
+        mutate(activityData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (

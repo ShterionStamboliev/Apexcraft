@@ -32,7 +32,11 @@ const CreateTask = () => {
     });
 
     const handleSubmit = async (taskData: TaskSchema) => {
-        mutate(taskData);
+        mutate(taskData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (

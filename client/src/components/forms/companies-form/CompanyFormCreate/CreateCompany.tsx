@@ -26,7 +26,11 @@ const CreateCompany = () => {
     });
 
     const handleSubmit = (companyData: CompanySchema) => {
-        mutate(companyData);
+        mutate(companyData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (

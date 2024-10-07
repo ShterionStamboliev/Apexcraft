@@ -15,7 +15,7 @@ export const newCompanySchema = z.object({
         .max(50, { message: 'Address cannot exceed 50 characters.' }),
     mol: z.string()
         .min(3, { message: 'MOL name must be at least 3 characters.' })
-        .max(11, { message: 'MOL cannot exceed 11 characters.' }),
+        .max(20, { message: 'MOL cannot exceed 20 characters.' }),
     email: z.string()
         .min(5, { message: 'Email must be at least 5 characters.' })
         .max(50, { message: 'Email cannot exceed 50 characters.' })

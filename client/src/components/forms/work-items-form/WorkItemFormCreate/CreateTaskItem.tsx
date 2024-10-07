@@ -29,7 +29,6 @@ const CreateWorkItem = () => {
         mutate(workItemData, {
             onSuccess: () => {
                 form.reset();
-                setIsOpen(false);
             },
         });
     };

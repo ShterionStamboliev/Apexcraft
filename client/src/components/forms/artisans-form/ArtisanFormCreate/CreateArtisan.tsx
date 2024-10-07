@@ -27,7 +27,11 @@ const CreateArtisan = () => {
     });
 
     const handleSubmit = (artisanData: ArtisanSchema) => {
-        mutate(artisanData);
+        mutate(artisanData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (

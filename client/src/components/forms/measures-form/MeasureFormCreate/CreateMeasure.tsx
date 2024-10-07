@@ -24,7 +24,11 @@ const CreateMeasure = () => {
     });
 
     const handleSubmit = async (measureData: MeasureSchema) => {
-        mutate(measureData);
+        mutate(measureData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (
