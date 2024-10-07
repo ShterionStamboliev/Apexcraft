@@ -38,7 +38,7 @@ const CreateActivity = () => {
                 onOpenChange={setIsOpen}
             >
                 <DialogTrigger asChild>
-                    <Button className='w-full lg:max-w-[11rem]' variant="outline">
+                    <Button className='w-full lg:max-w-[12rem]' variant="outline">
                         <Plus className="mr-2 h-4 w-4" />
                         <span className='font-bold'>Add new activity</span>
                     </Button>
