@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 
 type TasksProps = {
@@ -16,15 +16,9 @@ const ProjectTasksSkeleton = ({ count }: TasksProps) => {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className='space-y-1.5'>
-                        <CardDescription>
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                        </CardDescription>
-                        <CardDescription>
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                        </CardDescription>
-                        <CardDescription>
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                        </CardDescription>
+                        <Skeleton className='w-1/2 h-[1rem]' />
+                        <Skeleton className='w-1/2 h-[1rem]' />
+                        <Skeleton className='w-1/2 h-[1rem]' />
                     </CardContent>
                 </Card>
             ))}
