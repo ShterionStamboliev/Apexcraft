@@ -28,7 +28,11 @@ const CreateProject = () => {
     });
 
     const handleSubmit = async (projectData: ProjectSchema) => {
-        mutate(projectData);
+        mutate(projectData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (

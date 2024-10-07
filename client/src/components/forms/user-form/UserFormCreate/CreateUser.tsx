@@ -25,7 +25,11 @@ const CreateUser = () => {
     });
 
     const handleSubmit = async (userData: UserSchema) => {
-        mutate(userData);
+        mutate(userData, {
+            onSuccess: () => {
+                form.reset();
+            }
+        });
     };
 
     return (
