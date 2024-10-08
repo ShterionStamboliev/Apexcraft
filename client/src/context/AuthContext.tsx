@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                     user: userData.user,
                 }
             });
-
+            
             sessionStorage.setItem('user', JSON.stringify(userData.user));
 
             return true;

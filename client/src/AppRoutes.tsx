@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import LayoutHomepage from './components/layouts/Home/LayoutHomepage';
 import UserLoginForm from './components/forms/user-form/UserFormLogin/UserLoginForm';
 import LayoutLoginForm from './components/layouts/Login/LayoutLoginForm';
 import LayoutUsersTable from './components/layouts/Table/LayoutUsersTable';
@@ -108,9 +107,9 @@ const AppRoutes = () => {
                 <Route
                     path='/my-projects'
                     element={
-                        <LayoutHomepage>
+                        <LayoutUsersTable>
                             <UserProjects />
-                        </LayoutHomepage>
+                        </LayoutUsersTable>
                     }
                 />
             </Route>
@@ -128,9 +127,9 @@ const AppRoutes = () => {
             <Route
                 path='/'
                 element={
-                    <LayoutHomepage>
+                    <LayoutUsersTable>
                         <Homepage />
-                    </LayoutHomepage>
+                    </LayoutUsersTable>
                 }
             />
             <Route

@@ -1,10 +1,12 @@
-import React from 'react'
+import Sidebar from '../Sidebar/Sidebar'
 
-type Props = {}
-
-const UserProjects = (props: Props) => {
+const UserProjects = () => {
     return (
-        <div>UserProjects</div>
+        <div className="flex gap-2 md:gap-8">
+            <Sidebar />
+
+            <h1>My projects</h1>
+        </div>
     )
 }
 
