@@ -1,12 +1,8 @@
 import { useAuth } from '@/context/AuthContext'
 import { Navigate, Outlet } from 'react-router-dom'
 
-const RouteGuard = () => {
+const UserGuard = () => {
     const { user } = useAuth();
-
-    if (user && user?.role === 'manager') {
-        return <Outlet />
-    }
 
     if (user && user?.role === 'user') {
         return <Outlet />
@@ -17,4 +13,4 @@ const RouteGuard = () => {
     }
 }
 
-export default RouteGuard
+export default UserGuard
