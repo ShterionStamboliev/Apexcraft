@@ -21,6 +21,11 @@ const authReducer = (state: AuthState, action: AuthAction): AuthState => {
                 isLoading: false,
                 error: action.payload?.error
             };
+        case AuthActionType.SET_LOADING:
+            return {
+                ...state,
+                loading: action.payload.loading
+            };
         case AuthActionType.LOGOUT:
             return {
                 ...state,

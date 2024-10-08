@@ -12,6 +12,7 @@ export interface AuthState {
     error?: string | undefined;
     role?: string | null;
     status?: string | null;
+    loading?: boolean;
 }
 
 export interface AuthContextProps extends AuthState {
@@ -24,6 +25,7 @@ export enum AuthActionType {
     LOGIN_SUCCESS = 'LOGIN_SUCCESS',
     LOGIN_ERROR = 'LOGIN_ERROR',
     LOGOUT = 'LOGOUT',
+    SET_LOADING = 'SET_LOADING'
 }
 export interface AuthAction {
     type: AuthActionType;

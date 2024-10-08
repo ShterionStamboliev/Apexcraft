@@ -13,6 +13,7 @@ const initialState: AuthState = {
     error: undefined,
     role: null,
     isLoading: false,
+    loading: true,
 };
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -107,6 +108,12 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 });
             }
         }
+        dispatch({
+            type: AuthActionType.SET_LOADING,
+            payload: {
+                loading: false
+            }
+        });
     }, [location.pathname]);
 
     return (

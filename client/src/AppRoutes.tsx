@@ -12,12 +12,15 @@ import CompaniesTablePage from './components/pages/CompaniesTablePage';
 import ArtisansTablePage from './components/pages/ArtisansTablePage';
 import ProjectTasksPage from './components/pages/ProjectTasksPage';
 import TaskEditPage from './components/pages/TaskEditPage';
-import RouteGuard from './components/guards/RouteGuard';
+import UserProjects from './components/pages/UserProjects';
+import UserGuard from './components/guards/UserGuard';
+import ManagerGuard from './components/guards/ManagerGuard';
 
 const AppRoutes = () => {
     return (
         <Routes>
-            <Route element={<RouteGuard allowedRoles={['manager']} />}>
+            {/*Manager/admin only routes */}
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/users'
                     element={
@@ -26,6 +29,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/artisans'
                     element={
@@ -34,6 +39,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/companies'
                     element={
@@ -42,6 +49,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/activities'
                     element={
@@ -50,6 +59,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/measures'
                     element={
@@ -58,6 +69,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/projects'
                     element={
@@ -66,6 +79,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/projects/:id/tasks'
                     element={
@@ -74,6 +89,8 @@ const AppRoutes = () => {
                         </LayoutUsersTable>
                     }
                 />
+            </Route>
+            <Route element={<ManagerGuard />}>
                 <Route
                     path='/projects/:id/tasks/:taskId/edit'
                     element={
@@ -83,15 +100,23 @@ const AppRoutes = () => {
                     }
                 />
             </Route>
-            
-            <Route
-                path='/'
-                element={
-                    <LayoutHomepage>
-                        <Homepage />
-                    </LayoutHomepage>
-                }
-            />
+            {/*Manager/admin only routes */}
+
+
+            {/* User only routes */}
+            <Route element={<UserGuard />}>
+                <Route
+                    path='/my-projects'
+                    element={
+                        <LayoutHomepage>
+                            <UserProjects />
+                        </LayoutHomepage>
+                    }
+                />
+            </Route>
+            {/* User only routes */}
+
+            {/* Public routes */}
             <Route
                 path='/login'
                 element={
@@ -101,13 +126,21 @@ const AppRoutes = () => {
                 }
             />
             <Route
+                path='/'
+                element={
+                    <LayoutHomepage>
+                        <Homepage />
+                    </LayoutHomepage>
+                }
+            />
+            <Route
                 path='*'
                 element={
                     <Navigate to='/' />
                 }
             />
+            {/* Public routes */}
         </Routes>
-
     )
 }
 
