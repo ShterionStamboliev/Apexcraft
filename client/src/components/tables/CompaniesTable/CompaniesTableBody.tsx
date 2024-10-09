@@ -1,7 +1,10 @@
 import useCompaniesQuery from '@/components/api/companies/companiesQuery';
+import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
+import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import EditCompanyForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/CompaniesLoader';
+import { Building2, CircleAlert } from 'lucide-react';
 
 const CompaniesTableBody = () => {
     const { useGetCompanies } = useCompaniesQuery();
@@ -12,7 +15,11 @@ const CompaniesTableBody = () => {
     };
 
     if (isError) {
-        return <div>Error: {error.message}</div>
+        return <ErrorMessage
+            title='Oops...'
+            error={`${error.message}. Please try again.`}
+            Icon={CircleAlert}
+        />
     };
 
     return (
@@ -20,7 +27,11 @@ const CompaniesTableBody = () => {
             {companies.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={4} className='text-center text-3xl'>
-                        No results found
+                        <NoResultsFound
+                            title='No companies found'
+                            description="It looks like you haven't added any companies yet."
+                            Icon={Building2}
+                        />
                     </TableCell>
                 </TableRow>
             ) : (

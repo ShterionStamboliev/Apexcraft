@@ -73,7 +73,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
                             label='Password'
                             name='password'
                         />
-                        <div className='flex flex-1 justify-between pt-2'>
+                        <div className='flex flex-wrap gap-1 flex-1 justify-between pt-2'>
                             <RoleSelector
                                 label='Role'
                                 name='role'

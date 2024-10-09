@@ -2,6 +2,9 @@ import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
+import { CircleAlert, ContactRound } from 'lucide-react';
+import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
+import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 
 const ArtisansTableBody = () => {
     const { useGetArtisans } = useArtisansQuery();
@@ -12,7 +15,11 @@ const ArtisansTableBody = () => {
     };
 
     if (isError) {
-        return <div>Error: {error.message}</div>
+        return <ErrorMessage
+            title='Oops...'
+            error={`${error.message}. Please try again.`}
+            Icon={CircleAlert}
+        />
     };
 
     return (
@@ -20,7 +27,11 @@ const ArtisansTableBody = () => {
             {artisans.length === 0 ? (
                 <TableRow>
                     <TableCell colSpan={2} className='text-center text-3xl'>
-                        No results found
+                        <NoResultsFound
+                            title='No artisans found'
+                            description="It looks like you haven't added any artisans yet."
+                            Icon={ContactRound}
+                        />
                     </TableCell>
                 </TableRow>
             ) : (
