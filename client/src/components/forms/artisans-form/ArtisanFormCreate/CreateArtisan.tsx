@@ -31,7 +31,6 @@ const CreateArtisan = () => {
         mutate(artisanData, {
             onSuccess: () => {
                 form.reset();
-                console.log(artisanData)
             }
         });
     };
