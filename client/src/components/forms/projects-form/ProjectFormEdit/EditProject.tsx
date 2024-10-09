@@ -1,4 +1,3 @@
-
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
@@ -111,7 +110,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                         />
                         <DialogFooter
                             disabled={!form.formState.isDirty || isPending}
-                            label='Submit'
+                            label='Save changes'
                             formName='edit-project'
                             className='mt-6'
                         />
