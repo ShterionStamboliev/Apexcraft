@@ -13,9 +13,9 @@ const getTaskById = async (req, res) => {
         }
 
         const task = rows[0];
-        const activityName = await getControllerNameById(task.activity_id, "tbl_activities");
-        const artisanName = await getControllerNameById(task.artisan_id, "tbl_artisans");
-        const measureName = await getControllerNameById(task.measure_id, "tbl_measures");
+        const activityName = await getControllerNameById(task.activity_id, "tbl_activities", "name");
+        const artisanName = await getControllerNameById(task.artisan_id, "tbl_artisans", "name");
+        const measureName = await getControllerNameById(task.measure_id, "tbl_measures", "name");
 
         const taskWithNames = {
             ...task,

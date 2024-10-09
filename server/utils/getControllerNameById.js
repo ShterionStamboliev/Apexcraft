@@ -1,12 +1,12 @@
 const pool = require("../db");
 
-const getControllerNameById = async (id, table) => {
+const getControllerNameById = async (id, table, columnName) => {
     try {
-        const query = `SELECT name FROM ${table} WHERE id = ?`;
+        const query = `SELECT ${columnName} FROM ${table} WHERE id = ?`;
         const [rows] = await pool.query(query, [id]);
 
         if (rows.length > 0) {
-            return rows[0].name;
+            return rows[0][columnName];
         } else {
             return null;
         }

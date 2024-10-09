@@ -5,6 +5,7 @@ import CompanySelector from '@/components/common/FormElements/FormCompanySelecto
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
+import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import { artisanDefaults, ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
 import { Button } from '@/components/ui/button';
 import { DialogContent, DialogTrigger } from '@/components/ui/dialog';
@@ -30,6 +31,7 @@ const CreateArtisan = () => {
         mutate(artisanData, {
             onSuccess: () => {
                 form.reset();
+                console.log(artisanData)
             }
         });
     };
@@ -74,6 +76,10 @@ const CreateArtisan = () => {
                                     name='status'
                                     placeholder='inactive'
                                 />
+                                <UsersSelector 
+                                    label='Select user'
+                                    name='artisanName'
+                                />
                                 <CompanySelector
                                     label='Select company'
                                     name='company'
@@ -94,7 +100,7 @@ const CreateArtisan = () => {
                         </form>
                     </FormProvider>
                 </DialogContent>
-            </Dialog >
+            </Dialog>
         </div>
     )
 }

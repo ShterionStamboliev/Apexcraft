@@ -10,7 +10,8 @@ export type User = {
     username: string;
     password: string;
     token?: string;
-    name_and_family?: string;
+    artisanName?: string;
+    name_and_family: string;
     status: 'active' | 'inactive';
     role: 'user' | 'manager';
 }

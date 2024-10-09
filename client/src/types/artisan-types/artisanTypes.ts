@@ -5,5 +5,6 @@ export type Artisan = {
     number: string,
     email: string,
     company: string;
+    artisanName: string;
     status?: 'active' | 'inactive';
 }

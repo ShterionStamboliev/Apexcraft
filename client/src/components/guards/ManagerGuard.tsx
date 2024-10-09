@@ -22,4 +22,4 @@ const ManagerGuard = () => {
     return null;
 }
 
-export default ManagerGuard
+export default ManagerGuard;
