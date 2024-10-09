@@ -10,15 +10,17 @@ const getArtisans = async (req, res) => {
 
         const artisansCompanyNames = await Promise.all(
             rows.map(async (artisan) => {
-                const companyName = await getControllerNameById(artisan.company_id, "tbl_companies");
+                const companyName = await getControllerNameById(artisan.company_id, "tbl_companies", "name");
+                const userName = await getControllerNameById(artisan.user_id, "tbl_users", "name_and_family");
+
                 return {
                     ...artisan,
-                    company: companyName || null
+                    company: companyName || null,
+                    artisanName: userName || null
                 };
             })
         );
 
-        // console.log(artisansCompanyNames);
         res.status(200).json(artisansCompanyNames);
     }
     catch (error) {

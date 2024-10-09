@@ -4,18 +4,18 @@ const { getControllerIdByName } = require('../../utils/getControllerIdByName');
 const editArtisan = async (req, res) => {
 
     const userId = req.params.id;
-    const { name, note, number, email, company, status } = req.body;
-   
+    const { name, note, number, email, company, artisanName, status } = req.body;
+
     try {
         const companyId = await getControllerIdByName(company, "tbl_companies");
-        
-        const foundUser = await getControllerIdByName(name, "tbl_users");
+
+        const user_id = await getControllerIdByName(artisanName, "tbl_users");
 
         const query = `UPDATE tbl_artisans
-        SET name = ?, note = ?, number = ?, email =?, company_id = ?, user_id = ?, status = ?
+        SET name = ?, note = ?, number = ?, email = ?, company_id = ?, user_id = ?, status = ?
         WHERE id = ?`;
 
-        const values = [name, note, number, email, companyId, foundUser, status, userId];
+        const values = [name, note, number, email, companyId, user_id, status, userId];
 
         const [result] = await pool.execute(query, values);
 
@@ -27,7 +27,7 @@ const editArtisan = async (req, res) => {
             email,
             company,
             companyId,
-            foundUser,
+            user_id,
             status,
         };
 

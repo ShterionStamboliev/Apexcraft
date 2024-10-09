@@ -19,6 +19,9 @@ export const newArtisanSchema = z.object({
     company: z.string().min(1, {
         message: 'Please select company'
     }),
+    artisanName: z.string().min(1, {
+        message: 'Please select user'
+    }),
     status: z.enum(['active', 'inactive'], {
         message: 'Please, select a status'
     }),
@@ -30,6 +33,7 @@ export const artisanDefaults: Artisan = {
     email: '',
     number: '',
     company: '',
+    artisanName: '',
     status: undefined
 };
 

@@ -14,6 +14,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Edit } from 'lucide-react';
+import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -34,6 +35,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
             company: artisan.company,
             number: artisan.number,
             note: artisan.note,
+            artisanName: artisan.artisanName,
             status: artisan.status
         },
         mode: 'onChange'
@@ -75,11 +77,16 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
                             label='Artisan email'
                             name='email'
                         />
-                        <div className='flex flex-1 pt-2 justify-between'>
+                        <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                             <StatusSelector
                                 label='Status'
                                 name='status'
                                 defaultVal={artisan && artisan.status}
+                            />
+                            <UsersSelector
+                                label='Select user'
+                                name='artisanName'
+                                defaultVal={artisan && artisan.artisanName}
                             />
                             <CompanySelector
                                 label='Select company'
