@@ -91,7 +91,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
                             label='Company phone'
                             name='phone'
                         />
-                        <div className='flex flex-1 pt-2 justify-between'>
+                        <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                             <StatusSelector
                                 label='Status'
                                 name='status'

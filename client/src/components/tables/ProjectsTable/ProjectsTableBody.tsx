@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
 import useProjectsQuery from '@/components/api/projects/projectsQuery';
 import EditProjectForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
+import { BrickWall, CircleAlert } from 'lucide-react';
+import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
+import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 
 const ProjectsTableBody = () => {
     const { useGetProjects } = useProjectsQuery();
@@ -13,50 +16,58 @@ const ProjectsTableBody = () => {
     };
 
     if (isError) {
-        return <div>Error: {error.message}</div>
-    };
-
-    if (projects.length === 0) {
-        return <div>No results found</div>
+        return <ErrorMessage
+            title='Oops...'
+            error={`${error.message}. Please try again.`}
+            Icon={CircleAlert}
+        />
     };
 
     return (
         <>
-            {projects.map((project) => (
-                <Card className='w-[18rem]' key={project.id}>
-                    <CardHeader>
-                        <CardTitle>
-                            <Link to={`/projects/${project.id}/tasks`}>
-                                {project.name}
-                            </Link>
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <CardDescription>
-                            Address: {project.address}
-                        </CardDescription>
-                        <CardDescription>
-                            Deadline: {
-                                new Date(project.end_date!)
-                                    .toLocaleDateString()
-                                    .slice(0, 10)
-                            }
-                        </CardDescription>
-                        <CardDescription>
-                            Status: {project.status}
-                        </CardDescription>
-                        <CardDescription>
-                            Company: {project.company_name}
-                        </CardDescription>
-                    </CardContent>
-                    <CardFooter>
-                        <EditProjectForm
-                            project={project}
-                            projectId={project.id!}
-                        />
-                    </CardFooter>
-                </Card>
-            ))}
+            {projects.length === 0 ? (
+                <NoResultsFound
+                    title='No projects found'
+                    description="It looks like you haven't added any projects yet."
+                    Icon={BrickWall}
+                />
+            ) : (
+                projects.map((project) => (
+                    <Card className='w-[18rem]' key={project.id}>
+                        <CardHeader>
+                            <CardTitle>
+                                <Link to={`/projects/${project.id}/tasks`}>
+                                    {project.name}
+                                </Link>
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                            <CardDescription>
+                                Address: {project.address}
+                            </CardDescription>
+                            <CardDescription>
+                                Deadline: {
+                                    new Date(project.end_date!)
+                                        .toLocaleDateString()
+                                        .slice(0, 10)
+                                }
+                            </CardDescription>
+                            <CardDescription>
+                                Status: {project.status}
+                            </CardDescription>
+                            <CardDescription>
+                                Company: {project.company_name}
+                            </CardDescription>
+                        </CardContent>
+                        <CardFooter>
+                            <EditProjectForm
+                                project={project}
+                                projectId={project.id!}
+                            />
+                        </CardFooter>
+                    </Card>
+                )))
+            }
         </>
     );
 };

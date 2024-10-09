@@ -66,7 +66,7 @@ const CreateUser = () => {
                                 label='Password'
                                 name='password'
                             />
-                            <div className='flex flex-1 pt-2 justify-between'>
+                            <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                                 <RoleSelector
                                     label='Role'
                                     name='role'
