@@ -1,10 +1,10 @@
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import useArtisansQuery from '@/components/api/artisans/artisansQuery';
-import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 import { CircleAlert, ContactRound } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
+import ArtisansCard from './ArtisansCard';
 
 const ArtisansTableBody = () => {
     const { useGetArtisans } = useArtisansQuery();
@@ -35,19 +35,10 @@ const ArtisansTableBody = () => {
                     </TableCell>
                 </TableRow>
             ) : (
-                artisans.map((artisan) => (
-                    <TableRow key={artisan.id}>
-                        <TableCell>
-                            {artisan.name}
-                        </TableCell>
-                        <TableCell className='text-end w-[200px]'>
-                            <EditArtisanForm
-                                artisan={artisan}
-                                artisanId={artisan.id!}
-                            />
-                        </TableCell>
-                    </TableRow>
-                )))
+                <ArtisansCard
+                    artisans={artisans}
+                />
+            )
             }
         </TableBody>
     )

@@ -42,13 +42,11 @@ const EditTaskForm = () => {
     }, [fetchNextPage, inView]);
 
     const handleSubmit = async (formData: EditTaskSchema) => {
-        setTimeout(() => {
-            mutate(formData, {
-                onSuccess: () => {
-                    navigate(`/projects/${id}/tasks`);
-                }
-            });
-        }, 3000)
+        mutate(formData, {
+            onSuccess: () => {
+                navigate(`/projects/${id}/tasks`);
+            }
+        });
     };
 
     if (isLoading) {

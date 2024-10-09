@@ -1,10 +1,10 @@
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import useUsersQuery from '@/components/api/users/usersQuery';
-import EditUserForm from '@/components/forms/user-form/UserFormEdit/EditUser';
 import { CircleAlert, Users } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
+import UsersCard from './UsersCard';
 
 const UsersTableBody = () => {
     const { useGetUsers } = useUsersQuery();
@@ -35,22 +35,10 @@ const UsersTableBody = () => {
                     </TableCell>
                 </TableRow>
             ) : (
-                users.map((user) => (
-                    <TableRow key={user.id}>
-                        <TableCell>
-                            {user.name_and_family}
-                        </TableCell>
-                        <TableCell className='text-center'>
-                            {user.username}
-                        </TableCell>
-                        <TableCell className="text-end w-[200px]">
-                            <EditUserForm
-                                user={user}
-                                userId={user.id!}
-                            />
-                        </TableCell>
-                    </TableRow>
-                )))
+                <UsersCard
+                    users={users}
+                />
+            )
             }
         </TableBody>
     );

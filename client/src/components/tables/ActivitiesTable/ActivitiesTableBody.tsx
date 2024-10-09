@@ -1,10 +1,10 @@
 import { TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
-import EditActivityForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
 import { Activity, CircleAlert } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
+import ActivitiesCard from './ActivitiesCard';
 
 const ActivitiesTableBody = () => {
     const { useGetActivities } = useActivitiesQuery();
@@ -36,19 +36,10 @@ const ActivitiesTableBody = () => {
                         </TableCell>
                     </TableRow>
                 ) : (
-                    activities.map((activity) => (
-                        <TableRow key={activity.id}>
-                            <TableCell>
-                                {activity.name}
-                            </TableCell>
-                            <TableCell className='text-end w-[200px]'>
-                                <EditActivityForm
-                                    activity={activity}
-                                    activityId={activity.id!}
-                                />
-                            </TableCell>
-                        </TableRow>
-                    )))
+                    <ActivitiesCard
+                        activities={activities}
+                    />
+                )
                 }
             </TableBody>
         </>
