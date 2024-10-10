@@ -12,7 +12,7 @@ const MeasuresCard = ({ measures }: MeasuresCardProps) => {
             {
                 measures.map((measure) => (
                     <TableRow key={measure.id}>
-                        <TableCell>
+                        <TableCell className='font-semibold'>
                             {measure.name}
                         </TableCell>
                         <TableCell className='text-end w-[200px]'>

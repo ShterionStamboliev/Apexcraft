@@ -8,13 +8,13 @@ const UsersHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='w-[250px]'>
+                <TableHead className='w-[250px] font-bold'>
                     Name, Surname
                 </TableHead>
-                <TableHead className='w-[200px] text-center'>
+                <TableHead className='w-[200px] font-bold text-center'>
                     User
                 </TableHead>
-                <TableHead className='w-[280px] text-end'>
+                <TableHead className='w-[280px] font-bold text-end'>
                     Options
                 </TableHead>
             </TableRow>

@@ -12,7 +12,7 @@ const ActivitiesCard = ({ activities }: ActivitiesCardProps) => {
             {
                 activities.map((activity) => (
                     <TableRow key={activity.id}>
-                        <TableCell>
+                        <TableCell className='font-semibold'>
                             {activity.name}
                         </TableCell>
                         <TableCell className='text-end w-[200px]'>
