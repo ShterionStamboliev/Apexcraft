@@ -11,9 +11,10 @@ import CompaniesTablePage from './components/pages/CompaniesTablePage';
 import ArtisansTablePage from './components/pages/ArtisansTablePage';
 import ProjectTasksPage from './components/pages/ProjectTasksPage';
 import TaskEditPage from './components/pages/TaskEditPage';
-import UserProjects from './components/pages/UserProjects';
 import UserGuard from './components/guards/UserGuard';
 import ManagerGuard from './components/guards/ManagerGuard';
+import UserProjectsPage from './components/pages/UserProjectsPage';
+import UserProjectTaskPage from './components/pages/UserProjectTaskPage';
 
 const AppRoutes = () => {
     return (
@@ -108,7 +109,17 @@ const AppRoutes = () => {
                     path='/my-projects'
                     element={
                         <LayoutUsersTable>
-                            <UserProjects />
+                            <UserProjectsPage />
+                        </LayoutUsersTable>
+                    }
+                />
+            </Route>
+            <Route element={<UserGuard />}>
+                <Route
+                    path='/my-projects/:taskId/task'
+                    element={
+                        <LayoutUsersTable>
+                            <UserProjectTaskPage />
                         </LayoutUsersTable>
                     }
                 />

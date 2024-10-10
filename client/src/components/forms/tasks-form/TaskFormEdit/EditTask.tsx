@@ -10,7 +10,7 @@ import { useEffect } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
 import useTasksQuery from '@/components/api/tasks/tasksQuery';
-import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateTaskItem';
+import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
 
 const EditTaskForm = () => {

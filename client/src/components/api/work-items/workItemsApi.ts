@@ -7,6 +7,11 @@ const useWorkItemsApi = () => {
         return data;
     };
 
+    const createUserWorkItem = async (taskId: string, workItemData: WorkItemSchema): Promise<void> => {
+        const data = apiCall(`/my-projects/${taskId}/task/create`, 'POST', workItemData);
+        return data;
+    };
+
     const getAllWorkItems = async ({ project_id, task_id, pageParam }: { pageParam?: number, project_id?: string, task_id?: string }): Promise<WorkItem[]> => {
         const data = apiCall(`/projects/${project_id}/tasks/${task_id}/workItems?_page=${pageParam}&_limit=4`, 'GET');
         return data;
@@ -19,7 +24,8 @@ const useWorkItemsApi = () => {
     return {
         createWorkItem,
         getAllWorkItems,
-        editWorkItem
+        editWorkItem,
+        createUserWorkItem
     }
 };
 

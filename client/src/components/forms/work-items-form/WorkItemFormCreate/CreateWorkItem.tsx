@@ -1,4 +1,4 @@
-import useTaskItemQuery from '@/components/api/work-items/workItemsQuery'
+import useWorkItemsQuery from '@/components/api/work-items/workItemsQuery'
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
@@ -22,7 +22,7 @@ const CreateWorkItem = () => {
         mode: 'onChange'
     });
 
-    const { useCreateWorkItem } = useTaskItemQuery();
+    const { useCreateWorkItem } = useWorkItemsQuery();
     const { mutate, isPending } = useCreateWorkItem(id!, taskId!, setIsOpen);
 
     const onSubmit = (workItemData: WorkItemSchema) => {

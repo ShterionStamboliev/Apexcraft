@@ -13,7 +13,7 @@ type DialogStateAction = {
 }
 
 const useTasksQuery = () => {
-    const { createTask, editTask, getTaskById, getTasks } = useTasksApi();
+    const { createTask, editTask, getTaskById, getTasks, getArtisanTasks, getArtisanTaskProject } = useTasksApi();
 
     const { id, taskId } = useParams<{ id: string, taskId: string }>();
 
@@ -23,6 +23,22 @@ const useTasksQuery = () => {
         return useQuery({
             queryFn: () => getTasks(id!),
             queryKey: ['projects', id, 'tasks'],
+            staleTime: 0,
+        });
+    };
+
+    const useGetArtisanTasks = () => {
+        return useQuery({
+            queryFn: getArtisanTasks,
+            queryKey: ['artisanTasks'],
+            staleTime: 0,
+        });
+    };
+
+    const useGetArtisanTaskProject = () => {
+        return useQuery({
+            queryFn: () => getArtisanTaskProject(taskId!),
+            queryKey: ['artisanTasks', taskId],
             staleTime: 0,
         });
     };
@@ -78,7 +94,9 @@ const useTasksQuery = () => {
         useGetTasks,
         useCreateTask,
         useEditTask,
-        useGetTask
+        useGetTask,
+        useGetArtisanTasks,
+        useGetArtisanTaskProject
     }
 };
 

@@ -4,7 +4,7 @@ import { WorkItem, WorkItemSchema } from '@/types/task-types/workItemType';
 import useWorkItemsApi from './workItemsApi';
 import React from 'react';
 
-const { createWorkItem, getAllWorkItems, editWorkItem } = useWorkItemsApi();
+const { createWorkItem, createUserWorkItem, getAllWorkItems, editWorkItem } = useWorkItemsApi();
 
 const useWorkItemsQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
@@ -20,6 +20,25 @@ const useWorkItemsQuery = () => {
             mutationFn: (taskData: WorkItemSchema) => createWorkItem(project_id, task_id, taskData),
             onSuccess: () => {
                 client.invalidateQueries({ queryKey: ['taskItems', project_id, task_id] })
+                fireSuccessToast('Task item created successfully!');
+                setIsOpen(false);
+            },
+            onError: () => {
+                fireErrorToast('Something went wrong. Please try again.');
+            }
+        });
+    };
+
+    const useCreateUserWorkItem = (
+        taskId: string,
+        setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+        const client = useQueryClient();
+
+        return useMutation({
+            mutationFn: (workItemData: WorkItemSchema) => createUserWorkItem(taskId, workItemData),
+            onSuccess: () => {
+                client.invalidateQueries({ queryKey: ['artisanTasks', taskId] });
                 fireSuccessToast('Task item created successfully!');
                 setIsOpen(false);
             },
@@ -72,7 +91,8 @@ const useWorkItemsQuery = () => {
     return {
         useCreateWorkItem,
         useGetWorkItemsInfinity,
-        useEditWorkItem
+        useEditWorkItem,
+        useCreateUserWorkItem
     }
 }
 
