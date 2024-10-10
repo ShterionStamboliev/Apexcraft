@@ -4,10 +4,10 @@ const MeasuresHeader = () => {
     return (
         <TableHeader>
             <TableRow>
-                <TableHead className='w-[320px]'>
+                <TableHead className='w-[320px] font-bold'>
                     Measure
                 </TableHead>
-                <TableHead className='w-[200px] text-end'>
+                <TableHead className='w-[200px] font-bold text-end'>
                     Options
                 </TableHead>
             </TableRow>

@@ -12,13 +12,13 @@ const CompaniesCard = ({ companies }: CompaniesCardProps) => {
             {
                 companies.map((company, index) => (
                     <TableRow key={index}>
-                        <TableCell>
+                        <TableCell className='font-semibold' >
                             {company.name}
                         </TableCell>
-                        <TableCell className='text-center'>
+                        <TableCell className='text-center font-semibold'>
                             {company.number}
                         </TableCell>
-                        <TableCell className='text-center'>
+                        <TableCell className='text-center font-semibold'>
                             {company.mol}
                         </TableCell>
                         <TableCell className="text-end w-[200px]">

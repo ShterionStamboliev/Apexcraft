@@ -12,7 +12,7 @@ const ArtisansCard = ({ artisans }: ArtisansCardProps) => {
             {
                 artisans.map((artisan) => (
                     <TableRow key={artisan.id}>
-                        <TableCell>
+                        <TableCell className='font-semibold'>
                             {artisan.name}
                         </TableCell>
                         <TableCell className='text-end w-[200px]'>
