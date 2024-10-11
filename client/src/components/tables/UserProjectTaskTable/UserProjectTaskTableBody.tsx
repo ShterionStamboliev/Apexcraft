@@ -8,6 +8,7 @@ const UserProjectTaskTableBody = () => {
 
     const { data: task } = useGetArtisanTaskProject();
 
+    console.log(task)
     return (
         <>
             {task &&

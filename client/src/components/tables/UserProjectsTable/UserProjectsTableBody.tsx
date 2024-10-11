@@ -13,7 +13,6 @@ const UserProjectsTableBody = () => {
     if (isPending) {
         return <ProjectTasksSkeleton count={5} />
     };
-    console.log(tasks);
 
     if (isError) {
         return <ErrorMessage
