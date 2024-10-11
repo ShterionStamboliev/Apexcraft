@@ -4,17 +4,12 @@ const getArtisanTasks = async (req, res) => {
     const userId = req.user.id;
 
     try {
-        if (!userId) {
-            return res.status(400).json({
-                message: "User not found"
-            });
-        };
 
         const [artisanTasks] = await db.query('SELECT * FROM tbl_tasks WHERE artisan_id = ?', [userId]);
 
         if (!artisanTasks.length) {
             return res.status(404).json({
-                message: "No tasks found for this artisan"
+                message: "No tasks found for this artisan!"
             });
         }
 
@@ -31,7 +26,7 @@ const getArtisanTasks = async (req, res) => {
     } catch (error) {
         console.log('Error fetching data', error);
         return res.status(500).json({
-            message: 'Internal server error'
+            message: 'Internal server error!'
         })
     }
 };

@@ -2,14 +2,10 @@ const db = require('../../db');
 
 const getTaskWithProject = async (req, res) => {
     const { taskId } = req.params;
+    const { _page = 1, _limit = 4 } = req.query;
+    const offset = (_page - 1) * _limit;
 
     try {
-        if (!taskId) {
-            return res.status(400).json({
-                message: "Task ID is required"
-            });
-        }
-
         const [taskProjectData] = await db.query(
             `SELECT tbl_tasks.*, 
                 tbl_projects.name AS project_name, 
@@ -26,16 +22,25 @@ const getTaskWithProject = async (req, res) => {
 
         if (!taskProjectData.length) {
             return res.status(404).json({
-                message: "Task not found"
+                message: "Task not found!"
             });
         }
 
-        return res.status(200).json(taskProjectData[0]);
+        const [workItemsData] = await db.query(
+            `SELECT * FROM tbl_workItems where task_id = ? LIMIT ? OFFSET ?`, [taskId, parseInt(_limit), offset]
+        );
+
+        const data = {
+            taskProjectData: taskProjectData[0],
+            workItemsData: workItemsData
+        }
+
+        return res.status(200).json(data);
 
     } catch (error) {
         console.log('Error fetching task and project data', error);
         return res.status(500).json({
-            message: 'Internal server error'
+            message: 'Internal server error!'
         });
     }
 };
@@ -43,3 +48,5 @@ const getTaskWithProject = async (req, res) => {
 module.exports = {
     getTaskWithProject
 };
+
+
