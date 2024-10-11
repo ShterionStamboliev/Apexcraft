@@ -4,7 +4,7 @@ import { WorkItem, WorkItemSchema } from '@/types/task-types/workItemType';
 import useWorkItemsApi from './workItemsApi';
 import React from 'react';
 
-const { createWorkItem, createUserWorkItem, getAllWorkItems, editWorkItem } = useWorkItemsApi();
+const { createWorkItem, createUserWorkItem, getAllWorkItems, editWorkItem, editUserWorkItem } = useWorkItemsApi();
 
 const useWorkItemsQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
@@ -19,7 +19,9 @@ const useWorkItemsQuery = () => {
         return useMutation({
             mutationFn: (taskData: WorkItemSchema) => createWorkItem(project_id, task_id, taskData),
             onSuccess: () => {
-                client.invalidateQueries({ queryKey: ['taskItems', project_id, task_id] })
+                client.invalidateQueries({
+                    queryKey: ['taskItems', project_id, task_id]
+                });
                 fireSuccessToast('Task item created successfully!');
                 setIsOpen(false);
             },
@@ -38,8 +40,10 @@ const useWorkItemsQuery = () => {
         return useMutation({
             mutationFn: (workItemData: WorkItemSchema) => createUserWorkItem(taskId, workItemData),
             onSuccess: () => {
-                client.invalidateQueries({ queryKey: ['artisanTasks', taskId] });
-                fireSuccessToast('Task item created successfully!');
+                client.invalidateQueries({
+                    queryKey: ['artisanTasks', taskId]
+                });
+                fireSuccessToast('Work item created successfully!');
                 setIsOpen(false);
             },
             onError: () => {
@@ -78,7 +82,9 @@ const useWorkItemsQuery = () => {
         return useMutation({
             mutationFn: (workItemData: WorkItem) => editWorkItem(projectId, taskId, itemId, workItemData),
             onSuccess: () => {
-                client.invalidateQueries({ queryKey: ['taskItems', projectId, taskId] });
+                client.invalidateQueries({
+                    queryKey: ['taskItems', projectId, taskId]
+                });
                 fireSuccessToast('Work item updated successfully!');
                 setIsOpen(false);
             },
@@ -88,11 +94,32 @@ const useWorkItemsQuery = () => {
         })
     };
 
+    const useEditUserWorkItem = (
+        taskId: string,
+        workItemId: string,
+        setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+        const client = useQueryClient();
+
+        return useMutation({
+            mutationFn: (workItemData: WorkItem) => editUserWorkItem(taskId, workItemId, workItemData),
+            onSuccess: () => {
+                client.invalidateQueries({ queryKey: ['artisanTasks', taskId] });
+                fireSuccessToast('Work item updated successfully!');
+                setIsOpen(false);
+            },
+            onError: () => {
+                fireErrorToast('Something went wrong. Please try again.');
+            }
+        })
+    }
+
     return {
         useCreateWorkItem,
         useGetWorkItemsInfinity,
         useEditWorkItem,
-        useCreateUserWorkItem
+        useCreateUserWorkItem,
+        useEditUserWorkItem
     }
 }
 

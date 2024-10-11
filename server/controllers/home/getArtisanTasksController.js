@@ -13,18 +13,9 @@ const getArtisanTasks = async (req, res) => {
             });
         }
 
-        const taskIds = artisanTasks.map(task => task.id);
-
-        const [workItems] = await db.query(
-            `SELECT * FROM tbl_workItems WHERE task_id IN (?)`, [taskIds]
-        );
-
-        console.log(workItems);
-        
         return res.status(200).json(artisanTasks);
 
     } catch (error) {
-        console.log('Error fetching data', error);
         return res.status(500).json({
             message: 'Internal server error!'
         })

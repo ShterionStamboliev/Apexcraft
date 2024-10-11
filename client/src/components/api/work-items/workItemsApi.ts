@@ -21,11 +21,16 @@ const useWorkItemsApi = () => {
         return await apiCall(`/projects/${project_id}/tasks/${task_id}/workItems/${item_id}/edit`, 'PUT', workItemData);
     };
 
+    const editUserWorkItem = async (taskId: string, workItemId: string, workItemData: WorkItem) => {
+        return await apiCall(`/my-projects/${taskId}/task/${workItemId}/edit`, 'POST', workItemData);
+    }
+
     return {
         createWorkItem,
         getAllWorkItems,
         editWorkItem,
-        createUserWorkItem
+        createUserWorkItem,
+        editUserWorkItem
     }
 };
 

@@ -2,8 +2,6 @@ const db = require('../../db');
 
 const getTaskWithProject = async (req, res) => {
     const { taskId } = req.params;
-    const { _page = 1, _limit = 4 } = req.query;
-    const offset = (_page - 1) * _limit;
 
     try {
         const [taskProjectData] = await db.query(
@@ -27,18 +25,17 @@ const getTaskWithProject = async (req, res) => {
         }
 
         const [workItemsData] = await db.query(
-            `SELECT * FROM tbl_workItems where task_id = ? LIMIT ? OFFSET ?`, [taskId, parseInt(_limit), offset]
+            `SELECT * FROM tbl_workItems where task_id = ?`, [taskId]
         );
 
         const data = {
             taskProjectData: taskProjectData[0],
-            workItemsData: workItemsData
-        }
+            workItemsData
+        };
 
         return res.status(200).json(data);
 
     } catch (error) {
-        console.log('Error fetching task and project data', error);
         return res.status(500).json({
             message: 'Internal server error!'
         });

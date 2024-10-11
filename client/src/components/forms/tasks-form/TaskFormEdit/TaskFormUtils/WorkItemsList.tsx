@@ -9,9 +9,9 @@ import { useParams } from 'react-router-dom'
 
 interface WorkItemsListProps {
     workItemsData: any
-    isFetchingNextPage: boolean
-    scrollRef: (node?: Element | null) => void
-    isWorkItemsLoading: boolean
+    isFetchingNextPage?: boolean
+    scrollRef?: (node?: Element | null) => void
+    isWorkItemsLoading?: boolean
 }
 
 const WorkItemsList = ({ workItemsData, isFetchingNextPage, isWorkItemsLoading, scrollRef }: WorkItemsListProps) => {
