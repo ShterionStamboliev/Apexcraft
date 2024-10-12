@@ -1,4 +1,3 @@
-
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
@@ -7,14 +6,13 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import { useState } from 'react';
 import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import { ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Edit } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -22,7 +20,7 @@ type ArtisanFormProps = {
 }
 
 const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditArtisan } = useArtisansQuery();
     const { mutate, isPending } = useEditArtisan({ artisanId, setIsOpen });
@@ -50,11 +48,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
             open={isOpen}
             onOpenChange={setIsOpen}
         >
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit artisan' />
                 <FormProvider {...form}>

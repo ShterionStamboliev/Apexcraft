@@ -24,21 +24,22 @@ const ArtisansTableBody = () => {
 
     return (
         <TableBody>
-            {artisans.length === 0 ? (
-                <TableRow>
-                    <TableCell colSpan={2} className='text-center text-3xl'>
-                        <NoResultsFound
-                            title='No artisans found'
-                            description="It looks like you haven't added any artisans yet."
-                            Icon={ContactRound}
-                        />
-                    </TableCell>
-                </TableRow>
-            ) : (
-                <ArtisansCard
-                    artisans={artisans}
-                />
-            )
+            {
+                artisans.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={2} className='text-center text-3xl'>
+                            <NoResultsFound
+                                title='No artisans found'
+                                description="It looks like you haven't added any artisans yet."
+                                Icon={ContactRound}
+                            />
+                        </TableCell>
+                    </TableRow>
+                ) : (
+                    <ArtisansCard
+                        artisans={artisans}
+                    />
+                )
             }
         </TableBody>
     )

@@ -29,13 +29,12 @@ const LayoutHeader = () => {
                                         <Button variant='ghost' className='p-1.5'>
                                             <div className='flex justify-between items-center w-full'>
                                                 <div className='flex gap-2 w-full items-center'>
-                                                    <span className='text-md'>{user.username}</span>
+                                                    <span className='text-md'>{user.name_and_family}</span>
                                                     <User />
                                                 </div>
                                             </div>
                                         </Button>
                                     </PopoverTrigger>
-
                                     <SidebarUserDropdown />
                                 </Popover>
                             )}

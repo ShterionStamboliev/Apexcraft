@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { z } from 'zod';
 
 export type WorkItem = {
-    id?: string | number;
+    id?: string;
     task_id?: string;
     name?: string;
     start_date?: string;

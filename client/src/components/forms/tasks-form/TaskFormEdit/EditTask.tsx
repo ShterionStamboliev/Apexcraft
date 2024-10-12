@@ -7,11 +7,10 @@ import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskVi
 import useTaskItemQuery from '@/components/api/work-items/workItemsQuery';
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { ChevronDown } from 'lucide-react';
 import useTasksQuery from '@/components/api/tasks/tasksQuery';
-import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateTaskItem';
+import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
+import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();
@@ -71,18 +70,7 @@ const EditTaskForm = () => {
                         />
                     </div>
                     <div className='mt-10'>
-                        <div className='flex justify-center items-center'>
-                            <div className='flex justify-center items-center '>
-                                <Separator className='flex-grow w-[5rem] md:w-[10rem]' />
-                                <span className='px-4 text-lg text-muted-foreground flex-shrink-0'>
-                                    Work items list
-                                </span>
-                                <Separator className='flex-grow w-[5rem] md:w-[10rem]' />
-                            </div>
-                        </div>
-                        <div className='flex items-center justify-center'>
-                            <ChevronDown />
-                        </div>
+                        <WorkItemsListSeparator />
                         <WorkItemsList
                             workItemsData={workItemsData}
                             isFetchingNextPage={isFetchingNextPage}

@@ -4,6 +4,7 @@ const { uniqueChecker } = require('../../utils/uniqueChecker');
 const createWorkItem = async (req, res) => {
 
     const taskId = req.params.task_id;
+    
     const { name, start_date, end_date, note, finished_work, status } = req.body;
 
     try { 

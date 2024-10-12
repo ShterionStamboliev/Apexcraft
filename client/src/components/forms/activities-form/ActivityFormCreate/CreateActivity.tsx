@@ -1,34 +1,19 @@
 import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
-import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
-import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { activityDefaults, ActivitySchema, newActivitySchema } from '@/components/models/activity/newActivitySchema';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
+import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import CreateActivityForm from './CreateActivityForm';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 const CreateActivity = () => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useCreateActivity } = useActivitiesQuery();
     const { mutate, isPending } = useCreateActivity({ setIsOpen });
 
-    const form = useForm<ActivitySchema>({
-        resolver: zodResolver(newActivitySchema),
-        defaultValues: activityDefaults,
-        mode: 'onChange',
-    });
-
     const handleSubmit = async (activityData: ActivitySchema) => {
-        mutate(activityData, {
-            onSuccess: () => {
-                form.reset();
-            }
-        });
+        mutate(activityData);
     };
 
     return (
@@ -37,39 +22,17 @@ const CreateActivity = () => {
                 open={isOpen}
                 onOpenChange={setIsOpen}
             >
-                <DialogTrigger asChild>
-                    <Button className='w-full md:max-w-[12rem]' variant="outline">
-                        <Plus className="mr-2 h-4 w-4" />
-                        <span className='font-bold'>Add new activity</span>
-                    </Button>
-                </DialogTrigger>
+                <DialogTriggerButtonCreate
+                    text='Add new activity'
+                />
                 <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader title='Add new activity' />
-                    <FormProvider {...form}>
-                        <form
-                            id='activity-form'
-                            onSubmit={form.handleSubmit(handleSubmit)}
-                        >
-                            <FormFieldInput
-                                type='text'
-                                label='Activity type'
-                                name='name'
-                            />
-                            <div className='flex flex-1 pt-2 justify-between'>
-                                <StatusSelector
-                                    label='Status'
-                                    name='status'
-                                    placeholder='active'
-                                />
-                            </div>
-                            <DialogFooter
-                                disabled={!form.formState.isDirty || isPending}
-                                label='Submit'
-                                formName='activity-form'
-                                className='mt-6'
-                            />
-                        </form>
-                    </FormProvider>
+                    <DialogHeader
+                        title='Add new activity'
+                    />
+                    <CreateActivityForm
+                        handleSubmit={handleSubmit}
+                        isPending={isPending}
+                    />
                 </DialogContent>
             </Dialog>
         </div>

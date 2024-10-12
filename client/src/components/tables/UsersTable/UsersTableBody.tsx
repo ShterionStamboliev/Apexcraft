@@ -24,21 +24,22 @@ const UsersTableBody = () => {
 
     return (
         <TableBody>
-            {users.length === 0 ? (
-                <TableRow>
-                    <TableCell colSpan={3} className='text-center text-3xl'>
-                        <NoResultsFound
-                            title='No users found'
-                            description="It looks like you haven't added any users yet."
-                            Icon={Users}
-                        />
-                    </TableCell>
-                </TableRow>
-            ) : (
-                <UsersCard
-                    users={users}
-                />
-            )
+            {
+                users.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={3} className='text-center text-3xl'>
+                            <NoResultsFound
+                                title='No users found'
+                                description="It looks like you haven't added any users yet."
+                                Icon={Users}
+                            />
+                        </TableCell>
+                    </TableRow>
+                ) : (
+                    <UsersCard
+                        users={users}
+                    />
+                )
             }
         </TableBody>
     );

@@ -23,17 +23,18 @@ const ProjectsTableBody = () => {
 
     return (
         <>
-            {projects.length === 0 ? (
-                <NoResultsFound
-                    title='No projects found'
-                    description="It looks like you haven't added any projects yet."
-                    Icon={BrickWall}
-                />
-            ) : (
-                <ProjectsCard
-                    projects={projects}
-                />
-            )
+            {
+                projects.length === 0 ? (
+                    <NoResultsFound
+                        title='No projects found'
+                        description="It looks like you haven't added any projects yet."
+                        Icon={BrickWall}
+                    />
+                ) : (
+                    <ProjectsCard
+                        projects={projects}
+                    />
+                )
             }
         </>
     );

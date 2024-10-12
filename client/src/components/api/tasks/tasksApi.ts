@@ -1,4 +1,4 @@
-import { Task } from '@/types/task-types/taskTypes';
+import { ProjectTask, Task } from '@/types/task-types/taskTypes';
 import { apiCall } from '../apiCall';
 
 const useTasksApi = () => {
@@ -9,6 +9,16 @@ const useTasksApi = () => {
 
     const getTasks = async (id: string): Promise<Task[]> => {
         const data: Task[] = await apiCall(`/projects/${id}/tasks`, 'GET');
+        return data;
+    };
+
+    const getArtisanTasks = async (): Promise<Task[]> => {
+        const data: Task[] = await apiCall(`/my-projects`, 'GET');
+        return data;
+    };
+
+    const getArtisanTaskProject = async (taskId: string): Promise<ProjectTask> => {
+        const data: ProjectTask = await apiCall(`/my-projects/${taskId}/task`, 'GET');
         return data;
     };
 
@@ -26,6 +36,8 @@ const useTasksApi = () => {
         getTasks,
         getTaskById,
         editTask,
+        getArtisanTasks,
+        getArtisanTaskProject
     }
 }
 
