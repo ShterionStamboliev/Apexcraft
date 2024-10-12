@@ -130,9 +130,7 @@ const AppRoutes = () => {
             <Route
                 path='/login'
                 element={
-                    <LayoutLoginForm>
-                        <UserLoginForm />
-                    </LayoutLoginForm>
+                    <UserLoginForm />
                 }
             />
             <Route
