@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import UserLoginForm from './components/forms/user-form/UserFormLogin/UserLoginForm';
 import LayoutLoginForm from './components/layouts/Login/LayoutLoginForm';
-import LayoutUsersTable from './components/layouts/Table/LayoutUsersTable';
+import TableLayout from './components/layouts/Table/TableLayout';
 import UsersTablePage from './components/pages/UsersTablePage';
 import Homepage from './components/pages/Homepage';
 import ActivitiesTablePage from './components/pages/ActivitiesTablePage';
@@ -24,9 +24,9 @@ const AppRoutes = () => {
                 <Route
                     path='/users'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <UsersTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -34,9 +34,9 @@ const AppRoutes = () => {
                 <Route
                     path='/artisans'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <ArtisansTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -44,9 +44,9 @@ const AppRoutes = () => {
                 <Route
                     path='/companies'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <CompaniesTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -54,9 +54,9 @@ const AppRoutes = () => {
                 <Route
                     path='/activities'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <ActivitiesTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -64,9 +64,9 @@ const AppRoutes = () => {
                 <Route
                     path='/measures'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <MeasuresTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -74,9 +74,9 @@ const AppRoutes = () => {
                 <Route
                     path='/projects'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <ProjectsTablePage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -84,9 +84,9 @@ const AppRoutes = () => {
                 <Route
                     path='/projects/:id/tasks'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <ProjectTasksPage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -94,9 +94,9 @@ const AppRoutes = () => {
                 <Route
                     path='/projects/:id/tasks/:taskId/edit'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <TaskEditPage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -108,9 +108,9 @@ const AppRoutes = () => {
                 <Route
                     path='/my-projects'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <UserProjectsPage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -118,9 +118,9 @@ const AppRoutes = () => {
                 <Route
                     path='/my-projects/:taskId/task'
                     element={
-                        <LayoutUsersTable>
+                        <TableLayout>
                             <UserProjectTaskPage />
-                        </LayoutUsersTable>
+                        </TableLayout>
                     }
                 />
             </Route>
@@ -138,9 +138,9 @@ const AppRoutes = () => {
             <Route
                 path='/'
                 element={
-                    <LayoutUsersTable>
+                    <TableLayout>
                         <Homepage />
-                    </LayoutUsersTable>
+                    </TableLayout>
                 }
             />
             <Route

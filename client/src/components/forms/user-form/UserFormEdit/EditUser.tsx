@@ -5,13 +5,12 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { useState } from 'react';
 import useUsersQuery from '@/components/api/users/usersQuery';
 import { addNewUserSchema, UserSchema } from '@/components/models/user/newUserSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Edit } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 type UserFormProps = {
     userId: string;
@@ -19,7 +18,7 @@ type UserFormProps = {
 }
 
 const EditUserForm = ({ user, userId }: UserFormProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditUser } = useUsersQuery();
 
@@ -46,11 +45,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
             open={isOpen}
             onOpenChange={setIsOpen}
         >
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit user info' />
                 <FormProvider {...form}>

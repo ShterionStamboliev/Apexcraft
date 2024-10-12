@@ -24,21 +24,22 @@ const MeasuresTableBody = () => {
 
     return (
         <TableBody>
-            {measures?.length === 0 ? (
-                <TableRow>
-                    <TableCell colSpan={2} className='text-center text-3xl'>
-                        <NoResultsFound
-                            title='No measures found'
-                            description="It looks like you haven't added any measures yet."
-                            Icon={Ruler}
-                        />
-                    </TableCell>
-                </TableRow>
-            ) : (
-                <MeasuresCard
-                    measures={measures}
-                />
-            )
+            {
+                measures?.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={2} className='text-center text-3xl'>
+                            <NoResultsFound
+                                title='No measures found'
+                                description="It looks like you haven't added any measures yet."
+                                Icon={Ruler}
+                            />
+                        </TableCell>
+                    </TableRow>
+                ) : (
+                    <MeasuresCard
+                        measures={measures}
+                    />
+                )
             }
         </TableBody>
     )

@@ -26,18 +26,19 @@ const ProjectsTasksBody = () => {
 
     return (
         <>
-            {tasks.length === 0 ? (
-                <NoResultsFound
-                    title='No tasks found'
-                    description="It looks like you haven't added any tasks yet."
-                    Icon={ClipboardList}
-                />
-            ) : (
-                <TasksCard
-                    id={id!}
-                    tasks={tasks}
-                />
-            )
+            {
+                tasks.length === 0 ? (
+                    <NoResultsFound
+                        title='No tasks found'
+                        description="It looks like you haven't added any tasks yet."
+                        Icon={ClipboardList}
+                    />
+                ) : (
+                    <TasksCard
+                        id={id!}
+                        tasks={tasks}
+                    />
+                )
             }
         </>
     )

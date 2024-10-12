@@ -24,21 +24,22 @@ const CompaniesTableBody = () => {
 
     return (
         <TableBody>
-            {companies.length === 0 ? (
-                <TableRow>
-                    <TableCell colSpan={4} className='text-center text-3xl'>
-                        <NoResultsFound
-                            title='No companies found'
-                            description="It looks like you haven't added any companies yet."
-                            Icon={Building2}
-                        />
-                    </TableCell>
-                </TableRow>
-            ) : (
-                <CompaniesCard
-                    companies={companies}
-                />
-            )
+            {
+                companies.length === 0 ? (
+                    <TableRow>
+                        <TableCell colSpan={4} className='text-center text-3xl'>
+                            <NoResultsFound
+                                title='No companies found'
+                                description="It looks like you haven't added any companies yet."
+                                Icon={Building2}
+                            />
+                        </TableCell>
+                    </TableRow>
+                ) : (
+                    <CompaniesCard
+                        companies={companies}
+                    />
+                )
             }
         </TableBody>
     )

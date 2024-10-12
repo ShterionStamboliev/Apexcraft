@@ -5,12 +5,11 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
-import { useState } from 'react';
 import { ActivitySchema, newActivitySchema } from '@/components/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Edit } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 type ActivityFormProps = {
     activityId: string;
@@ -18,7 +17,7 @@ type ActivityFormProps = {
 }
 
 const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditActivity } = useActivitiesQuery();
 
@@ -42,11 +41,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
             open={isOpen}
             onOpenChange={setIsOpen}
         >
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit activity' />
                 <FormProvider {...form}>

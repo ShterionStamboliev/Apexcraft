@@ -1,16 +1,15 @@
 import useWorkItemsQuery from '@/components/api/work-items/workItemsQuery';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { WorkItemSchema, workItemSchema } from '@/types/task-types/workItemType'
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
-import { Edit } from 'lucide-react';
-import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 interface EditWorkItemProps {
@@ -21,7 +20,7 @@ interface EditWorkItemProps {
 }
 
 const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
@@ -48,11 +47,7 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='rounded-lg'>
                 <DialogHeader className='items-center'>
                     <DialogTitle>Edit Work Item</DialogTitle>

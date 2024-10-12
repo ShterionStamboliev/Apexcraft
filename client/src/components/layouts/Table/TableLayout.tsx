@@ -1,10 +1,10 @@
 import LayoutHeader from '../Header/LayoutHeader';
 
-type LayoutUsersTableProps = {
+type TableLayoutProps = {
     children: React.ReactNode;
 };
 
-const LayoutUsersTable = ({ children }: LayoutUsersTableProps) => {
+const TableLayout = ({ children }: TableLayoutProps) => {
     return (
         <div className="flex flex-col min-h-screen">
             <LayoutHeader />
@@ -16,4 +16,4 @@ const LayoutUsersTable = ({ children }: LayoutUsersTableProps) => {
     );
 }
 
-export default LayoutUsersTable
+export default TableLayout

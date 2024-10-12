@@ -1,18 +1,16 @@
-
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import { useState } from 'react';
 import useCompaniesQuery from '@/components/api/companies/companiesQuery';
 import { CompanySchema, newCompanySchema } from '@/components/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Edit } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 type CompanyFormProps = {
     companyId: string;
@@ -20,7 +18,7 @@ type CompanyFormProps = {
 }
 
 const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditCompany } = useCompaniesQuery();
     const { mutate, isPending } = useEditCompany({ companyId, setIsOpen });
@@ -49,11 +47,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
             open={isOpen}
             onOpenChange={setIsOpen}
         >
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit company' />
                 <FormProvider {...form}>

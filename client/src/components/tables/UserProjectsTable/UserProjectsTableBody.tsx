@@ -14,8 +14,6 @@ const UserProjectsTableBody = () => {
         return <ProjectTasksSkeleton count={5} />
     };
 
-    console.log(tasks);
-
     if (isError) {
         return <ErrorMessage
             title='Oops...'

@@ -7,13 +7,12 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import { Project } from '@/types/project-types/projectTypes';
-import { useState } from 'react';
 import useProjectsQuery from '@/components/api/projects/projectsQuery';
 import { newProjectSchema, ProjectSchema } from '@/components/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Edit } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 
 type ProjectFormProps = {
     projectId: string;
@@ -21,7 +20,7 @@ type ProjectFormProps = {
 }
 
 const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditProject } = useProjectsQuery();
     const { mutate, isPending } = useEditProject({ projectId, setIsOpen });
@@ -50,11 +49,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
             open={isOpen}
             onOpenChange={setIsOpen}
         >
-            <DialogTrigger asChild>
-                <Button variant='ghost' size='icon'>
-                    <Edit />
-                </Button>
-            </DialogTrigger>
+            <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[30rem]'>
                 <FormProvider {...form}>
                     <form
