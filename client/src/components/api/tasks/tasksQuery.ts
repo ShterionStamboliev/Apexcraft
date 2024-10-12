@@ -1,6 +1,6 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import useTasksApi from './tasksApi';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { TaskSchema } from '@/components/models/task/newTaskSchema';
 import { useParams } from 'react-router-dom';
 import { UseFormReturn } from 'react-hook-form';

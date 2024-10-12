@@ -14,6 +14,8 @@ const UserProjectsTableBody = () => {
         return <ProjectTasksSkeleton count={5} />
     };
 
+    console.log(tasks);
+
     if (isError) {
         return <ErrorMessage
             title='Oops...'
@@ -24,17 +26,18 @@ const UserProjectsTableBody = () => {
 
     return (
         <>
-            {tasks.length === 0 ? (
-                <NoResultsFound
-                    title='No tasks found'
-                    description="It looks like you don't have any assigned tasks yet."
-                    Icon={ClipboardList}
-                />
-            ) : (
-                <UserProjectsCard
-                    tasks={tasks}
-                />
-            )
+            {
+                tasks.length === 0 ? (
+                    <NoResultsFound
+                        title='No tasks found'
+                        description="It looks like you don't have any assigned tasks yet."
+                        Icon={ClipboardList}
+                    />
+                ) : (
+                    <UserProjectsCard
+                        tasks={tasks}
+                    />
+                )
             }
         </>
     )

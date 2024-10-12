@@ -13,7 +13,7 @@ interface UserProjectWorkItemsListProps {
 
 const UserProjectWorkItemsList = ({ workItemsData }: UserProjectWorkItemsListProps) => {
     const { taskId } = useParams();
-
+    
     const noResultsFound = workItemsData?.length === 0;
 
     return (

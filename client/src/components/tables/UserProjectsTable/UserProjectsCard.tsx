@@ -3,14 +3,14 @@ import { Task } from '@/types/task-types/taskTypes'
 import { Link } from 'react-router-dom'
 
 type UserProjectsCardProps = {
-    tasks: Task[]
+    tasks: Task[];
 }
 
 const UserProjectsCard = ({ tasks }: UserProjectsCardProps) => {
     return (
         <>
             {
-                tasks && tasks.map((task) => (
+                tasks.map((task) => (
                     <Card className='w-[300px]' key={task.id}>
                         <CardHeader>
                             <CardTitle>
