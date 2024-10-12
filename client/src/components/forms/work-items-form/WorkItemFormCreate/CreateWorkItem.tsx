@@ -4,7 +4,7 @@ import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { WorkItemSchema } from '@/types/task-types/workItemType'
 import { useParams } from 'react-router-dom'
-import CreateWorkItemForm from './CreateWOrkItemForm'
+import CreateWorkItemForm from './CreateWorkItemForm'
 
 const CreateWorkItem = () => {
     const { id, taskId } = useParams();
