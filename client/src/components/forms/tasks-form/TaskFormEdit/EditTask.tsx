@@ -11,6 +11,7 @@ import useTasksQuery from '@/components/api/tasks/tasksQuery';
 import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
 import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
+import TasksEditBreadcrumbs from '@/components/common/Breadcrumbs/TasksEditBreadcrumbs';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();
@@ -56,6 +57,12 @@ const EditTaskForm = () => {
         <>
             {task && (
                 <div className="container mx-auto p-4">
+                    <div className='mb-6'>
+                        <TasksEditBreadcrumbs
+                            id={id!}
+                            taskId={taskId!}
+                        />
+                    </div>
                     <CreateWorkItem />
                     <div className="grid lg:grid-cols-2 gap-20">
                         <TaskInformationCard
