@@ -21,7 +21,7 @@ const port = process.env.PORT;
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const allowedOrigins = [process.env.API_CORS, 'http://localhost', 'https://localhost', 'http://project34.online', 'https://project34.online'];
+const allowedOrigins = [process.env.API_CORS, 'http://localhost'];
 
 app.use(cors({
     origin: (origin, callback) => {
