@@ -12,17 +12,17 @@ const ProjectsCard = ({ projects }: CardFormProps) => {
         <>
             {
                 projects.map((project) => (
-                    <Card className='w-[18rem]' key={project.id}>
-                        <CardHeader>
+                    <Card className='w-[21rem]' key={project.id}>
+                        <CardHeader className='bg-header rounded-t-lg p-5'>
                             <CardTitle>
-                                <Link to={`/projects/${project.id}/tasks`}>
+                                <Link to={`/projects/${project.id}/tasks`} className='transition-transform ease-out hover:underline'>
                                     {project.name}
                                 </Link>
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                            <CardDescription>
-                                Address: {project.address}
+                        <CardContent className='p-5'>
+                            <CardDescription className='break-words'>
+                                <span className='font-semibold'>Address: {project.address}</span>
                             </CardDescription>
                             <CardDescription>
                                 Deadline: {
@@ -38,7 +38,7 @@ const ProjectsCard = ({ projects }: CardFormProps) => {
                                 Company: {project.company_name}
                             </CardDescription>
                         </CardContent>
-                        <CardFooter>
+                        <CardFooter className='p-1 justify-center items-center rounded-b-lg border-t'>
                             <EditProjectForm
                                 project={project}
                                 projectId={project.id!}

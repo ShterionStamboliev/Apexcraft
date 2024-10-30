@@ -18,6 +18,8 @@ module.exports = {
     },
     extend: {
       colors: {
+        header: "hsl(var(--card-header))",
+        tableHeader: "hsl(var(--table-header))",
         logoDarkTheme: '#6987b0',
         logoLightTheme: '#526989',
         border: "hsl(var(--border))",

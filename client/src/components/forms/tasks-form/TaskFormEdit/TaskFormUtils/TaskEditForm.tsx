@@ -12,12 +12,12 @@ import { FormProvider } from 'react-hook-form'
 const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }: any) => {
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className='bg-header rounded-t-lg p-5'>
                 <CardTitle className='text-xl text-center'>Edit Task</CardTitle>
             </CardHeader>
             <FormProvider {...form}>
                 <form id='task-edit' onSubmit={form.handleSubmit(submitFormHandler)}>
-                    <CardContent>
+                    <CardContent className='p-5'>
                         <FormFieldInput
                             type='text'
                             label='Task name'
