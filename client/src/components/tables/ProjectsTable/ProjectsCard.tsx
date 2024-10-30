@@ -22,20 +22,26 @@ const ProjectsCard = ({ projects }: CardFormProps) => {
                         </CardHeader>
                         <CardContent className='p-5'>
                             <CardDescription className='break-words'>
-                                <span className='font-semibold'>Address: {project.address}</span>
+                                <span className='font-semibold pr-1'>Address:</span>
+                                <span>{project.address}</span>
                             </CardDescription>
                             <CardDescription>
-                                Deadline: {
-                                    new Date(project.end_date!)
-                                        .toLocaleDateString()
-                                        .slice(0, 10)
-                                }
+                                <span className='font-semibold pr-1'>Deadline:</span>
+                                <span>
+                                    {
+                                        new Date(project.end_date!)
+                                            .toLocaleDateString()
+                                            .slice(0, 10)
+                                    }
+                                </span>
                             </CardDescription>
                             <CardDescription>
-                                Status: {project.status}
+                                <span className='font-semibold pr-1'>Status:</span>
+                                <span>{project.status}</span>
                             </CardDescription>
                             <CardDescription>
-                                Company: {project.company_name}
+                                <span className='font-semibold pr-1'>Company:</span>
+                                <span>{project.company_name}</span>
                             </CardDescription>
                         </CardContent>
                         <CardFooter className='p-1 justify-center items-center rounded-b-lg border-t'>
