@@ -22,13 +22,16 @@ const TasksCard = ({ tasks, id }: TasksCardProps) => {
                         </CardHeader>
                         <CardContent className='p-5'>
                             <CardDescription>
-                                Start date: {new Date(task.start_date!).toLocaleDateString().slice(0, 10)}
+                                <span className='font-semibold pr-1'>Start date:</span>
+                                <span>{new Date(task.start_date!).toLocaleDateString().slice(0, 10)}</span>
                             </CardDescription>
                             <CardDescription>
-                                End date: {new Date(task.end_date!).toLocaleDateString().slice(0, 10)}
+                                <span className='font-semibold pr-1'>End date:</span>
+                                <span>{new Date(task.end_date!).toLocaleDateString().slice(0, 10)}</span>
                             </CardDescription>
                             <CardDescription>
-                                Task status: {task.status}
+                                <span className='font-semibold pr-1'>Task status:</span>
+                                <span>{task.status}</span>
                             </CardDescription>
                         </CardContent>
                     </Card>
