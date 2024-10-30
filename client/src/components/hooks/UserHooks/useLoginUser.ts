@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 const useLoginUser = () => {
-    const { login, isLoading, error } = useAuth();
+    const { user, login, isLoading, error } = useAuth();
     const [isLoginSuccess, setIsLoginSuccess] = useState<boolean>(false);
     const navigate = useNavigate();
 
@@ -19,17 +19,26 @@ const useLoginUser = () => {
 
     const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
         const isSuccess = await login(userData.username, userData.password);
+
         if (isSuccess) {
             setIsLoginSuccess(true);
-            navigate('/')
+            if (user?.role === 'manager') {
+                navigate('/projects');
+            } else if (user?.role === 'user') {
+                navigate('/my-projects');
+            }
         }
     };
 
     useEffect(() => {
-        if (isLoginSuccess) {
-            navigate('/');
+        if (user && isLoginSuccess) {
+            if (user.role === 'manager') {
+                navigate('/projects');
+            } else if (user.role === 'user') {
+                navigate('/my-projects');
+            }
         }
-    }, [isLoginSuccess, navigate]);
+    }, [user, isLoginSuccess, navigate]);
 
     return {
         form,

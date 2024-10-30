@@ -11,15 +11,15 @@ const UserProjectsCard = ({ tasks }: UserProjectsCardProps) => {
         <>
             {
                 tasks.map((task) => (
-                    <Card className='w-[300px]' key={task.id}>
-                        <CardHeader>
+                    <Card className='w-[21rem]' key={task.id}>
+                        <CardHeader className='bg-header rounded-t-lg p-5'>
                             <CardTitle>
-                                <Link to={`/my-projects/${task.id}/task`}>
+                                <Link to={`/my-projects/${task.id}/task`} className='hover:underline'>
                                     {task.name}
                                 </Link>
                             </CardTitle>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className='p-5'>
                             <CardDescription>
                                 Start date: {new Date(task.start_date!).toLocaleDateString().slice(0, 10)}
                             </CardDescription>

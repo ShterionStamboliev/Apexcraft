@@ -8,10 +8,10 @@ import { CalendarIcon, ClockIcon } from 'lucide-react'
 const ProjectInformationCard = ({ project }: { project: ProjectTask }) => {
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className='bg-header rounded-t-lg p-5'>
                 <CardTitle className='text-xl text-center'>Project Information</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3">
+            <CardContent className="space-y-3 p-5">
                 <div>
                     <h3 className="font-semibold">Project name</h3>
                     <p className='text-gray-400'>{project.taskProjectData.project_name}</p>
