@@ -1,4 +1,4 @@
-import { Activity } from '@/types/activity-types/activityTypes';
+import { Activity, PaginatedActivities } from '@/types/activity-types/activityTypes';
 import { apiCall } from '../apiCall';
 
 const useActivitiesApi = () => {
@@ -6,8 +6,8 @@ const useActivitiesApi = () => {
         return await apiCall('/activities/create', 'POST', activityData);
     };
 
-    const getActivities = async (): Promise<Activity[]> => {
-        const data: Activity[] = await apiCall('/activities', 'GET');
+    const getActivities = async (page: number, limit: number): Promise<PaginatedActivities> => {
+        const data: PaginatedActivities = await apiCall(`/activities?_page=${page}&_limit=${limit}`, 'GET');
         return data;
     };
 

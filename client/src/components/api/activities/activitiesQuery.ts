@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useActivitiesApi from './activitiesApi';
 import { Activity } from '@/types/activity-types/activityTypes';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
@@ -14,11 +14,11 @@ type DialogStateAction = {
 const useActivitiesQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const useGetActivities = () => {
+    const useGetActivities = (page: number, limit: number) => {
         return useQuery({
-            queryKey: ['activities'],
-            queryFn: getActivities,
-            staleTime: 0,
+            queryKey: ['activities', page],
+            queryFn: () => getActivities(page, limit),
+            placeholderData: keepPreviousData,
         });
     };
 
