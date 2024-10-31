@@ -17,25 +17,23 @@ const CreateActivity = () => {
     };
 
     return (
-        <div className='mb-4'>
-            <Dialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-            >
-                <DialogTriggerButtonCreate
-                    text='Add new activity'
+        <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
+            <DialogTriggerButtonCreate
+                text='Add new activity'
+            />
+            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                <DialogHeader
+                    title='Add new activity'
                 />
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader
-                        title='Add new activity'
-                    />
-                    <CreateActivityForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+                <CreateActivityForm
+                    handleSubmit={handleSubmit}
+                    isPending={isPending}
+                />
+            </DialogContent>
+        </Dialog>
     )
 }
 

@@ -25,21 +25,23 @@ const ActivitiesTableBody = () => {
     return (
         <>
             <TableBody>
-                {activities?.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={2} className='text-center text-3xl'>
-                            <NoResultsFound
-                                title='No activities found'
-                                description="It looks like you haven't added any activities yet."
-                                Icon={Activity}
+                {
+                    activities?.length === 0 ?
+                        (
+                            <TableRow>
+                                <TableCell colSpan={2} className='text-center text-3xl'>
+                                    <NoResultsFound
+                                        title='No activities found'
+                                        description="It looks like you haven't added any activities yet."
+                                        Icon={Activity}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            <ActivitiesCard
+                                activities={activities}
                             />
-                        </TableCell>
-                    </TableRow>
-                ) : (
-                    <ActivitiesCard
-                        activities={activities}
-                    />
-                )
+                        )
                 }
             </TableBody>
         </>
