@@ -11,7 +11,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const ActivitiesTableBody = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    const page = parseInt(searchParams.get('_page') as string) || 1;
+    const page = parseInt(searchParams.get('page') as string) || 1;
 
     const itemsLimit: number = 10;
 

@@ -17,11 +17,11 @@ type PaginatorProps = {
 const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
 
     const handlePreviousPage = (): void => {
-        setSearchParams(new URLSearchParams({ _page: (page - 1).toString() }));
+        setSearchParams(new URLSearchParams({ page: (page - 1).toString() }));
     };
 
     const handleNextPage = (): void => {
-        setSearchParams(new URLSearchParams({ _page: (page + 1).toString() }));
+        setSearchParams(new URLSearchParams({ page: (page + 1).toString() }));
     };
 
     return (
@@ -30,7 +30,8 @@ const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
-                            className='cursor-pointer'
+                            aria-disabled={page <= 1}
+                            className={page <= 1 ? 'invisible' : 'cursor-pointer'}
                             onClick={handlePreviousPage}
                         />
                     </PaginationItem>
@@ -41,7 +42,7 @@ const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
                                     className='cursor-pointer'
                                     isActive={index + 1 === page}
                                     onClick={() => {
-                                        setSearchParams(new URLSearchParams({ _page: (index + 1).toString() }))
+                                        setSearchParams(new URLSearchParams({ page: (index + 1).toString() }))
                                     }}
                                 >
                                     {index + 1}
@@ -51,7 +52,7 @@ const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
                     }
                     <PaginationItem>
                         <PaginationNext
-                            className='cursor-pointer'
+                            className={page >= totalPages! ? 'invisible' : 'cursor-pointer'}
                             onClick={handleNextPage}
                         />
                     </PaginationItem>
