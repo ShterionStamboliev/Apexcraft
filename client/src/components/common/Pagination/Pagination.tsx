@@ -1,7 +1,6 @@
 import {
     Pagination as Paginate,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -27,7 +26,7 @@ const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
     return (
         <div className='mt-4'>
             <Paginate>
-                <PaginationContent>
+                <PaginationContent className='min-w-full'>
                     <PaginationItem>
                         <PaginationPrevious
                             aria-disabled={page <= 1}
@@ -41,9 +40,7 @@ const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
                                 <PaginationLink
                                     className='cursor-pointer'
                                     isActive={index + 1 === page}
-                                    onClick={() => {
-                                        setSearchParams(new URLSearchParams({ page: (index + 1).toString() }))
-                                    }}
+                                    onClick={() => setSearchParams(new URLSearchParams({ page: (index + 1).toString() }))}
                                 >
                                     {index + 1}
                                 </PaginationLink>
