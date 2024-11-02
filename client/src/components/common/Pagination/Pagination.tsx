@@ -1,5 +1,5 @@
 import {
-    Pagination,
+    Pagination as Paginate,
     PaginationContent,
     PaginationEllipsis,
     PaginationItem,
@@ -10,50 +10,55 @@ import {
 
 type PaginatorProps = {
     totalPages: number | undefined;
-    setPage: React.Dispatch<React.SetStateAction<number>>
+    page: number;
+    setSearchParams: (params: URLSearchParams) => void;
 }
 
-const Paginator = ({ totalPages, setPage }: PaginatorProps) => {
+const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
 
     const handlePreviousPage = (): void => {
-        setPage((previousPage) => Math.max(previousPage - 1, 1));
+        setSearchParams(new URLSearchParams({ _page: (page - 1).toString() }));
     };
 
     const handleNextPage = (): void => {
-        setPage((previousPage) => Math.min(previousPage + 1, totalPages as number));
+        setSearchParams(new URLSearchParams({ _page: (page + 1).toString() }));
     };
 
     return (
         <div className='mt-4'>
-            <Pagination>
+            <Paginate>
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
-                            className=''
+                            className='cursor-pointer'
                             onClick={handlePreviousPage}
                         />
                     </PaginationItem>
                     {
                         new Array(totalPages).fill('_').map((_, index) => (
-                            <PaginationItem>
-                                <PaginationLink isActive onClick={() => setPage(index + 1)}>
+                            <PaginationItem key={index}>
+                                <PaginationLink
+                                    className='cursor-pointer'
+                                    isActive={index + 1 === page}
+                                    onClick={() => {
+                                        setSearchParams(new URLSearchParams({ _page: (index + 1).toString() }))
+                                    }}
+                                >
                                     {index + 1}
                                 </PaginationLink>
                             </PaginationItem>
                         ))
                     }
                     <PaginationItem>
-                        <PaginationEllipsis />
-                    </PaginationItem>
-                    <PaginationItem>
                         <PaginationNext
+                            className='cursor-pointer'
                             onClick={handleNextPage}
                         />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination>
+            </Paginate>
         </div>
     )
 }
 
-export default Paginator
+export default Pagination

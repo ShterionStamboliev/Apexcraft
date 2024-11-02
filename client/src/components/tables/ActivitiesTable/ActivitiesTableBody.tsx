@@ -6,11 +6,13 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ActivitiesCard from './ActivitiesCard';
 import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
-import Paginator from './Pagination';
-import { useState } from 'react';
+import Pagination from '@/components/common/Pagination/Pagination';
+import { useSearchParams } from 'react-router-dom';
 
 const ActivitiesTableBody = () => {
-    const [page, setPage] = useState<number>(1);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const page = parseInt(searchParams.get('_page') as string) || 1;
+
     const itemsLimit: number = 10;
 
     const { useGetActivities } = useActivitiesQuery();
@@ -55,8 +57,9 @@ const ActivitiesTableBody = () => {
                     }
                 </TableBody>
             </Table>
-            <Paginator
-                setPage={setPage}
+            <Pagination
+                setSearchParams={setSearchParams}
+                page={page}
                 totalPages={totalPages}
             />
         </>

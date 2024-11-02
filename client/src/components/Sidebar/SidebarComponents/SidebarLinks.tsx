@@ -10,12 +10,12 @@ type SidebarComponent = {
 const SidebarLinks = ({ Component }: SidebarComponent) => {
     const { user } = useAuth();
 
-    const guardedLinkRoutes = sidebarItems.links.filter(link => {       // Role based filter
-        if (user?.role === 'manager' && link.label !== 'My projects') { // Managers and admins can see and have access to all links except 'My projects' 
-            return true;                                                // which is only available to users logged in as 'user'. 
+    const guardedLinkRoutes = sidebarItems.links.filter(link => {
+        if (user?.role === 'manager' && link.label !== 'My projects') {
+            return true;
         };
-        if (user?.role === 'user' && link.label === 'My projects') {    // Users can only see and have access to 'My projects' 
-            return true;                                                // where they can keep track of the projects they are assigned to.               
+        if (user?.role === 'user' && link.label === 'My projects') {
+            return true;
         }
         return false;
     });
