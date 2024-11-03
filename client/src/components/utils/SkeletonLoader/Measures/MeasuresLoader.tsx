@@ -12,9 +12,11 @@ const MeasuresLoader = ({ measures }: MeasureProps) => {
         <Table className='w-full min-w-full'>
             <MeasuresHeader />
             <TableBody>
-                {Array.from({ length: measures.length }).map((_, i) => (
-                    <MeasuresSkeleton key={i} />
-                ))}
+                {
+                    measures && Array.from({ length: measures.length }).map((_, i) => (
+                        <MeasuresSkeleton key={i} />
+                    ))
+                }
             </TableBody>
         </Table>
     )

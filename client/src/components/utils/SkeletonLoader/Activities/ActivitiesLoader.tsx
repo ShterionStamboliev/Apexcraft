@@ -1,13 +1,24 @@
-import { TableBody } from "../../../ui/table"
+import { PaginatedActivities } from '@/types/activity-types/activityTypes'
+import { Table, TableBody } from "../../../ui/table"
 import ActivitiesSkeleton from './ActivitiesSkeleton'
+import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 
-const ActivitiesLoader = () => {
+type ActivitiesProps = {
+    activity: PaginatedActivities;
+}
+
+const ActivitiesLoader = ({ activity }: ActivitiesProps) => {
     return (
-        <TableBody>
-            {Array.from({ length: 7 }).map((_, i) => (
-                <ActivitiesSkeleton key={i} />
-            ))}
-        </TableBody>
+        <Table className='w-full min-w-full'>
+            <ActivitiesHeader />
+            <TableBody>
+                {
+                    activity && Array.from({ length: activity.data.length }).map((_, i) => (
+                        <ActivitiesSkeleton key={i} />
+                    ))
+                }
+            </TableBody>
+        </Table>
     )
 }
 

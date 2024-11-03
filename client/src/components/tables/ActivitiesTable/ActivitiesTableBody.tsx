@@ -18,7 +18,7 @@ const ActivitiesTableBody = () => {
     const totalPages: number | undefined = activities?.totalPages;
 
     if (isPending) {
-        return <ActivitiesLoader />
+        return <ActivitiesLoader activity={activities!} />
     };
 
     if (isError) {
