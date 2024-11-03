@@ -14,7 +14,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { Artisan } from '@/types/artisan-types/artisanTypes'
+import { PaginatedArtisans } from '@/types/artisan-types/artisanTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
@@ -22,7 +22,7 @@ const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
     const { control } = useFormContext();
 
     const { getArtisans } = useArtisansApi();
-    const { data: artisans } = useFetchQuery<Artisan[]>(['artisans'], getArtisans, {
+    const { data: artisans } = useFetchQuery<PaginatedArtisans>(['artisans'], getArtisans, {
         staleTime: Infinity
     });
 
@@ -46,15 +46,17 @@ const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                         </FormControl>
                         <SelectContent>
                             <SelectGroup>
-                                {artisans && artisans.filter(artisan => artisan.status === 'active')
-                                    .map((artisan) => (
-                                        <SelectItem
-                                            key={artisan.id}
-                                            value={artisan.name}
-                                        >
-                                            {artisan.name}
-                                        </SelectItem>
-                                    ))}
+                                {
+                                    artisans && artisans.data.filter(artisan => artisan.status === 'active')
+                                        .map((artisan) => (
+                                            <SelectItem
+                                                key={artisan.id}
+                                                value={artisan.name}
+                                            >
+                                                {artisan.name}
+                                            </SelectItem>
+                                        ))
+                                }
                             </SelectGroup>
                         </SelectContent>
                     </Select>

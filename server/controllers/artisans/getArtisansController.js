@@ -1,7 +1,7 @@
 const pool = require("../../db");
 const { getControllerNameById } = require('../../utils/getControllerNameById');
 
-const getArtisans = async (req, res) => {
+const getPaginatedArtisans = async (req, res) => {
     const { _page = 1, _limit = 10 } = req.query;
     const offset = (parseInt(_page) - 1) * parseInt(_limit);
 
@@ -39,6 +39,20 @@ const getArtisans = async (req, res) => {
     }
 };
 
+const getArtisans = async (req, res) => {
+    try {
+        const query = `SELECT * FROM tbl_artisans`;
+
+        const [rows] = await pool.query(query);
+
+        res.status(200).json(rows);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    }
+};
+
 module.exports = {
+    getPaginatedArtisans,
     getArtisans
 };

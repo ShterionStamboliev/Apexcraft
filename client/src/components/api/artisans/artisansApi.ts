@@ -7,8 +7,8 @@ const useArtisansApi = () => {
         return data;
     };
 
-    const getArtisans = async (): Promise<Artisan[]> => {
-        const data: Artisan[] = await apiCall('/artisans', 'GET');
+    const getArtisans = async (): Promise<PaginatedArtisans> => {
+        const data: PaginatedArtisans = await apiCall('/artisans', 'GET');
         return data;
     };
 
