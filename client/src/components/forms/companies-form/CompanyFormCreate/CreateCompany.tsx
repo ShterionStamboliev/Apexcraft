@@ -18,23 +18,21 @@ const CreateCompany = () => {
     };
 
     return (
-        <div className='mb-4'>
-            <Dialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-            >
-                <DialogTriggerButtonCreate
-                    text='Add new company'
+        <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
+            <DialogTriggerButtonCreate
+                text='Add new company'
+            />
+            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                <DialogHeader title='Add new company' />
+                <CreateCompanyForm
+                    handleSubmit={handleSubmit}
+                    isPending={isPending}
                 />
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader title='Add new company' />
-                    <CreateCompanyForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+            </DialogContent>
+        </Dialog>
     )
 }
 

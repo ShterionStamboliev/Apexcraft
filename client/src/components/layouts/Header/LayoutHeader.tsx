@@ -17,7 +17,6 @@ const LayoutHeader = () => {
                         <Link to="/" className="group flex items-center">
                             <span className="sr-only">ApeXCraft</span>
                             <span className="relative font-extrabold text-2xl tracking-tight">
-
                                 <span className="relative">
                                     Ape
                                     <span className="inline-flex items-center">
