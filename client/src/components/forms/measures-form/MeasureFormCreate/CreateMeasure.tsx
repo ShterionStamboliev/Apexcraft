@@ -18,25 +18,23 @@ const CreateMeasure = () => {
     };
 
     return (
-        <div className='mb-4'>
-            <Dialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-            >
-                <DialogTriggerButtonCreate
-                    text='Add new measure'
+        <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
+            <DialogTriggerButtonCreate
+                text='Add new measure'
+            />
+            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                <DialogHeader
+                    title='Add new measure'
                 />
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader
-                        title='Add new measure'
-                    />
-                    <CreateMeasureForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+                <CreateMeasureForm
+                    handleSubmit={handleSubmit}
+                    isPending={isPending}
+                />
+            </DialogContent>
+        </Dialog>
     )
 }
 
