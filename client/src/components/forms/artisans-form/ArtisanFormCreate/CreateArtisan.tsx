@@ -18,25 +18,23 @@ const CreateArtisan = () => {
     };
 
     return (
-        <div className='mb-4'>
-            <Dialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-            >
-                <DialogTriggerButtonCreate
-                    text='Add new artisan'
+        <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
+            <DialogTriggerButtonCreate
+                text='Add new artisan'
+            />
+            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
+                <DialogHeader
+                    title='Add new artisan'
                 />
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                    <DialogHeader
-                        title='Add new artisan'
-                    />
-                    <CreateArtisanForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+                <CreateArtisanForm
+                    handleSubmit={handleSubmit}
+                    isPending={isPending}
+                />
+            </DialogContent>
+        </Dialog>
     )
 }
 

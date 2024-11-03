@@ -1,10 +1,11 @@
-import { TableBody, TableCell, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import { CircleAlert, ContactRound } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ArtisansCard from './ArtisansCard';
+import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 
 const ArtisansTableBody = () => {
     const { useGetArtisans } = useArtisansQuery();
@@ -23,25 +24,31 @@ const ArtisansTableBody = () => {
     };
 
     return (
-        <TableBody>
-            {
-                artisans.length === 0 ? (
-                    <TableRow>
-                        <TableCell colSpan={2} className='text-center text-3xl'>
-                            <NoResultsFound
-                                title='No artisans found'
-                                description="It looks like you haven't added any artisans yet."
-                                Icon={ContactRound}
-                            />
-                        </TableCell>
-                    </TableRow>
-                ) : (
-                    <ArtisansCard
-                        artisans={artisans}
-                    />
-                )
-            }
-        </TableBody>
+        <>
+            <Table className='w-full min-w-full'>
+                <ArtisansHeader />
+                <TableBody>
+                    {
+                        artisans.length === 0 ?
+                            (
+                                <TableRow>
+                                    <TableCell colSpan={2} className='text-center text-3xl'>
+                                        <NoResultsFound
+                                            title='No artisans found'
+                                            description="It looks like you haven't added any artisans yet."
+                                            Icon={ContactRound}
+                                        />
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                <ArtisansCard
+                                    artisans={artisans}
+                                />
+                            )
+                    }
+                </TableBody>
+            </Table>
+        </>
     )
 }
 

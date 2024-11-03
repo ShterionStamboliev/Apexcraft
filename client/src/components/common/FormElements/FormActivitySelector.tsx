@@ -13,7 +13,7 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { Activity } from '@/types/activity-types/activityTypes'
+import { PaginatedActivities } from '@/types/activity-types/activityTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
 
@@ -21,7 +21,7 @@ const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSel
     const { control } = useFormContext();
 
     const { getActivities } = useActivitiesApi();
-    const { data } = useFetchQuery<Activity[]>(['activities'], getActivities, {
+    const { data: activities } = useFetchQuery<PaginatedActivities>(['activities'], getActivities, {
         staleTime: Infinity
     });
 
@@ -44,15 +44,17 @@ const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSel
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {data && data
-                                .map((activity) => (
-                                    <SelectItem
-                                        key={activity.id}
-                                        value={activity.name}
-                                    >
-                                        {activity.name}
-                                    </SelectItem>
-                                ))}
+                            {
+                                activities && activities.data
+                                    .map((activity) => (
+                                        <SelectItem
+                                            key={activity.id}
+                                            value={activity.name}
+                                        >
+                                            {activity.name}
+                                        </SelectItem>
+                                    ))
+                            }
                         </SelectContent>
                     </Select>
                 </FormItem>

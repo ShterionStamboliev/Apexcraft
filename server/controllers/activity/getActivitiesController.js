@@ -1,9 +1,9 @@
 const pool = require("../../db");
 
-const getActivities = async (req, res) => {
+const getPaginatedActivities = async (req, res) => {
     const { _page = 1, _limit = 10 } = req.query;
     const offset = (parseInt(_page) - 1) * parseInt(_limit);
-    
+
     try {
         const totalQuery = `SELECT COUNT(*) as total FROM tbl_activities`;
         const [[{ total }]] = await pool.query(totalQuery);
@@ -29,6 +29,21 @@ const getActivities = async (req, res) => {
     }
 };
 
+const getActivities = async (req, res) => {
+
+    try {
+        const query = 'SELECT * FROM tbl_activities';
+
+        const [rows] = await pool.execute(query)
+
+        res.json(rows)
+    }
+    catch (error) {
+        res.status(500).json({ message: 'Internal server error', error });
+    };
+};
+
 module.exports = {
+    getPaginatedActivities,
     getActivities
 };

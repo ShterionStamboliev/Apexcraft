@@ -4,7 +4,7 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
 
-const { createActivity, getActivities, editActivity } = useActivitiesApi();
+const { createActivity, getPaginatedActivities, editActivity } = useActivitiesApi();
 
 type DialogStateAction = {
     activityId?: string;
@@ -17,7 +17,7 @@ const useActivitiesQuery = () => {
     const useGetActivities = (page: number, limit: number) => {
         return useQuery({
             queryKey: ['activities', page],
-            queryFn: () => getActivities(page, limit),
+            queryFn: () => getPaginatedActivities(page, limit),
             placeholderData: keepPreviousData,
         });
     };

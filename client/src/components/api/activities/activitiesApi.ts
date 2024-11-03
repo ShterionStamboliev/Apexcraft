@@ -6,7 +6,12 @@ const useActivitiesApi = () => {
         return await apiCall('/activities/create', 'POST', activityData);
     };
 
-    const getActivities = async (page: number, limit: number): Promise<PaginatedActivities> => {
+    const getActivities = async (): Promise<PaginatedActivities> => {
+        const data: PaginatedActivities = await apiCall('/activities', 'GET');
+        return data;
+    }
+
+    const getPaginatedActivities = async (page: number, limit: number): Promise<PaginatedActivities> => {
         const data: PaginatedActivities = await apiCall(`/activities?_page=${page}&_limit=${limit}`, 'GET');
         return data;
     };
@@ -16,9 +21,10 @@ const useActivitiesApi = () => {
     };
 
     return {
-        getActivities,
+        getPaginatedActivities,
         createActivity,
         editActivity,
+        getActivities
     }
 }
 
