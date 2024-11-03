@@ -12,7 +12,7 @@ const MeasuresTableBody = () => {
     const { data: measures, isPending, isError, error } = useGetMeasures();
 
     if (isPending) {
-        return <MeasuresLoader />
+        return <MeasuresLoader measures={measures!} />
     };
 
     if (isError) {

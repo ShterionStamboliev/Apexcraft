@@ -1,13 +1,22 @@
-import { TableBody } from "../../../ui/table"
+import { Measure } from '@/types/measure-types/measureTypes'
+import { Table, TableBody } from "../../../ui/table"
 import MeasuresSkeleton from './MeasuresSkeleton'
+import MeasuresHeader from '@/components/tables/MeasuresTable/MeasuresTableElements/MeasuresHeader/MeasuresHeader';
 
-const MeasuresLoader = () => {
+type MeasureProps = {
+    measures: Measure[];
+}
+
+const MeasuresLoader = ({ measures }: MeasureProps) => {
     return (
-        <TableBody>
-            {Array.from({ length: 7 }).map((_, i) => (
-                <MeasuresSkeleton key={i} />
-            ))}
-        </TableBody>
+        <Table className='w-full min-w-full'>
+            <MeasuresHeader />
+            <TableBody>
+                {Array.from({ length: measures.length }).map((_, i) => (
+                    <MeasuresSkeleton key={i} />
+                ))}
+            </TableBody>
+        </Table>
     )
 }
 
