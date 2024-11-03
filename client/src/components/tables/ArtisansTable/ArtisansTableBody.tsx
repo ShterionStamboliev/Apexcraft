@@ -7,20 +7,16 @@ import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ArtisansCard from './ArtisansCard';
 import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
-import { useSearchParams } from 'react-router-dom';
+import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 
 const ArtisansTableBody = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const page = parseInt(searchParams.get('page') as string) || 1;
-
-    const itemsLimit: number = 10;
+    const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
 
     const { useGetArtisans } = useArtisansQuery();
     const { data: artisans, isPending, isError, error } = useGetArtisans(page, itemsLimit);
 
     const totalPages: number | undefined = artisans?.totalPages;
 
-    console.log(artisans)
     if (isPending) {
         return <ActivitiesLoader />
     };
