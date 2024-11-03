@@ -1,17 +1,13 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import TableHeader, { HeaderItems } from '@/components/common/TableElements/TableHeader';
+
+const activityHeaders: HeaderItems[] = [
+    { key: 'activity', label: 'Activity', width: 'w-20rem', align: 'left' },
+    { key: 'options', label: 'Options', width: 'w-12.5rem', align: 'right' },
+];
 
 const ActivitiesHeader = () => {
     return (
-        <TableHeader>
-            <TableRow>
-                <TableHead className='w-[320px] font-bold'>
-                    Activity
-                </TableHead>
-                <TableHead className='w-[200px] font-bold text-end'>
-                    Options
-                </TableHead>
-            </TableRow>
-        </TableHeader>
+        <TableHeader headers={activityHeaders} />
     );
 };
 

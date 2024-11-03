@@ -1,17 +1,13 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import TableHeader, { HeaderItems } from '@/components/common/TableElements/TableHeader';
+
+const measuresHeaders: HeaderItems[] = [
+    { key: 'measure', label: 'Measure', width: 'w-20rem', align: 'left' },
+    { key: 'options', label: 'Options', width: 'w-12.5rem', align: 'right' },
+];
 
 const MeasuresHeader = () => {
     return (
-        <TableHeader>
-            <TableRow>
-                <TableHead className='w-[320px] font-bold'>
-                    Measure
-                </TableHead>
-                <TableHead className='w-[200px] font-bold text-end'>
-                    Options
-                </TableHead>
-            </TableRow>
-        </TableHeader>
+        <TableHeader headers={measuresHeaders} />
     );
 };
 

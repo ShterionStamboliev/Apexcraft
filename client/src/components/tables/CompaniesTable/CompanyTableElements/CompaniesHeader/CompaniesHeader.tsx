@@ -1,23 +1,15 @@
-import { TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import TableHeader, { HeaderItems } from '@/components/common/TableElements/TableHeader';
+
+const headers: HeaderItems[] = [
+    { key: 'name', label: 'Company name', width: 'w-[23rem]', align: 'left' },
+    { key: 'number', label: 'Company number', width: 'w-[21.5rem]', align: 'center' },
+    { key: 'mrp', label: 'MRP', width: 'w-[21rem]', align: 'center' },
+    { key: 'options', label: 'Options', width: 'w-[12.5rem]', align: 'right' },
+]
 
 const CompaniesHeader = () => {
     return (
-        <TableHeader>
-            <TableRow>
-                <TableHead className='w-[375px] font-bold'>
-                    Company name
-                </TableHead>
-                <TableHead className='w-[345px]  font-bold text-center'>
-                    Company number
-                </TableHead>
-                <TableHead className='w-[335px]  font-bold text-center'>
-                    MRP
-                </TableHead>
-                <TableHead className='w-[200px]  font-bold text-end'>
-                    Options
-                </TableHead>
-            </TableRow>
-        </TableHeader>
+        <TableHeader headers={headers} />
     );
 };
 
