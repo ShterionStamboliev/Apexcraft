@@ -5,45 +5,50 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/context/AuthContext';
 import { User } from 'lucide-react';
 import { Link } from "react-router-dom";
-import logo from '../../assets/project-title.png';
 
 const LayoutHeader = () => {
     const { user } = useAuth();
 
     return (
-        <>
-            <div className="py-4 w-full">
-                <div className="w-full flex justify-between items-center px-3 md:px-12 mx-auto">
-                    <div>
-                        <Link to='/' className="flex">
-                            <span className="tracking-tight hover:cursor-pointer duration-200">
-                                <img src={logo} className='w-25 h-7' alt="Project Logo" />
+        <header className="bg-background shadow-sm">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between h-16">
+                    <div className="flex-shrink-0">
+                        <Link to="/" className="group flex items-center">
+                            <span className="sr-only">ApeXCraft</span>
+                            <span className="relative font-extrabold text-2xl tracking-tight">
+
+                                <span className="relative">
+                                    Ape
+                                    <span className="inline-flex items-center">
+                                        <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19 5L5 19M5 5L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
+                                    </span>
+                                    Craft
+                                </span>
                             </span>
                         </Link>
                     </div>
-                    <div className='flex items-center'>
-                        <div className='pr-2'>
-                            {user && (
+                    <div className="flex items-center">
+                        {
+                            user && (
                                 <Popover>
                                     <PopoverTrigger asChild>
-                                        <Button variant='ghost' className='p-1.5'>
-                                            <div className='flex justify-between items-center w-full'>
-                                                <div className='flex gap-2 w-full items-center'>
-                                                    <span className='text-md'>{user.name_and_family}</span>
-                                                    <User />
-                                                </div>
-                                            </div>
+                                        <Button variant="ghost" className="flex items-center space-x-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring">
+                                            <span className="sm:inline-block">{user.name_and_family}</span>
+                                            <User className="h-5 w-5" />
                                         </Button>
                                     </PopoverTrigger>
                                     <SidebarUserDropdown />
                                 </Popover>
-                            )}
-                        </div>
+                            )
+                        }
                     </div>
                 </div>
             </div>
             <Separator />
-        </>
+        </header>
     )
 }
 
