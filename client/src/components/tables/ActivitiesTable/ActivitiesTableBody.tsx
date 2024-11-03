@@ -7,13 +7,10 @@ import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ActivitiesCard from './ActivitiesCard';
 import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
-import { useSearchParams } from 'react-router-dom';
+import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 
 const ActivitiesTableBody = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
-    const page = parseInt(searchParams.get('page') as string) || 1;
-
-    const itemsLimit: number = 10;
+    const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
     const { useGetActivities } = useActivitiesQuery();
     const { data: activities, isPending, isError, error } = useGetActivities(page, itemsLimit);
@@ -31,7 +28,7 @@ const ActivitiesTableBody = () => {
             Icon={CircleAlert}
         />
     };
-    console.log(activities)
+
     return (
         <>
             <Table className='w-full min-w-full'>
