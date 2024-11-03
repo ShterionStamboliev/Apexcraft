@@ -1,5 +1,5 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useArtisansApi from './artisansApi';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 
@@ -11,7 +11,7 @@ type DialogStateAction = {
 const useArtisansQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { createArtisan, editArtisan, getArtisans } = useArtisansApi();
+    const { createArtisan, editArtisan, getPaginatedArtisans } = useArtisansApi();
 
     const useCreateArtisan = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
@@ -49,11 +49,11 @@ const useArtisansQuery = () => {
         })
     };
 
-    const useGetArtisans = () => {
+    const useGetArtisans = (page: number, limit: number) => {
         return useQuery({
-            queryKey: ['artisans'],
-            queryFn: getArtisans,
-            staleTime: 0
+            queryKey: ['artisans', page],
+            queryFn: () => getPaginatedArtisans(page, limit),
+            placeholderData: keepPreviousData
         });
     };
 

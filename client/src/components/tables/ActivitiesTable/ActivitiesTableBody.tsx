@@ -31,7 +31,7 @@ const ActivitiesTableBody = () => {
             Icon={CircleAlert}
         />
     };
-
+    console.log(activities)
     return (
         <>
             <Table className='w-full min-w-full'>

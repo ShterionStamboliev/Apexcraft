@@ -9,7 +9,7 @@ const useActivitiesApi = () => {
     const getActivities = async (): Promise<PaginatedActivities> => {
         const data: PaginatedActivities = await apiCall('/activities', 'GET');
         return data;
-    }
+    };
 
     const getPaginatedActivities = async (page: number, limit: number): Promise<PaginatedActivities> => {
         const data: PaginatedActivities = await apiCall(`/activities?_page=${page}&_limit=${limit}`, 'GET');

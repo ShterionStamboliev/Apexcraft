@@ -1,16 +1,16 @@
 import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { Artisan } from '@/types/artisan-types/artisanTypes'
+import { PaginatedArtisans } from '@/types/artisan-types/artisanTypes'
 
 type ArtisansCardProps = {
-    artisans: Artisan[];
+    artisans: PaginatedArtisans;
 }
 
 const ArtisansCard = ({ artisans }: ArtisansCardProps) => {
     return (
         <>
             {
-                artisans.map((artisan) => (
+                artisans.data.map((artisan) => (
                     <TableRow key={artisan.id}>
                         <TableCell className='font-semibold'>
                             {artisan.name}

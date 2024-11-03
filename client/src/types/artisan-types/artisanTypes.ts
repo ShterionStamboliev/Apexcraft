@@ -8,3 +8,10 @@ export type Artisan = {
     artisanName: string;
     status?: 'active' | 'inactive';
 }
+
+export type PaginatedArtisans = {
+    data: Artisan[];
+    limit?: number;
+    total?: number;
+    totalPages?: number;
+}
