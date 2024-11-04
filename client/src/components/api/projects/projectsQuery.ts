@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useProjectsApi from './projectsApi';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import { ProjectSchema } from '@/components/models/project/newProjectSchema';
@@ -11,15 +11,7 @@ type DialogStateAction = {
 const useProjectsQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { getProjects, createProject, editProject } = useProjectsApi();
-
-    const useGetProjects = () => {
-        return useQuery({
-            queryKey: ['projects'],
-            queryFn: getProjects,
-            staleTime: 0
-        });
-    };
+    const { createProject, editProject } = useProjectsApi();
 
     const useCreateProject = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
@@ -58,7 +50,6 @@ const useProjectsQuery = () => {
     };
 
     return {
-        useGetProjects,
         useCreateProject,
         useEditProject
     }

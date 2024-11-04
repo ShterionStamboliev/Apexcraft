@@ -7,17 +7,11 @@ const useProjectsApi = () => {
         return data;
     };
 
-    const getProjects = async (): Promise<Project[]> => {
-        const data: Project[] = await apiCall('/projects', 'GET');
-        return data;
-    };
-
     const editProject = async (projectId: string, projectData: Project): Promise<void> => {
         return await apiCall(`/projects/${projectId}/edit`, 'PUT', projectData);
     };
 
     return {
-        getProjects,
         createProject,
         editProject
     }

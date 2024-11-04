@@ -1,6 +1,6 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook'
 import { MeasureSchema } from '@/components/models/measure/newMeasureSchema';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useMeasuresApi from './measuresApi';
 import React from 'react';
 
@@ -13,15 +13,9 @@ type DialogStateAction = {
 const useMeasuresQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
     
-    const { createMeasure, getMeasures, editMeasure } = useMeasuresApi();
+    const { createMeasure, editMeasure } = useMeasuresApi();
     
-    const useGetMeasures = () => {
-        return useQuery({
-            queryKey: ['measures'],
-            queryFn: getMeasures,
-            staleTime: 0
-        });
-    };
+
 
     const useCreateMeasure = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
@@ -61,7 +55,6 @@ const useMeasuresQuery = () => {
 
     return {
         useCreateMeasure,
-        useGetMeasures,
         useEditMeasure,
     }
 };
