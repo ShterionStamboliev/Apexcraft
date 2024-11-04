@@ -1,5 +1,5 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { UserSchema } from '@/components/models/user/newUserSchema';
 import React from 'react';
 import { User } from '@/types/user-types/userTypes';
@@ -12,14 +12,6 @@ type DialogStateAction = {
 
 const useUsersQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
-
-    // const useGetUsers = (page: number, limit: number) => {
-    //     return useQuery({
-    //         queryKey: ['users', page],
-    //         queryFn: () => getPaginatedData<User>('/users', page, limit),
-    //         staleTime: 0
-    //     });
-    // };
 
     const useCreateUser = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();

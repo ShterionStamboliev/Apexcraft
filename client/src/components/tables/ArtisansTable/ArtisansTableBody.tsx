@@ -1,6 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
-import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import { CircleAlert, ContactRound } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
@@ -8,12 +7,13 @@ import ArtisansCard from './ArtisansCard';
 import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { Artisan } from '@/types/artisan-types/artisanTypes';
 
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
 
-    const { useGetArtisans } = useArtisansQuery();
-    const { data: artisans, isPending, isError, error } = useGetArtisans(page, itemsLimit);
+    const { data: artisans, isPending, isError, error } = useGetPaginatedData<Artisan>('/artisans', page, itemsLimit);
 
     const totalPages: number | undefined = artisans?.totalPages;
 

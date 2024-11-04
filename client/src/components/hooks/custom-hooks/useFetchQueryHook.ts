@@ -1,5 +1,6 @@
 import { getEntityData, getPaginatedData } from '@/components/api/apiCall';
 import {
+    keepPreviousData,
     QueryKey,
     useQuery,
     UseQueryOptions,
@@ -25,7 +26,8 @@ export const useGetPaginatedData = <TData>(
         queryFn: () => getPaginatedData<TData>(URL, page, limit),
         staleTime: 0,
         refetchInterval: false,
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        placeholderData: keepPreviousData
     });
 };
 

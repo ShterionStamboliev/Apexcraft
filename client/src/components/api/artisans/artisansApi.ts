@@ -7,11 +7,6 @@ const useArtisansApi = () => {
         return data;
     };
 
-    const getArtisans = async (): Promise<PaginatedArtisans> => {
-        const data: PaginatedArtisans = await apiCall('/artisans', 'GET');
-        return data;
-    };
-
     const getPaginatedArtisans = async (page: number, limit: number): Promise<PaginatedArtisans> => {
         const data: PaginatedArtisans = await apiCall(`/artisans?_page=${page}&_limit=${limit}`, 'GET');
         return data;
@@ -22,7 +17,6 @@ const useArtisansApi = () => {
     };
 
     return {
-        getArtisans,
         getPaginatedArtisans,
         createArtisan,
         editArtisan
