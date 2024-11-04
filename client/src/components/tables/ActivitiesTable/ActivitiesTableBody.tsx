@@ -1,19 +1,19 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
-import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
-import { Activity, CircleAlert } from 'lucide-react';
+import { CircleAlert, Activity as ActivityIcon } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ActivitiesCard from './ActivitiesCard';
 import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { Activity } from '@/types/activity-types/activityTypes';
 
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { useGetActivities } = useActivitiesQuery();
-    const { data: activities, isPending, isError, error } = useGetActivities(page, itemsLimit);
+    const { data: activities, isPending, isError, error } = useGetPaginatedData<Activity>('/activities', page, itemsLimit);
 
     const totalPages: number | undefined = activities?.totalPages;
 
@@ -42,7 +42,7 @@ const ActivitiesTableBody = () => {
                                         <NoResultsFound
                                             title='No activities found'
                                             description="It looks like you haven't added any activities yet."
-                                            Icon={Activity}
+                                            Icon={ActivityIcon}
                                         />
                                     </TableCell>
                                 </TableRow>

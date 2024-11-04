@@ -1,10 +1,10 @@
-import { keepPreviousData, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {  useMutation, useQueryClient } from '@tanstack/react-query';
 import useActivitiesApi from './activitiesApi';
 import { Activity } from '@/types/activity-types/activityTypes';
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
 
-const { createActivity, getPaginatedActivities, editActivity } = useActivitiesApi();
+const { createActivity, editActivity } = useActivitiesApi();
 
 type DialogStateAction = {
     activityId?: string;
@@ -13,14 +13,6 @@ type DialogStateAction = {
 
 const useActivitiesQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
-
-    const useGetActivities = (page: number, limit: number) => {
-        return useQuery({
-            queryKey: ['activities', page],
-            queryFn: () => getPaginatedActivities(page, limit),
-            placeholderData: keepPreviousData,
-        });
-    };
 
     const useCreateActivity = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
@@ -60,7 +52,6 @@ const useActivitiesQuery = () => {
 
     return {
         useCreateActivity,
-        useGetActivities,
         useEditActivity,
     }
 }

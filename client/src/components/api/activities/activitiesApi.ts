@@ -11,17 +11,11 @@ const useActivitiesApi = () => {
         return data;
     };
 
-    const getPaginatedActivities = async (page: number, limit: number): Promise<PaginatedActivities> => {
-        const data: PaginatedActivities = await apiCall(`/activities?_page=${page}&_limit=${limit}`, 'GET');
-        return data;
-    };
-
     const editActivity = async (activityId: string, activityData: Activity): Promise<void> => {
         return await apiCall(`/activities/${activityId}/edit`, 'PUT', activityData);
     };
 
     return {
-        getPaginatedActivities,
         createActivity,
         editActivity,
         getActivities

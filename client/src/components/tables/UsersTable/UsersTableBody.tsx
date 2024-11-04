@@ -1,6 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
-import useUsersQuery from '@/components/api/users/usersQuery';
 import { CircleAlert, Users } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
@@ -8,13 +7,14 @@ import UsersCard from './UsersCard';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import Pagination from '@/components/common/Pagination/Pagination';
+import { User } from '@/types/user-types/userTypes';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
-    
-    const { useGetUsers } = useUsersQuery();
-    const { data: users, isPending, isError, error } = useGetUsers(page, itemsLimit);
-    
+
+    const { data: users, isPending, isError, error } = useGetPaginatedData<User>('/users', page, itemsLimit);
+
     const totalPages: number | undefined = users?.totalPages;
 
     if (isPending) {

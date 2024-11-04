@@ -1,8 +1,9 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import useUsersApi from './usersApi';
 import { UserSchema } from '@/components/models/user/newUserSchema';
 import React from 'react';
+import { User } from '@/types/user-types/userTypes';
+import { createEntity, editEntity,  } from '../apiCall';
 
 type DialogStateAction = {
     userId?: string;
@@ -12,21 +13,19 @@ type DialogStateAction = {
 const useUsersQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { createUser, getPaginatedUsers, editUser } = useUsersApi();
-
-    const useGetUsers = (page: number, limit: number) => {
-        return useQuery({
-            queryKey: ['users', page],
-            queryFn: () => getPaginatedUsers(page, limit),
-            staleTime: 0
-        });
-    };
+    // const useGetUsers = (page: number, limit: number) => {
+    //     return useQuery({
+    //         queryKey: ['users', page],
+    //         queryFn: () => getPaginatedData<User>('/users', page, limit),
+    //         staleTime: 0
+    //     });
+    // };
 
     const useCreateUser = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
 
         return useMutation({
-            mutationFn: (userData: UserSchema) => createUser(userData),
+            mutationFn: (userData: UserSchema) => createEntity<User>('/users/create', userData),
             onSuccess: () => {
                 client.invalidateQueries({
                     queryKey: ['users']
@@ -44,7 +43,7 @@ const useUsersQuery = () => {
         const client = useQueryClient();
 
         return useMutation({
-            mutationFn: (userData: UserSchema) => editUser(userId!, userData),
+            mutationFn: (userData: UserSchema) => editEntity<User>(`/users/${userId}/edit`, userData),
             onSuccess: () => {
                 client.invalidateQueries({
                     queryKey: ['users']
@@ -60,7 +59,6 @@ const useUsersQuery = () => {
 
     return {
         useCreateUser,
-        useGetUsers,
         useEditUser,
     }
 };
