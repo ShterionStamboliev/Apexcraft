@@ -1,5 +1,4 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import { CircleAlert, ContactRound } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
@@ -9,6 +8,7 @@ import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
+import ArtisansLoader from '@/components/utils/SkeletonLoader/Artisans/ArtisansLoader';
 
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
@@ -18,7 +18,7 @@ const ArtisansTableBody = () => {
     const totalPages: number | undefined = artisans?.totalPages;
 
     if (isPending) {
-        return <ActivitiesLoader />
+        return <ArtisansLoader artisans={artisans!} />
     };
 
     if (isError) {

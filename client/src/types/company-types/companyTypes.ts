@@ -9,3 +9,10 @@ export type Company = {
     dds: 'yes' | 'no';
     status: 'active' | 'inactive';
 }
+
+export type PaginatedCompanies = {
+    data: Company[];
+    limit?: number;
+    total?: number;
+    totalPages?: number;
+}

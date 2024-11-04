@@ -1,16 +1,16 @@
 import EditCompanyForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { Company } from '@/types/company-types/companyTypes'
+import { PaginatedCompanies } from '@/types/company-types/companyTypes'
 
 type CompaniesCardProps = {
-    companies: Company[];
+    companies: PaginatedCompanies;
 }
 
 const CompaniesCard = ({ companies }: CompaniesCardProps) => {
     return (
         <>
             {
-                companies.map((company, index) => (
+                companies && companies.data.map((company, index) => (
                     <TableRow key={index}>
                         <TableCell className='font-semibold' >
                             {company.name}
