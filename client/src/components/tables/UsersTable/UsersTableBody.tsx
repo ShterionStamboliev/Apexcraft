@@ -13,7 +13,7 @@ import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQue
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { data: users, isPending, isError, error } = useGetPaginatedData<User>('/users', page, itemsLimit);
+    const { data: users, isPending, isError, error } = useGetPaginatedData<User>('users', page, itemsLimit);
 
     const totalPages: number | undefined = users?.totalPages;
 

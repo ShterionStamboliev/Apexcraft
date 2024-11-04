@@ -1,4 +1,3 @@
-import useMeasuresApi from '@/components/api/measures/measuresApi'
 import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
 import {
     FormControl,
@@ -21,8 +20,7 @@ import { useFormContext } from 'react-hook-form'
 const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { getMeasures } = useMeasuresApi();
-    const { data } = useFetchQuery<Measure[]>(['measures'], getMeasures, {
+    const { data: measures } = useFetchQuery<Measure[]>(['measures'], '/measures', {
         staleTime: Infinity
     });
 
@@ -46,15 +44,17 @@ const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                         </FormControl>
                         <SelectContent>
                             <SelectGroup>
-                                {data && data
-                                    .map((measure) => (
-                                        <SelectItem
-                                            key={measure.id}
-                                            value={measure.name}
-                                        >
-                                            {measure.name}
-                                        </SelectItem>
-                                    ))}
+                                {
+                                    measures && measures
+                                        .map((measure) => (
+                                            <SelectItem
+                                                key={measure.id}
+                                                value={measure.name}
+                                            >
+                                                {measure.name}
+                                            </SelectItem>
+                                        ))
+                                }
                             </SelectGroup>
                         </SelectContent>
                     </Select>

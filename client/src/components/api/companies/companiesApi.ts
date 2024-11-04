@@ -7,17 +7,11 @@ const useCompanyApi = () => {
         return data;
     };
 
-    const getCompanies = async (): Promise<Company[]> => {
-        const data: Company[] = await apiCall('/companies', 'GET');
-        return data;
-    };
-
     const editCompany = async (companyId: string, companyData: Company): Promise<void> => {
         return await apiCall(`/companies/${companyId}/edit`, 'PUT', companyData);
     };
 
     return {
-        getCompanies,
         createCompany,
         editCompany
     }

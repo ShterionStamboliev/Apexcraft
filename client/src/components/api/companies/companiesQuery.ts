@@ -1,6 +1,6 @@
 import useToastHook from '@/components/hooks/custom-hooks/useToastHook';
 import useCompanyApi from './companiesApi';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { CompanySchema } from '@/components/models/company/newCompanySchema';
 
 type DialogStateAction = {
@@ -11,7 +11,7 @@ type DialogStateAction = {
 const useCompaniesQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { createCompany, editCompany, getCompanies } = useCompanyApi();
+    const { createCompany, editCompany } = useCompanyApi();
 
     const useCreateCompany = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();
@@ -49,15 +49,7 @@ const useCompaniesQuery = () => {
         });
     };
 
-    const useGetCompanies = () => {
-        return useQuery({
-            queryKey: ['companies'],
-            queryFn: getCompanies
-        });
-    };
-
     return {
-        useGetCompanies,
         useEditCompany,
         useCreateCompany
     }

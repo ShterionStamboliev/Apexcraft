@@ -30,7 +30,7 @@ export const getPaginatedData = async <T>(
     page: number,
     limit: number,
 ): Promise<PaginatedDataResponse<T>> => {
-    const data: PaginatedDataResponse<T> = await apiCall(`${URL}?_page=${page}&_limit=${limit}`, 'GET');
+    const data: PaginatedDataResponse<T> = await apiCall(`/${URL}?_page=${page}&_limit=${limit}`, 'GET');
     return data;
 };
 
