@@ -6,13 +6,19 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import UsersCard from './UsersCard';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
+import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
+import Pagination from '@/components/common/Pagination/Pagination';
 
 const UsersTableBody = () => {
+    const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
+    
     const { useGetUsers } = useUsersQuery();
-    const { data: users, isPending, isError, error } = useGetUsers();
+    const { data: users, isPending, isError, error } = useGetUsers(page, itemsLimit);
+    
+    const totalPages: number | undefined = users?.totalPages;
 
     if (isPending) {
-        return <UsersLoader />
+        return <UsersLoader users={users!} />
     };
 
     if (isError) {
@@ -24,28 +30,35 @@ const UsersTableBody = () => {
     };
 
     return (
-        <Table className='w-full min-w-full'>
-            <UsersHeader />
-            <TableBody>
-                {
-                    users.length === 0 ? (
-                        <TableRow>
-                            <TableCell colSpan={3} className='text-center text-3xl'>
-                                <NoResultsFound
-                                    title='No users found'
-                                    description="It looks like you haven't added any users yet."
-                                    Icon={Users}
-                                />
-                            </TableCell>
-                        </TableRow>
-                    ) : (
-                        <UsersCard
-                            users={users}
-                        />
-                    )
-                }
-            </TableBody>
-        </Table>
+        <>
+            <Table className='w-full min-w-full'>
+                <UsersHeader />
+                <TableBody>
+                    {
+                        users?.data.length === 0 ? (
+                            <TableRow>
+                                <TableCell colSpan={3} className='text-center text-3xl'>
+                                    <NoResultsFound
+                                        title='No users found'
+                                        description="It looks like you haven't added any users yet."
+                                        Icon={Users}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        ) : (
+                            <UsersCard
+                                users={users}
+                            />
+                        )
+                    }
+                </TableBody>
+            </Table>
+            <Pagination
+                setSearchParams={setSearchParams}
+                page={page}
+                totalPages={totalPages}
+            />
+        </>
     );
 };
 

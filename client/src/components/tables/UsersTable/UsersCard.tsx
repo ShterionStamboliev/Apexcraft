@@ -1,16 +1,16 @@
 import EditUserForm from '@/components/forms/user-form/UserFormEdit/EditUser';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { User } from '@/types/user-types/userTypes'
+import { PaginatedUsers } from '@/types/user-types/userTypes'
 
 type UsersCardProps = {
-    users: User[];
+    users: PaginatedUsers;
 }
 
 const UsersCard = ({ users }: UsersCardProps) => {
     return (
         <>
             {
-                users.map((user) => (
+                users.data.map((user) => (
                     <TableRow key={user.id}>
                         <TableCell className='font-semibold'>
                             {user.name_and_family}

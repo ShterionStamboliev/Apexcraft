@@ -12,7 +12,7 @@ const CompaniesTableBody = () => {
     const { data: companies, isPending, isError, error } = useGetCompanies();
 
     if (isPending) {
-        return <CompaniesLoader />
+        return <CompaniesLoader companies={companies!} />
     };
 
     if (isError) {

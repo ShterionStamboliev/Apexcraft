@@ -24,3 +24,10 @@ export type UserFormType = {
     role: 'user' | 'manager';
     status: 'active' | 'inactive';
 }
+
+export type PaginatedUsers = {
+    data: User[];
+    limit?: number;
+    total?: number;
+    totalPages?: number;
+}

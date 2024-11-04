@@ -15,14 +15,14 @@ import {
     SelectValue
 } from '@/components/ui/select'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { User } from '@/types/user-types/userTypes'
+import { PaginatedUsers } from '@/types/user-types/userTypes'
 import { useFormContext } from 'react-hook-form'
 
 const UsersSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
     const { getUsers } = useUsersApi();
-    const { data: users } = useFetchQuery<User[]>(['users'], getUsers, {
+    const { data: users } = useFetchQuery<PaginatedUsers>(['users'], getUsers, {
         staleTime: Infinity
     });
 
@@ -46,15 +46,17 @@ const UsersSelector = ({ label, name, placeholder, defaultVal }: TableFormSelect
                         </FormControl>
                         <SelectContent>
                             <SelectGroup>
-                                {users && users
-                                    .map((user) => (
-                                        <SelectItem
-                                            key={user.id}
-                                            value={user.name_and_family}
-                                        >
-                                            {user.name_and_family}
-                                        </SelectItem>
-                                    ))}
+                                {
+                                    users && users.data
+                                        .map((user) => (
+                                            <SelectItem
+                                                key={user.id}
+                                                value={user.name_and_family}
+                                            >
+                                                {user.name_and_family}
+                                            </SelectItem>
+                                        ))
+                                }
                             </SelectGroup>
                         </SelectContent>
                     </Select>

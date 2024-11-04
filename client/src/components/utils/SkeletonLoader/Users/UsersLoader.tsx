@@ -1,13 +1,23 @@
-import { TableBody } from "../../../ui/table"
+import { User } from '@/types/user-types/userTypes';
+import { Table, TableBody } from "../../../ui/table"
 import UsersSkeleton from './UsersSkeleton';
+import UsersHeader from '@/components/tables/UsersTable/UserTableElements/TableHeader/TableHeader';
 
-const UsersLoader = () => {
+type UsersProps = {
+    users: User[];
+}
+
+const UsersLoader = ({ users }: UsersProps) => {
     return (
-        <TableBody>
-            {Array.from({ length: 7 }).map((_, i) => (
-                <UsersSkeleton key={i} />
-            ))}
-        </TableBody>
+        <Table className='w-full min-w-full'>
+            <UsersHeader />
+            <TableBody>
+                {users && Array.from({ length: users.length }).map((_, i) => (
+                    <UsersSkeleton key={i} />
+                ))
+                }
+            </TableBody>
+        </Table>
     )
 }
 

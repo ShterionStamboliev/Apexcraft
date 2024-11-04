@@ -12,12 +12,12 @@ type DialogStateAction = {
 const useUsersQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
-    const { createUser, getUsers, editUser } = useUsersApi();
+    const { createUser, getPaginatedUsers, editUser } = useUsersApi();
 
-    const useGetUsers = () => {
+    const useGetUsers = (page: number, limit: number) => {
         return useQuery({
-            queryKey: ['users'],
-            queryFn: getUsers,
+            queryKey: ['users', page],
+            queryFn: () => getPaginatedUsers(page, limit),
             staleTime: 0
         });
     };

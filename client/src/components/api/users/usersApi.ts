@@ -1,4 +1,4 @@
-import { User } from '@/types/user-types/userTypes'
+import { PaginatedUsers, User } from '@/types/user-types/userTypes'
 import { apiCall } from '../apiCall'
 
 const useUsersApi = () => {
@@ -7,8 +7,13 @@ const useUsersApi = () => {
         return data;
     };
 
-    const getUsers = async (): Promise<User[]> => {
-        const data: User[] = await apiCall('/users', 'GET');
+    const getUsers = async (): Promise<PaginatedUsers> => {
+        const data: PaginatedUsers = await apiCall('/users', 'GET');
+        return data;
+    }
+
+    const getPaginatedUsers = async (page: number, limit: number): Promise<PaginatedUsers> => {
+        const data: PaginatedUsers = await apiCall(`/users?_page=${page}&_limit=${limit}`, 'GET');
         return data;
     };
 
@@ -18,6 +23,7 @@ const useUsersApi = () => {
 
     return {
         createUser,
+        getPaginatedUsers,
         getUsers,
         editUser
     }

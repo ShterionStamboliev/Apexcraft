@@ -1,13 +1,23 @@
-import { TableBody } from "../../../ui/table"
+import CompaniesHeader from '@/components/tables/CompaniesTable/CompanyTableElements/CompaniesHeader/CompaniesHeader'
+import { Table, TableBody } from "../../../ui/table"
 import CompaniesSkeleton from './CompaniesSkeleton'
+import { Company } from '@/types/company-types/companyTypes'
 
-const CompaniesLoader = () => {
+type CompanyProps = {
+    companies: Company[];
+}
+
+const CompaniesLoader = ({ companies }: CompanyProps) => {
     return (
-        <TableBody>
-            {Array.from({ length: 7 }).map((_, i) => (
-                <CompaniesSkeleton key={i} />
-            ))}
-        </TableBody>
+        <Table className='w-full min-w-full'>
+            <CompaniesHeader />
+            <TableBody>
+                {companies && Array.from({ length: companies.length }).map((_, i) => (
+                    <CompaniesSkeleton key={i} />
+                ))
+                }
+            </TableBody>
+        </Table>
     )
 }
 
