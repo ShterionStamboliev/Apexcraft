@@ -45,7 +45,7 @@ const CreateArtisanForm = ({ handleSubmit, isPending }: CreateArtisanFormProps) 
                     <StatusSelector
                         label='Status'
                         name='status'
-                        placeholder='inactive'
+                        placeholder='active'
                     />
                     <UsersSelector
                         label='Select user'

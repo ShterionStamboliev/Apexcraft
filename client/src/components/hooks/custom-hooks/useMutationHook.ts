@@ -9,10 +9,6 @@ interface MutationEntityStateActions {
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface MutationEntityStateId extends MutationEntityStateActions {
-    entityId?: string,
-}
-
 export const useMutationHook = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
 
@@ -45,7 +41,7 @@ export const useMutationHook = () => {
         queryKey,
         successToast,
         setIsOpen,
-    }: MutationEntityStateId
+    }: MutationEntityStateActions
     ): UseMutationResult<void, Error, TData, unknown> => {
         return useMutation({
             mutationFn: (entityData: TData) => editEntity<TData>(URL, entityData),

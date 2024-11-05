@@ -34,7 +34,7 @@ export const artisanDefaults: Artisan = {
     number: '',
     company: '',
     artisanName: '',
-    status: undefined
+    status: 'active'
 };
 
 export type ArtisanSchema = z.infer<typeof newArtisanSchema>;

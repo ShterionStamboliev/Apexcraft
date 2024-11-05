@@ -6,13 +6,13 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import useArtisansQuery from '@/components/api/artisans/artisansQuery';
 import { ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -22,8 +22,14 @@ type ArtisanFormProps = {
 const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useEditArtisan } = useArtisansQuery();
-    const { mutate, isPending } = useEditArtisan({ artisanId, setIsOpen });
+    const { useEditEntity } = useMutationHook();
+
+    const { mutate, isPending } = useEditEntity<ArtisanSchema>({
+        URL: `/artisans/${artisanId}/edit`,
+        queryKey: ['artisans'],
+        successToast: 'Artisan updated successfully!',
+        setIsOpen
+    });
 
     const form = useForm<ArtisanSchema>({
         resolver: zodResolver(newArtisanSchema),
