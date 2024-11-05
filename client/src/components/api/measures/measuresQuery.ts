@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import useMeasuresApi from './measuresApi';
 import React from 'react';
 
-
 type DialogStateAction = {
     measureId?: string;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,8 +13,6 @@ const useMeasuresQuery = () => {
     const { fireSuccessToast, fireErrorToast } = useToastHook();
     
     const { createMeasure, editMeasure } = useMeasuresApi();
-    
-
 
     const useCreateMeasure = ({ setIsOpen }: DialogStateAction) => {
         const client = useQueryClient();

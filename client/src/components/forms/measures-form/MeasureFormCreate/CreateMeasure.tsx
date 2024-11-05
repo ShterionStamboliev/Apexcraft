@@ -1,4 +1,3 @@
-import useMeasuresQuery from '@/components/api/measures/measuresQuery';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import { MeasureSchema } from '@/components/models/measure/newMeasureSchema';
@@ -6,12 +5,17 @@ import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateMeasureForm from './CreateMeasureForm';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();
+    const { useCreateNewEntity } = useMutationHook();
 
-    const { useCreateMeasure } = useMeasuresQuery();
-    const { mutate, isPending } = useCreateMeasure({ setIsOpen });
+    const { mutate, isPending } = useCreateNewEntity<MeasureSchema>({
+        URL: '/measures/create',
+        queryKey: ['measures'],
+        setIsOpen,
+    });
 
     const handleSubmit = async (measureData: MeasureSchema) => {
         mutate(measureData);
