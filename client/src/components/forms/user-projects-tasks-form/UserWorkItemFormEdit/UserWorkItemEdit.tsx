@@ -1,4 +1,3 @@
-import useWorkItemsQuery from '@/components/api/work-items/workItemsQuery'
 import DialogFooter from '@/components/common/DialogElements/DialogFooter'
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
@@ -6,6 +5,7 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector'
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { WorkItem, workItemSchema, WorkItemSchema } from '@/types/task-types/workItemType'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,6 +21,15 @@ type UserWorkItemEditProps = {
 const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
+    const { useEditEntity } = useMutationHook();
+
+    const { mutate, isPending } = useEditEntity<WorkItemSchema>({
+        URL: `/my-projects/${taskId}/task/${workItemId}/edit`,
+        queryKey: ['artisanTasks', taskId],
+        successToast: 'Work item updated successfully!',
+        setIsOpen
+    });
+
     const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
         defaultValues: {
@@ -32,9 +41,6 @@ const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProp
             status: workItem.status
         }
     });
-
-    const { useEditUserWorkItem } = useWorkItemsQuery();
-    const { mutate, isPending } = useEditUserWorkItem(taskId, workItemId!, setIsOpen);
 
     const handleSubmit = (workItemData: WorkItemSchema) => {
         mutate(workItemData, {

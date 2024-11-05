@@ -11,6 +11,6 @@ const router = express.Router();
 router.get('/my-projects', authenticateToken, getArtisanTasks);
 router.get('/my-projects/:taskId/task', authenticateToken, getTaskWithProject);
 router.post('/my-projects/:taskId/task/create', authenticateToken, createWorkItem);
-router.post('/my-projects/:taskId/task/:id/edit', authenticateToken, editWorkItem);
+router.put('/my-projects/:taskId/task/:id/edit', authenticateToken, editWorkItem);
 
 module.exports = router;
