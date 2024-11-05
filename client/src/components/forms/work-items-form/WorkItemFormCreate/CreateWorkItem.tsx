@@ -1,17 +1,23 @@
-import useWorkItemsQuery from '@/components/api/work-items/workItemsQuery'
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate'
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { WorkItemSchema } from '@/types/task-types/workItemType'
 import { useParams } from 'react-router-dom'
 import CreateWorkItemForm from './CreateWorkItemForm'
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook'
 
 const CreateWorkItem = () => {
     const { id, taskId } = useParams();
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useCreateWorkItem } = useWorkItemsQuery();
-    const { mutate, isPending } = useCreateWorkItem(id!, taskId!, setIsOpen);
+    const { useCreateNewEntity } = useMutationHook();
+
+    const { mutate, isPending } = useCreateNewEntity<WorkItemSchema>({
+        URL: `/projects/${id}/tasks/${taskId}/workItems/create`,
+        queryKey: ['workItems', id, taskId],
+        successToast: 'Work item created successfully!',
+        setIsOpen
+    });
 
     const handleSubmit = (workItemData: WorkItemSchema) => {
         mutate(workItemData);

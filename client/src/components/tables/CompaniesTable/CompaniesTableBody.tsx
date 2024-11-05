@@ -12,7 +12,13 @@ import Pagination from '@/components/common/Pagination/Pagination';
 
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
-    const { data: companies, isPending, isError, error } = useGetPaginatedData<Company>('companies', page, itemsLimit);
+    
+    const { data: companies, isPending, isError, error } = useGetPaginatedData<Company>({
+        URL: '/companies',
+        queryKey: ['companies', page],
+        limit: itemsLimit,
+        page
+    });
 
     const totalPages: number | undefined = companies?.totalPages;
 

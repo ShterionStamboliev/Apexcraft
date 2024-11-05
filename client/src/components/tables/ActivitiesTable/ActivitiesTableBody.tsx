@@ -13,7 +13,12 @@ import { Activity } from '@/types/activity-types/activityTypes';
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { data: activities, isPending, isError, error } = useGetPaginatedData<Activity>('activities', page, itemsLimit);
+    const { data: activities, isPending, isError, error } = useGetPaginatedData<Activity>({
+        URL: '/activities',
+        queryKey: ['activities', page],
+        limit: itemsLimit,
+        page
+    });
 
     const totalPages: number | undefined = activities?.totalPages;
 

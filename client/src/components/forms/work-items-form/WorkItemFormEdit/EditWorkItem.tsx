@@ -1,4 +1,3 @@
-import useWorkItemsQuery from '@/components/api/work-items/workItemsQuery';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
@@ -6,6 +5,7 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { WorkItemSchema, workItemSchema } from '@/types/task-types/workItemType'
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +21,16 @@ interface EditWorkItemProps {
 
 const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
     const { isOpen, setIsOpen } = useDialogState();
-
+    
+    const { useEditEntity } = useMutationHook();
+    
+    const { mutate, isPending } = useEditEntity<WorkItemSchema>({
+        URL: `/projects/${id}/tasks/${taskId}/workItems/${workItemId}/edit`,
+        queryKey: ['workItems', id, taskId],
+        successToast: 'Work item updated successfully!',
+        setIsOpen,
+    });
+    
     const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
         defaultValues: {
@@ -33,9 +42,6 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
             status: task.status
         }
     });
-
-    const { useEditWorkItem } = useWorkItemsQuery();
-    const { mutate, isPending } = useEditWorkItem(id, taskId, workItemId, setIsOpen);
 
     const handleSubmit = (workItemData: WorkItemSchema) => {
         mutate(workItemData, {
