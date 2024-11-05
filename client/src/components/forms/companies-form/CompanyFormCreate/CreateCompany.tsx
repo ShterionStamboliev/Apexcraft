@@ -1,4 +1,3 @@
-import useCompaniesQuery from '@/components/api/companies/companiesQuery';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import { CompanySchema } from '@/components/models/company/newCompanySchema';
@@ -6,12 +5,19 @@ import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateCompanyForm from './CreateCompanyForm';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const CreateCompany = () => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useCreateCompany } = useCompaniesQuery();
-    const { mutate, isPending } = useCreateCompany({ setIsOpen });
+    const { useCreateNewEntity } = useMutationHook();
+
+    const { mutate, isPending } = useCreateNewEntity<CompanySchema>({
+        URL: '/companies/create',
+        queryKey: ['companies'],
+        successToast: 'Company created successfully!',
+        setIsOpen
+    });
 
     const handleSubmit = (companyData: CompanySchema) => {
         mutate(companyData);
