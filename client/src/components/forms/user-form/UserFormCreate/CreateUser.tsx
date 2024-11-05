@@ -1,16 +1,22 @@
 import { UserSchema } from '@/components/models/user/newUserSchema'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import DialogHeader from '@/components/common/DialogElements/DialogHeader'
-import useUsersQuery from '@/components/api/users/usersQuery'
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate'
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
 import CreateUserForm from './CreateUserForm'
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook'
 
 const CreateUser = () => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useCreateUser } = useUsersQuery();
-    const { mutate, isPending } = useCreateUser({ setIsOpen });
+    const { useCreateNewEntity } = useMutationHook();
+    
+    const { mutate, isPending } = useCreateNewEntity<UserSchema>({
+        URL: '/users/create',
+        queryKey: ['users'],
+        successToast: 'User created successfully!',
+        setIsOpen
+    });
 
     const handleSubmit = async (userData: UserSchema) => {
         mutate(userData);

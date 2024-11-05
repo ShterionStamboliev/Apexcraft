@@ -5,12 +5,12 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import useUsersQuery from '@/components/api/users/usersQuery';
 import { addNewUserSchema, UserSchema } from '@/components/models/user/newUserSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 type UserFormProps = {
     userId: string;
@@ -20,9 +20,14 @@ type UserFormProps = {
 const EditUserForm = ({ user, userId }: UserFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useEditUser } = useUsersQuery();
+    const { useEditEntity } = useMutationHook();
 
-    const { mutate, isPending } = useEditUser({ userId, setIsOpen });
+    const { mutate, isPending } = useEditEntity<UserSchema>({
+        URL: `/users/${userId}/edit`,
+        queryKey: ['users'],
+        successToast: 'User updated successfully!',
+        setIsOpen
+    });
 
     const form = useForm<UserSchema>({
         resolver: zodResolver(addNewUserSchema),
