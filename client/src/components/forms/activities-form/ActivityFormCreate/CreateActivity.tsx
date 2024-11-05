@@ -1,16 +1,22 @@
-import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const CreateActivity = () => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useCreateActivity } = useActivitiesQuery();
-    const { mutate, isPending } = useCreateActivity({ setIsOpen });
+    const { useCreateNewEntity } = useMutationHook();
+
+    const { mutate, isPending } = useCreateNewEntity<ActivitySchema>({
+        URL: '/activities/create',
+        queryKey: ['activities'],
+        successToast: 'Activity created successfully!',
+        setIsOpen
+    });
 
     const handleSubmit = async (activityData: ActivitySchema) => {
         mutate(activityData);

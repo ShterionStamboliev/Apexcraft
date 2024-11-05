@@ -17,6 +17,7 @@ type MeasureFormProps = {
 
 const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
+    
     const { useEditEntity } = useMutationHook();
 
     const { mutate, isPending } = useEditEntity<MeasureSchema>({

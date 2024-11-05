@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook'
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,

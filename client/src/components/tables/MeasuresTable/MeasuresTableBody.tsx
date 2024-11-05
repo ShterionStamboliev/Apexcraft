@@ -5,7 +5,7 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import MeasuresCard from './MeasuresCard';
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader';
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Measure } from '@/types/measure-types/measureTypes';
 
 const MeasuresTableBody = () => {

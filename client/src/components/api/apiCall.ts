@@ -1,4 +1,4 @@
-import { PaginatedDataResponse } from '../hooks/custom-hooks/useFetchQueryHook';
+import { PaginatedDataResponse } from '../hooks/custom-hooks/useQueryHook';
 
 const API_URL = import.meta.env.VITE_API_URL;
 

@@ -7,7 +7,7 @@ import ActivitiesCard from './ActivitiesCard';
 import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Activity } from '@/types/activity-types/activityTypes';
 
 const ActivitiesTableBody = () => {

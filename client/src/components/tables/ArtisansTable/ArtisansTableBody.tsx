@@ -6,7 +6,7 @@ import ArtisansCard from './ArtisansCard';
 import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import ArtisansLoader from '@/components/utils/SkeletonLoader/Artisans/ArtisansLoader';
 

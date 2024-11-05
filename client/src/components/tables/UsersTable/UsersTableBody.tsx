@@ -8,7 +8,7 @@ import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { User } from '@/types/user-types/userTypes';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();

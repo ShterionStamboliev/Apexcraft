@@ -5,7 +5,7 @@ import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/Compani
 import { Building2, CircleAlert } from 'lucide-react';
 import CompaniesCard from './CompaniesCard';
 import CompaniesHeader from './CompanyTableElements/CompaniesHeader/CompaniesHeader';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Company } from '@/types/company-types/companyTypes';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import Pagination from '@/components/common/Pagination/Pagination';

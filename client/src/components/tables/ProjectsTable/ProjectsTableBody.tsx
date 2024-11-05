@@ -3,7 +3,7 @@ import { BrickWall, CircleAlert } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ProjectsCard from './ProjectsCard';
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useFetchQueryHook';
+import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Project } from '@/types/project-types/projectTypes';
 
 const ProjectsTableBody = () => {

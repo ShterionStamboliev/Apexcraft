@@ -4,12 +4,12 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import useActivitiesQuery from '@/components/api/activities/activitiesQuery';
 import { ActivitySchema, newActivitySchema } from '@/components/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 type ActivityFormProps = {
     activityId: string;
@@ -19,9 +19,14 @@ type ActivityFormProps = {
 const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useEditActivity } = useActivitiesQuery();
+    const { useEditEntity } = useMutationHook();
 
-    const { mutate, isPending } = useEditActivity({ activityId, setIsOpen });
+    const { mutate, isPending } = useEditEntity<ActivitySchema>({
+        URL: `/activities/${activityId}/edit`,
+        queryKey: ['activities'],
+        successToast: 'Activity updated successfully!',
+        setIsOpen
+    });
 
     const form = useForm<ActivitySchema>({
         resolver: zodResolver(newActivitySchema),
