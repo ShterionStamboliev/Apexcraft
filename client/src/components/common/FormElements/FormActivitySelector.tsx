@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
@@ -19,8 +19,12 @@ import { useFormContext } from 'react-hook-form'
 const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: activities } = useFetchQuery<PaginatedActivities>(['activities'], '/activities', {
-        staleTime: Infinity
+    const { data: activities } = useFetchDataQuery<PaginatedActivities>({
+        URL: '/activities',
+        queryKey: ['activities'],
+        options: {
+            staleTime: Infinity
+        }
     });
 
     return (

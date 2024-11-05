@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
@@ -20,8 +20,12 @@ import { useFormContext } from 'react-hook-form'
 const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: artisans } = useFetchQuery<PaginatedArtisans>(['artisans'], '/artisans', {
-        staleTime: Infinity
+    const { data: artisans } = useFetchDataQuery<PaginatedArtisans>({
+        URL: '/artisans',
+        queryKey: ['artisans'],
+        options: {
+            staleTime: Infinity
+        },
     });
 
     return (

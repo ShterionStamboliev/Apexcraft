@@ -5,11 +5,23 @@ import UserWorkItemCreate from '@/components/forms/user-projects-tasks-form/User
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
 import UserProjectWorkItemsList from './UserProjectWorkItemsList';
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
+import { ProjectTask } from '@/types/task-types/taskTypes';
+import { useParams } from 'react-router-dom';
 
 const UserProjectTaskTableBody = () => {
-    const { useGetArtisanTaskProject } = useTasksQuery();
+    const { taskId } = useParams<{ taskId: string }>();
 
-    const { data: task } = useGetArtisanTaskProject();
+    const { data: task } = useFetchDataQuery<ProjectTask>({
+        URL: `/my-projects/${taskId}/task`,
+        queryKey: ['artisanTasks', taskId],
+        options: {
+            staleTime: 0,
+        },
+    })
+    // const { useGetArtisanTaskProject } = useTasksQuery();
+
+    // const { data: task } = useGetArtisanTaskProject();
 
     return (
         <>

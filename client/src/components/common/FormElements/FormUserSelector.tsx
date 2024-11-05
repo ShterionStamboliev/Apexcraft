@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
@@ -19,8 +19,12 @@ import { useFormContext } from 'react-hook-form'
 
 const UsersSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
-    const { data: users } = useFetchQuery<PaginatedUsers>(['users'], '/users', {
-        staleTime: Infinity
+    const { data: users } = useFetchDataQuery<PaginatedUsers>({
+        URL: '/users',
+        queryKey: ['users'],
+        options: {
+            staleTime: Infinity
+        },
     });
 
     return (

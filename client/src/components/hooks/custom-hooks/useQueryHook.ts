@@ -16,6 +16,9 @@ interface FetchQueryOptions {
     queryKey: QueryKey,
 }
 
+interface FetchDataQueryOptions<TData> extends FetchQueryOptions {
+    options?: UseFetchQueryOptions<TData>
+}
 interface UseGetPaginatedDataTypes extends FetchQueryOptions {
     page: number,
     limit?: number,
@@ -64,14 +67,15 @@ export const useGetInfiniteData = <TData>({
     });
 };
 
-export const useFetchQuery = <TData>(
-    queryKey: QueryKey,
-    URL: string,
-    options?: UseFetchQueryOptions<TData>
+export const useFetchDataQuery = <TData>({
+    URL,
+    queryKey,
+    options,
+}: FetchDataQueryOptions<TData>
 ): UseQueryResult<TData> => {
     return useQuery({
         queryKey,
         queryFn: () => getEntityData<TData>(URL),
-        ...options,
+        ...options
     });
 };

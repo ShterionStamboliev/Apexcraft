@@ -13,27 +13,12 @@ type DialogStateAction = {
 }
 
 const useTasksQuery = () => {
-    const { createTask, editTask, getTaskById, getTasks, getArtisanTasks, getArtisanTaskProject } = useTasksApi();
+    const { createTask, editTask, getTaskById, getArtisanTaskProject } = useTasksApi();
 
     const { id, taskId } = useParams<{ id: string, taskId: string }>();
 
     const { fireErrorToast, fireSuccessToast } = useToastHook();
 
-    const useGetTasks = () => {
-        return useQuery({
-            queryFn: () => getTasks(id!),
-            queryKey: ['projects', id, 'tasks'],
-            staleTime: 0,
-        });
-    };
-
-    const useGetArtisanTasks = () => {
-        return useQuery({
-            queryFn: getArtisanTasks,
-            queryKey: ['artisanTasks'],
-            staleTime: 0,
-        });
-    };
 
     const useGetArtisanTaskProject = () => {
         return useQuery({
@@ -91,11 +76,9 @@ const useTasksQuery = () => {
     };
 
     return {
-        useGetTasks,
         useCreateTask,
         useEditTask,
         useGetTask,
-        useGetArtisanTasks,
         useGetArtisanTaskProject
     }
 };

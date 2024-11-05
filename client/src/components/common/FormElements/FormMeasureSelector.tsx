@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
@@ -20,8 +20,12 @@ import { useFormContext } from 'react-hook-form'
 const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: measures } = useFetchQuery<Measure[]>(['measures'], '/measures', {
-        staleTime: Infinity
+    const { data: measures } = useFetchDataQuery<Measure[]>({
+        URL: '/measures',
+        queryKey: ['measures'],
+        options: {
+            staleTime: Infinity
+        },
     });
 
     return (

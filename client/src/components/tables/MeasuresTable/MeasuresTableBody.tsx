@@ -5,11 +5,14 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import MeasuresCard from './MeasuresCard';
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader';
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Measure } from '@/types/measure-types/measureTypes';
 
 const MeasuresTableBody = () => {
-    const { data: measures, isPending, isError, error } = useFetchQuery<Measure[]>(['measures'], '/measures');
+    const { data: measures, isPending, isError, error } = useFetchDataQuery<Measure[]>({
+        URL: '/measures',
+        queryKey: ['measures']
+    });
 
     if (isPending) {
         return <MeasuresLoader measures={measures!} />

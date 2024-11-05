@@ -1,4 +1,4 @@
-import { useFetchQuery } from '@/components/hooks/custom-hooks/useQueryHook'
+import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
@@ -19,8 +19,12 @@ import { useFormContext } from 'react-hook-form'
 const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: companies } = useFetchQuery<PaginatedCompanies>(['companies'], '/companies', {
-        staleTime: Infinity
+    const { data: companies } = useFetchDataQuery<PaginatedCompanies>({
+        URL: '/companies',
+        queryKey: ['companies'],
+        options: {
+            staleTime: Infinity
+        },
     });
 
     return (
