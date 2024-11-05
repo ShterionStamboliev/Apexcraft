@@ -7,12 +7,12 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import { Project } from '@/types/project-types/projectTypes';
-import useProjectsQuery from '@/components/api/projects/projectsQuery';
 import { newProjectSchema, ProjectSchema } from '@/components/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 type ProjectFormProps = {
     projectId: string;
@@ -22,8 +22,14 @@ type ProjectFormProps = {
 const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useEditProject } = useProjectsQuery();
-    const { mutate, isPending } = useEditProject({ projectId, setIsOpen });
+    const { useEditEntity } = useMutationHook();
+
+    const { mutate, isPending } = useEditEntity<ProjectSchema>({
+        URL: `/projects/${projectId}/edit`,
+        queryKey: ['projects'],
+        successToast: 'Project updated successfully!',
+        setIsOpen
+    });
 
     const form = useForm<ProjectSchema>({
         resolver: zodResolver(newProjectSchema),
