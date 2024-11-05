@@ -14,12 +14,11 @@ type UseFetchQueryOptions<TData> = Omit<UseQueryOptions<TData>, 'queryKey' | 'qu
 interface FetchQueryOptions {
     URL: string,
     queryKey: QueryKey,
-    limit: number,
 }
 
 interface UseGetPaginatedDataTypes extends FetchQueryOptions {
     page: number,
-    limit: number,
+    limit?: number,
 }
 
 export type PaginatedDataResponse<TData> = {
@@ -38,7 +37,7 @@ export const useGetPaginatedData = <TData>({
 ): UseQueryResult<PaginatedDataResponse<TData>> => {
     return useQuery({
         queryKey: queryKey,
-        queryFn: () => getPaginatedData<TData>(URL, page, limit),
+        queryFn: () => getPaginatedData<TData>(URL, page, limit!),
         staleTime: 0,
         refetchInterval: false,
         refetchOnWindowFocus: false,
@@ -46,15 +45,14 @@ export const useGetPaginatedData = <TData>({
     });
 };
 
-export const useGetInfiniteData = <TData>({ // TODO: ...use this in work items list
+export const useGetInfiniteData = <TData>({
     URL,
     queryKey,
-    limit
 }: FetchQueryOptions
 ): UseInfiniteQueryResult<TData> => {
     return useInfiniteQuery({
         queryKey: queryKey,
-        queryFn: ({ pageParam = 1 }) => getInfiniteData<TData[]>(URL, pageParam, limit),
+        queryFn: ({ pageParam = 1 }) => getInfiniteData<TData[]>(URL, pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => {
             if (lastPage.length === 0) {
