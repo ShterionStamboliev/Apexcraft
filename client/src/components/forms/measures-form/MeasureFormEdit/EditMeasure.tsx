@@ -5,10 +5,10 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import { MeasureSchema, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import useMeasuresQuery from '@/components/api/measures/measuresQuery';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 type MeasureFormProps = {
     measureId: string;
@@ -17,10 +17,14 @@ type MeasureFormProps = {
 
 const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
+    const { useEditEntity } = useMutationHook();
 
-    const { useEditMeasure } = useMeasuresQuery();
-
-    const { mutate, isPending } = useEditMeasure({ measureId, setIsOpen });
+    const { mutate, isPending } = useEditEntity<MeasureSchema>({
+        URL: `/measures/${measureId}/edit`,
+        queryKey: ['measures'],
+        setIsOpen,
+        successToast: 'Measure updated successfully!'
+    });
 
     const form = useForm<MeasureSchema>({
         resolver: zodResolver(newMeasureSchema),

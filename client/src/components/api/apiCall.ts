@@ -25,33 +25,33 @@ export const apiCall = async (endpoint: string, method: string, data?: unknown) 
     return response.json();
 };
 
-export const getPaginatedData = async <T>(
+export const getPaginatedData = async <TData>(
     URL: string,
     page: number,
     limit: number,
-): Promise<PaginatedDataResponse<T>> => {
-    const data: PaginatedDataResponse<T> = await apiCall(`/${URL}?_page=${page}&_limit=${limit}`, 'GET');
+): Promise<PaginatedDataResponse<TData>> => {
+    const data: PaginatedDataResponse<TData> = await apiCall(`/${URL}?_page=${page}&_limit=${limit}`, 'GET');
     return data;
 };
 
-export const getEntityData = async <T>(
+export const getEntityData = async <TData>(
     URL: string
-): Promise<T> => {
-    const data: T = await apiCall(`${URL}`, 'GET');
+): Promise<TData> => {
+    const data: TData = await apiCall(`${URL}`, 'GET');
     return data;
 };
 
-export const createEntity = async <T>(
+export const createEntity = async <TData>(
     URL: string,
-    entityData: T
+    entityData: TData
 ): Promise<void> => {
     const data = await apiCall(`${URL}`, 'POST', entityData);
     return data;
 };
 
-export const editEntity = async <T>(
+export const editEntity = async <TData>(
     URL: string,
-    entityData: T
+    entityData: TData
 ): Promise<void> => {
     return await apiCall(`${URL}`, 'PUT', entityData);
 };

@@ -9,11 +9,13 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();
+    
     const { useCreateNewEntity } = useMutationHook();
 
     const { mutate, isPending } = useCreateNewEntity<MeasureSchema>({
         URL: '/measures/create',
         queryKey: ['measures'],
+        successToast: 'Measure created successfully!',
         setIsOpen,
     });
 

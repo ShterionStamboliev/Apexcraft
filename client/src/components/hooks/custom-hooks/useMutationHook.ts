@@ -1,11 +1,16 @@
 import { QueryKey, useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
 import useToastHook from './useToastHook';
-import { createEntity } from '@/components/api/apiCall';
+import { createEntity, editEntity } from '@/components/api/apiCall';
 
-type DialogStateAction = {
+interface MutationEntityStateActions {
     URL: string,
     queryKey: QueryKey,
+    successToast: string,
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+interface MutationEntityStateId extends MutationEntityStateActions {
+    entityId?: string,
 }
 
 export const useMutationHook = () => {
@@ -16,8 +21,9 @@ export const useMutationHook = () => {
     const useCreateNewEntity = <TData>({
         URL,
         queryKey,
+        successToast,
         setIsOpen
-    }: DialogStateAction
+    }: MutationEntityStateActions
     ): UseMutationResult<void, Error, TData, unknown> => {
         return useMutation({
             mutationFn: (entityData: TData) => createEntity<TData>(URL, entityData),
@@ -25,7 +31,29 @@ export const useMutationHook = () => {
                 client.invalidateQueries({
                     queryKey: queryKey
                 });
-                fireSuccessToast('Measure created successfully!');
+                fireSuccessToast(successToast);
+                setIsOpen(false);
+            },
+            onError: () => {
+                fireErrorToast('Something went wrong. Please try again.');
+            }
+        });
+    };
+
+    const useEditEntity = <TData>({
+        URL,
+        queryKey,
+        successToast,
+        setIsOpen,
+    }: MutationEntityStateId
+    ): UseMutationResult<void, Error, TData, unknown> => {
+        return useMutation({
+            mutationFn: (entityData: TData) => editEntity<TData>(URL, entityData),
+            onSuccess: () => {
+                client.invalidateQueries({
+                    queryKey: queryKey
+                });
+                fireSuccessToast(successToast);
                 setIsOpen(false);
             },
             onError: () => {
@@ -35,6 +63,7 @@ export const useMutationHook = () => {
     };
 
     return {
-        useCreateNewEntity
+        useCreateNewEntity,
+        useEditEntity
     }
 }
