@@ -1,31 +1,41 @@
 import { useEditTaskForm } from '@/components/hooks/custom-hooks/useEditTaskForm';
-import { EditTaskSchema } from '@/components/models/task/newTaskSchema';
+import { EditTaskSchema, TaskSchema } from '@/components/models/task/newTaskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from 'react';
-import useTasksQuery from '@/components/api/tasks/tasksQuery';
 import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
 import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
 import TasksEditBreadcrumbs from '@/components/common/Breadcrumbs/TasksEditBreadcrumbs';
-import { useGetInfiniteData } from '@/components/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery, useGetInfiniteData } from '@/components/hooks/custom-hooks/useQueryHook';
+import { Task } from '@/types/task-types/taskTypes';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();
+
     const navigate = useNavigate();
+
     const { ref, inView } = useInView();
 
-    const { useEditTask, useGetTask } = useTasksQuery();
+    const { data: task, isPending: isFetchTaskPending } = useFetchDataQuery<Task>({
+        URL: `/projects/${id}/tasks/${taskId}`,
+        queryKey: ['task', id, taskId],
+        options: {
+            staleTime: 0
+        },
+    });
 
-    const { data: task, isLoading } = useGetTask();
+    const { useEditEntity } = useMutationHook();
 
-    const { mutate, isPending } = useEditTask();
-
-    const form = useEditTaskForm(task!);
-    const isFormDirty = form.formState.isDirty;
+    const { mutate, isPending: isMutatePending } = useEditEntity<TaskSchema>({
+        URL: `/projects/${id}/tasks/${taskId}/edit`,
+        queryKey: ['task', id, taskId],
+        successToast: 'Task updated successfully!',
+    });
 
     const {
         data: workItemsData,
@@ -36,6 +46,9 @@ const EditTaskForm = () => {
         URL: `/projects/${id}/tasks/${taskId}`,
         queryKey: ['workItems', id, taskId],
     });
+
+    const form = useEditTaskForm(task!);
+    const isFormDirty = form.formState.isDirty;
 
     useEffect(() => {
         if (inView) {
@@ -51,7 +64,7 @@ const EditTaskForm = () => {
         });
     };
 
-    if (isLoading) {
+    if (isFetchTaskPending) {
         return <TaskViewEditSkeleton />
     };
 
@@ -74,7 +87,7 @@ const EditTaskForm = () => {
                             <TaskEditForm
                                 form={form}
                                 task={task}
-                                isLoading={isPending}
+                                isLoading={isMutatePending}
                                 submitFormHandler={handleSubmit}
                                 isFormDirty={isFormDirty}
                             />

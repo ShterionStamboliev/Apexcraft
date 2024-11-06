@@ -2,18 +2,24 @@ import { useParams } from 'react-router-dom';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import { TaskSchema } from '@/components/models/task/newTaskSchema';
-import useTasksQuery from '@/components/api/tasks/tasksQuery';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 import CreateTaskForm from './CreateTaskForm';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const CreateTask = () => {
     const { id } = useParams();
 
     const { isOpen, setIsOpen } = useDialogState();
 
-    const { useCreateTask } = useTasksQuery();
-    const { mutate, isPending } = useCreateTask({ id, setIsOpen });
+    const { useCreateNewEntity } = useMutationHook();
+
+    const { mutate, isPending } = useCreateNewEntity<TaskSchema>({
+        URL: `/projects/${id}/create-task`,
+        queryKey: ['projects', id, 'tasks'],
+        successToast: 'Task created successfully!',
+        setIsOpen
+    });
 
     const handleSubmit = async (taskData: TaskSchema) => {
         mutate(taskData);

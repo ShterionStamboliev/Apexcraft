@@ -6,7 +6,7 @@ interface MutationEntityStateActions {
     URL: string,
     queryKey: QueryKey,
     successToast: string,
-    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const useMutationHook = () => {
@@ -28,7 +28,7 @@ export const useMutationHook = () => {
                     queryKey: queryKey
                 });
                 fireSuccessToast(successToast);
-                setIsOpen(false);
+                setIsOpen && setIsOpen(false)
             },
             onError: () => {
                 fireErrorToast('Something went wrong. Please try again.');
@@ -50,7 +50,7 @@ export const useMutationHook = () => {
                     queryKey: queryKey
                 });
                 fireSuccessToast(successToast);
-                setIsOpen(false);
+                setIsOpen && setIsOpen(false)
             },
             onError: () => {
                 fireErrorToast('Something went wrong. Please try again.');

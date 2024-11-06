@@ -1,4 +1,3 @@
-import useTasksQuery from '@/components/api/tasks/tasksQuery';
 import ProjectInformationCard from '@/components/forms/user-projects-tasks-form/InformationCards/ProjectInformationCard';
 import TaskInformationCard from '@/components/forms/user-projects-tasks-form/InformationCards/TaskInformationCard';
 import UserWorkItemCreate from '@/components/forms/user-projects-tasks-form/UserWorkItemFormCreate/UserWorkItemCreate';
@@ -18,10 +17,7 @@ const UserProjectTaskTableBody = () => {
         options: {
             staleTime: 0,
         },
-    })
-    // const { useGetArtisanTaskProject } = useTasksQuery();
-
-    // const { data: task } = useGetArtisanTaskProject();
+    });
 
     return (
         <>
