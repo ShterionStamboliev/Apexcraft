@@ -9,10 +9,9 @@ const TableLayout = ({ children }: TableLayoutProps) => {
         <div className="flex flex-col min-h-screen">
             <LayoutHeader />
 
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden pt-16">
                 {children}
             </div>
-            
         </div>
     );
 }

@@ -6,17 +6,17 @@ const Sidebar = () => {
     const onDesktop = useMediaQuery('(min-width: 768px)');
 
     return (
-        <>
-            <div className='relative min-h-[100vh]'>
-                <aside className="max-w-xs flex flex-col border-r px-4 py-8 md:min-w-[220px] md:px-0">
-                    {onDesktop
-                        ? <SidebarDesktop />
-                        : <SidebarMobile />
-                    }
+        <div>
+            {onDesktop ? (
+                <aside className="fixed top-16 left-0 z-50 h-[calc(100vh-4rem)] w-64 border-r px-2 py-6 md:w-56 overflow-y-auto">
+                    <SidebarDesktop />
                 </aside>
-                <div className='absolute top-0 right-0 h-full border-r' />
-            </div>
-        </>
+            ) : (
+                <aside className="fixed bottom-0 left-0 right-0 z-50 bg-background shadow-sm border-t px-4 py-4 md:hidden">
+                    <SidebarMobile />
+                </aside>
+            )}
+        </div>
     );
 }
 

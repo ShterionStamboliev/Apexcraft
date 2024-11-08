@@ -3,10 +3,12 @@ import ProjectsTable from '../tables/ProjectsTable/ProjectsTable'
 
 const ProjectsTablePage = () => {
     return (
-        <div className="flex gap-2 pr-2 md:gap-8">
+        <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
 
-            <ProjectsTable />
+            <div className="flex-1 flex px-2 md:gap-8">
+                <ProjectsTable />
+            </div>
         </div>
     )
 }

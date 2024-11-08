@@ -2,16 +2,23 @@ import { Button } from '@/components/ui/button'
 import { SheetClose, SheetHeader } from '@/components/ui/sheet'
 import { X } from 'lucide-react'
 
-type SidebarSheetHeaderProps = {
-    headerTitle: string
-}
-
-const SidebarSheetHeader = ({ headerTitle }: SidebarSheetHeaderProps) => {
+const SidebarSheetHeader = () => {
     return (
-        <SheetHeader className='flex flex-row justify-between items-center space-y-0 mb-4'>
-            <span className='text-lg font-semibold text-foreground mx-3 text-zinc-500 tracking-tight hover:text-zinc-700 hover:cursor-pointer dark:hover:text-zinc-400 duration-200'>
-                {headerTitle}
-            </span>
+        <SheetHeader className='flex flex-row pl-2 justify-between items-center space-y-0 mb-4'>
+            <div className="flex-shrink-0">
+                <span className="sr-only">ApeXCraft</span>
+                <span className="relative font-extrabold text-1xl tracking-tight">
+                    <span className="relative">
+                        Ape
+                        <span className="inline-flex items-center">
+                            <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 5L5 19M5 5L19 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                        </span>
+                        Craft
+                    </span>
+                </span>
+            </div>
             <SheetClose asChild>
                 <Button className='h-7 w-7 p-0' variant='ghost'>
                     <X size={15} />

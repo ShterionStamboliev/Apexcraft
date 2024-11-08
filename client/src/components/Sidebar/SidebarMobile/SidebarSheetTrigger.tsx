@@ -7,7 +7,7 @@ const SidebarSheetTrigger = () => {
         <>
             <SheetTrigger asChild>
                 <Button size='icon' variant='ghost'>
-                    <Menu size={20} />
+                    <Menu size={22} />
                 </Button>
             </SheetTrigger>
         </>
