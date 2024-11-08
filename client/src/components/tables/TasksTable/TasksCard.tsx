@@ -12,10 +12,10 @@ const TasksCard = ({ tasks, id }: TasksCardProps) => {
         <>
             {
                 tasks.map((task) => (
-                    <Card className='w-[21rem]' key={task.id}>
+                    <Card className='w-[21rem] shadow-md shadow-slate-700/20 transition duration-300 ease-in-out hover:shadow-md dark:hover:shadow-slate-700/40' key={task.id}>
                         <CardHeader className='bg-header rounded-t-lg p-5'>
                             <CardTitle>
-                                <Link to={`/projects/${id}/tasks/${task.id}/edit`} className='hover:underline'>
+                                <Link to={`/projects/${id}/tasks/${task.id}/edit`} className='transition duration-300 ease-in-out hover:text-slate-400'>
                                     {task.name}
                                 </Link>
                             </CardTitle>

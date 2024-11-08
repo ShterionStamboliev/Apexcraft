@@ -20,7 +20,7 @@ const WorkItemsList = ({ workItemsData, isFetchingNextPage, isWorkItemsLoading, 
     const noResultsFound = !workItemsData?.pages || workItemsData.pages.every((page: any) => page.length === 0);
 
     return (
-        <div className="mt-10 space-y-4">
+        <div className="mt-10 mb-16 space-y-4">
             {noResultsFound ? (
                 <NoResultsFound
                     title='No work items found'
