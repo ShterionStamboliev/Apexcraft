@@ -12,7 +12,7 @@ const ProjectsCard = ({ projects }: CardFormProps) => {
         <>
             {
                 projects.map((project) => (
-                    <Card className='w-full sm:w-[21rem]' key={project.id}>
+                    <Card className='w-full sm:w-[21rem] shadow-md shadow-slate-700/20' key={project.id}>
                         <CardHeader className='bg-header rounded-t-lg p-5'>
                             <CardTitle>
                                 <Link to={`/projects/${project.id}/tasks`} className='transition-transform ease-out hover:underline'>

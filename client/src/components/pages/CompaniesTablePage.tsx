@@ -3,10 +3,12 @@ import CompaniesTable from '../tables/CompaniesTable/CompaniesTable';
 
 const CompaniesTablePage = () => {
     return (
-        <div className="flex gap-2 pr-2 md:gap-8">
+        <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
 
-            <CompaniesTable />
+            <div className="flex-1 flex px-2 md:gap-8">
+                <CompaniesTable />
+            </div>
         </div>
     );
 }

@@ -3,10 +3,12 @@ import UsersTable from '../tables/UsersTable/UsersTable';
 
 const UsersTablePage = () => {
     return (
-        <div className="flex gap-2 pr-2 md:gap-8">
+        <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
-            
-            <UsersTable />
+
+            <div className="flex-1 flex px-2 md:gap-8">
+                <UsersTable />
+            </div>
         </div>
     );
 }
