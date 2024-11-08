@@ -72,7 +72,7 @@ const EditTaskForm = () => {
         <>
             {
                 task && (
-                    <div className="container mx-auto p-4">
+                    <div className="container mx-auto p-3">
                         <div className='mb-6'>
                             <TasksEditBreadcrumbs
                                 id={id!}

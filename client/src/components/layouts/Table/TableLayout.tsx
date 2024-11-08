@@ -12,6 +12,7 @@ const TableLayout = ({ children }: TableLayoutProps) => {
             <div className="flex-1 overflow-hidden">
                 {children}
             </div>
+            
         </div>
     );
 }

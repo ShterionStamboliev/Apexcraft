@@ -38,4 +38,3 @@ const useToastHook = () => {
 };
 
 export default useToastHook;
-

@@ -5,7 +5,7 @@ import TasksBreadcrumbs from '@/components/common/Breadcrumbs/TasksBreadcrumbs';
 const TasksTable = () => {
     return (
         <div className="relative flex flex-col flex-1 py-8 overflow-x-auto md:px-0 md:flex-row">
-            <div className='flex-1 pr-7 overflow-x-auto'>
+            <div className='flex-1 overflow-x-auto'>
                 <div className='mb-6'>
                     <TasksBreadcrumbs />
                 </div>

@@ -1,5 +1,4 @@
 import LayoutHeader from '@/components/layouts/Header/LayoutHeader';
-import LayoutFooter from '@/components/layouts/Footer/LayoutFooter';
 
 type LayoutHomepageProps = {
     children: React.ReactNode;
@@ -13,8 +12,7 @@ const LayoutHomepage = ({ children }: LayoutHomepageProps) => {
             <div className="flex-1">
                 {children}
             </div>
-
-            <LayoutFooter />
+            
         </div>
     );
 }

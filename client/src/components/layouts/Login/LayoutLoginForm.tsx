@@ -1,4 +1,3 @@
-import LayoutFooter from '@/components/layouts/Footer/LayoutFooter';
 
 type LayoutLoginFormProps = {
     children: React.ReactNode;
@@ -12,7 +11,6 @@ const LayoutLoginForm = ({ children }: LayoutLoginFormProps) => {
                 {children}
             </div>
 
-            <LayoutFooter />
         </div>
     )
 }
