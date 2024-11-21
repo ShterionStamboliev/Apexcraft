@@ -7,19 +7,19 @@ import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import { Project } from '@/types/project-types/projectTypes';
 
 const ProjectsTableBody = () => {
-    const { data: projects, isPending, isError, error } = useFetchDataQuery<Project[]>({
+    const { data: projects, isPending, isError } = useFetchDataQuery<Project[]>({
         URL: '/projects',
         queryKey: ['projects'],
     });
 
     if (isPending) {
-        return <ProjectsSkeletonCard count={5} />
+        return <ProjectsSkeletonCard projects={projects} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
+            error={'Something went wrong. Please try again.'}
             Icon={CircleAlert}
         />
     };
