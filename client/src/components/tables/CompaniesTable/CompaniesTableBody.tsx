@@ -13,7 +13,7 @@ import Pagination from '@/components/common/Pagination/Pagination';
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
     
-    const { data: companies, isPending, isError, error } = useGetPaginatedData<Company>({
+    const { data: companies, isPending, isError } = useGetPaginatedData<Company>({
         URL: '/companies',
         queryKey: ['companies', page],
         limit: itemsLimit,
@@ -29,7 +29,6 @@ const CompaniesTableBody = () => {
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };

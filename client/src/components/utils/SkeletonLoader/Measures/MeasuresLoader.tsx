@@ -4,16 +4,18 @@ import MeasuresSkeleton from './MeasuresSkeleton'
 import MeasuresHeader from '@/components/tables/MeasuresTable/MeasuresTableElements/MeasuresHeader/MeasuresHeader';
 
 type MeasureProps = {
-    measures: Measure[];
+    measures: Measure[] | undefined;
 }
 
 const MeasuresLoader = ({ measures }: MeasureProps) => {
+    const companiesCount = measures ? measures.length : 10;
+
     return (
         <Table className='w-full min-w-full'>
             <MeasuresHeader />
             <TableBody>
                 {
-                    measures && Array.from({ length: measures.length }).map((_, i) => (
+                    Array.from({ length: companiesCount }).map((_, i) => (
                         <MeasuresSkeleton key={i} />
                     ))
                 }

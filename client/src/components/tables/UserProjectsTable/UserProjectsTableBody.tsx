@@ -7,7 +7,7 @@ import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import { Task } from '@/types/task-types/taskTypes';
 
 const UserProjectsTableBody = () => {
-    const { data: tasks, isPending, isError, error } = useFetchDataQuery<Task[]>({
+    const { data: tasks, isPending, isError } = useFetchDataQuery<Task[]>({
         URL: '/my-projects',
         queryKey: ['artisanTasks'],
         options: {
@@ -16,13 +16,12 @@ const UserProjectsTableBody = () => {
     });
 
     if (isPending) {
-        return <ProjectTasksSkeleton count={5} />
+        return <ProjectTasksSkeleton tasks={tasks} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };

@@ -13,7 +13,7 @@ import { Activity } from '@/types/activity-types/activityTypes';
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { data: activities, isPending, isError, error } = useGetPaginatedData<Activity>({
+    const { data: activities, isPending, isError } = useGetPaginatedData<Activity>({
         URL: '/activities',
         queryKey: ['activities', page],
         limit: itemsLimit,
@@ -23,13 +23,12 @@ const ActivitiesTableBody = () => {
     const totalPages: number | undefined = activities?.totalPages;
 
     if (isPending) {
-        return <ActivitiesLoader activity={activities!} />
+        return <ActivitiesLoader activity={activities} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };

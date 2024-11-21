@@ -13,7 +13,7 @@ import ArtisansLoader from '@/components/utils/SkeletonLoader/Artisans/ArtisansL
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
 
-    const { data: artisans, isPending, isError, error } = useGetPaginatedData<Artisan>({
+    const { data: artisans, isPending, isError } = useGetPaginatedData<Artisan>({
         URL: '/artisans',
         queryKey: ['artisans', page],
         limit: itemsLimit,
@@ -23,13 +23,12 @@ const ArtisansTableBody = () => {
     const totalPages: number | undefined = artisans?.totalPages;
 
     if (isPending) {
-        return <ArtisansLoader artisans={artisans!} />
+        return <ArtisansLoader artisans={artisans} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };

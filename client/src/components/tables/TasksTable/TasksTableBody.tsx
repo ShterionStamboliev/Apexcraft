@@ -10,7 +10,7 @@ import { Task } from '@/types/task-types/taskTypes';
 const ProjectsTasksBody = () => {
     const { id } = useParams();
 
-    const { data: tasks, isPending, isError, error } = useFetchDataQuery<Task[]>({
+    const { data: tasks, isPending, isError } = useFetchDataQuery<Task[]>({
         URL: `/projects/${id}/tasks`,
         queryKey: ['projects', id, 'tasks'],
         options: {
@@ -19,13 +19,12 @@ const ProjectsTasksBody = () => {
     });
 
     if (isPending) {
-        return <ProjectTasksSkeleton count={5} />
+        return <ProjectTasksSkeleton tasks={tasks} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };

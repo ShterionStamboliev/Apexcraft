@@ -4,16 +4,18 @@ import ActivitiesSkeleton from './ActivitiesSkeleton'
 import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 
 type ActivitiesProps = {
-    activity: PaginatedActivities;
+    activity: PaginatedActivities | undefined;
 }
 
 const ActivitiesLoader = ({ activity }: ActivitiesProps) => {
+    const activitiesCount = activity ? activity.data.length : 10;
+
     return (
         <Table className='w-full min-w-full'>
             <ActivitiesHeader />
             <TableBody>
                 {
-                    activity && Array.from({ length: activity.data.length }).map((_, i) => (
+                    Array.from({ length: activitiesCount }).map((_, i) => (
                         <ActivitiesSkeleton key={i} />
                     ))
                 }

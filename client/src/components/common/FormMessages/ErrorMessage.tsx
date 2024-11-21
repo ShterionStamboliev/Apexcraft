@@ -3,13 +3,13 @@ import { ReactNode } from 'react';
 
 type ErrorMessageProps = {
     title: string;
-    error: ReactNode
+    error?: ReactNode
     Icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>
 }
 
 const ErrorMessage = ({
     title,
-    error = 'Something went wrong. Please try again.',
+    error = 'Something went wrong while fetching your data. Please try again.',
     Icon
 }: ErrorMessageProps) => {
     return (

@@ -15,13 +15,12 @@ const MeasuresTableBody = () => {
     });
 
     if (isPending) {
-        return <MeasuresLoader measures={measures!} />
+        return <MeasuresLoader measures={measures} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error
             Icon={CircleAlert}
         />
     };

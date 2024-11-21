@@ -19,7 +19,6 @@ const ProjectsTableBody = () => {
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error
             Icon={CircleAlert}
         />
     };

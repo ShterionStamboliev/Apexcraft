@@ -13,7 +13,7 @@ import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHoo
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { data: users, isPending, isError, error } = useGetPaginatedData<User>({
+    const { data: users, isPending, isError } = useGetPaginatedData<User>({
         URL: '/users',
         queryKey: ['users', page],
         limit: itemsLimit,
@@ -23,13 +23,12 @@ const UsersTableBody = () => {
     const totalPages: number | undefined = users?.totalPages;
 
     if (isPending) {
-        return <UsersLoader users={users!} />
+        return <UsersLoader users={users} />
     };
 
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
             Icon={CircleAlert}
         />
     };
