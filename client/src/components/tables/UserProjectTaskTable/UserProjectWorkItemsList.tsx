@@ -15,7 +15,7 @@ const UserProjectWorkItemsList = ({ workItemsData }: UserProjectWorkItemsListPro
     const { taskId } = useParams();
 
     return (
-        <div className="mt-10 space-y-4">
+        <div className="mb-20 mt-10 space-y-4">
             {
                 workItemsData?.length === 0 ? (
                     <NoResultsFound

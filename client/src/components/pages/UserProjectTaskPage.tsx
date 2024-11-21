@@ -3,10 +3,13 @@ import UserProjectTaskTableBody from '../tables/UserProjectTaskTable/UserProject
 
 const UserProjectTaskPage = () => {
     return (
-        <div className="flex gap-2 md:gap-8">
+        <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
 
-            <UserProjectTaskTableBody />
+            <div className="flex-1 flex px-2 md:gap-8">
+                <UserProjectTaskTableBody />
+            </div>
+
         </div>
     )
 }
