@@ -23,7 +23,7 @@ const CompaniesTableBody = () => {
     const totalPages: number | undefined = companies?.totalPages;
 
     if (isPending) {
-        return <CompaniesLoader companies={companies!} />
+        return <CompaniesLoader companies={companies} />
     };
 
     if (isError) {

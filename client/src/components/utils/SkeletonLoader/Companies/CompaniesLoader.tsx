@@ -4,17 +4,20 @@ import CompaniesSkeleton from './CompaniesSkeleton'
 import { Company } from '@/types/company-types/companyTypes'
 
 type CompanyProps = {
-    companies: Company[];
+    companies: Company[] | undefined;
 }
 
 const CompaniesLoader = ({ companies }: CompanyProps) => {
+    const companiesCount = companies ? companies.length : 10;
+
     return (
         <Table className='w-full min-w-full'>
             <CompaniesHeader />
             <TableBody>
-                {companies && Array.from({ length: companies.length }).map((_, i) => (
-                    <CompaniesSkeleton key={i} />
-                ))
+                {
+                    Array.from({ length: companiesCount }).map((_, i) => (
+                        <CompaniesSkeleton key={i} />
+                    ))
                 }
             </TableBody>
         </Table>
