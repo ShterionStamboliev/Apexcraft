@@ -9,7 +9,7 @@ import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import { Measure } from '@/types/measure-types/measureTypes';
 
 const MeasuresTableBody = () => {
-    const { data: measures, isPending, isError, error } = useFetchDataQuery<Measure[]>({
+    const { data: measures, isPending, isError } = useFetchDataQuery<Measure[]>({
         URL: '/measures',
         queryKey: ['measures']
     });
@@ -21,7 +21,7 @@ const MeasuresTableBody = () => {
     if (isError) {
         return <ErrorMessage
             title='Oops...'
-            error={`${error.message}. Please try again.`}
+            error
             Icon={CircleAlert}
         />
     };

@@ -7,7 +7,11 @@ type ErrorMessageProps = {
     Icon: React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>
 }
 
-const ErrorMessage = ({ title, error, Icon }: ErrorMessageProps) => {
+const ErrorMessage = ({
+    title,
+    error = 'Something went wrong. Please try again.',
+    Icon
+}: ErrorMessageProps) => {
     return (
         <div className="flex flex-1 flex-col items-center justify-center space-y-3 bg-background text-center p-8 rounded-lg border border-dashed">
             <div className="bg-muted rounded-full p-3">
