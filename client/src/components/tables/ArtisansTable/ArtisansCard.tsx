@@ -1,9 +1,10 @@
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { PaginatedArtisans } from '@/types/artisan-types/artisanTypes'
+import { Artisan } from '@/types/artisan-types/artisanTypes'
 
 type ArtisansCardProps = {
-    artisans: PaginatedArtisans;
+    artisans: PaginatedData<Artisan>;
 }
 
 const ArtisansCard = ({ artisans }: ArtisansCardProps) => {

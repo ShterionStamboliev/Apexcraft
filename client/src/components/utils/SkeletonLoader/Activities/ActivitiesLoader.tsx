@@ -1,10 +1,11 @@
-import { PaginatedActivities } from '@/types/activity-types/activityTypes'
+import { Activity } from '@/types/activity-types/activityTypes'
 import { Table, TableBody } from "../../../ui/table"
 import ActivitiesSkeleton from './ActivitiesSkeleton'
 import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 
 type ActivitiesProps = {
-    activity: PaginatedActivities | undefined;
+    activity: PaginatedData<Activity> | undefined;
 }
 
 const ActivitiesLoader = ({ activity }: ActivitiesProps) => {

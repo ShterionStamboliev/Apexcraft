@@ -1,9 +1,10 @@
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditActivityForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { PaginatedActivities } from '@/types/activity-types/activityTypes'
+import { Activity } from '@/types/activity-types/activityTypes'
 
 type ActivitiesCardProps = {
-    activities: PaginatedActivities;
+    activities: PaginatedData<Activity>;
 }
 
 const ActivitiesCard = ({ activities }: ActivitiesCardProps) => {

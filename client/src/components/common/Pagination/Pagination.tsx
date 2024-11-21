@@ -7,13 +7,20 @@ import {
     PaginationPrevious
 } from '@/components/ui/pagination';
 
-type PaginatorProps = {
+type PaginationProps = {
     totalPages: number | undefined;
     page: number;
     setSearchParams: (params: URLSearchParams) => void;
 }
 
-const Pagination = ({ totalPages, page, setSearchParams }: PaginatorProps) => {
+export type PaginatedData<T> = {
+    data: T[];
+    limit?: number;
+    total?: number;
+    totalPages?: number;
+}
+
+const Pagination = ({ totalPages, page, setSearchParams }: PaginationProps) => {
 
     const handlePreviousPage = (): void => {
         setSearchParams(new URLSearchParams({ page: (page - 1).toString() }));

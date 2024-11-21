@@ -13,14 +13,15 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { PaginatedArtisans } from '@/types/artisan-types/artisanTypes'
+import { Artisan } from '@/types/artisan-types/artisanTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
+import { PaginatedData } from '../Pagination/Pagination'
 
 const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: artisans } = useFetchDataQuery<PaginatedArtisans>({
+    const { data: artisans } = useFetchDataQuery<PaginatedData<Artisan>>({
         URL: '/artisans',
         queryKey: ['artisans'],
         options: {

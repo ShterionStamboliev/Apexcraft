@@ -12,14 +12,15 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { PaginatedCompanies } from '@/types/company-types/companyTypes'
+import { Company } from '@/types/company-types/companyTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
+import { PaginatedData } from '../Pagination/Pagination'
 
 const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: companies } = useFetchDataQuery<PaginatedCompanies>({
+    const { data: companies } = useFetchDataQuery<PaginatedData<Company>>({
         URL: '/companies',
         queryKey: ['companies'],
         options: {

@@ -1,9 +1,10 @@
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditUserForm from '@/components/forms/user-form/UserFormEdit/EditUser';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { PaginatedUsers } from '@/types/user-types/userTypes'
+import { User } from '@/types/user-types/userTypes'
 
 type UsersCardProps = {
-    users: PaginatedUsers;
+    users: PaginatedData<User>;
 }
 
 const UsersCard = ({ users }: UsersCardProps) => {

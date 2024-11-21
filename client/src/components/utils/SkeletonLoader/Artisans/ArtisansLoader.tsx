@@ -1,10 +1,11 @@
 import { Table, TableBody } from "../../../ui/table"
 import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
-import { PaginatedArtisans } from '@/types/artisan-types/artisanTypes';
+import { Artisan } from '@/types/artisan-types/artisanTypes';
 import ArtisansSkeleton from './ArtisansSkeleton';
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 
 type ActivitiesProps = {
-    artisans: PaginatedArtisans | undefined;
+    artisans: PaginatedData<Artisan> | undefined;
 }
 
 const ArtisansLoader = ({ artisans }: ActivitiesProps) => {

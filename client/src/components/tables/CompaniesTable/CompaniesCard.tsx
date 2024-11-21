@@ -1,9 +1,10 @@
+import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditCompanyForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { PaginatedCompanies } from '@/types/company-types/companyTypes'
+import { Company } from '@/types/company-types/companyTypes'
 
 type CompaniesCardProps = {
-    companies: PaginatedCompanies;
+    companies: PaginatedData<Company>;
 }
 
 const CompaniesCard = ({ companies }: CompaniesCardProps) => {

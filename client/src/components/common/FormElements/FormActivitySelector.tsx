@@ -12,14 +12,15 @@ import {
     SelectTrigger,
     SelectValue
 } from '@/components/ui/select'
-import { PaginatedActivities } from '@/types/activity-types/activityTypes'
+import { Activity} from '@/types/activity-types/activityTypes'
 import { TableFormSelectType } from '@/types/table-types/tableTypes'
 import { useFormContext } from 'react-hook-form'
+import { PaginatedData } from '../Pagination/Pagination'
 
 const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
     const { control } = useFormContext();
 
-    const { data: activities } = useFetchDataQuery<PaginatedActivities>({
+    const { data: activities } = useFetchDataQuery<PaginatedData<Activity>>({
         URL: '/activities',
         queryKey: ['activities'],
         options: {
