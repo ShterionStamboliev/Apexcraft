@@ -9,7 +9,14 @@ import { Toaster } from './components/ui/toaster'
 import { ThemeProvider } from './context/ThemeContext'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchIntervalInBackground: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
