@@ -15,7 +15,7 @@ const ArtisansTableBody = () => {
 
     const { data: artisans, isPending, isError } = useGetPaginatedData<Artisan>({
         URL: '/artisans',
-        queryKey: ['artisans', page],
+        queryKey: ['artisans'],
         limit: itemsLimit,
         page
     });

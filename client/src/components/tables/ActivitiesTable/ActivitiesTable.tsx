@@ -7,7 +7,9 @@ const ActivitiesTable = () => {
             <div className='w-full mb-4'>
                 <CreateActivity />
             </div>
-            <ActivitiesTableBody />
+            <div className='flex flex-col justify-center items-center min-w-full'>
+                <ActivitiesTableBody />
+            </div>
         </div>
     )
 };

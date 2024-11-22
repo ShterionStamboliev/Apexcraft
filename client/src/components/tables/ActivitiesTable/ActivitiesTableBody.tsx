@@ -19,7 +19,7 @@ const ActivitiesTableBody = () => {
 
     const { data: activities, isPending, isError } = useGetPaginatedData<Activity>({
         URL: '/activities',
-        queryKey: ['activities', page, debounceSearchTerm],
+        queryKey: ['activities'],
         limit: itemsLimit,
         page,
         search: debounceSearchTerm

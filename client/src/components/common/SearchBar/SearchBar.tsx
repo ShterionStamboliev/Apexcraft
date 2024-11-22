@@ -13,7 +13,7 @@ const SearchBar = ({ search, placeholder, handleSearch }: SearchBarProps) => {
             placeholder={placeholder}
             value={search}
             onChange={handleSearch}
-            className='mb-4 w-full md:max-w-lg'
+            className='mb-4 focus-visible:ring-blue-700 transition focus:ease-in-out duration-300 md:max-w-xs '
         />
     )
 };

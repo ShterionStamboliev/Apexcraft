@@ -9,15 +9,20 @@ import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParams
 import Pagination from '@/components/common/Pagination/Pagination';
 import { User } from '@/types/user-types/userTypes';
 import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
+import SearchBar from '@/components/common/SearchBar/SearchBar';
+import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
+
     const { data: users, isPending, isError } = useGetPaginatedData<User>({
         URL: '/users',
-        queryKey: ['users', page],
+        queryKey: ['users'],
         limit: itemsLimit,
-        page
+        page,
+        search: debounceSearchTerm
     });
 
     const totalPages: number | undefined = users?.totalPages;
@@ -35,6 +40,11 @@ const UsersTableBody = () => {
 
     return (
         <>
+            <SearchBar
+                handleSearch={handleSearch}
+                placeholder='Search users...'
+                search={search}
+            />
             <Table className='w-full min-w-full'>
                 <UsersHeader />
                 <TableBody>

@@ -15,7 +15,7 @@ const CompaniesTableBody = () => {
     
     const { data: companies, isPending, isError } = useGetPaginatedData<Company>({
         URL: '/companies',
-        queryKey: ['companies', page],
+        queryKey: ['companies'],
         limit: itemsLimit,
         page
     });
