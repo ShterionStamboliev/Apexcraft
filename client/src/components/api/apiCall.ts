@@ -32,7 +32,8 @@ export const getPaginatedData = async <TData>(
     search?: string,
 ): Promise<PaginatedDataResponse<TData>> => {
     const searchParam = search ? `&q=${encodeURIComponent(search)}` : '';
-    const data: PaginatedDataResponse<TData> = await apiCall(`${URL}?_page=${page}&_limit=${limit}${searchParam}`, 'GET');
+    const pageParam = page ? `?_page=${encodeURIComponent(page)}` : '';
+    const data: PaginatedDataResponse<TData> = await apiCall(`${URL}${pageParam}&_limit=${limit}${searchParam}`, 'GET');
     return data;
 };
 

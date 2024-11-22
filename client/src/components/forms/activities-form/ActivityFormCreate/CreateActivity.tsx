@@ -18,7 +18,7 @@ const CreateActivity = () => {
         setIsOpen
     });
 
-    const handleSubmit = async (activityData: ActivitySchema) => {
+    const handleSubmit = (activityData: ActivitySchema) => {
         mutate(activityData);
     };
 

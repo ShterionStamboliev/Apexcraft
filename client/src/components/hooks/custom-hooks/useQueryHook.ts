@@ -1,36 +1,17 @@
 import { getEntityData, getInfiniteData, getPaginatedData } from '@/components/api/apiCall';
 import {
+    FetchDataQueryOptions,
+    FetchQueryOptions,
+    PaginatedDataResponse,
+    UseGetPaginatedDataTypes
+} from '@/types/query-data-types/paginatedDataTypes';
+import {
     keepPreviousData,
-    QueryKey,
     useInfiniteQuery,
     UseInfiniteQueryResult,
     useQuery,
-    UseQueryOptions,
     UseQueryResult
 } from '@tanstack/react-query';
-
-type UseFetchQueryOptions<TData> = Omit<UseQueryOptions<TData>, 'queryKey' | 'queryFn'>;
-
-interface FetchQueryOptions {
-    URL: string,
-    queryKey: QueryKey,
-}
-
-interface FetchDataQueryOptions<TData> extends FetchQueryOptions {
-    options?: UseFetchQueryOptions<TData>
-}
-interface UseGetPaginatedDataTypes extends FetchQueryOptions {
-    page: number,
-    limit?: number,
-    search?: string;
-}
-
-export type PaginatedDataResponse<TData> = {
-    data: TData[];
-    limit?: number;
-    total?: number;
-    totalPages?: number;
-}
 
 export const useGetPaginatedData = <TData>({
     URL,
