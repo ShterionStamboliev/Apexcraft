@@ -22,6 +22,7 @@ interface FetchDataQueryOptions<TData> extends FetchQueryOptions {
 interface UseGetPaginatedDataTypes extends FetchQueryOptions {
     page: number,
     limit?: number,
+    search?: string;
 }
 
 export type PaginatedDataResponse<TData> = {
@@ -35,16 +36,17 @@ export const useGetPaginatedData = <TData>({
     URL,
     queryKey,
     limit,
-    page
+    page,
+    search
 }: UseGetPaginatedDataTypes
 ): UseQueryResult<PaginatedDataResponse<TData>> => {
     return useQuery({
-        queryKey: queryKey,
-        queryFn: () => getPaginatedData<TData>(URL, page, limit!),
+        queryKey: [...queryKey, page, limit, search],
+        queryFn: () => getPaginatedData<TData>(URL, page, limit!, search),
         staleTime: 0,
         refetchInterval: false,
         refetchOnWindowFocus: false,
-        placeholderData: keepPreviousData
+        placeholderData: keepPreviousData,
     });
 };
 
