@@ -13,9 +13,7 @@ const SidebarMobile = () => {
                 side='left'
                 className='px-0 py-4 w-[220px]'
             >
-                <SidebarSheetHeader
-                    headerTitle='Project-34'
-                />
+                <SidebarSheetHeader />
                 <SidebarMobileItems />
             </SheetContent>
         </Sheet>
