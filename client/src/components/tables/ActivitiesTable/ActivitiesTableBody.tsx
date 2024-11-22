@@ -9,8 +9,8 @@ import Pagination from '@/components/common/Pagination/Pagination';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Activity } from '@/types/activity-types/activityTypes';
-import { Input } from '@/components/ui/input';
 import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
+import SearchBar from '@/components/common/SearchBar/SearchBar';
 
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
@@ -40,15 +40,11 @@ const ActivitiesTableBody = () => {
 
     return (
         <>
-            <div className='mb-4'>
-                <Input
-                    type="text"
-                    placeholder="Search activities..."
-                    value={search}
-                    onChange={handleSearch}
-                    className="max-w-sm"
-                />
-            </div>
+            <SearchBar
+                handleSearch={handleSearch}
+                placeholder='Search activities...'
+                search={search}
+            />
             <Table className='w-full min-w-full'>
                 <ActivitiesHeader />
                 <TableBody>
