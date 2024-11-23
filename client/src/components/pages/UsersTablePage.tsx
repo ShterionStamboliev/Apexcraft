@@ -1,5 +1,5 @@
 import Sidebar from '../Sidebar/Sidebar';
-import UsersTable from '../tables/UsersTable/UsersTable';
+import UsersTableBody from '../tables/UsersTable/UsersTableBody';
 
 const UsersTablePage = () => {
     return (
@@ -7,7 +7,7 @@ const UsersTablePage = () => {
             <Sidebar />
 
             <div className="flex-1 flex px-2 md:gap-8">
-                <UsersTable />
+                <UsersTableBody />
             </div>
         </div>
     );
