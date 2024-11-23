@@ -1,5 +1,5 @@
 import Sidebar from '../Sidebar/Sidebar';
-import CompaniesTable from '../tables/CompaniesTable/CompaniesTable';
+import CompaniesTableBody from '../tables/CompaniesTable/CompaniesTableBody';
 
 const CompaniesTablePage = () => {
     return (
@@ -7,7 +7,7 @@ const CompaniesTablePage = () => {
             <Sidebar />
 
             <div className="flex-1 flex px-2 md:gap-8">
-                <CompaniesTable />
+                <CompaniesTableBody />
             </div>
         </div>
     );
