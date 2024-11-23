@@ -11,6 +11,7 @@ import { User } from '@/types/user-types/userTypes';
 import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
+import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
@@ -39,12 +40,15 @@ const UsersTableBody = () => {
     };
 
     return (
-        <>
-            <SearchBar
-                handleSearch={handleSearch}
-                placeholder='Search users...'
-                search={search}
-            />
+        <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
+            <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
+                <SearchBar
+                    handleSearch={handleSearch}
+                    placeholder='Search users...'
+                    search={search}
+                />
+                <CreateUser />
+            </div>
             <Table className='w-full min-w-full'>
                 <UsersHeader />
                 <TableBody>
@@ -72,7 +76,7 @@ const UsersTableBody = () => {
                 page={page}
                 totalPages={totalPages}
             />
-        </>
+        </div>
     );
 };
 
