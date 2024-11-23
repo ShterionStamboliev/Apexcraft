@@ -44,7 +44,7 @@ const ArtisansTableBody = () => {
             <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
                 <SearchBar
                     handleSearch={handleSearch}
-                    placeholder='Search activities...'
+                    placeholder='Search artisans...'
                     search={search}
                 />
                 <CreateArtisan />
