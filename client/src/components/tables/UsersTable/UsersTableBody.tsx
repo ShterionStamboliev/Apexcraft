@@ -2,7 +2,6 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
 import { CircleAlert, Users } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import UsersCard from './UsersCard';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
 import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
@@ -12,6 +11,7 @@ import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHoo
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
+import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
@@ -52,23 +52,22 @@ const UsersTableBody = () => {
             <Table className='w-full min-w-full'>
                 <UsersHeader />
                 <TableBody>
-                    {
-                        users?.data.length === 0 ? (
+                    <ConditionalRenderer
+                        data={users.data}
+                        renderData={(users) => <UsersCard users={users} />}
+                        noResults={{
+                            title: 'No users found',
+                            description: "It looks like you haven't added any users yet.",
+                            Icon: Users,
+                        }}
+                        wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={3} className='text-center text-3xl'>
-                                    <NoResultsFound
-                                        title='No users found'
-                                        description="It looks like you haven't added any users yet."
-                                        Icon={Users}
-                                    />
+                                <TableCell colSpan={4} className='text-center text-3xl'>
+                                    {content}
                                 </TableCell>
                             </TableRow>
-                        ) : (
-                            <UsersCard
-                                users={users}
-                            />
-                        )
-                    }
+                        )}
+                    />
                 </TableBody>
             </Table>
             <Pagination

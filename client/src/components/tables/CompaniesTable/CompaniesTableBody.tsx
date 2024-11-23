@@ -12,6 +12,7 @@ import Pagination from '@/components/common/Pagination/Pagination';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateCompany from '@/components/forms/companies-form/CompanyFormCreate/CreateCompany';
 import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
+import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
@@ -52,23 +53,22 @@ const CompaniesTableBody = () => {
             <Table className='w-full min-w-full'>
                 <CompaniesHeader />
                 <TableBody>
-                    {
-                        companies.data.length === 0 ? (
+                    <ConditionalRenderer
+                        data={companies.data}
+                        renderData={(companies) => <CompaniesCard companies={companies} />}
+                        noResults={{
+                            title: 'No companies found',
+                            description: "It looks like you haven't added any companies yet.",
+                            Icon: Building2,
+                        }}
+                        wrapper={(content) => (
                             <TableRow>
                                 <TableCell colSpan={4} className='text-center text-3xl'>
-                                    <NoResultsFound
-                                        title='No companies found'
-                                        description="It looks like you haven't added any companies yet."
-                                        Icon={Building2}
-                                    />
+                                    {content}
                                 </TableCell>
                             </TableRow>
-                        ) : (
-                            <CompaniesCard
-                                companies={companies}
-                            />
-                        )
-                    }
+                        )}
+                    />
                 </TableBody>
             </Table>
             <Pagination

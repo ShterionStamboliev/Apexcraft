@@ -8,6 +8,7 @@ import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeade
 import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Measure } from '@/types/measure-types/measureTypes';
 import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/CreateMeasure';
+import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const MeasuresTableBody = () => {
     const { data: measures, isPending, isError } = useFetchDataQuery<Measure[]>({
@@ -34,23 +35,22 @@ const MeasuresTableBody = () => {
             <Table className='w-full min-w-full'>
                 <MeasuresHeader />
                 <TableBody>
-                    {
-                        measures?.length === 0 ? (
+                    <ConditionalRenderer
+                        data={measures || []}
+                        renderData={(measures) => <MeasuresCard measures={measures} />}
+                        noResults={{
+                            title: 'No measures found',
+                            description: "It looks like you haven't added any measures yet.",
+                            Icon: Ruler,
+                        }}
+                        wrapper={(content) => (
                             <TableRow>
                                 <TableCell colSpan={2} className='text-center text-3xl'>
-                                    <NoResultsFound
-                                        title='No measures found'
-                                        description="It looks like you haven't added any measures yet."
-                                        Icon={Ruler}
-                                    />
+                                    {content}
                                 </TableCell>
                             </TableRow>
-                        ) : (
-                            <MeasuresCard
-                                measures={measures}
-                            />
-                        )
-                    }
+                        )}
+                    />
                 </TableBody>
             </Table>
         </div>

@@ -1,10 +1,10 @@
 import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
 import { CircleAlert, ClipboardList } from 'lucide-react';
-import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import UserProjectsCard from './UserProjectsCard';
 import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Task } from '@/types/task-types/taskTypes';
+import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const UserProjectsTableBody = () => {
     const { data: tasks, isPending, isError } = useFetchDataQuery<Task[]>({
@@ -27,21 +27,15 @@ const UserProjectsTableBody = () => {
     };
 
     return (
-        <>
-            {
-                tasks.length === 0 ? (
-                    <NoResultsFound
-                        title='No tasks found'
-                        description="It looks like you don't have any assigned tasks yet."
-                        Icon={ClipboardList}
-                    />
-                ) : (
-                    <UserProjectsCard
-                        tasks={tasks}
-                    />
-                )
-            }
-        </>
+        <ConditionalRenderer
+            data={tasks}
+            renderData={(tasks) => <UserProjectsCard tasks={tasks} />}
+            noResults={{
+                title: 'No tasks found',
+                description: "It looks like you haven't added any tasks yet.",
+                Icon: ClipboardList,
+            }}
+        />
     )
 }
 
