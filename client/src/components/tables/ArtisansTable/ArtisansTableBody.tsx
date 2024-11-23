@@ -9,15 +9,21 @@ import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParams
 import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import ArtisansLoader from '@/components/utils/SkeletonLoader/Artisans/ArtisansLoader';
+import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
+import SearchBar from '@/components/common/SearchBar/SearchBar';
+import CreateArtisan from '@/components/forms/artisans-form/ArtisanFormCreate/CreateArtisan';
 
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
+
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
 
     const { data: artisans, isPending, isError } = useGetPaginatedData<Artisan>({
         URL: '/artisans',
         queryKey: ['artisans'],
         limit: itemsLimit,
-        page
+        page,
+        search: debounceSearchTerm,
     });
 
     const totalPages: number | undefined = artisans?.totalPages;
@@ -34,7 +40,15 @@ const ArtisansTableBody = () => {
     };
 
     return (
-        <>
+        <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
+            <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
+                <SearchBar
+                    handleSearch={handleSearch}
+                    placeholder='Search activities...'
+                    search={search}
+                />
+                <CreateArtisan />
+            </div>
             <Table className='w-full min-w-full'>
                 <ArtisansHeader />
                 <TableBody>
@@ -63,7 +77,7 @@ const ArtisansTableBody = () => {
                 setSearchParams={setSearchParams}
                 totalPages={totalPages}
             />
-        </>
+        </div>
     )
 }
 
