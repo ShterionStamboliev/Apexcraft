@@ -8,7 +8,6 @@ type ActivitiesCardProps = {
 }
 
 const ActivitiesCard = ({ activities }: ActivitiesCardProps) => {
-
     return (
         <>
             {
