@@ -11,6 +11,7 @@ import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHoo
 import { Activity } from '@/types/activity-types/activityTypes';
 import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
+import CreateActivity from '@/components/forms/activities-form/ActivityFormCreate/CreateActivity';
 
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
@@ -39,12 +40,15 @@ const ActivitiesTableBody = () => {
     };
 
     return (
-        <>
-            <SearchBar
-                handleSearch={handleSearch}
-                placeholder='Search activities...'
-                search={search}
-            />
+        <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
+            <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
+                <SearchBar
+                    handleSearch={handleSearch}
+                    placeholder='Search activities...'
+                    search={search}
+                />
+                <CreateActivity />
+            </div>
             <Table className='w-full min-w-full'>
                 <ActivitiesHeader />
                 <TableBody>
@@ -73,7 +77,7 @@ const ActivitiesTableBody = () => {
                 page={page}
                 totalPages={totalPages}
             />
-        </>
+        </div>
     )
 }
 
