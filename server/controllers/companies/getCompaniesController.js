@@ -1,16 +1,34 @@
 const pool = require("../../db");
 
 const getCompanies = async (req, res) => {
-    const { _page = 1, _limit = 10 } = req.query;
+    const { _page = 1, _limit = 10, q = '' } = req.query;
+    const searchTerm = q ? `%${q}%` : null;
     const offset = (parseInt(_page) - 1) * parseInt(_limit);
 
     try {
-        const totalQuery = `SELECT COUNT(*) as total FROM tbl_companies`;
-        const [[{ total }]] = await pool.query(totalQuery);
+        let totalQuery = `SELECT COUNT(*) as total FROM tbl_companies`;
+        const totalQueryParams = [];
 
-        const query = `SELECT * FROM tbl_companies LIMIT ${parseInt(_limit)} OFFSET ${offset}`;
+        if (q) {
+            totalQuery += ' WHERE name LIKE ?';
+            totalQueryParams.push(searchTerm);
+        }
 
-        const [rows] = await pool.query(query)
+        const [[{ total }]] = await pool.query(totalQuery, totalQueryParams);
+
+        let query = `SELECT * FROM tbl_companies`;
+
+        const queryParams = [];
+
+        if (q) {
+            query += ' WHERE name LIKE ?';
+            queryParams.push(searchTerm)
+        }
+
+        query += ' LIMIT ? OFFSET ?';
+        queryParams.push(parseInt(_limit), offset);
+
+        const [rows] = await pool.query(query, queryParams);
 
         res.json({
             data: rows,
