@@ -1,13 +1,12 @@
 import Sidebar from '../Sidebar/Sidebar';
-import ArtisansTable from '../tables/ArtisansTable/ArtisansTable';
+import ArtisansTableBody from '../tables/ArtisansTable/ArtisansTableBody';
 
 const ArtisansTablePage = () => {
     return (
         <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
-
             <div className="flex-1 flex px-2 md:gap-8">
-                <ArtisansTable />
+                <ArtisansTableBody />
             </div>
         </div>
     );
