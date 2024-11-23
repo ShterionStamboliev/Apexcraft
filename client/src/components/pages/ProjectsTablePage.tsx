@@ -1,13 +1,13 @@
 import Sidebar from '../Sidebar/Sidebar'
-import ProjectsTable from '../tables/ProjectsTable/ProjectsTable'
+import ProjectsTableBody from '../tables/ProjectsTable/ProjectsTableBody'
 
 const ProjectsTablePage = () => {
     return (
         <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
 
-            <div className="flex-1 flex px-2 md:gap-8">
-                <ProjectsTable />
+            <div className="flex flex-col overflow-x-auto md:gap-8">
+                <ProjectsTableBody />
             </div>
         </div>
     )
