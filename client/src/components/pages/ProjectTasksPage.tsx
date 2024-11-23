@@ -1,13 +1,13 @@
 import Sidebar from '../Sidebar/Sidebar';
-import ProjectsTasks from '../tables/TasksTable/TasksTable';
+import ProjectsTasksBody from '../tables/TasksTable/TasksTableBody';
 
 const ProjectTasksPage = () => {
     return (
         <div className="flex md:gap-60 min-h-screen">
             <Sidebar />
 
-            <div className="flex-1 flex px-2 md:gap-8">
-                <ProjectsTasks />
+            <div className="flex flex-col overflow-x-auto md:gap-8">
+                <ProjectsTasksBody />
             </div>
         </div>
     );

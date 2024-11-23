@@ -10,22 +10,29 @@ const ProjectTasksSkeleton = ({ tasks }: TasksProps) => {
 
     return (
         <>
-            {
-                Array.from({ length: taskLength }).map((_, index) => (
-                    <Card className='w-[300px]' key={index}>
-                        <CardHeader>
-                            <CardTitle>
-                                <Skeleton className='w-full h-[1rem]' />
-                            </CardTitle>
-                        </CardHeader>
-                        <CardContent className='space-y-1.5'>
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                            <Skeleton className='w-1/2 h-[1rem]' />
-                        </CardContent>
-                    </Card>
-                ))
-            }
+            <div className='flex flex-col border rounded-lg mt-8 mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
+                <Skeleton className='md:w-full lg:max-w-[12rem] h-9' />
+            </div>
+            <div className='flex flex-col border rounded-lg mb-24 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
+                <div className='flex flex-wrap sm:w-full gap-4'>
+                    {
+                        Array.from({ length: taskLength }).map((_, index) => (
+                            <Card className='w-[300px]' key={index}>
+                                <CardHeader>
+                                    <CardTitle>
+                                        <Skeleton className='w-full h-[1rem]' />
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className='space-y-1.5'>
+                                    <Skeleton className='w-1/2 h-[1rem]' />
+                                    <Skeleton className='w-1/2 h-[1rem]' />
+                                    <Skeleton className='w-1/2 h-[1rem]' />
+                                </CardContent>
+                            </Card>
+                        ))
+                    }
+                </div>
+            </div>
         </>
     )
 }
