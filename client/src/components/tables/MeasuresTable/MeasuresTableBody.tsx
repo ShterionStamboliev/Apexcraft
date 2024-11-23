@@ -2,7 +2,6 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader';
 import { CircleAlert, Ruler } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import MeasuresCard from './MeasuresCard';
 import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader';
 import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';

@@ -1,5 +1,4 @@
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/CompaniesLoader';
 import { Building2, CircleAlert } from 'lucide-react';
