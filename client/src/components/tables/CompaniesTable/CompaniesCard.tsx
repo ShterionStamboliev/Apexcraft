@@ -1,17 +1,16 @@
-import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditCompanyForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Company } from '@/types/company-types/companyTypes'
 
 type CompaniesCardProps = {
-    companies: PaginatedData<Company>;
+    companies: Company[];
 }
 
 const CompaniesCard = ({ companies }: CompaniesCardProps) => {
     return (
         <>
             {
-                companies && companies.data.map((company, index) => (
+                companies && companies.map((company, index) => (
                     <TableRow key={index}>
                         <TableCell className='font-semibold' >
                             {company.name}

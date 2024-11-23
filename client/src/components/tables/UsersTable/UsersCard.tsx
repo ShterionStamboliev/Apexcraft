@@ -1,17 +1,16 @@
-import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import EditUserForm from '@/components/forms/user-form/UserFormEdit/EditUser';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { User } from '@/types/user-types/userTypes'
 
 type UsersCardProps = {
-    users: PaginatedData<User>;
+    users: User[];
 }
 
 const UsersCard = ({ users }: UsersCardProps) => {
     return (
         <>
             {
-                users.data.map((user) => (
+                users.map((user) => (
                     <TableRow key={user.id}>
                         <TableCell className='font-semibold'>
                             {user.name_and_family}
