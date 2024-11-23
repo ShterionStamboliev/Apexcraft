@@ -23,23 +23,22 @@ const CreateProject = () => {
     };
 
     return (
-        <div className='mb-4'>
-            <Dialog
-                open={isOpen}
-                onOpenChange={setIsOpen}
-            >
-                <DialogTriggerButtonCreate
-                    text='Add new project'
+        <Dialog
+            open={isOpen}
+            onOpenChange={setIsOpen}
+        >
+            <DialogTriggerButtonCreate
+                className='md:w-full lg:max-w-[12rem]'
+                text='Add new project'
+            />
+            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px] gap-0'>
+                <DialogHeader title='Add new project' />
+                <CreateProjectForm
+                    handleSubmit={handleSubmit}
+                    isPending={isPending}
                 />
-                <DialogContent className='max-w-[400px] rounded-md sm:max-w-[525px] gap-0'>
-                    <DialogHeader title='Add new project' />
-                    <CreateProjectForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+            </DialogContent>
+        </Dialog>
     )
 }
 
