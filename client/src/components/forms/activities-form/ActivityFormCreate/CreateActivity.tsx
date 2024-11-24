@@ -28,6 +28,7 @@ const CreateActivity = () => {
             onOpenChange={setIsOpen}
         >
             <DialogTriggerButtonCreate
+                className='md:w-full lg:max-w-[12rem]'
                 text='Add new activity'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>

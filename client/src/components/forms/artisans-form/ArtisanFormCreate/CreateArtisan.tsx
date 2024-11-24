@@ -29,6 +29,7 @@ const CreateArtisan = () => {
             onOpenChange={setIsOpen}
         >
             <DialogTriggerButtonCreate
+                className='md:w-full lg:max-w-[12rem]'
                 text='Add new artisan'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>

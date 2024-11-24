@@ -9,7 +9,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();
-    
+
     const { useCreateNewEntity } = useMutationHook();
 
     const { mutate, isPending } = useCreateNewEntity<MeasureSchema>({
@@ -29,6 +29,7 @@ const CreateMeasure = () => {
             onOpenChange={setIsOpen}
         >
             <DialogTriggerButtonCreate
+                className='md:w-full lg:max-w-[12rem]'
                 text='Add new measure'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>

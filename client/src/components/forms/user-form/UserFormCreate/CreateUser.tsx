@@ -10,7 +10,7 @@ const CreateUser = () => {
     const { isOpen, setIsOpen } = useDialogState();
 
     const { useCreateNewEntity } = useMutationHook();
-    
+
     const { mutate, isPending } = useCreateNewEntity<UserSchema>({
         URL: '/users/create',
         queryKey: ['users'],
@@ -28,6 +28,7 @@ const CreateUser = () => {
             onOpenChange={setIsOpen}
         >
             <DialogTriggerButtonCreate
+                className='md:w-full lg:max-w-[12rem]'
                 text='Add new user'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
