@@ -1,5 +1,5 @@
-import { Separator } from '@/components/ui/separator'
-import { ChevronDown } from 'lucide-react'
+import { Separator } from '@/components/ui/separator';
+import { ChevronDown } from 'lucide-react';
 
 const WorkItemsListSeparator = () => {
     return (
@@ -17,7 +17,7 @@ const WorkItemsListSeparator = () => {
                 <ChevronDown />
             </div>
         </>
-    )
-}
+    );
+};
 
 export default WorkItemsListSeparator;

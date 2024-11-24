@@ -1,10 +1,10 @@
-import { UserSchema } from '@/components/models/user/newUserSchema'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
-import DialogHeader from '@/components/common/DialogElements/DialogHeader'
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate'
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
-import CreateUserForm from './CreateUserForm'
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook'
+import { UserSchema } from '@/components/models/user/newUserSchema';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import DialogHeader from '@/components/common/DialogElements/DialogHeader';
+import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import CreateUserForm from './CreateUserForm';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 
 const CreateUser = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -15,7 +15,7 @@ const CreateUser = () => {
         URL: '/users/create',
         queryKey: ['users'],
         successToast: 'User created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = async (userData: UserSchema) => {
@@ -23,10 +23,7 @@ const CreateUser = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new user'
@@ -39,7 +36,7 @@ const CreateUser = () => {
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateUser
+export default CreateUser;

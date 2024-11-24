@@ -4,7 +4,11 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import { newTaskSchema, taskDefaults, TaskSchema } from '@/components/models/task/newTaskSchema';
+import {
+    newTaskSchema,
+    taskDefaults,
+    TaskSchema,
+} from '@/components/models/task/newTaskSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
@@ -13,26 +17,19 @@ import MeasureSelector from '@/components/common/FormElements/FormMeasureSelecto
 type CreateTaskFormProps = {
     handleSubmit: (taskData: TaskSchema) => void;
     isPending: boolean;
-}
+};
 
 const CreateTaskForm = ({ handleSubmit, isPending }: CreateTaskFormProps) => {
     const form = useForm<TaskSchema>({
         defaultValues: taskDefaults,
         resolver: zodResolver(newTaskSchema),
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     return (
         <FormProvider {...form}>
-            <form
-                id='task-form'
-                onSubmit={form.handleSubmit(handleSubmit)}
-            >
-                <FormFieldInput
-                    type='text'
-                    label='Task name'
-                    name='name'
-                />
+            <form id='task-form' onSubmit={form.handleSubmit(handleSubmit)}>
+                <FormFieldInput type='text' label='Task name' name='name' />
                 <FormFieldInput
                     type='text'
                     label='Price per measure'
@@ -97,7 +94,7 @@ const CreateTaskForm = ({ handleSubmit, isPending }: CreateTaskFormProps) => {
                 />
             </form>
         </FormProvider>
-    )
-}
+    );
+};
 
-export default CreateTaskForm
+export default CreateTaskForm;

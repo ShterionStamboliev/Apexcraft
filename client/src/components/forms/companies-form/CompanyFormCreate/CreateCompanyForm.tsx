@@ -2,33 +2,33 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import { companyDefaults, CompanySchema, newCompanySchema } from '@/components/models/company/newCompanySchema';
+import {
+    companyDefaults,
+    CompanySchema,
+    newCompanySchema,
+} from '@/components/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateCompanyFormProps = {
     handleSubmit: (companyData: CompanySchema) => void;
     isPending: boolean;
-}
+};
 
-const CreateCompanyForm = ({ handleSubmit, isPending }: CreateCompanyFormProps) => {
+const CreateCompanyForm = ({
+    handleSubmit,
+    isPending,
+}: CreateCompanyFormProps) => {
     const form = useForm<CompanySchema>({
         resolver: zodResolver(newCompanySchema),
         defaultValues: companyDefaults,
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     return (
         <FormProvider {...form}>
-            <form
-                id='company-form'
-                onSubmit={form.handleSubmit(handleSubmit)}
-            >
-                <FormFieldInput
-                    type='text'
-                    label='Company name'
-                    name='name'
-                />
+            <form id='company-form' onSubmit={form.handleSubmit(handleSubmit)}>
+                <FormFieldInput type='text' label='Company name' name='name' />
                 <FormFieldInput
                     type='text'
                     label='Company number'
@@ -39,11 +39,7 @@ const CreateCompanyForm = ({ handleSubmit, isPending }: CreateCompanyFormProps) 
                     label='Company address'
                     name='address'
                 />
-                <FormFieldInput
-                    type='text'
-                    label='Company MOL'
-                    name='mol'
-                />
+                <FormFieldInput type='text' label='Company MOL' name='mol' />
                 <FormFieldInput
                     type='email'
                     label='Company email'
@@ -60,11 +56,7 @@ const CreateCompanyForm = ({ handleSubmit, isPending }: CreateCompanyFormProps) 
                         name='status'
                         placeholder='active'
                     />
-                    <VatSelector
-                        label='DDS'
-                        name='dds'
-                        placeholder='no'
-                    />
+                    <VatSelector label='DDS' name='dds' placeholder='no' />
                 </div>
                 <DialogFooter
                     disabled={!form.formState.isDirty || isPending}
@@ -74,7 +66,7 @@ const CreateCompanyForm = ({ handleSubmit, isPending }: CreateCompanyFormProps) 
                 />
             </form>
         </FormProvider>
-    )
-}
+    );
+};
 
-export default CreateCompanyForm
+export default CreateCompanyForm;

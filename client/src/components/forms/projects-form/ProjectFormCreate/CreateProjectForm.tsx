@@ -4,33 +4,33 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import { newProjectSchema, projectDefaults, ProjectSchema } from '@/components/models/project/newProjectSchema';
+import {
+    newProjectSchema,
+    projectDefaults,
+    ProjectSchema,
+} from '@/components/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateProjectFormProps = {
     handleSubmit: (projectData: ProjectSchema) => void;
     isPending: boolean;
-}
+};
 
-const CreateProjectForm = ({ handleSubmit, isPending }: CreateProjectFormProps) => {
+const CreateProjectForm = ({
+    handleSubmit,
+    isPending,
+}: CreateProjectFormProps) => {
     const form = useForm<ProjectSchema>({
         resolver: zodResolver(newProjectSchema),
         defaultValues: projectDefaults,
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     return (
         <FormProvider {...form}>
-            <form
-                id='project-form'
-                onSubmit={form.handleSubmit(handleSubmit)}
-            >
-                <FormFieldInput
-                    type='text'
-                    label='Project name'
-                    name='name'
-                />
+            <form id='project-form' onSubmit={form.handleSubmit(handleSubmit)}>
+                <FormFieldInput type='text' label='Project name' name='name' />
                 <FormFieldInput
                     type='email'
                     label='Project email'
@@ -75,7 +75,7 @@ const CreateProjectForm = ({ handleSubmit, isPending }: CreateProjectFormProps) 
                 />
             </form>
         </FormProvider>
-    )
-}
+    );
+};
 
-export default CreateProjectForm
+export default CreateProjectForm;

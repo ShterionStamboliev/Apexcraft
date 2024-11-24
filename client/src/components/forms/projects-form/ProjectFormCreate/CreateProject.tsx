@@ -15,7 +15,7 @@ const CreateProject = () => {
         URL: '/projects/create',
         queryKey: ['projects'],
         successToast: 'Project created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = async (projectData: ProjectSchema) => {
@@ -23,10 +23,7 @@ const CreateProject = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new project'
@@ -39,7 +36,7 @@ const CreateProject = () => {
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateProject
+export default CreateProject;

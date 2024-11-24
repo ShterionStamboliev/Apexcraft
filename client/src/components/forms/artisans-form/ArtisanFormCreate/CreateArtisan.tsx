@@ -16,7 +16,7 @@ const CreateArtisan = () => {
         URL: '/artisans/create',
         queryKey: ['artisans'],
         successToast: 'Artisan created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = (artisanData: ArtisanSchema) => {
@@ -24,25 +24,20 @@ const CreateArtisan = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new artisan'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader
-                    title='Add new artisan'
-                />
+                <DialogHeader title='Add new artisan' />
                 <CreateArtisanForm
                     handleSubmit={handleSubmit}
                     isPending={isPending}
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateArtisan
+export default CreateArtisan;

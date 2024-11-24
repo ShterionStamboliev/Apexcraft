@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader';
 import { CircleAlert, Ruler } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
@@ -10,21 +10,22 @@ import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/Cr
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const MeasuresTableBody = () => {
-    const { data: measures, isPending, isError } = useFetchDataQuery<Measure[]>({
+    const {
+        data: measures,
+        isPending,
+        isError,
+    } = useFetchDataQuery<Measure[]>({
         URL: '/measures',
-        queryKey: ['measures']
+        queryKey: ['measures'],
     });
 
     if (isPending) {
-        return <MeasuresLoader measures={measures} />
-    };
+        return <MeasuresLoader measures={measures} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <div className='flex w-full flex-col flex-1 py-8 items-center md:px-0'>
@@ -36,15 +37,21 @@ const MeasuresTableBody = () => {
                 <TableBody>
                     <ConditionalRenderer
                         data={measures || []}
-                        renderData={(measures) => <MeasuresCard measures={measures} />}
+                        renderData={(measures) => (
+                            <MeasuresCard measures={measures} />
+                        )}
                         noResults={{
                             title: 'No measures found',
-                            description: "It looks like you haven't added any measures yet.",
+                            description:
+                                "It looks like you haven't added any measures yet.",
                             Icon: Ruler,
                         }}
                         wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={2} className='text-center text-3xl'>
+                                <TableCell
+                                    colSpan={2}
+                                    className='text-center text-3xl'
+                                >
                                     {content}
                                 </TableCell>
                             </TableRow>
@@ -53,7 +60,7 @@ const MeasuresTableBody = () => {
                 </TableBody>
             </Table>
         </div>
-    )
-}
+    );
+};
 
-export default MeasuresTableBody
+export default MeasuresTableBody;

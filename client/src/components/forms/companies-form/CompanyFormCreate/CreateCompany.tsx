@@ -16,7 +16,7 @@ const CreateCompany = () => {
         URL: '/companies/create',
         queryKey: ['companies'],
         successToast: 'Company created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = (companyData: CompanySchema) => {
@@ -24,10 +24,7 @@ const CreateCompany = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new company'
@@ -40,7 +37,7 @@ const CreateCompany = () => {
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateCompany
+export default CreateCompany;

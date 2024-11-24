@@ -15,7 +15,7 @@ const CreateActivity = () => {
         URL: '/activities/create',
         queryKey: ['activities'],
         successToast: 'Activity created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = (activityData: ActivitySchema) => {
@@ -23,25 +23,20 @@ const CreateActivity = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new activity'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader
-                    title='Add new activity'
-                />
+                <DialogHeader title='Add new activity' />
                 <CreateActivityForm
                     handleSubmit={handleSubmit}
                     isPending={isPending}
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateActivity
+export default CreateActivity;

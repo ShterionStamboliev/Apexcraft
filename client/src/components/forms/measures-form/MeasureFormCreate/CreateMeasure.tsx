@@ -24,25 +24,20 @@ const CreateMeasure = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Add new measure'
             />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader
-                    title='Add new measure'
-                />
+                <DialogHeader title='Add new measure' />
                 <CreateMeasureForm
                     handleSubmit={handleSubmit}
                     isPending={isPending}
                 />
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default CreateMeasure
+export default CreateMeasure;

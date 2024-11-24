@@ -39,20 +39,20 @@ const UsersTableBody = () => {
     }
 
     if (isError) {
-        return <ErrorMessage title="Oops..." Icon={CircleAlert} />;
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
     }
 
     return (
-        <div className="flex flex-col flex-1 py-8 items-center md:px-0">
-            <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between">
+        <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
+            <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
                 <SearchBar
                     handleSearch={handleSearch}
-                    placeholder="Search users..."
+                    placeholder='Search users...'
                     search={search}
                 />
                 <CreateUser />
             </div>
-            <Table className="w-full min-w-full">
+            <Table className='w-full min-w-full'>
                 <UsersHeader />
                 <TableBody>
                     <ConditionalRenderer
@@ -68,7 +68,7 @@ const UsersTableBody = () => {
                             <TableRow>
                                 <TableCell
                                     colSpan={4}
-                                    className="text-center text-3xl"
+                                    className='text-center text-3xl'
                                 >
                                     {content}
                                 </TableCell>

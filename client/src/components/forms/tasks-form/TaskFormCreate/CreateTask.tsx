@@ -18,7 +18,7 @@ const CreateTask = () => {
         URL: `/projects/${id}/create-task`,
         queryKey: ['projects', id, 'tasks'],
         successToast: 'Task created successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const handleSubmit = async (taskData: TaskSchema) => {
@@ -26,10 +26,7 @@ const CreateTask = () => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonCreate
                 className='md:w-full lg:max-w-[12rem]'
                 text='Create new task'

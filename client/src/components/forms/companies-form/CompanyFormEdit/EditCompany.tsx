@@ -4,7 +4,10 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import { CompanySchema, newCompanySchema } from '@/components/models/company/newCompanySchema';
+import {
+    CompanySchema,
+    newCompanySchema,
+} from '@/components/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -15,7 +18,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type CompanyFormProps = {
     companyId: string;
     company: Company;
-}
+};
 
 const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -25,7 +28,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
         URL: `/companies/${companyId}/edit`,
         queryKey: ['companies'],
         successToast: 'Company updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<CompanySchema>({
@@ -38,9 +41,9 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
             mol: company.mol,
             number: company.number,
             phone: company.phone,
-            status: company.status
+            status: company.status,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (companyData: CompanySchema) => {
@@ -48,10 +51,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit company' />
@@ -114,7 +114,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditCompanyForm
+export default EditCompanyForm;

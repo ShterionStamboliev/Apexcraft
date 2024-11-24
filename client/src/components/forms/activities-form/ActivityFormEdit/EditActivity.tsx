@@ -4,7 +4,10 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { ActivitySchema, newActivitySchema } from '@/components/models/activity/newActivitySchema';
+import {
+    ActivitySchema,
+    newActivitySchema,
+} from '@/components/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -14,7 +17,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type ActivityFormProps = {
     activityId: string;
     activity: Activity;
-}
+};
 
 const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -25,7 +28,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
         URL: `/activities/${activityId}/edit`,
         queryKey: ['activities'],
         successToast: 'Activity updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<ActivitySchema>({
@@ -34,7 +37,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
             name: activity.name,
             status: activity.status,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (activityData: ActivitySchema) => {
@@ -42,10 +45,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit activity' />
@@ -76,7 +76,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditActivityForm
+export default EditActivityForm;

@@ -1,21 +1,28 @@
-import DialogFooter from '@/components/common/DialogElements/DialogFooter'
-import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
-import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector'
-import { WorkItemSchema, workItemDefaults, workItemSchema } from '@/types/task-types/workItemType'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
+import {
+    WorkItemSchema,
+    workItemDefaults,
+    workItemSchema,
+} from '@/types/task-types/workItemType';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm } from 'react-hook-form';
 
 type UserWorkItemCreateFormProps = {
     handleSubmit: (workItemData: WorkItemSchema) => void;
     isPending: boolean;
-}
+};
 
-const UserWorkItemCreateForm = ({ handleSubmit, isPending }: UserWorkItemCreateFormProps) => {
+const UserWorkItemCreateForm = ({
+    handleSubmit,
+    isPending,
+}: UserWorkItemCreateFormProps) => {
     const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
         defaultValues: workItemDefaults,
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     return (
@@ -27,11 +34,7 @@ const UserWorkItemCreateForm = ({ handleSubmit, isPending }: UserWorkItemCreateF
                     name='name'
                     type='text'
                 />
-                <FormFieldInput
-                    label='Note'
-                    name='note'
-                    type='text'
-                />
+                <FormFieldInput label='Note' name='note' type='text' />
                 <FormFieldInput
                     label='Finished work'
                     name='finished_work'
@@ -60,7 +63,7 @@ const UserWorkItemCreateForm = ({ handleSubmit, isPending }: UserWorkItemCreateF
                 />
             </form>
         </FormProvider>
-    )
-}
+    );
+};
 
-export default UserWorkItemCreateForm
+export default UserWorkItemCreateForm;

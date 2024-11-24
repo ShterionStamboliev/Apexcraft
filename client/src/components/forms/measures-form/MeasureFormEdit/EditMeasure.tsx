@@ -1,9 +1,12 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
-import { Measure, } from '@/types/measure-types/measureTypes';
+import { Measure } from '@/types/measure-types/measureTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import { MeasureSchema, newMeasureSchema } from '@/components/models/measure/newMeasureSchema';
+import {
+    MeasureSchema,
+    newMeasureSchema,
+} from '@/components/models/measure/newMeasureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -13,26 +16,26 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type MeasureFormProps = {
     measureId: string;
     measure: Measure;
-}
+};
 
 const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
-    
+
     const { useEditEntity } = useMutationHook();
 
     const { mutate, isPending } = useEditEntity<MeasureSchema>({
         URL: `/measures/${measureId}/edit`,
         queryKey: ['measures'],
         setIsOpen,
-        successToast: 'Measure updated successfully!'
+        successToast: 'Measure updated successfully!',
     });
 
     const form = useForm<MeasureSchema>({
         resolver: zodResolver(newMeasureSchema),
         defaultValues: {
-            name: measure.name
+            name: measure.name,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (measureData: MeasureSchema) => {
@@ -40,10 +43,7 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit measure' />
@@ -68,7 +68,7 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditMeasureForm
+export default EditMeasureForm;

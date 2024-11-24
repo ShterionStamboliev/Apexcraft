@@ -11,13 +11,13 @@ const UsersCard = ({ users }: UsersCardProps) => {
         <>
             {users.map((user) => (
                 <TableRow key={user.id}>
-                    <TableCell className="font-semibold">
+                    <TableCell className='font-semibold'>
                         {user.name_and_family}
                     </TableCell>
-                    <TableCell className="text-center font-semibold">
+                    <TableCell className='text-center font-semibold'>
                         {user.username}
                     </TableCell>
-                    <TableCell className="text-end font-semibold w-[200px]">
+                    <TableCell className='text-end font-semibold w-[200px]'>
                         <EditUserForm user={user} userId={user.id!} />
                     </TableCell>
                 </TableRow>

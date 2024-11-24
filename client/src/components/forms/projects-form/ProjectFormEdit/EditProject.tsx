@@ -7,7 +7,10 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import { Project } from '@/types/project-types/projectTypes';
-import { newProjectSchema, ProjectSchema } from '@/components/models/project/newProjectSchema';
+import {
+    newProjectSchema,
+    ProjectSchema,
+} from '@/components/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -17,7 +20,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type ProjectFormProps = {
     projectId: string;
     project: Project;
-}
+};
 
 const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -28,7 +31,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
         URL: `/projects/${projectId}/edit`,
         queryKey: ['projects'],
         successToast: 'Project updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<ProjectSchema>({
@@ -41,9 +44,9 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
             start_date: project.start_date,
             end_date: project.end_date,
             note: project.note,
-            status: project.status
+            status: project.status,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (projectData: ProjectSchema) => {
@@ -51,10 +54,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[30rem]'>
                 <FormProvider {...form}>
@@ -87,19 +87,29 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                             <CompanySelector
                                 label='Select company'
                                 name='company_name'
-                                defaultVal={`${project && project.company_name}`}
+                                defaultVal={`${
+                                    project && project.company_name
+                                }`}
                             />
                         </div>
                         <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
                             <FormDatePicker
                                 name='start_date'
                                 label='Select new start date'
-                                selected={new Date(`${project && project.start_date}`).toLocaleDateString().slice(0, 10)}
+                                selected={new Date(
+                                    `${project && project.start_date}`
+                                )
+                                    .toLocaleDateString()
+                                    .slice(0, 10)}
                             />
                             <FormDatePicker
                                 name='end_date'
                                 label='Select new end date'
-                                selected={new Date(`${project && project.end_date}`).toLocaleDateString().slice(0, 10)}
+                                selected={new Date(
+                                    `${project && project.end_date}`
+                                )
+                                    .toLocaleDateString()
+                                    .slice(0, 10)}
                             />
                         </div>
                         <FormTextareaInput
@@ -119,7 +129,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditProjectForm
+export default EditProjectForm;

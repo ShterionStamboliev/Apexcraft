@@ -1,24 +1,37 @@
-import DialogFooter from '@/components/common/DialogElements/DialogFooter'
-import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit'
-import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
-import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
-import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector'
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState'
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { WorkItem, workItemSchema, WorkItemSchema } from '@/types/task-types/workItemType'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { format } from 'date-fns'
-import { FormProvider, useForm } from 'react-hook-form'
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
+import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
+import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
+import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import {
+    WorkItem,
+    workItemSchema,
+    WorkItemSchema,
+} from '@/types/task-types/workItemType';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { FormProvider, useForm } from 'react-hook-form';
 
 type UserWorkItemEditProps = {
     taskId: string;
     workItemId?: string;
     workItem: WorkItem;
-}
+};
 
-const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProps) => {
+const UserWorkItemEdit = ({
+    taskId,
+    workItem,
+    workItemId,
+}: UserWorkItemEditProps) => {
     const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditEntity } = useMutationHook();
@@ -27,7 +40,7 @@ const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProp
         URL: `/my-projects/${taskId}/task/${workItemId}/edit`,
         queryKey: ['artisanTasks', taskId],
         successToast: 'Work item updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<WorkItemSchema>({
@@ -38,18 +51,17 @@ const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProp
             end_date: format(new Date(workItem.end_date!), 'yyyy-MM-dd'),
             note: workItem.note,
             finished_work: workItem.finished_work,
-            status: workItem.status
-        }
+            status: workItem.status,
+        },
     });
 
     const handleSubmit = (workItemData: WorkItemSchema) => {
         mutate(workItemData, {
             onSuccess: () => {
                 setIsOpen(false);
-            }
+            },
         });
     };
-
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -59,7 +71,10 @@ const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProp
                     <DialogTitle>Edit Work Item</DialogTitle>
                 </DialogHeader>
                 <FormProvider {...form}>
-                    <form id='user-work-item-edit' onSubmit={form.handleSubmit(handleSubmit)}>
+                    <form
+                        id='user-work-item-edit'
+                        onSubmit={form.handleSubmit(handleSubmit)}
+                    >
                         <div className='flex flex-col gap-2'>
                             <FormFieldInput
                                 name='name'
@@ -99,10 +114,10 @@ const UserWorkItemEdit = ({ taskId, workItem, workItemId }: UserWorkItemEditProp
                             className='mt-6'
                         />
                     </form>
-                </FormProvider >
+                </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default UserWorkItemEdit
+export default UserWorkItemEdit;

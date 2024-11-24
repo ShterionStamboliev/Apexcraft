@@ -6,7 +6,10 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import { ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
+import {
+    ArtisanSchema,
+    newArtisanSchema,
+} from '@/components/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
@@ -17,7 +20,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type ArtisanFormProps = {
     artisanId: string;
     artisan: Artisan;
-}
+};
 
 const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -28,7 +31,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
         URL: `/artisans/${artisanId}/edit`,
         queryKey: ['artisans'],
         successToast: 'Artisan updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<ArtisanSchema>({
@@ -40,9 +43,9 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
             number: artisan.number,
             note: artisan.note,
             artisanName: artisan.artisanName,
-            status: artisan.status
+            status: artisan.status,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (artisanData: ArtisanSchema) => {
@@ -50,10 +53,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit artisan' />
@@ -110,7 +110,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditArtisanForm
+export default EditArtisanForm;

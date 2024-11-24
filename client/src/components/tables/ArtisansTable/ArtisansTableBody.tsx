@@ -16,9 +16,15 @@ import ConditionalRenderer from '@/components/common/ConditionalRenderer/Conditi
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
 
-    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({
+        setSearchParams,
+    });
 
-    const { data: artisans, isPending, isError } = useGetPaginatedData<Artisan>({
+    const {
+        data: artisans,
+        isPending,
+        isError,
+    } = useGetPaginatedData<Artisan>({
         URL: '/artisans',
         queryKey: ['artisans'],
         limit: itemsLimit,
@@ -29,15 +35,12 @@ const ArtisansTableBody = () => {
     const totalPages: number | undefined = artisans?.totalPages;
 
     if (isPending) {
-        return <ArtisansLoader artisans={artisans} />
-    };
+        return <ArtisansLoader artisans={artisans} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
@@ -54,15 +57,21 @@ const ArtisansTableBody = () => {
                 <TableBody>
                     <ConditionalRenderer
                         data={artisans.data}
-                        renderData={(artisans) => <ArtisansCard artisans={artisans} />}
+                        renderData={(artisans) => (
+                            <ArtisansCard artisans={artisans} />
+                        )}
                         noResults={{
                             title: 'No artisans found',
-                            description: "It looks like you haven't added any artisans yet.",
+                            description:
+                                "It looks like you haven't added any artisans yet.",
                             Icon: ContactRound,
                         }}
                         wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={4} className='text-center text-3xl'>
+                                <TableCell
+                                    colSpan={4}
+                                    className='text-center text-3xl'
+                                >
                                     {content}
                                 </TableCell>
                             </TableRow>
@@ -76,7 +85,7 @@ const ArtisansTableBody = () => {
                 totalPages={totalPages}
             />
         </div>
-    )
-}
+    );
+};
 
-export default ArtisansTableBody
+export default ArtisansTableBody;

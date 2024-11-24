@@ -1,22 +1,31 @@
-import DialogFooter from '@/components/common/DialogElements/DialogFooter'
-import ActivitySelector from '@/components/common/FormElements/FormActivitySelector'
-import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector'
-import FormDatePicker from '@/components/common/FormElements/FormDatePicker'
-import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector'
-import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
-import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { FormProvider } from 'react-hook-form'
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
+import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
+import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector';
+import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { FormProvider } from 'react-hook-form';
 
-const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }: any) => {
+const TaskEditForm = ({
+    form,
+    task,
+    isLoading,
+    isFormDirty,
+    submitFormHandler,
+}: any) => {
     return (
         <Card>
             <CardHeader className='bg-header rounded-t-lg p-5'>
                 <CardTitle className='text-xl text-center'>Edit Task</CardTitle>
             </CardHeader>
             <FormProvider {...form}>
-                <form id='task-edit' onSubmit={form.handleSubmit(submitFormHandler)}>
+                <form
+                    id='task-edit'
+                    onSubmit={form.handleSubmit(submitFormHandler)}
+                >
                     <CardContent className='p-5'>
                         <FormFieldInput
                             type='text'
@@ -43,12 +52,16 @@ const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }:
                             <FormDatePicker
                                 name='start_date'
                                 label='Select new start date'
-                                selected={new Date(`${task && task.start_date}`).toLocaleDateString().slice(0, 10)}
+                                selected={new Date(`${task && task.start_date}`)
+                                    .toLocaleDateString()
+                                    .slice(0, 10)}
                             />
                             <FormDatePicker
                                 name='end_date'
                                 label='Select new end date'
-                                selected={new Date(`${task && task.end_date}`).toLocaleDateString().slice(0, 10)}
+                                selected={new Date(`${task && task.end_date}`)
+                                    .toLocaleDateString()
+                                    .slice(0, 10)}
                             />
                         </div>
                         <div className='flex flex-wrap justify-between'>
@@ -93,7 +106,7 @@ const TaskEditForm = ({ form, task, isLoading, isFormDirty, submitFormHandler }:
                 </form>
             </FormProvider>
         </Card>
-    )
-}
+    );
+};
 
-export default TaskEditForm
+export default TaskEditForm;

@@ -24,7 +24,7 @@ const UserProjectsTableBody = () => {
     }
 
     if (isError) {
-        return <ErrorMessage title="Oops..." Icon={CircleAlert} />;
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
     }
 
     return (

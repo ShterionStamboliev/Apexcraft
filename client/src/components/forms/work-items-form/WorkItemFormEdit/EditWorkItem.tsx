@@ -6,8 +6,16 @@ import FormTextareaInput from '@/components/common/FormElements/FormTextareaInpu
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
 import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { WorkItemSchema, workItemSchema } from '@/types/task-types/workItemType'
+import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
+import {
+    WorkItemSchema,
+    workItemSchema,
+} from '@/types/task-types/workItemType';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -19,18 +27,23 @@ interface EditWorkItemProps {
     task: WorkItemSchema;
 }
 
-const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
+const EditWorkItemForm = ({
+    id,
+    taskId,
+    workItemId,
+    task,
+}: EditWorkItemProps) => {
     const { isOpen, setIsOpen } = useDialogState();
-    
+
     const { useEditEntity } = useMutationHook();
-    
+
     const { mutate, isPending } = useEditEntity<WorkItemSchema>({
         URL: `/projects/${id}/tasks/${taskId}/workItems/${workItemId}/edit`,
         queryKey: ['workItems', id, taskId],
         successToast: 'Work item updated successfully!',
         setIsOpen,
     });
-    
+
     const form = useForm<WorkItemSchema>({
         resolver: zodResolver(workItemSchema),
         defaultValues: {
@@ -39,15 +52,15 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
             end_date: format(new Date(task.end_date!), 'yyyy-MM-dd'),
             note: task.note,
             finished_work: task.finished_work,
-            status: task.status
-        }
+            status: task.status,
+        },
     });
 
     const handleSubmit = (workItemData: WorkItemSchema) => {
         mutate(workItemData, {
             onSuccess: () => {
-                setIsOpen(false)
-            }
+                setIsOpen(false);
+            },
         });
     };
 
@@ -59,7 +72,10 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
                     <DialogTitle>Edit Work Item</DialogTitle>
                 </DialogHeader>
                 <FormProvider {...form}>
-                    <form id='work-item-edit' onSubmit={form.handleSubmit(handleSubmit)}>
+                    <form
+                        id='work-item-edit'
+                        onSubmit={form.handleSubmit(handleSubmit)}
+                    >
                         <div className='flex flex-col gap-2'>
                             <FormFieldInput
                                 name='name'
@@ -99,10 +115,10 @@ const EditWorkItemForm = ({ id, taskId, workItemId, task }: EditWorkItemProps) =
                             className='mt-6'
                         />
                     </form>
-                </FormProvider >
+                </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditWorkItemForm
+export default EditWorkItemForm;

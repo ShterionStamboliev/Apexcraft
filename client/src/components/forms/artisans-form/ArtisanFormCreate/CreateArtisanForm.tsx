@@ -1,36 +1,36 @@
-import DialogFooter from '@/components/common/DialogElements/DialogFooter'
-import CompanySelector from '@/components/common/FormElements/FormCompanySelector'
-import FormFieldInput from '@/components/common/FormElements/FormFieldInput'
-import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
-import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput'
-import UsersSelector from '@/components/common/FormElements/FormUserSelector'
-import { artisanDefaults, ArtisanSchema, newArtisanSchema } from '@/components/models/artisan/newArtisanSchema'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
+import DialogFooter from '@/components/common/DialogElements/DialogFooter';
+import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
+import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
+import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
+import UsersSelector from '@/components/common/FormElements/FormUserSelector';
+import {
+    artisanDefaults,
+    ArtisanSchema,
+    newArtisanSchema,
+} from '@/components/models/artisan/newArtisanSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateArtisanFormProps = {
     handleSubmit: (artisanData: ArtisanSchema) => void;
     isPending: boolean;
-}
+};
 
-const CreateArtisanForm = ({ handleSubmit, isPending }: CreateArtisanFormProps) => {
+const CreateArtisanForm = ({
+    handleSubmit,
+    isPending,
+}: CreateArtisanFormProps) => {
     const form = useForm<ArtisanSchema>({
         resolver: zodResolver(newArtisanSchema),
         defaultValues: artisanDefaults,
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     return (
         <FormProvider {...form}>
-            <form
-                id='artisan-form'
-                onSubmit={form.handleSubmit(handleSubmit)}
-            >
-                <FormFieldInput
-                    type='text'
-                    label='Artisan name'
-                    name='name'
-                />
+            <form id='artisan-form' onSubmit={form.handleSubmit(handleSubmit)}>
+                <FormFieldInput type='text' label='Artisan name' name='name' />
                 <FormFieldInput
                     type='text'
                     label='Artisan phone'
@@ -47,14 +47,8 @@ const CreateArtisanForm = ({ handleSubmit, isPending }: CreateArtisanFormProps) 
                         name='status'
                         placeholder='active'
                     />
-                    <UsersSelector
-                        label='Select user'
-                        name='artisanName'
-                    />
-                    <CompanySelector
-                        label='Select company'
-                        name='company'
-                    />
+                    <UsersSelector label='Select user' name='artisanName' />
+                    <CompanySelector label='Select company' name='company' />
                 </div>
                 <FormTextareaInput
                     name='note'
@@ -70,7 +64,7 @@ const CreateArtisanForm = ({ handleSubmit, isPending }: CreateArtisanFormProps) 
                 />
             </form>
         </FormProvider>
-    )
-}
+    );
+};
 
-export default CreateArtisanForm
+export default CreateArtisanForm;

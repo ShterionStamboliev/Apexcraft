@@ -16,28 +16,31 @@ import ConditionalRenderer from '@/components/common/ConditionalRenderer/Conditi
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();
 
-    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({
+        setSearchParams,
+    });
 
-    const { data: companies, isPending, isError } = useGetPaginatedData<Company>({
+    const {
+        data: companies,
+        isPending,
+        isError,
+    } = useGetPaginatedData<Company>({
         URL: '/companies',
         queryKey: ['companies'],
         limit: itemsLimit,
         page,
-        search: debounceSearchTerm
+        search: debounceSearchTerm,
     });
 
     const totalPages: number | undefined = companies?.totalPages;
 
     if (isPending) {
-        return <CompaniesLoader companies={companies} />
-    };
+        return <CompaniesLoader companies={companies} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
@@ -54,15 +57,21 @@ const CompaniesTableBody = () => {
                 <TableBody>
                     <ConditionalRenderer
                         data={companies.data}
-                        renderData={(companies) => <CompaniesCard companies={companies} />}
+                        renderData={(companies) => (
+                            <CompaniesCard companies={companies} />
+                        )}
                         noResults={{
                             title: 'No companies found',
-                            description: "It looks like you haven't added any companies yet.",
+                            description:
+                                "It looks like you haven't added any companies yet.",
                             Icon: Building2,
                         }}
                         wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={4} className='text-center text-3xl'>
+                                <TableCell
+                                    colSpan={4}
+                                    className='text-center text-3xl'
+                                >
                                     {content}
                                 </TableCell>
                             </TableRow>
@@ -76,7 +85,7 @@ const CompaniesTableBody = () => {
                 totalPages={totalPages}
             />
         </div>
-    )
-}
+    );
+};
 
-export default CompaniesTableBody
+export default CompaniesTableBody;

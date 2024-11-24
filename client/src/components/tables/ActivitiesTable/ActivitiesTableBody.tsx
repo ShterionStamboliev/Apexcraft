@@ -16,28 +16,31 @@ import ConditionalRenderer from '@/components/common/ConditionalRenderer/Conditi
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({
+        setSearchParams,
+    });
 
-    const { data: activities, isPending, isError } = useGetPaginatedData<Activity>({
+    const {
+        data: activities,
+        isPending,
+        isError,
+    } = useGetPaginatedData<Activity>({
         URL: '/activities',
         queryKey: ['activities'],
         limit: itemsLimit,
         page,
-        search: debounceSearchTerm
+        search: debounceSearchTerm,
     });
 
     const totalPages: number | undefined = activities?.totalPages;
 
     if (isPending) {
-        return <ActivitiesLoader activity={activities} />
-    };
+        return <ActivitiesLoader activity={activities} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
@@ -54,15 +57,21 @@ const ActivitiesTableBody = () => {
                 <TableBody>
                     <ConditionalRenderer
                         data={activities.data}
-                        renderData={(activities) => <ActivitiesCard activities={activities} />}
+                        renderData={(activities) => (
+                            <ActivitiesCard activities={activities} />
+                        )}
                         noResults={{
                             title: 'No activities found',
-                            description: "It looks like you haven't added any activities yet.",
+                            description:
+                                "It looks like you haven't added any activities yet.",
                             Icon: ActivityIcon,
                         }}
                         wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={4} className='text-center text-3xl'>
+                                <TableCell
+                                    colSpan={4}
+                                    className='text-center text-3xl'
+                                >
                                     {content}
                                 </TableCell>
                             </TableRow>
@@ -76,7 +85,7 @@ const ActivitiesTableBody = () => {
                 totalPages={totalPages}
             />
         </div>
-    )
-}
+    );
+};
 
-export default ActivitiesTableBody
+export default ActivitiesTableBody;

@@ -5,7 +5,10 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { addNewUserSchema, UserSchema } from '@/components/models/user/newUserSchema';
+import {
+    addNewUserSchema,
+    UserSchema,
+} from '@/components/models/user/newUserSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -15,7 +18,7 @@ import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook
 type UserFormProps = {
     userId: string;
     user: User;
-}
+};
 
 const EditUserForm = ({ user, userId }: UserFormProps) => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -26,7 +29,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
         URL: `/users/${userId}/edit`,
         queryKey: ['users'],
         successToast: 'User updated successfully!',
-        setIsOpen
+        setIsOpen,
     });
 
     const form = useForm<UserSchema>({
@@ -36,9 +39,9 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
             username: user.username,
             password: user.password,
             role: user.role,
-            status: user.status
+            status: user.status,
         },
-        mode: 'onChange'
+        mode: 'onChange',
     });
 
     const handleSubmit = (userData: UserSchema) => {
@@ -46,10 +49,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
     };
 
     return (
-        <Dialog
-            open={isOpen}
-            onOpenChange={setIsOpen}
-        >
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
             <DialogTriggerButtonEdit />
             <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px]'>
                 <DialogHeader title='Edit user info' />
@@ -96,7 +96,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
                 </FormProvider>
             </DialogContent>
         </Dialog>
-    )
-}
+    );
+};
 
-export default EditUserForm
+export default EditUserForm;
