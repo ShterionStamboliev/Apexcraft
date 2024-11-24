@@ -13,7 +13,7 @@ const ProjectTasksSkeleton = ({ tasks }: TasksProps) => {
             <div className='flex flex-col border rounded-lg mt-8 mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
                 <Skeleton className='md:w-full lg:max-w-[12rem] h-9' />
             </div>
-            <div className='flex flex-col border rounded-lg mb-24 mt-8 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
+                    <div className='flex flex-col border rounded-lg mb-24 mt-8 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
                 <div className='flex flex-wrap  sm:w-full gap-4'>
                     {
                         Array.from({ length: taskLength }).map((_, index) => (
