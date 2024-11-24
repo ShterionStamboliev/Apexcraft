@@ -7,24 +7,25 @@ import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const UserProjectsTableBody = () => {
-    const { data: tasks, isPending, isError } = useFetchDataQuery<Task[]>({
+    const {
+        data: tasks,
+        isPending,
+        isError,
+    } = useFetchDataQuery<Task[]>({
         URL: '/my-projects',
         queryKey: ['artisanTasks'],
         options: {
-            staleTime: 0
-        }
+            staleTime: 0,
+        },
     });
 
     if (isPending) {
-        return <ProjectTasksSkeleton tasks={tasks} />
-    };
+        return <ProjectTasksSkeleton tasks={tasks} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title="Oops..." Icon={CircleAlert} />;
+    }
 
     return (
         <ConditionalRenderer
@@ -36,7 +37,7 @@ const UserProjectsTableBody = () => {
                 Icon: ClipboardList,
             }}
         />
-    )
-}
+    );
+};
 
-export default UserProjectsTableBody
+export default UserProjectsTableBody;

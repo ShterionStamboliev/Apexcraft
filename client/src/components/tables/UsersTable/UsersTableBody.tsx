@@ -16,40 +16,43 @@ import ConditionalRenderer from '@/components/common/ConditionalRenderer/Conditi
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
 
-    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({ setSearchParams });
+    const { search, handleSearch, debounceSearchTerm } = useSearchHandler({
+        setSearchParams,
+    });
 
-    const { data: users, isPending, isError } = useGetPaginatedData<User>({
+    const {
+        data: users,
+        isPending,
+        isError,
+    } = useGetPaginatedData<User>({
         URL: '/users',
         queryKey: ['users'],
         limit: itemsLimit,
         page,
-        search: debounceSearchTerm
+        search: debounceSearchTerm,
     });
 
     const totalPages: number | undefined = users?.totalPages;
 
     if (isPending) {
-        return <UsersLoader users={users} />
-    };
+        return <UsersLoader users={users} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title="Oops..." Icon={CircleAlert} />;
+    }
 
     return (
-        <div className='flex flex-col flex-1 py-8 items-center md:px-0'>
-            <div className='flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between'>
+        <div className="flex flex-col flex-1 py-8 items-center md:px-0">
+            <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row gap-4 w-full mb-4 md:w-2/3 justify-between">
                 <SearchBar
                     handleSearch={handleSearch}
-                    placeholder='Search users...'
+                    placeholder="Search users..."
                     search={search}
                 />
                 <CreateUser />
             </div>
-            <Table className='w-full min-w-full'>
+            <Table className="w-full min-w-full">
                 <UsersHeader />
                 <TableBody>
                     <ConditionalRenderer
@@ -57,12 +60,16 @@ const UsersTableBody = () => {
                         renderData={(users) => <UsersCard users={users} />}
                         noResults={{
                             title: 'No users found',
-                            description: "It looks like you haven't added any users yet.",
+                            description:
+                                "It looks like you haven't added any users yet.",
                             Icon: Users,
                         }}
                         wrapper={(content) => (
                             <TableRow>
-                                <TableCell colSpan={4} className='text-center text-3xl'>
+                                <TableCell
+                                    colSpan={4}
+                                    className="text-center text-3xl"
+                                >
                                     {content}
                                 </TableCell>
                             </TableRow>
@@ -79,4 +86,4 @@ const UsersTableBody = () => {
     );
 };
 
-export default UsersTableBody
+export default UsersTableBody;

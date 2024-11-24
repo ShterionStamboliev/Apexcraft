@@ -8,21 +8,22 @@ import CreateProject from '@/components/forms/projects-form/ProjectFormCreate/Cr
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 
 const ProjectsTableBody = () => {
-    const { data: projects, isPending, isError } = useFetchDataQuery<Project[]>({
+    const {
+        data: projects,
+        isPending,
+        isError,
+    } = useFetchDataQuery<Project[]>({
         URL: '/projects',
         queryKey: ['projects'],
     });
 
     if (isPending) {
-        return <ProjectsSkeletonCard projects={projects} />
-    };
+        return <ProjectsSkeletonCard projects={projects} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <>
@@ -33,10 +34,13 @@ const ProjectsTableBody = () => {
                 <div className='flex flex-wrap sm:w-full gap-4'>
                     <ConditionalRenderer
                         data={projects}
-                        renderData={(projects) => <ProjectsCard projects={projects} />}
+                        renderData={(projects) => (
+                            <ProjectsCard projects={projects} />
+                        )}
                         noResults={{
                             title: 'No projects found',
-                            description: "It looks like you haven't added any projects yet",
+                            description:
+                                "It looks like you haven't added any projects yet",
                             Icon: BrickWall,
                         }}
                     />
@@ -46,4 +50,4 @@ const ProjectsTableBody = () => {
     );
 };
 
-export default ProjectsTableBody
+export default ProjectsTableBody;

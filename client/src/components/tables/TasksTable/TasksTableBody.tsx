@@ -11,7 +11,11 @@ import CreateTask from '@/components/forms/tasks-form/TaskFormCreate/CreateTask'
 const ProjectsTasksBody = () => {
     const { id } = useParams();
 
-    const { data: tasks, isPending, isError } = useFetchDataQuery<Task[]>({
+    const {
+        data: tasks,
+        isPending,
+        isError,
+    } = useFetchDataQuery<Task[]>({
         URL: `/projects/${id}/tasks`,
         queryKey: ['projects', id, 'tasks'],
         options: {
@@ -20,15 +24,12 @@ const ProjectsTasksBody = () => {
     });
 
     if (isPending) {
-        return <ProjectTasksSkeleton tasks={tasks} />
-    };
+        return <ProjectTasksSkeleton tasks={tasks} />;
+    }
 
     if (isError) {
-        return <ErrorMessage
-            title='Oops...'
-            Icon={CircleAlert}
-        />
-    };
+        return <ErrorMessage title='Oops...' Icon={CircleAlert} />;
+    }
 
     return (
         <>
@@ -39,17 +40,20 @@ const ProjectsTasksBody = () => {
                 <div className='flex flex-wrap sm:w-full gap-4'>
                     <ConditionalRenderer
                         data={tasks}
-                        renderData={(tasks) => <TasksCard tasks={tasks} id={id!} />}
+                        renderData={(tasks) => (
+                            <TasksCard tasks={tasks} id={id!} />
+                        )}
                         noResults={{
                             title: 'No tasks found',
-                            description: "It looks like you haven't added any tasks yet.",
+                            description:
+                                "It looks like you haven't added any tasks yet.",
                             Icon: ClipboardList,
                         }}
                     />
                 </div>
             </div>
         </>
-    )
-}
+    );
+};
 
-export default ProjectsTasksBody
+export default ProjectsTasksBody;
