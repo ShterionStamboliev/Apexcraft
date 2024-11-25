@@ -1,4 +1,3 @@
-import { useEditTaskForm } from '@/components/hooks/custom-hooks/useEditTaskForm';
 import {
     EditTaskSchema,
     TaskSchema,
@@ -13,12 +12,13 @@ import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkI
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
 import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
 import TasksEditBreadcrumbs from '@/components/common/Breadcrumbs/TasksEditBreadcrumbs';
+import { Task } from '@/types/task-types/taskTypes';
 import {
     useFetchDataQuery,
     useGetInfiniteData,
-} from '@/components/hooks/custom-hooks/useQueryHook';
-import { Task } from '@/types/task-types/taskTypes';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+} from '@/hooks/custom-hooks/useQueryHook';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useEditTaskForm } from '@/hooks/custom-hooks/useEditTaskForm';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();

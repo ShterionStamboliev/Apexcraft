@@ -4,8 +4,8 @@ import { CompanySchema } from '@/components/models/company/newCompanySchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateCompanyForm from './CreateCompanyForm';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateCompany = () => {
     const { isOpen, setIsOpen } = useDialogState();

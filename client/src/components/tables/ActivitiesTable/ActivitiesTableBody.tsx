@@ -5,13 +5,13 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import ActivitiesCard from './ActivitiesCard';
 import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
-import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Activity } from '@/types/activity-types/activityTypes';
-import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateActivity from '@/components/forms/activities-form/ActivityFormCreate/CreateActivity';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
+import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
 
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();

@@ -4,14 +4,14 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
 import {
     Dialog,
     DialogContent,
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 import {
     WorkItem,
     workItemSchema,

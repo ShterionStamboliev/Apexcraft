@@ -1,5 +1,4 @@
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 import {
     Dialog,
     DialogContent,
@@ -9,7 +8,8 @@ import {
 import { WorkItemSchema } from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import UserWorkItemCreateForm from './UserWorkItemCreateForm';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const UserWorkItemCreate = () => {
     const { taskId } = useParams();

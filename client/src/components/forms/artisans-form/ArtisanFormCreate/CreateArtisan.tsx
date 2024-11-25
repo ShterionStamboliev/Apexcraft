@@ -1,11 +1,11 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 import { ArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateArtisanForm from './CreateArtisanForm';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateArtisan = () => {
     const { isOpen, setIsOpen } = useDialogState();

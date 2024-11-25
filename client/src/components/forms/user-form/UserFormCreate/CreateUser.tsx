@@ -2,9 +2,9 @@ import { UserSchema } from '@/components/models/user/newUserSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
 import CreateUserForm from './CreateUserForm';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateUser = () => {
     const { isOpen, setIsOpen } = useDialogState();

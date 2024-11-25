@@ -4,14 +4,14 @@ import CompaniesLoader from '@/components/utils/SkeletonLoader/Companies/Compani
 import { Building2, CircleAlert } from 'lucide-react';
 import CompaniesCard from './CompaniesCard';
 import CompaniesHeader from './CompanyTableElements/CompaniesHeader/CompaniesHeader';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Company } from '@/types/company-types/companyTypes';
-import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import Pagination from '@/components/common/Pagination/Pagination';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateCompany from '@/components/forms/companies-form/CompanyFormCreate/CreateCompany';
-import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
+import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
 
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();

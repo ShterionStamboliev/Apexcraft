@@ -4,9 +4,9 @@ import UserWorkItemCreate from '@/components/forms/user-projects-tasks-form/User
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
 import UserProjectWorkItemsList from './UserProjectWorkItemsList';
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { ProjectTask } from '@/types/task-types/taskTypes';
 import { useParams } from 'react-router-dom';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
 const UserProjectTaskTableBody = () => {
     const { taskId } = useParams<{ taskId: string }>();

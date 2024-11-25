@@ -4,14 +4,14 @@ import { CircleAlert, Users } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import UsersCard from './UsersCard';
 import UsersHeader from './UserTableElements/TableHeader/TableHeader';
-import useSearchParamsHook from '@/components/hooks/custom-hooks/useSearchParamsHook';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { User } from '@/types/user-types/userTypes';
-import { useGetPaginatedData } from '@/components/hooks/custom-hooks/useQueryHook';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import useSearchHandler from '@/components/hooks/custom-hooks/useSearchHandler';
 import CreateUser from '@/components/forms/user-form/UserFormCreate/CreateUser';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
+import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
 
 const UsersTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();

@@ -1,9 +1,9 @@
 import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
-import useLoginUser from '@/components/hooks/UserHooks/useLoginUser';
 import FormErrors from '../../../common/FormElements/FormErrors';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import login_image from '@/components/assets/login_image.jpg';
+import useLoginUser from '@/hooks/custom-hooks/useLoginUser';
 
 const UserLoginForm = () => {
     const { form, onSubmit, error, isLoading } = useLoginUser();

@@ -4,8 +4,8 @@ import { MeasureSchema } from '@/components/models/measure/newMeasureSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateMeasureForm from './CreateMeasureForm';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();

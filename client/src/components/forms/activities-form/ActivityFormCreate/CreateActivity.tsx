@@ -3,8 +3,8 @@ import DialogTriggerButtonCreate from '@/components/common/DialogElements/Dialog
 import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
-import useDialogState from '@/components/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/components/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateActivity = () => {
     const { isOpen, setIsOpen } = useDialogState();

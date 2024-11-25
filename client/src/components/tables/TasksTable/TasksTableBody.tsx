@@ -3,10 +3,10 @@ import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/Projec
 import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import TasksCard from './TasksCard';
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import CreateTask from '@/components/forms/tasks-form/TaskFormCreate/CreateTask';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
 const ProjectsTasksBody = () => {
     const { id } = useParams();

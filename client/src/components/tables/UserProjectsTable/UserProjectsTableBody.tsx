@@ -2,9 +2,9 @@ import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/Projec
 import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import UserProjectsCard from './UserProjectsCard';
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
 const UserProjectsTableBody = () => {
     const {
