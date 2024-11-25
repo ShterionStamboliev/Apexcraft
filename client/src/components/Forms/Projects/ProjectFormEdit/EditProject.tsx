@@ -16,6 +16,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { ClipboardList, Mail, MapPin } from 'lucide-react';
 
 type ProjectFormProps = {
     projectId: string;
@@ -67,16 +68,22 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                             type='text'
                             label='Project name'
                             name='name'
+                            className='pl-10'
+                            Icon={ClipboardList}
                         />
                         <FormFieldInput
                             type='text'
                             label='Project address'
                             name='address'
+                            className='pl-10'
+                            Icon={MapPin}
                         />
                         <FormFieldInput
                             type='email'
                             label='Project email'
                             name='email'
+                            className='pl-10'
+                            Icon={Mail}
                         />
                         <div className='flex flex-1 flex-wrap pt-2 justify-between'>
                             <StatusSelector

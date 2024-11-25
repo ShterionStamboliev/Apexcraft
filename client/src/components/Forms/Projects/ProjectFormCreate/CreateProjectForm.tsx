@@ -10,6 +10,7 @@ import {
     ProjectSchema,
 } from '@/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { ClipboardList, Mail, MapPin } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateProjectFormProps = {
@@ -30,16 +31,26 @@ const CreateProjectForm = ({
     return (
         <FormProvider {...form}>
             <form id='project-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Project name' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Project name'
+                    name='name'
+                    className='pl-10'
+                    Icon={ClipboardList}
+                />
                 <FormFieldInput
                     type='email'
                     label='Project email'
                     name='email'
+                    className='pl-10'
+                    Icon={Mail}
                 />
                 <FormFieldInput
                     type='text'
                     label='Project address'
                     name='address'
+                    className='pl-10'
+                    Icon={MapPin}
                 />
                 <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector

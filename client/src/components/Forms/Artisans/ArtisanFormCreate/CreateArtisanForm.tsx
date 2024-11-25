@@ -10,6 +10,7 @@ import {
     newArtisanSchema,
 } from '@/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Mail, Phone, User } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateArtisanFormProps = {
@@ -30,16 +31,26 @@ const CreateArtisanForm = ({
     return (
         <FormProvider {...form}>
             <form id='artisan-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Artisan name' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Artisan name'
+                    name='name'
+                    className='pl-10'
+                    Icon={User}
+                />
                 <FormFieldInput
                     type='text'
                     label='Artisan phone'
                     name='number'
+                    className='pl-10'
+                    Icon={Phone}
                 />
                 <FormFieldInput
                     type='text'
                     label='Artisan email'
                     name='email'
+                    className='pl-10'
+                    Icon={Mail}
                 />
                 <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                     <StatusSelector

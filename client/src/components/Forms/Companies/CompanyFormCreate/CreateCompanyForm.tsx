@@ -8,6 +8,14 @@ import {
     newCompanySchema,
 } from '@/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    ClipboardList,
+    FileDigit,
+    Mail,
+    MapPin,
+    Phone,
+    User,
+} from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateCompanyFormProps = {
@@ -28,27 +36,47 @@ const CreateCompanyForm = ({
     return (
         <FormProvider {...form}>
             <form id='company-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Company name' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Company name'
+                    name='name'
+                    className='pl-10'
+                    Icon={ClipboardList}
+                />
                 <FormFieldInput
                     type='text'
                     label='Company number'
                     name='number'
+                    className='pl-10'
+                    Icon={FileDigit}
                 />
                 <FormFieldInput
                     type='text'
                     label='Company address'
                     name='address'
+                    className='pl-10'
+                    Icon={MapPin}
                 />
-                <FormFieldInput type='text' label='Company MOL' name='mol' />
+                <FormFieldInput
+                    type='text'
+                    label='Company MOL'
+                    name='mol'
+                    className='pl-10'
+                    Icon={User}
+                />
                 <FormFieldInput
                     type='email'
                     label='Company email'
                     name='email'
+                    className='pl-10'
+                    Icon={Mail}
                 />
                 <FormFieldInput
                     type='text'
                     label='Company phone'
                     name='phone'
+                    className='pl-10'
+                    Icon={Phone}
                 />
                 <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                     <StatusSelector

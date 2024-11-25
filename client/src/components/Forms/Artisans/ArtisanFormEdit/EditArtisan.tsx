@@ -16,6 +16,7 @@ import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { Mail, Phone, User } from 'lucide-react';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -66,16 +67,22 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
                             type='text'
                             label='Artisan name'
                             name='name'
+                            className='pl-10'
+                            Icon={User}
                         />
                         <FormFieldInput
                             type='text'
                             label='Artisan phone'
                             name='number'
+                            className='pl-10'
+                            Icon={Phone}
                         />
                         <FormFieldInput
                             type='text'
                             label='Artisan email'
                             name='email'
+                            className='pl-10'
+                            Icon={Mail}
                         />
                         <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
                             <StatusSelector

@@ -11,6 +11,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { Lock, User as UserIcon } from 'lucide-react';
 
 type UserFormProps = {
     userId: string;
@@ -59,16 +60,22 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
                             type='text'
                             label='Name, Surname'
                             name='name_and_family'
+                            className='pl-10'
+                            Icon={UserIcon}
                         />
                         <FormFieldInput
                             type='text'
                             label='Username'
                             name='username'
+                            className='pl-10'
+                            Icon={UserIcon}
                         />
                         <FormFieldInput
                             type='password'
                             label='Password'
                             name='password'
+                            className='pl-10'
+                            Icon={Lock}
                         />
                         <div className='flex flex-wrap gap-1 flex-1 justify-between pt-2'>
                             <RoleSelector

@@ -13,6 +13,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
 import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector';
+import { ClipboardList, DollarSign, Hammer } from 'lucide-react';
 
 type CreateTaskFormProps = {
     handleSubmit: (taskData: TaskSchema) => void;
@@ -29,45 +30,50 @@ const CreateTaskForm = ({ handleSubmit, isPending }: CreateTaskFormProps) => {
     return (
         <FormProvider {...form}>
             <form id='task-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Task name' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Task name'
+                    name='name'
+                    className='pl-10'
+                    Icon={ClipboardList}
+                />
                 <FormFieldInput
                     type='text'
                     label='Price per measure'
                     name='price_per_measure'
+                    className='pl-10'
+                    Icon={DollarSign}
                 />
                 <FormFieldInput
                     type='text'
                     label='Total work in selected measure'
                     name='total_work_in_selected_measure'
+                    className='pl-10'
+                    Icon={Hammer}
                 />
                 <FormFieldInput
                     type='text'
                     label='Total price'
                     name='total_price'
+                    className='pl-10'
+                    Icon={DollarSign}
                 />
                 <div className='flex flex-col flex-1 pt-2 justify-between'>
                     <div className='flex justify-between'>
-                        <StatusSelector
-                            label='Status'
-                            name='status'
-                            defaultVal=''
-                        />
+                        <StatusSelector label='Status' name='status' />
                         <ArtisanSelector
                             label='Select artisan'
                             name='artisan'
-                            defaultVal=''
                         />
                     </div>
                     <div className='flex justify-between'>
                         <ActivitySelector
                             label='Select activity type'
                             name='activity'
-                            defaultVal=''
                         />
                         <MeasureSelector
                             label='Select measure type'
                             name='measure'
-                            defaultVal=''
                         />
                     </div>
                 </div>
