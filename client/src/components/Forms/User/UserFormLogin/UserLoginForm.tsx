@@ -4,6 +4,7 @@ import FormErrors from '../../../common/FormElements/FormErrors';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import useLoginUser from '@/hooks/custom-hooks/useLoginUser';
 import login_image from '@/assets/login_image.jpg';
+import { Lock, User } from 'lucide-react';
 
 const UserLoginForm = () => {
     const { form, onSubmit, error, isLoading } = useLoginUser();
@@ -30,11 +31,15 @@ const UserLoginForm = () => {
                                     name='username'
                                     label='Username'
                                     type='text'
+                                    className='pl-10'
+                                    Icon={User}
                                 />
                                 <FormFieldInput
                                     name='password'
                                     label='Password'
                                     type='password'
+                                    className='pl-10'
+                                    Icon={Lock}
                                 />
                                 <DialogFooter
                                     disabled={
