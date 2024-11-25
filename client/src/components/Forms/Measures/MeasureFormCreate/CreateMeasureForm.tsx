@@ -6,6 +6,7 @@ import {
     newMeasureSchema,
 } from '@/models/measure/newMeasureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Ruler } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateMeasureFormProps = {
@@ -26,7 +27,13 @@ const CreateMeasureForm = ({
     return (
         <FormProvider {...form}>
             <form id='measure-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Measure type' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Measure type'
+                    name='name'
+                    className='pl-10'
+                    Icon={Ruler}
+                />
                 <DialogFooter
                     disabled={!form.formState.isDirty || isPending}
                     label='Submit'

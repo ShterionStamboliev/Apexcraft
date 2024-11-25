@@ -12,6 +12,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { Ruler } from 'lucide-react';
 
 type MeasureFormProps = {
     measureId: string;
@@ -56,6 +57,8 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
                             type='text'
                             label='Type of measure'
                             name='name'
+                            className='pl-10'
+                            Icon={Ruler}
                         />
                         <DialogFooter
                             disabled={!form.formState.isDirty || isPending}
