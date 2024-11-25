@@ -7,7 +7,6 @@ import MeasureSelector from '@/components/common/FormElements/FormMeasureSelecto
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import { ClipboardList, DollarSign, Hammer } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 
