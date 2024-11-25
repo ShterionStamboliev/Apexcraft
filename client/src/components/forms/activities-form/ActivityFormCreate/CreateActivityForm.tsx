@@ -5,7 +5,7 @@ import {
     activityDefaults,
     ActivitySchema,
     newActivitySchema,
-} from '@/components/models/activity/newActivitySchema';
+} from '@/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 

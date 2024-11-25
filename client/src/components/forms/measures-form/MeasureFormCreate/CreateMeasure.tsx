@@ -1,6 +1,6 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { MeasureSchema } from '@/components/models/measure/newMeasureSchema';
+import { MeasureSchema } from '@/models/measure/newMeasureSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateMeasureForm from './CreateMeasureForm';

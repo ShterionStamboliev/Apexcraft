@@ -2,7 +2,7 @@ import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import EditWorkItemForm from '@/components/forms/work-items-form/WorkItemFormEdit/EditWorkItem';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import WorkItemSkeleton from '@/components/utils/SkeletonLoader/WorkItems/WorkItemSkeleton';
+import WorkItemSkeleton from '@/utils/SkeletonLoader/WorkItems/WorkItemSkeleton';
 import { format } from 'date-fns';
 import { ClipboardList, Hourglass } from 'lucide-react';
 import { useParams } from 'react-router-dom';

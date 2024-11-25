@@ -8,7 +8,7 @@ import {
     newTaskSchema,
     taskDefaults,
     TaskSchema,
-} from '@/components/models/task/newTaskSchema';
+} from '@/models/task/newTaskSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';

@@ -1,31 +1,36 @@
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
-} from '@/components/ui/form'
+    FormLabel,
+} from '@/components/ui/form';
 import {
     Select,
     SelectContent,
     SelectGroup,
     SelectItem,
     SelectTrigger,
-    SelectValue
-} from '@/components/ui/select'
-import { Artisan } from '@/types/artisan-types/artisanTypes'
-import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { useFormContext } from 'react-hook-form'
-import { PaginatedData } from '../Pagination/Pagination'
+    SelectValue,
+} from '@/components/ui/select';
+import { Artisan } from '@/types/artisan-types/artisanTypes';
+import { TableFormSelectType } from '@/types/table-types/tableTypes';
+import { useFormContext } from 'react-hook-form';
+import { PaginatedData } from '../Pagination/Pagination';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
-const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const ArtisanSelector = ({
+    label,
+    name,
+    placeholder,
+    defaultVal,
+}: TableFormSelectType) => {
     const { control } = useFormContext();
 
     const { data: artisans } = useFetchDataQuery<PaginatedData<Artisan>>({
         URL: '/artisans',
         queryKey: ['artisans'],
         options: {
-            staleTime: Infinity
+            staleTime: Infinity,
         },
     });
 
@@ -35,9 +40,7 @@ const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className='font-semibold'>
-                        {label}
-                    </FormLabel>
+                    <FormLabel className='font-semibold'>{label}</FormLabel>
                     <Select
                         onValueChange={field.onChange}
                         defaultValue={defaultVal}
@@ -49,8 +52,12 @@ const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                         </FormControl>
                         <SelectContent>
                             <SelectGroup>
-                                {
-                                    artisans && artisans.data.filter(artisan => artisan.status === 'active')
+                                {artisans &&
+                                    artisans.data
+                                        .filter(
+                                            (artisan) =>
+                                                artisan.status === 'active'
+                                        )
                                         .map((artisan) => (
                                             <SelectItem
                                                 key={artisan.id}
@@ -58,15 +65,14 @@ const ArtisanSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                                             >
                                                 {artisan.name}
                                             </SelectItem>
-                                        ))
-                                }
+                                        ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
 export default ArtisanSelector;

@@ -2,7 +2,7 @@ import {
     addNewUserSchema,
     formDefaultValues,
     UserSchema,
-} from '@/components/models/user/newUserSchema';
+} from '@/models/user/newUserSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';

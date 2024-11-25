@@ -1,31 +1,36 @@
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
-} from '@/components/ui/form'
+    FormLabel,
+} from '@/components/ui/form';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
-} from '@/components/ui/select'
-import { Activity} from '@/types/activity-types/activityTypes'
-import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { useFormContext } from 'react-hook-form'
-import { PaginatedData } from '../Pagination/Pagination'
+    SelectValue,
+} from '@/components/ui/select';
+import { Activity } from '@/types/activity-types/activityTypes';
+import { TableFormSelectType } from '@/types/table-types/tableTypes';
+import { useFormContext } from 'react-hook-form';
+import { PaginatedData } from '../Pagination/Pagination';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
-const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const ActivitySelector = ({
+    label,
+    name,
+    placeholder,
+    defaultVal,
+}: TableFormSelectType) => {
     const { control } = useFormContext();
 
     const { data: activities } = useFetchDataQuery<PaginatedData<Activity>>({
         URL: '/activities',
         queryKey: ['activities'],
         options: {
-            staleTime: Infinity
-        }
+            staleTime: Infinity,
+        },
     });
 
     return (
@@ -34,9 +39,7 @@ const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSel
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className='font-semibold'>
-                        {label}
-                    </FormLabel>
+                    <FormLabel className='font-semibold'>{label}</FormLabel>
                     <Select
                         onValueChange={field.onChange}
                         defaultValue={defaultVal}
@@ -47,23 +50,21 @@ const ActivitySelector = ({ label, name, placeholder, defaultVal }: TableFormSel
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {
-                                activities && activities.data
-                                    .map((activity) => (
-                                        <SelectItem
-                                            key={activity.id}
-                                            value={activity.name}
-                                        >
-                                            {activity.name}
-                                        </SelectItem>
-                                    ))
-                            }
+                            {activities &&
+                                activities.data.map((activity) => (
+                                    <SelectItem
+                                        key={activity.id}
+                                        value={activity.name}
+                                    >
+                                        {activity.name}
+                                    </SelectItem>
+                                ))}
                         </SelectContent>
                     </Select>
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
 export default ActivitySelector;

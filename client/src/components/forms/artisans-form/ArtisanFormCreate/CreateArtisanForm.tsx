@@ -8,7 +8,7 @@ import {
     artisanDefaults,
     ArtisanSchema,
     newArtisanSchema,
-} from '@/components/models/artisan/newArtisanSchema';
+} from '@/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 

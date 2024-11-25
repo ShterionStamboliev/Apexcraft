@@ -1,4 +1,4 @@
-import { formDefaultValues, loginFormSchema } from '@/components/models/user/userLoginSchema';
+import { formDefaultValues, loginFormSchema } from '@/models/user/userLoginSchema';
 import { useAuth } from '@/context/AuthContext';
 import { UserLoginFormData } from '@/types/user-types/userTypes';
 import { zodResolver } from '@hookform/resolvers/zod';

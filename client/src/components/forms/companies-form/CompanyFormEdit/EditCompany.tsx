@@ -7,7 +7,7 @@ import VatSelector from '@/components/common/FormElements/FormVatSelector';
 import {
     CompanySchema,
     newCompanySchema,
-} from '@/components/models/company/newCompanySchema';
+} from '@/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';

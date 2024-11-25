@@ -1,21 +1,26 @@
-import { userStatus } from '@/components/models/user/newUserSchema'
+import { userStatus } from '@/models/user/newUserSchema';
 import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
-} from '@/components/ui/form'
+    FormLabel,
+} from '@/components/ui/form';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
-} from '@/components/ui/select'
-import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { useFormContext } from 'react-hook-form'
+    SelectValue,
+} from '@/components/ui/select';
+import { TableFormSelectType } from '@/types/table-types/tableTypes';
+import { useFormContext } from 'react-hook-form';
 
-const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const StatusSelector = ({
+    label,
+    name,
+    placeholder,
+    defaultVal,
+}: TableFormSelectType) => {
     const { control } = useFormContext();
 
     return (
@@ -24,9 +29,7 @@ const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelec
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className='font-semibold'>
-                        {label}
-                    </FormLabel>
+                    <FormLabel className='font-semibold'>{label}</FormLabel>
                     <Select
                         onValueChange={field.onChange}
                         defaultValue={defaultVal}
@@ -38,10 +41,7 @@ const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelec
                         </FormControl>
                         <SelectContent>
                             {userStatus.map((role, index: number) => (
-                                <SelectItem
-                                    key={index}
-                                    value={role}
-                                >
+                                <SelectItem key={index} value={role}>
                                     {role}
                                 </SelectItem>
                             ))}
@@ -50,7 +50,7 @@ const StatusSelector = ({ label, name, placeholder, defaultVal }: TableFormSelec
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
-export default StatusSelector
+export default StatusSelector;

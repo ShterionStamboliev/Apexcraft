@@ -4,7 +4,7 @@ import {
     measureDefaults,
     MeasureSchema,
     newMeasureSchema,
-} from '@/components/models/measure/newMeasureSchema';
+} from '@/models/measure/newMeasureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 

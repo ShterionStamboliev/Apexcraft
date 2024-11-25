@@ -1,6 +1,6 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { CompanySchema } from '@/components/models/company/newCompanySchema';
+import { CompanySchema } from '@/models/company/newCompanySchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateCompanyForm from './CreateCompanyForm';

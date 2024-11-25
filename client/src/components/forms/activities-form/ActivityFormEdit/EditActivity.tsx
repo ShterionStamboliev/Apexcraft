@@ -7,7 +7,7 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import {
     ActivitySchema,
     newActivitySchema,
-} from '@/components/models/activity/newActivitySchema';
+} from '@/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';

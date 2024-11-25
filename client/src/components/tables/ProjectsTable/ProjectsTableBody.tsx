@@ -1,4 +1,4 @@
-import ProjectsSkeletonCard from '@/components/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
+import ProjectsSkeletonCard from '@/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
 import { BrickWall, CircleAlert } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import ProjectsCard from './ProjectsCard';

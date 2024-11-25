@@ -1,6 +1,6 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ActivitySchema } from '@/components/models/activity/newActivitySchema';
+import { ActivitySchema } from '@/models/activity/newActivitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';

@@ -1,19 +1,19 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import UserLoginForm from './components/forms/user-form/UserFormLogin/UserLoginForm';
-import TableLayout from './components/layouts/Table/TableLayout';
-import UsersTablePage from './components/pages/UsersTablePage';
-import Homepage from './components/pages/Homepage';
-import ActivitiesTablePage from './components/pages/ActivitiesTablePage';
-import MeasuresTablePage from './components/pages/MeasuresTablePage';
-import ProjectsTablePage from './components/pages/ProjectsTablePage';
-import CompaniesTablePage from './components/pages/CompaniesTablePage';
-import ArtisansTablePage from './components/pages/ArtisansTablePage';
-import ProjectTasksPage from './components/pages/ProjectTasksPage';
-import TaskEditPage from './components/pages/TaskEditPage';
-import UserGuard from './components/guards/UserGuard';
-import ManagerGuard from './components/guards/ManagerGuard';
-import UserProjectsPage from './components/pages/UserProjectsPage';
-import UserProjectTaskPage from './components/pages/UserProjectTaskPage';
+import TableLayout from './layouts/Table/TableLayout';
+import UsersTablePage from './pages/UsersTablePage';
+import Homepage from './pages/Homepage';
+import ActivitiesTablePage from './pages/ActivitiesTablePage';
+import MeasuresTablePage from './pages/MeasuresTablePage';
+import ProjectsTablePage from './pages/ProjectsTablePage';
+import CompaniesTablePage from './pages/CompaniesTablePage';
+import ArtisansTablePage from './pages/ArtisansTablePage';
+import ProjectTasksPage from './pages/ProjectTasksPage';
+import TaskEditPage from './pages/TaskEditPage';
+import UserGuard from './guards/UserGuard';
+import ManagerGuard from './guards/ManagerGuard';
+import UserProjectsPage from './pages/UserProjectsPage';
+import UserProjectTaskPage from './pages/UserProjectTaskPage';
 
 const AppRoutes = () => {
     return (
@@ -101,7 +101,6 @@ const AppRoutes = () => {
             </Route>
             {/*Manager/admin only routes */}
 
-
             {/* User only routes */}
             <Route element={<UserGuard />}>
                 <Route
@@ -126,12 +125,7 @@ const AppRoutes = () => {
             {/* User only routes */}
 
             {/* Public routes */}
-            <Route
-                path='/login'
-                element={
-                    <UserLoginForm />
-                }
-            />
+            <Route path='/login' element={<UserLoginForm />} />
             <Route
                 path='/'
                 element={
@@ -140,15 +134,10 @@ const AppRoutes = () => {
                     </TableLayout>
                 }
             />
-            <Route
-                path='*'
-                element={
-                    <Navigate to='/' />
-                }
-            />
+            <Route path='*' element={<Navigate to='/' />} />
             {/* Public routes */}
         </Routes>
-    )
-}
+    );
+};
 
 export default AppRoutes;

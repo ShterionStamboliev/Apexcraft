@@ -1,6 +1,6 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ArtisanSchema } from '@/components/models/artisan/newArtisanSchema';
+import { ArtisanSchema } from '@/models/artisan/newArtisanSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateArtisanForm from './CreateArtisanForm';

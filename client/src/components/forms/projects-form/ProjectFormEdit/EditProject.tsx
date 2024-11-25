@@ -10,7 +10,7 @@ import { Project } from '@/types/project-types/projectTypes';
 import {
     newProjectSchema,
     ProjectSchema,
-} from '@/components/models/project/newProjectSchema';
+} from '@/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';

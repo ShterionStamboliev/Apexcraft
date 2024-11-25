@@ -1,4 +1,4 @@
-import { getEntityData, getInfiniteData, getPaginatedData } from '@/components/api/apiCall';
+import { getEntityData, getInfiniteData, getPaginatedData } from '@/api/apiCall';
 import {
     FetchDataQueryOptions,
     FetchQueryOptions,

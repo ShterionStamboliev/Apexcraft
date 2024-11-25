@@ -1,11 +1,8 @@
-import {
-    EditTaskSchema,
-    TaskSchema,
-} from '@/components/models/task/newTaskSchema';
+import { EditTaskSchema, TaskSchema } from '@/models/task/newTaskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
-import TaskViewEditSkeleton from '@/components/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
+import TaskViewEditSkeleton from '@/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
 import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';

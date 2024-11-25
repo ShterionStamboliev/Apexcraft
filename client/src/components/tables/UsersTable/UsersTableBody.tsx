@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import UsersLoader from '@/components/utils/SkeletonLoader/Users/UsersLoader';
+import UsersLoader from '@/utils/SkeletonLoader/Users/UsersLoader';
 import { CircleAlert, Users } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import UsersCard from './UsersCard';

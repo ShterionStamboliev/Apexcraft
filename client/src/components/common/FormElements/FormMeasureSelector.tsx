@@ -1,30 +1,35 @@
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
-} from '@/components/ui/form'
+    FormLabel,
+} from '@/components/ui/form';
 import {
     Select,
     SelectContent,
     SelectGroup,
     SelectItem,
     SelectTrigger,
-    SelectValue
-} from '@/components/ui/select'
-import { Measure } from '@/types/measure-types/measureTypes'
-import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { useFormContext } from 'react-hook-form'
+    SelectValue,
+} from '@/components/ui/select';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { Measure } from '@/types/measure-types/measureTypes';
+import { TableFormSelectType } from '@/types/table-types/tableTypes';
+import { useFormContext } from 'react-hook-form';
 
-const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const MeasureSelector = ({
+    label,
+    name,
+    placeholder,
+    defaultVal,
+}: TableFormSelectType) => {
     const { control } = useFormContext();
 
     const { data: measures } = useFetchDataQuery<Measure[]>({
         URL: '/measures',
         queryKey: ['measures'],
         options: {
-            staleTime: Infinity
+            staleTime: Infinity,
         },
     });
 
@@ -34,9 +39,7 @@ const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className='font-semibold'>
-                        {label}
-                    </FormLabel>
+                    <FormLabel className='font-semibold'>{label}</FormLabel>
                     <Select
                         onValueChange={field.onChange}
                         defaultValue={defaultVal}
@@ -48,24 +51,22 @@ const MeasureSelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                         </FormControl>
                         <SelectContent>
                             <SelectGroup>
-                                {
-                                    measures && measures
-                                        .map((measure) => (
-                                            <SelectItem
-                                                key={measure.id}
-                                                value={measure.name}
-                                            >
-                                                {measure.name}
-                                            </SelectItem>
-                                        ))
-                                }
+                                {measures &&
+                                    measures.map((measure) => (
+                                        <SelectItem
+                                            key={measure.id}
+                                            value={measure.name}
+                                        >
+                                            {measure.name}
+                                        </SelectItem>
+                                    ))}
                             </SelectGroup>
                         </SelectContent>
                     </Select>
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
 export default MeasureSelector;

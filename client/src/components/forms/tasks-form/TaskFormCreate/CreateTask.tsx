@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import { TaskSchema } from '@/components/models/task/newTaskSchema';
+import { TaskSchema } from '@/models/task/newTaskSchema';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import CreateTaskForm from './CreateTaskForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';

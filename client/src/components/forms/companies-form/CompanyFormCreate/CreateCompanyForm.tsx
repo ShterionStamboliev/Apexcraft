@@ -6,7 +6,7 @@ import {
     companyDefaults,
     CompanySchema,
     newCompanySchema,
-} from '@/components/models/company/newCompanySchema';
+} from '@/models/company/newCompanySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 

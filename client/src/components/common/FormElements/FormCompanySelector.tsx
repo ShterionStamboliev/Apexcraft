@@ -1,30 +1,35 @@
-import { useFetchDataQuery } from '@/components/hooks/custom-hooks/useQueryHook'
 import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
-} from '@/components/ui/form'
+    FormLabel,
+} from '@/components/ui/form';
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
-    SelectValue
-} from '@/components/ui/select'
-import { Company } from '@/types/company-types/companyTypes'
-import { TableFormSelectType } from '@/types/table-types/tableTypes'
-import { useFormContext } from 'react-hook-form'
-import { PaginatedData } from '../Pagination/Pagination'
+    SelectValue,
+} from '@/components/ui/select';
+import { Company } from '@/types/company-types/companyTypes';
+import { TableFormSelectType } from '@/types/table-types/tableTypes';
+import { useFormContext } from 'react-hook-form';
+import { PaginatedData } from '../Pagination/Pagination';
+import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
 
-const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSelectType) => {
+const CompanySelector = ({
+    label,
+    name,
+    placeholder,
+    defaultVal,
+}: TableFormSelectType) => {
     const { control } = useFormContext();
 
     const { data: companies } = useFetchDataQuery<PaginatedData<Company>>({
         URL: '/companies',
         queryKey: ['companies'],
         options: {
-            staleTime: Infinity
+            staleTime: Infinity,
         },
     });
 
@@ -34,9 +39,7 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
             name={name}
             render={({ field }) => (
                 <FormItem>
-                    <FormLabel className='font-semibold'>
-                        {label}
-                    </FormLabel>
+                    <FormLabel className='font-semibold'>{label}</FormLabel>
                     <Select
                         onValueChange={field.onChange}
                         defaultValue={defaultVal}
@@ -47,8 +50,11 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                             </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                            {
-                                companies && companies.data.filter(company => company.status === 'active')
+                            {companies &&
+                                companies.data
+                                    .filter(
+                                        (company) => company.status === 'active'
+                                    )
                                     .map((company) => (
                                         <SelectItem
                                             key={company.id}
@@ -56,14 +62,13 @@ const CompanySelector = ({ label, name, placeholder, defaultVal }: TableFormSele
                                         >
                                             {company.name}
                                         </SelectItem>
-                                    ))
-                            }
+                                    ))}
                         </SelectContent>
                     </Select>
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
-export default CompanySelector
+export default CompanySelector;

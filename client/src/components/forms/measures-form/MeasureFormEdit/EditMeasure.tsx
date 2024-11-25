@@ -6,7 +6,7 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import {
     MeasureSchema,
     newMeasureSchema,
-} from '@/components/models/measure/newMeasureSchema';
+} from '@/models/measure/newMeasureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';

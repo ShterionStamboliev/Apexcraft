@@ -1,4 +1,4 @@
-import { UserSchema } from '@/components/models/user/newUserSchema';
+import { UserSchema } from '@/models/user/newUserSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';

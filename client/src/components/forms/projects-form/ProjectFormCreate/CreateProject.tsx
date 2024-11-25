@@ -1,6 +1,6 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ProjectSchema } from '@/components/models/project/newProjectSchema';
+import { ProjectSchema } from '@/models/project/newProjectSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateProjectForm from './CreateProjectForm';

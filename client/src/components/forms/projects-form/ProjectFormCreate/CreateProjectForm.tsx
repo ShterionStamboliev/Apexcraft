@@ -8,7 +8,7 @@ import {
     newProjectSchema,
     projectDefaults,
     ProjectSchema,
-} from '@/components/models/project/newProjectSchema';
+} from '@/models/project/newProjectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 

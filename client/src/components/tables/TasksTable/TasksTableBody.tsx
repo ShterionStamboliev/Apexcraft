@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import ProjectTasksSkeleton from '@/components/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
+import ProjectTasksSkeleton from '@/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
 import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import TasksCard from './TasksCard';

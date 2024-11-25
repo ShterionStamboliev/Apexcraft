@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import MeasuresLoader from '@/components/utils/SkeletonLoader/Measures/MeasuresLoader';
+import MeasuresLoader from '@/utils/SkeletonLoader/Measures/MeasuresLoader';
 import { CircleAlert, Ruler } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import MeasuresCard from './MeasuresCard';

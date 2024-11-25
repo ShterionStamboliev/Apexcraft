@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
-import ActivitiesLoader from '@/components/utils/SkeletonLoader/Activities/ActivitiesLoader';
+import ActivitiesLoader from '@/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import { CircleAlert, Activity as ActivityIcon } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import ActivitiesCard from './ActivitiesCard';

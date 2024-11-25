@@ -9,7 +9,7 @@ import FormTextareaInput from '@/components/common/FormElements/FormTextareaInpu
 import {
     ArtisanSchema,
     newArtisanSchema,
-} from '@/components/models/artisan/newArtisanSchema';
+} from '@/models/artisan/newArtisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';

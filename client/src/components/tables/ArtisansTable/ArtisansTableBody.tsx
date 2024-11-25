@@ -5,7 +5,7 @@ import ArtisansCard from './ArtisansCard';
 import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
-import ArtisansLoader from '@/components/utils/SkeletonLoader/Artisans/ArtisansLoader';
+import ArtisansLoader from '@/utils/SkeletonLoader/Artisans/ArtisansLoader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateArtisan from '@/components/forms/artisans-form/ArtisanFormCreate/CreateArtisan';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
