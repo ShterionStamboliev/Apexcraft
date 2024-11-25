@@ -24,7 +24,7 @@ const UserProjectTaskTableBody = () => {
             {task && (
                 <div className='container mx-auto p-4'>
                     <UserWorkItemCreate />
-                    <div className='grid lg:grid-cols-2 gap-20'>
+                    <div className='flex flex-col'>
                         <ProjectInformationCard project={task} />
                         <TaskInformationCard project={task} />
                     </div>

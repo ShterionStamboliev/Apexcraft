@@ -1,4 +1,6 @@
-import TableHeader, { HeaderItems } from '@/components/common/TableElements/TableHeader';
+import TableHeader, {
+    HeaderItems,
+} from '@/components/common/TableElements/TableHeader';
 
 const measuresHeaders: HeaderItems[] = [
     { key: 'measure', label: 'Measure', width: 'w-20rem', align: 'left' },
@@ -6,9 +8,7 @@ const measuresHeaders: HeaderItems[] = [
 ];
 
 const MeasuresHeader = () => {
-    return (
-        <TableHeader headers={measuresHeaders} />
-    );
+    return <TableHeader headers={measuresHeaders} />;
 };
 
 export default MeasuresHeader;

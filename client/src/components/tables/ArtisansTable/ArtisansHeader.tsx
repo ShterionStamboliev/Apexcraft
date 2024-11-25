@@ -1,4 +1,6 @@
-import TableHeader, { HeaderItems } from '@/components/common/TableElements/TableHeader';
+import TableHeader, {
+    HeaderItems,
+} from '@/components/common/TableElements/TableHeader';
 
 const artisanHeaders: HeaderItems[] = [
     { key: 'name', label: 'Name', width: 'w-20rem', align: 'left' },
@@ -6,9 +8,7 @@ const artisanHeaders: HeaderItems[] = [
 ];
 
 const ArtisansHeader = () => {
-    return (
-        <TableHeader headers={artisanHeaders} />
-    );
+    return <TableHeader headers={artisanHeaders} />;
 };
 
 export default ArtisansHeader;

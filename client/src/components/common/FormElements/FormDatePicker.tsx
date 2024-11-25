@@ -3,11 +3,15 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from '@/components/ui/form';
 import { useFormContext } from 'react-hook-form';
 import { cn } from '@/lib/utils';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from '@/components/ui/popover';
 import { Button } from '@/components/ui/button';
 import { format } from 'date-fns';
 import { CalendarIcon } from 'lucide-react';
@@ -19,13 +23,15 @@ type FormDateType = {
     name: string;
     description?: string;
     selected?: string;
-}
+    className?: string;
+};
 
 const FormDatePicker = ({
     label,
     name,
     description,
     selected,
+    className,
 }: FormDateType) => {
     const { control } = useFormContext();
     const [calendarOpen, setCalendarOpen] = useState(false);
@@ -37,27 +43,32 @@ const FormDatePicker = ({
             control={control}
             name={name}
             render={({ field }) => (
-                <FormItem className="flex flex-col">
-                    <FormLabel className='font-semibold'>{label}</FormLabel>
+                <FormItem className={cn('flex flex-col', className)}>
+                    <FormLabel className='font-semibold pb-3'>
+                        {label}
+                    </FormLabel>
                     <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>
                         <PopoverTrigger asChild>
                             <Button
-                                variant={"outline"}
+                                variant={'outline'}
                                 className={cn(
-                                    "w-[200px] justify-start text-left font-normal",
-                                    !field.value && "text-muted-foreground"
+                                    'justify-start text-left font-normal',
+                                    !field.value && 'text-muted-foreground'
                                 )}
                             >
-                                <CalendarIcon className="mr-2 h-4 w-4" />
-                                {field.value
-                                    ? (format(field.value, "PPP"))
-                                    : (<span>{selected || `E.g. ${dateToday}`}</span>)
-                                }
+                                <CalendarIcon className='mr-2 h-4 w-4' />
+                                {field.value ? (
+                                    format(field.value, 'PPP')
+                                ) : (
+                                    <span>
+                                        {selected || `E.g. ${dateToday}`}
+                                    </span>
+                                )}
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0">
+                        <PopoverContent className='w-auto p-0'>
                             <Calendar
-                                mode="single"
+                                mode='single'
                                 selected={field.value}
                                 onSelect={(date) => {
                                     if (date) {
@@ -65,15 +76,15 @@ const FormDatePicker = ({
                                         setCalendarOpen(false);
                                     }
                                 }}
-                                defaultMonth={field.value ? field.value : undefined}
+                                defaultMonth={
+                                    field.value ? field.value : undefined
+                                }
                                 fromDate={new Date()}
                                 initialFocus
                             />
                         </PopoverContent>
                     </Popover>
-                    <FormDescription>
-                        {description}
-                    </FormDescription>
+                    <FormDescription>{description}</FormDescription>
                     <FormMessage />
                 </FormItem>
             )}
