@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import CompaniesTableBody from '../components/tables/CompaniesTable/CompaniesTableBody';
+import CompaniesTableBody from '../components/Tables/CompaniesTable/CompaniesTableBody';
 
 const CompaniesTablePage = () => {
     return (

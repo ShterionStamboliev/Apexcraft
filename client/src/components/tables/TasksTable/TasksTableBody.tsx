@@ -2,11 +2,11 @@ import { useParams } from 'react-router-dom';
 import ProjectTasksSkeleton from '@/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
 import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import TasksCard from './TasksCard';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import CreateTask from '@/components/forms/tasks-form/TaskFormCreate/CreateTask';
+import CreateTask from '@/components/Forms/Tasks/TaskFormCreate/CreateTask';
 import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import TasksCard from './TasksCard';
 
 const ProjectsTasksBody = () => {
     const { id } = useParams();

@@ -1,5 +1,5 @@
 import { Table, TableBody } from '../../../components/ui/table';
-import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
+import ActivitiesHeader from '@/components/Tables/ActivitiesTable/ActivitiesHeader';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import ArtisansSkeleton from './ArtisansSkeleton';
 import { PaginatedData } from '@/components/common/Pagination/Pagination';

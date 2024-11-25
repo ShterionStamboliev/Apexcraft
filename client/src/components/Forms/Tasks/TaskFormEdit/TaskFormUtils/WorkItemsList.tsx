@@ -1,5 +1,5 @@
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
-import EditWorkItemForm from '@/components/forms/work-items-form/WorkItemFormEdit/EditWorkItem';
+import EditWorkItemForm from '@/components/Forms/WorkItems/WorkItemFormEdit/EditWorkItem';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import WorkItemSkeleton from '@/utils/SkeletonLoader/WorkItems/WorkItemSkeleton';

@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import MeasuresTableBody from '../components/tables/MeasuresTable/MeasuresTableBody';
+import MeasuresTableBody from '../components/Tables/MeasuresTable/MeasuresTableBody';
 
 const MeasuresTablePage = () => {
     return (

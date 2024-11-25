@@ -1,4 +1,4 @@
-import EditCompanyForm from '@/components/forms/companies-form/CompanyFormEdit/EditCompany';
+import EditCompanyForm from '@/components/Forms/Companies/CompanyFormEdit/EditCompany';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Company } from '@/types/company-types/companyTypes';
 

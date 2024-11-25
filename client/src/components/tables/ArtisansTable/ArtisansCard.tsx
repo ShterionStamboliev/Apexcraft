@@ -1,4 +1,4 @@
-import EditArtisanForm from '@/components/forms/artisans-form/ArtisanFormEdit/EditArtisan';
+import EditArtisanForm from '@/components/Forms/Artisans/ArtisanFormEdit/EditArtisan';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 

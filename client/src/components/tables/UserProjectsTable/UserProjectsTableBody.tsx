@@ -1,10 +1,10 @@
 import ProjectTasksSkeleton from '@/utils/SkeletonLoader/Tasks/ProjectTasksSkeleton';
 import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import UserProjectsCard from './UserProjectsCard';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import UserProjectsCard from './UserProjectsCard';
 
 const UserProjectsTableBody = () => {
     const {

@@ -1,4 +1,4 @@
-import EditMeasureForm from '@/components/forms/measures-form/MeasureFormEdit/EditMeasure';
+import EditMeasureForm from '@/components/Forms/Measures/MeasureFormEdit/EditMeasure';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Measure } from '@/types/measure-types/measureTypes';
 

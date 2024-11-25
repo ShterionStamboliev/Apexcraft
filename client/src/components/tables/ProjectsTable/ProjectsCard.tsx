@@ -1,4 +1,4 @@
-import EditProjectForm from '@/components/forms/projects-form/ProjectFormEdit/EditProject';
+import EditProjectForm from '@/components/Forms/Projects/ProjectFormEdit/EditProject';
 import {
     Card,
     CardContent,

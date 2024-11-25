@@ -1,7 +1,7 @@
 import { Activity } from '@/types/activity-types/activityTypes';
 import { Table, TableBody } from '../../../components/ui/table';
 import ActivitiesSkeleton from './ActivitiesSkeleton';
-import ActivitiesHeader from '@/components/tables/ActivitiesTable/ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
+import ActivitiesHeader from '@/components/Tables/ActivitiesTable/ActivitiesHeader';
 import { PaginatedData } from '@/components/common/Pagination/Pagination';
 import { Skeleton } from '@/components/ui/skeleton';
 

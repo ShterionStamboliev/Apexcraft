@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import ActivitiesTableBody from '../components/tables/ActivitiesTable/ActivitiesTableBody';
+import ActivitiesTableBody from '../components/Tables/ActivitiesTable/ActivitiesTableBody';
 
 const ActivitiesTablePage = () => {
     return (

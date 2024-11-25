@@ -1,4 +1,4 @@
-import EditTaskForm from '../components/forms/tasks-form/TaskFormEdit/EditTask';
+import EditTaskForm from '../components/Forms/Tasks/TaskFormEdit/EditTask';
 import Sidebar from '../components/Sidebar/Sidebar';
 
 const TaskEditPage = () => {

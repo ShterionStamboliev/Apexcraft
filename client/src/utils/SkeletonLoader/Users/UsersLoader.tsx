@@ -1,7 +1,7 @@
 import { User } from '@/types/user-types/userTypes';
 import { Table, TableBody } from '../../../components/ui/table';
 import UsersSkeleton from './UsersSkeleton';
-import UsersHeader from '@/components/tables/UsersTable/UserTableElements/TableHeader/TableHeader';
+import UsersHeader from '@/components/Tables/UsersTable/TableHeader';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type UsersProps = {

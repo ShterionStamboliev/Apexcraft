@@ -2,12 +2,12 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import MeasuresLoader from '@/utils/SkeletonLoader/Measures/MeasuresLoader';
 import { CircleAlert, Ruler } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import MeasuresCard from './MeasuresCard';
-import MeasuresHeader from './MeasuresTableElements/MeasuresHeader/MeasuresHeader';
 import { Measure } from '@/types/measure-types/measureTypes';
-import CreateMeasure from '@/components/forms/measures-form/MeasureFormCreate/CreateMeasure';
+import CreateMeasure from '@/components/Forms/Measures/MeasureFormCreate/CreateMeasure';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import MeasuresHeader from './MeasuresHeader';
+import MeasuresCard from './MeasuresCard';
 
 const MeasuresTableBody = () => {
     const {

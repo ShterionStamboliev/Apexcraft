@@ -1,5 +1,5 @@
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
-import UserWorkItemEdit from '@/components/forms/user-projects-tasks-form/UserWorkItemFormEdit/UserWorkItemEdit';
+import UserWorkItemEdit from '@/components/Forms/UserWorkItem/UserWorkItemFormEdit/UserWorkItemEdit';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { WorkItem } from '@/types/task-types/workItemType';

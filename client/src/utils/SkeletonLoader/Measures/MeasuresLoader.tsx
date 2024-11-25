@@ -1,7 +1,7 @@
 import { Measure } from '@/types/measure-types/measureTypes';
 import { Table, TableBody } from '../../../components/ui/table';
 import MeasuresSkeleton from './MeasuresSkeleton';
-import MeasuresHeader from '@/components/tables/MeasuresTable/MeasuresTableElements/MeasuresHeader/MeasuresHeader';
+import MeasuresHeader from '@/components/Tables/MeasuresTable/MeasuresHeader';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type MeasureProps = {

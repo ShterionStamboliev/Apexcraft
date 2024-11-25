@@ -1,4 +1,4 @@
-import EditUserForm from '@/components/forms/user-form/UserFormEdit/EditUser';
+import EditUserForm from '@/components/Forms/User/UserFormEdit/EditUser';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { User } from '@/types/user-types/userTypes';
 

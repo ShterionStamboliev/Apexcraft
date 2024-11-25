@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import UserProjectTaskTableBody from '../components/tables/UserProjectTaskTable/UserProjectTaskTableBody';
+import UserProjectTaskTableBody from '../components/Tables/UserProjectTaskTable/UserProjectTaskTableBody';
 
 const UserProjectTaskPage = () => {
     return (

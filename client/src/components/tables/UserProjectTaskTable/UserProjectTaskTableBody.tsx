@@ -1,12 +1,12 @@
-import ProjectInformationCard from '@/components/forms/user-projects-tasks-form/InformationCards/ProjectInformationCard';
-import TaskInformationCard from '@/components/forms/user-projects-tasks-form/InformationCards/TaskInformationCard';
-import UserWorkItemCreate from '@/components/forms/user-projects-tasks-form/UserWorkItemFormCreate/UserWorkItemCreate';
+import ProjectInformationCard from '@/components/Forms/UserWorkItem/InformationCards/ProjectInformationCard';
+import TaskInformationCard from '@/components/Forms/UserWorkItem/InformationCards/TaskInformationCard';
+import UserWorkItemCreate from '@/components/Forms/UserWorkItem/UserWorkItemFormCreate/UserWorkItemCreate';
 import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
-import UserProjectWorkItemsList from './UserProjectWorkItemsList';
 import { ProjectTask } from '@/types/task-types/taskTypes';
 import { useParams } from 'react-router-dom';
 import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import UserProjectWorkItemsList from './UserProjectWorkItemsList';
 
 const UserProjectTaskTableBody = () => {
     const { taskId } = useParams<{ taskId: string }>();

@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import TaskViewEditSkeleton from '@/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
-import CreateWorkItem from '../../work-items-form/WorkItemFormCreate/CreateWorkItem';
+import CreateWorkItem from '../../WorkItems/WorkItemFormCreate/CreateWorkItem';
 import WorkItemsList from './TaskFormUtils/WorkItemsList';
 import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
 import TasksEditBreadcrumbs from '@/components/common/Breadcrumbs/TasksEditBreadcrumbs';

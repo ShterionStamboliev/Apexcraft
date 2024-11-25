@@ -1,4 +1,4 @@
-import CompaniesHeader from '@/components/tables/CompaniesTable/CompanyTableElements/CompaniesHeader/CompaniesHeader';
+import CompaniesHeader from '@/components/Tables/CompaniesTable/CompaniesHeader';
 import { Table, TableBody } from '../../../components/ui/table';
 import CompaniesSkeleton from './CompaniesSkeleton';
 import { Company } from '@/types/company-types/companyTypes';

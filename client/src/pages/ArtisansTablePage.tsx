@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import ArtisansTableBody from '../components/tables/ArtisansTable/ArtisansTableBody';
+import ArtisansTableBody from '../components/Tables/ArtisansTable/ArtisansTableBody';
 
 const ArtisansTablePage = () => {
     return (

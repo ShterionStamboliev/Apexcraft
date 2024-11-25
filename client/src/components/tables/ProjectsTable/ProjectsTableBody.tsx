@@ -1,11 +1,11 @@
 import ProjectsSkeletonCard from '@/utils/SkeletonLoader/Projects/ProjectsSkeletonCard';
 import { BrickWall, CircleAlert } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import ProjectsCard from './ProjectsCard';
 import { Project } from '@/types/project-types/projectTypes';
-import CreateProject from '@/components/forms/projects-form/ProjectFormCreate/CreateProject';
+import CreateProject from '@/components/Forms/Projects/ProjectFormCreate/CreateProject';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import ProjectsCard from './ProjectsCard';
 
 const ProjectsTableBody = () => {
     const {

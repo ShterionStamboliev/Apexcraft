@@ -1,5 +1,5 @@
 import Sidebar from '../components/Sidebar/Sidebar';
-import ProjectsTableBody from '../components/tables/ProjectsTable/ProjectsTableBody';
+import ProjectsTableBody from '../components/Tables/ProjectsTable/ProjectsTableBody';
 
 const ProjectsTablePage = () => {
     return (

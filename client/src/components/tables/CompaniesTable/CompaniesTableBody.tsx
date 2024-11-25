@@ -2,16 +2,16 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import CompaniesLoader from '@/utils/SkeletonLoader/Companies/CompaniesLoader';
 import { Building2, CircleAlert } from 'lucide-react';
-import CompaniesCard from './CompaniesCard';
-import CompaniesHeader from './CompanyTableElements/CompaniesHeader/CompaniesHeader';
 import { Company } from '@/types/company-types/companyTypes';
 import Pagination from '@/components/common/Pagination/Pagination';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import CreateCompany from '@/components/forms/companies-form/CompanyFormCreate/CreateCompany';
+import CreateCompany from '@/components/Forms/Companies/CompanyFormCreate/CreateCompany';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
 import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
 import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import CompaniesHeader from './CompaniesHeader';
+import CompaniesCard from './CompaniesCard';
 
 const CompaniesTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();

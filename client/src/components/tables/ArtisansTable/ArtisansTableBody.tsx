@@ -1,17 +1,17 @@
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { CircleAlert, ContactRound } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import ArtisansCard from './ArtisansCard';
-import ArtisansHeader from './ArtisansTableElements/ArtisansHeader/ArtisansHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import ArtisansLoader from '@/utils/SkeletonLoader/Artisans/ArtisansLoader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import CreateArtisan from '@/components/forms/artisans-form/ArtisanFormCreate/CreateArtisan';
+import CreateArtisan from '@/components/Forms/Artisans/ArtisanFormCreate/CreateArtisan';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
 import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
 import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import ArtisansCard from './ArtisansCard';
+import ArtisansHeader from './ArtisansHeader';
 
 const ArtisansTableBody = () => {
     const { setSearchParams, itemsLimit, page } = useSearchParamsHook();

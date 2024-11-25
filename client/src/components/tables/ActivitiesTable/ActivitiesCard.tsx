@@ -1,4 +1,4 @@
-import EditActivityForm from '@/components/forms/activities-form/ActivityFormEdit/EditActivity';
+import EditActivityForm from '@/components/Forms/Activities/ActivityFormEdit/EditActivity';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Activity } from '@/types/activity-types/activityTypes';
 

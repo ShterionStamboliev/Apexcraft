@@ -2,16 +2,16 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import ActivitiesLoader from '@/utils/SkeletonLoader/Activities/ActivitiesLoader';
 import { CircleAlert, Activity as ActivityIcon } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
-import ActivitiesCard from './ActivitiesCard';
-import ActivitiesHeader from './ActivitiesTableElements/ActivitiesHeader/ActivitiesHeader';
 import Pagination from '@/components/common/Pagination/Pagination';
 import { Activity } from '@/types/activity-types/activityTypes';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
-import CreateActivity from '@/components/forms/activities-form/ActivityFormCreate/CreateActivity';
+import CreateActivity from '@/components/Forms/Activities/ActivityFormCreate/CreateActivity';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
 import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
 import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import ActivitiesHeader from './ActivitiesHeader';
+import ActivitiesCard from './ActivitiesCard';
 
 const ActivitiesTableBody = () => {
     const { itemsLimit, page, setSearchParams } = useSearchParamsHook();
