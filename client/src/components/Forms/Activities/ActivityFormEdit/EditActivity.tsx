@@ -13,6 +13,7 @@ import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { Activity as ActivityIcon } from 'lucide-react';
 
 type ActivityFormProps = {
     activityId: string;
@@ -58,6 +59,8 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
                             type='text'
                             label='Activity name'
                             name='name'
+                            className='pl-10'
+                            Icon={ActivityIcon}
                         />
                         <div className='flex flex-1 pt-2 justify-between'>
                             <StatusSelector

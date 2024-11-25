@@ -7,6 +7,7 @@ import {
     newActivitySchema,
 } from '@/models/activity/newActivitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Activity } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 type CreateActivityFormProps = {
@@ -27,7 +28,13 @@ const CreateActivityForm = ({
     return (
         <FormProvider {...form}>
             <form id='activity-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput type='text' label='Activity type' name='name' />
+                <FormFieldInput
+                    type='text'
+                    label='Activity name'
+                    name='name'
+                    className='pl-10'
+                    Icon={Activity}
+                />
                 <div className='flex flex-1 pt-2 justify-between'>
                     <StatusSelector
                         label='Status'
