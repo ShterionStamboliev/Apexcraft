@@ -6,9 +6,9 @@ import FormTextareaInput from '@/components/common/FormElements/FormTextareaInpu
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import {
     artisanDefaults,
+    artisanSchema,
     ArtisanSchema,
-    newArtisanSchema,
-} from '@/models/artisan/newArtisanSchema';
+} from '@/models/artisan/artisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Mail, Phone, User } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ const CreateArtisanForm = ({
     isPending,
 }: CreateArtisanFormProps) => {
     const form = useForm<ArtisanSchema>({
-        resolver: zodResolver(newArtisanSchema),
+        resolver: zodResolver(artisanSchema),
         defaultValues: artisanDefaults,
         mode: 'onChange',
     });

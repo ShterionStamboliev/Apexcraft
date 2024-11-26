@@ -2,7 +2,7 @@ import { Artisan } from '@/types/artisan-types/artisanTypes';
 import { z } from 'zod';
 import { phoneValidator } from '../company/newCompanySchema';
 
-export const newArtisanSchema = z.object({
+export const artisanSchema = z.object({
     name: z.string().min(3, {
         message: 'Artisan name must be at least 3 characters.'
     }).max(50),
@@ -37,4 +37,4 @@ export const artisanDefaults: Artisan = {
     status: 'active'
 };
 
-export type ArtisanSchema = z.infer<typeof newArtisanSchema>;
+export type ArtisanSchema = z.infer<typeof artisanSchema>;

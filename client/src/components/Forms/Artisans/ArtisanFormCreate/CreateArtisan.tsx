@@ -1,11 +1,12 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ArtisanSchema } from '@/models/artisan/newArtisanSchema';
+import { artisanSchema, ArtisanSchema } from '@/models/artisan/artisanSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateArtisanForm from './CreateArtisanForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateArtisan = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -19,9 +20,7 @@ const CreateArtisan = () => {
         setIsOpen,
     });
 
-    const handleSubmit = (artisanData: ArtisanSchema) => {
-        mutate(artisanData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, artisanSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -6,10 +6,7 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import {
-    ArtisanSchema,
-    newArtisanSchema,
-} from '@/models/artisan/newArtisanSchema';
+import { artisanSchema, ArtisanSchema } from '@/models/artisan/artisanSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
@@ -17,6 +14,7 @@ import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTr
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 import { Mail, Phone, User } from 'lucide-react';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -36,7 +34,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
     });
 
     const form = useForm<ArtisanSchema>({
-        resolver: zodResolver(newArtisanSchema),
+        resolver: zodResolver(artisanSchema),
         defaultValues: {
             name: artisan.name,
             email: artisan.email,
@@ -49,9 +47,7 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
         mode: 'onChange',
     });
 
-    const handleSubmit = (artisanData: ArtisanSchema) => {
-        mutate(artisanData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, artisanSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
