@@ -1,11 +1,7 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
-import { useFormSchema } from '@/hooks/useForm';
-import {
-    measureDefaults,
-    measureSchema,
-    MeasureSchema,
-} from '@/models/measure/measureSchema';
+import { useCreateMeasureForm } from '@/hooks/entityHooks/useMeasureForm';
+import { MeasureSchema } from '@/models/measure/measureSchema';
 import { Ruler } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 
@@ -18,7 +14,7 @@ const CreateMeasureForm = ({
     handleSubmit,
     isPending,
 }: CreateMeasureFormProps) => {
-    const form = useFormSchema(measureSchema, measureDefaults);
+    const form = useCreateMeasureForm();
 
     return (
         <FormProvider {...form}>

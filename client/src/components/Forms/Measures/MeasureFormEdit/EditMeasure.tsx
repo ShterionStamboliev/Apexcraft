@@ -3,18 +3,14 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import { Measure } from '@/types/measure-types/measureTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import {
-    measureDefaults,
-    measureSchema,
-    MeasureSchema,
-} from '@/models/measure/measureSchema';
+import { measureSchema, MeasureSchema } from '@/models/measure/measureSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { Ruler } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useFormSchema } from '@/hooks/useForm';
+import { useEditMeasureForm } from '@/hooks/entityHooks/useMeasureForm';
 
 type MeasureFormProps = {
     measureId: string;
@@ -33,10 +29,7 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
         successToast: 'Measure updated successfully!',
     });
 
-    const form = useFormSchema(measureSchema, {
-        ...measureDefaults,
-        name: measure.name,
-    });
+    const form = useEditMeasureForm(measure);
 
     const handleSubmit = useSubmitHandler(mutate, measureSchema);
 
