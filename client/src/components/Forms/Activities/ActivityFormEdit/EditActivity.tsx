@@ -65,7 +65,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
                             <StatusSelector
                                 label='Status'
                                 name='status'
-                                defaultVal={`${activity.status}`}
+                                defaultVal={activity.status}
                             />
                         </div>
                         <DialogFooter
