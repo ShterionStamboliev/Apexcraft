@@ -1,11 +1,12 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ProjectSchema } from '@/models/project/newProjectSchema';
+import { projectSchema, ProjectSchema } from '@/models/project/projectSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateProjectForm from './CreateProjectForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateProject = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -18,9 +19,7 @@ const CreateProject = () => {
         setIsOpen,
     });
 
-    const handleSubmit = async (projectData: ProjectSchema) => {
-        mutate(projectData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, projectSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

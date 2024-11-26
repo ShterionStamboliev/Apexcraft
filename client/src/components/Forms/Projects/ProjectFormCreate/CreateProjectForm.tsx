@@ -5,10 +5,10 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import {
-    newProjectSchema,
     projectDefaults,
+    projectSchema,
     ProjectSchema,
-} from '@/models/project/newProjectSchema';
+} from '@/models/project/projectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ClipboardList, Mail, MapPin } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -23,7 +23,7 @@ const CreateProjectForm = ({
     isPending,
 }: CreateProjectFormProps) => {
     const form = useForm<ProjectSchema>({
-        resolver: zodResolver(newProjectSchema),
+        resolver: zodResolver(projectSchema),
         defaultValues: projectDefaults,
         mode: 'onChange',
     });

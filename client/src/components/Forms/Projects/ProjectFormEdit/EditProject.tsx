@@ -7,16 +7,14 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import { Project } from '@/types/project-types/projectTypes';
-import {
-    newProjectSchema,
-    ProjectSchema,
-} from '@/models/project/newProjectSchema';
+import { projectSchema, ProjectSchema } from '@/models/project/projectSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 import { ClipboardList, Mail, MapPin } from 'lucide-react';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 type ProjectFormProps = {
     projectId: string;
@@ -36,7 +34,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
     });
 
     const form = useForm<ProjectSchema>({
-        resolver: zodResolver(newProjectSchema),
+        resolver: zodResolver(projectSchema),
         defaultValues: {
             company_name: project.company_name,
             name: project.name,
@@ -50,9 +48,7 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
         mode: 'onChange',
     });
 
-    const handleSubmit = (projectData: ProjectSchema) => {
-        mutate(projectData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, projectSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -89,14 +85,12 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
                             <StatusSelector
                                 label='Status'
                                 name='status'
-                                defaultVal={`${project && project.status}`}
+                                defaultVal={project && project.status}
                             />
                             <CompanySelector
                                 label='Select company'
                                 name='company_name'
-                                defaultVal={`${
-                                    project && project.company_name
-                                }`}
+                                defaultVal={project && project.company_name}
                             />
                         </div>
                         <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>

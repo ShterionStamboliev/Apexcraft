@@ -2,7 +2,7 @@ import { Project } from '@/types/project-types/projectTypes';
 import { format } from 'date-fns';
 import { z } from 'zod';
 
-export const newProjectSchema = z.object({
+export const projectSchema = z.object({
     name: z.string().min(3, {
         message: 'Project name must be at least 3 characters long.'
     }).max(50, {
@@ -40,4 +40,4 @@ export const projectDefaults: Project = {
     status: 'active'
 }
 
-export type ProjectSchema = z.infer<typeof newProjectSchema>;
+export type ProjectSchema = z.infer<typeof projectSchema>;
