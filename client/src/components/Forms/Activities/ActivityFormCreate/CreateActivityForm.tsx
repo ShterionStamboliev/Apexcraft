@@ -1,12 +1,8 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { useFormSchema } from '@/hooks/useForm';
-import {
-    activityDefaults,
-    activitySchema,
-    ActivitySchema,
-} from '@/models/activity/activitySchema';
+import { useCreateActivityForm } from '@/hooks/entityHooks/useActivityForm';
+import { ActivitySchema } from '@/models/activity/activitySchema';
 import { Activity } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 
@@ -19,7 +15,7 @@ const CreateActivityForm = ({
     handleSubmit,
     isPending,
 }: CreateActivityFormProps) => {
-    const form = useFormSchema(activitySchema, activityDefaults);
+    const form = useCreateActivityForm();
 
     return (
         <FormProvider {...form}>

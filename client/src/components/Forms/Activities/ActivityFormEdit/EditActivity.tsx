@@ -5,7 +5,6 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import {
-    activityDefaults,
     activitySchema,
     ActivitySchema,
 } from '@/models/activity/activitySchema';
@@ -15,7 +14,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Activity as ActivityIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useFormSchema } from '@/hooks/useForm';
+import { useEditActivityForm } from '@/hooks/entityHooks/useActivityForm';
 
 type ActivityFormProps = {
     activityId: string;
@@ -34,11 +33,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
         setIsOpen,
     });
 
-    const form = useFormSchema(activitySchema, {
-        ...activityDefaults,
-        name: activity.name,
-        status: activity.status,
-    });
+    const form = useEditActivityForm(activity);
 
     const handleSubmit = useSubmitHandler(mutate, activitySchema);
 
