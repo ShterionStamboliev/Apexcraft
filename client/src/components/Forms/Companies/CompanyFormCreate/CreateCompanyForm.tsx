@@ -4,9 +4,9 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
 import {
     companyDefaults,
+    companySchema,
     CompanySchema,
-    newCompanySchema,
-} from '@/models/company/newCompanySchema';
+} from '@/models/company/companySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     ClipboardList,
@@ -28,7 +28,7 @@ const CreateCompanyForm = ({
     isPending,
 }: CreateCompanyFormProps) => {
     const form = useForm<CompanySchema>({
-        resolver: zodResolver(newCompanySchema),
+        resolver: zodResolver(companySchema),
         defaultValues: companyDefaults,
         mode: 'onChange',
     });

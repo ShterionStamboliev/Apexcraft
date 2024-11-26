@@ -4,10 +4,7 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import {
-    CompanySchema,
-    newCompanySchema,
-} from '@/models/company/newCompanySchema';
+import { companySchema, CompanySchema } from '@/models/company/companySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -22,6 +19,7 @@ import {
     Phone,
     User,
 } from 'lucide-react';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 type CompanyFormProps = {
     companyId: string;
@@ -40,7 +38,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
     });
 
     const form = useForm<CompanySchema>({
-        resolver: zodResolver(newCompanySchema),
+        resolver: zodResolver(companySchema),
         defaultValues: {
             name: company.name,
             address: company.address,
@@ -54,9 +52,7 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
         mode: 'onChange',
     });
 
-    const handleSubmit = (companyData: CompanySchema) => {
-        mutate(companyData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, companySchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

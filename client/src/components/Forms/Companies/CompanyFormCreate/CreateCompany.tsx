@@ -1,11 +1,12 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { CompanySchema } from '@/models/company/newCompanySchema';
+import { companySchema, CompanySchema } from '@/models/company/companySchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateCompanyForm from './CreateCompanyForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateCompany = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -19,9 +20,7 @@ const CreateCompany = () => {
         setIsOpen,
     });
 
-    const handleSubmit = (companyData: CompanySchema) => {
-        mutate(companyData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, companySchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

@@ -1,6 +1,6 @@
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 import { z } from 'zod';
-import { phoneValidator } from '../company/newCompanySchema';
+import { phoneValidator } from '../company/companySchema';
 
 export const artisanSchema = z.object({
     name: z.string().min(3, {

@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 export const phoneValidator = /^([0-9|\\+])[0-9\\s.\\/-]{6,20}$/;
 
-export const newCompanySchema = z.object({
+export const companySchema = z.object({
     name: z.string()
         .min(3, { message: 'Company name must be at least 3 characters' })
         .max(50, { message: 'Company name cannot exceed 50 characters.' }),
@@ -37,4 +37,4 @@ export const companyDefaults: Company = {
     status: 'active',
 }
 
-export type CompanySchema = z.infer<typeof newCompanySchema>;
+export type CompanySchema = z.infer<typeof companySchema>;
