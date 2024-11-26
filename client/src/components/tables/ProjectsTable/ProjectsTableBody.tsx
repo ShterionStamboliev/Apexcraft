@@ -4,7 +4,7 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Project } from '@/types/project-types/projectTypes';
 import CreateProject from '@/components/Forms/Projects/ProjectFormCreate/CreateProject';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import ProjectsCard from './ProjectsCard';
 
 const ProjectsTableBody = () => {

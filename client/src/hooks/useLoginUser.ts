@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { loginDefaultValues, loginFormSchema, UserSchema } from '@/models/user/userSchema';
+import { loginDefaultValues, loginFormSchema } from '@/models/user/userSchema';
 
 const useLoginUser = () => {
     const { user, login, isLoading, error } = useAuth();
@@ -17,7 +17,7 @@ const useLoginUser = () => {
         defaultValues: loginDefaultValues
     });
 
-    const onSubmit: SubmitHandler<UserSchema> = async (userData: UserSchema) => {
+    const onSubmit: SubmitHandler<UserLoginFormData> = async (userData: UserLoginFormData) => {
         const isSuccess = await login(userData.username, userData.password);
 
         if (isSuccess) {

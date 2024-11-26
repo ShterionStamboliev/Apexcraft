@@ -10,12 +10,9 @@ import WorkItemsList from './TaskFormUtils/WorkItemsList';
 import WorkItemsListSeparator from './TaskFormUtils/WorkItemsListSeparator';
 import TasksEditBreadcrumbs from '@/components/common/Breadcrumbs/TasksEditBreadcrumbs';
 import { Task } from '@/types/task-types/taskTypes';
-import {
-    useFetchDataQuery,
-    useGetInfiniteData,
-} from '@/hooks/custom-hooks/useQueryHook';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
-import { useEditTaskForm } from '@/hooks/custom-hooks/useEditTaskForm';
+import { useFetchDataQuery, useGetInfiniteData } from '@/hooks/useQueryHook';
+import { useEditTaskForm } from '@/hooks/useEditTaskForm';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();

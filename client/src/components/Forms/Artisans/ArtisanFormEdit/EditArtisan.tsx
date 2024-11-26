@@ -11,10 +11,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import { Mail, Phone, User } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 type ArtisanFormProps = {
     artisanId: string;

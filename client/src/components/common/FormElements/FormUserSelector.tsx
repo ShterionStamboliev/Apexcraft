@@ -16,7 +16,7 @@ import { TableFormSelectType } from '@/types/table-types/tableTypes';
 import { User } from '@/types/user-types/userTypes';
 import { useFormContext } from 'react-hook-form';
 import { PaginatedData } from '../Pagination/Pagination';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 
 const UsersSelector = ({
     label,

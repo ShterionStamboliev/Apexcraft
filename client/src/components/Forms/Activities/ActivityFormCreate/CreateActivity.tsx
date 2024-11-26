@@ -6,9 +6,9 @@ import {
 } from '@/models/activity/activitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const CreateActivity = () => {
     const { isOpen, setIsOpen } = useDialogState();

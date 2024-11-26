@@ -12,7 +12,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import { Measure } from '@/types/measure-types/measureTypes';
 import { TableFormSelectType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';

@@ -4,9 +4,9 @@ import { artisanSchema, ArtisanSchema } from '@/models/artisan/artisanSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateArtisanForm from './CreateArtisanForm';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const CreateArtisan = () => {
     const { isOpen, setIsOpen } = useDialogState();

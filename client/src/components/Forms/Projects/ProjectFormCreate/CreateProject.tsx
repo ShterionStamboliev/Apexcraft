@@ -4,9 +4,9 @@ import { projectSchema, ProjectSchema } from '@/models/project/projectSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateProjectForm from './CreateProjectForm';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const CreateProject = () => {
     const { isOpen, setIsOpen } = useDialogState();

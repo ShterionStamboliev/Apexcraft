@@ -9,8 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import {
     ClipboardList,
     FileDigit,
@@ -20,6 +19,7 @@ import {
     User,
 } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 type CompanyFormProps = {
     companyId: string;

@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { ChevronDown } from 'lucide-react';
 import { ProjectTask } from '@/types/task-types/taskTypes';
 import { useParams } from 'react-router-dom';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import UserProjectWorkItemsList from './UserProjectWorkItemsList';
 
 const UserProjectTaskTableBody = () => {

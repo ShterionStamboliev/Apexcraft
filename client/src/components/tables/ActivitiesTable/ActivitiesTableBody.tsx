@@ -7,9 +7,9 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateActivity from '@/components/Forms/Activities/ActivityFormCreate/CreateActivity';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
-import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
-import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import useSearchParamsHook from '@/hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/useQueryHook';
 import ActivitiesHeader from './ActivitiesHeader';
 import ActivitiesCard from './ActivitiesCard';
 

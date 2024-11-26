@@ -7,9 +7,9 @@ import { User } from '@/types/user-types/userTypes';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateUser from '@/components/Forms/User/UserFormCreate/CreateUser';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
-import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
-import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import useSearchParamsHook from '@/hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/useQueryHook';
 import UsersHeader from './TableHeader';
 import UsersCard from './UsersCard';
 

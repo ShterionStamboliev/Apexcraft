@@ -4,9 +4,9 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import { taskSchema, TaskSchema } from '@/models/task/taskSchema';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import CreateTaskForm from './CreateTaskForm';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const CreateTask = () => {
     const { id } = useParams();

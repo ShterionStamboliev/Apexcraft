@@ -8,7 +8,7 @@ import {
 import { WorkItemSchema } from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import CreateWorkItemForm from './CreateWorkItemForm';
-import useDialogState from '@/hooks/custom-hooks/useDialogState';
+import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 
 const CreateWorkItem = () => {

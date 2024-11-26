@@ -5,7 +5,7 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import CreateTask from '@/components/Forms/Tasks/TaskFormCreate/CreateTask';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import TasksCard from './TasksCard';
 
 const ProjectsTasksBody = () => {

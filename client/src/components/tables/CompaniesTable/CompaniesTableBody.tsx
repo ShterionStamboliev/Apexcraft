@@ -7,9 +7,9 @@ import Pagination from '@/components/common/Pagination/Pagination';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateCompany from '@/components/Forms/Companies/CompanyFormCreate/CreateCompany';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
-import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
-import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import useSearchParamsHook from '@/hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/useQueryHook';
 import CompaniesHeader from './CompaniesHeader';
 import CompaniesCard from './CompaniesCard';
 

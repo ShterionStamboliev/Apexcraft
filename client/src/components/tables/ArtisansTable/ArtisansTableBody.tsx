@@ -7,9 +7,9 @@ import ArtisansLoader from '@/utils/SkeletonLoader/Artisans/ArtisansLoader';
 import SearchBar from '@/components/common/SearchBar/SearchBar';
 import CreateArtisan from '@/components/Forms/Artisans/ArtisanFormCreate/CreateArtisan';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import useSearchParamsHook from '@/hooks/custom-hooks/useSearchParamsHook';
-import useSearchHandler from '@/hooks/custom-hooks/useSearchHandler';
-import { useGetPaginatedData } from '@/hooks/custom-hooks/useQueryHook';
+import useSearchParamsHook from '@/hooks/useSearchParamsHook';
+import useSearchHandler from '@/hooks/useSearchHandler';
+import { useGetPaginatedData } from '@/hooks/useQueryHook';
 import ArtisansCard from './ArtisansCard';
 import ArtisansHeader from './ArtisansHeader';
 

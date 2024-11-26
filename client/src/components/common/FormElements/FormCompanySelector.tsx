@@ -15,7 +15,7 @@ import { Company } from '@/types/company-types/companyTypes';
 import { TableFormSelectType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';
 import { PaginatedData } from '../Pagination/Pagination';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 
 const CompanySelector = ({
     label,

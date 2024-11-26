@@ -2,7 +2,7 @@ import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormErrors from '../../../common/FormElements/FormErrors';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import useLoginUser from '@/hooks/custom-hooks/useLoginUser';
+import useLoginUser from '@/hooks/useLoginUser';
 import login_image from '@/assets/login_image.jpg';
 import { Lock, User } from 'lucide-react';
 

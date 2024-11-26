@@ -15,7 +15,7 @@ import { Activity } from '@/types/activity-types/activityTypes';
 import { TableFormSelectType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';
 import { PaginatedData } from '../Pagination/Pagination';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import { cn } from '@/lib/utils';
 
 const ActivitySelector = ({

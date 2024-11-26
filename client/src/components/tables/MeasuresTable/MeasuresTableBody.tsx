@@ -5,7 +5,7 @@ import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Measure } from '@/types/measure-types/measureTypes';
 import CreateMeasure from '@/components/Forms/Measures/MeasureFormCreate/CreateMeasure';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import { useFetchDataQuery } from '@/hooks/custom-hooks/useQueryHook';
+import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import MeasuresHeader from './MeasuresHeader';
 import MeasuresCard from './MeasuresCard';
 
