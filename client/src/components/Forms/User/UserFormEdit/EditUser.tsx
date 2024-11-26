@@ -5,18 +5,14 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import {
-    userDefaultValues,
-    userSchema,
-    UserSchema,
-} from '@/models/user/userSchema';
+import { userSchema, UserSchema } from '@/models/user/userSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { Lock, User as UserIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useFormSchema } from '@/hooks/useForm';
+import { useEditUserForm } from '@/hooks/entityHooks/useUserForm';
 
 type UserFormProps = {
     userId: string;
@@ -35,14 +31,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
         setIsOpen,
     });
 
-    const form = useFormSchema(userSchema, {
-        ...userDefaultValues,
-        name_and_family: user.name_and_family,
-        username: user.username,
-        password: user.password,
-        role: user.role,
-        status: user.status,
-    });
+    const form = useEditUserForm(user);
 
     const handleSubmit = useSubmitHandler(mutate, userSchema);
 

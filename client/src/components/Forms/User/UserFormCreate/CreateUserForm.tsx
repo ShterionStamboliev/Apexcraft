@@ -1,15 +1,11 @@
-import {
-    userDefaultValues,
-    userSchema,
-    UserSchema,
-} from '@/models/user/userSchema';
+import { UserSchema } from '@/models/user/userSchema';
 import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import { Lock, User } from 'lucide-react';
-import { useFormSchema } from '@/hooks/useForm';
+import { useCreateUserForm } from '@/hooks/entityHooks/useUserForm';
 
 type CreateUserFormProps = {
     handleSubmit: (userData: UserSchema) => void;
@@ -17,7 +13,7 @@ type CreateUserFormProps = {
 };
 
 const CreateUserForm = ({ handleSubmit, isPending }: CreateUserFormProps) => {
-    const form = useFormSchema(userSchema, userDefaultValues);
+    const form = useCreateUserForm();
 
     return (
         <FormProvider {...form}>
