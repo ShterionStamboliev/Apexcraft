@@ -3,9 +3,9 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import {
     activityDefaults,
+    activitySchema,
     ActivitySchema,
-    newActivitySchema,
-} from '@/models/activity/newActivitySchema';
+} from '@/models/activity/activitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Activity } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ const CreateActivityForm = ({
     isPending,
 }: CreateActivityFormProps) => {
     const form = useForm<ActivitySchema>({
-        resolver: zodResolver(newActivitySchema),
+        resolver: zodResolver(activitySchema),
         defaultValues: activityDefaults,
         mode: 'onChange',
     });

@@ -2,8 +2,8 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import {
     measureDefaults,
+    measureSchema,
     MeasureSchema,
-    newMeasureSchema,
 } from '@/models/measure/measureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Ruler } from 'lucide-react';
@@ -19,7 +19,7 @@ const CreateMeasureForm = ({
     isPending,
 }: CreateMeasureFormProps) => {
     const form = useForm<MeasureSchema>({
-        resolver: zodResolver(newMeasureSchema),
+        resolver: zodResolver(measureSchema),
         defaultValues: measureDefaults,
         mode: 'onChange',
     });

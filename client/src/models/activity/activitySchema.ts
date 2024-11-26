@@ -1,7 +1,7 @@
 import { Activity } from '@/types/activity-types/activityTypes';
 import { z } from 'zod';
 
-export const newActivitySchema = z.object({
+export const activitySchema = z.object({
     name: z.string().min(3, {
         message: 'Activity name must be at least 3 characters.'
     }).max(50),
@@ -15,4 +15,4 @@ export const activityDefaults: Activity = {
     status: 'active',
 }
 
-export type ActivitySchema = z.infer<typeof newActivitySchema>;
+export type ActivitySchema = z.infer<typeof activitySchema>;

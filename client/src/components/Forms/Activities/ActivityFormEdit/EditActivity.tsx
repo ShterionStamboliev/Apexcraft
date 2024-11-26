@@ -5,15 +5,16 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import {
+    activitySchema,
     ActivitySchema,
-    newActivitySchema,
-} from '@/models/activity/newActivitySchema';
+} from '@/models/activity/activitySchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 import { Activity as ActivityIcon } from 'lucide-react';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 type ActivityFormProps = {
     activityId: string;
@@ -33,7 +34,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
     });
 
     const form = useForm<ActivitySchema>({
-        resolver: zodResolver(newActivitySchema),
+        resolver: zodResolver(activitySchema),
         defaultValues: {
             name: activity.name,
             status: activity.status,
@@ -41,9 +42,7 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
         mode: 'onChange',
     });
 
-    const handleSubmit = (activityData: ActivitySchema) => {
-        mutate(activityData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, activitySchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
