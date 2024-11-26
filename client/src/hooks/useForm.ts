@@ -4,12 +4,12 @@ import { ZodType } from 'zod';
 
 export const useFormSchema = <T extends FieldValues>(
     schema: ZodType<T>,
-    defaultValues: T,
+    defaultValues: DefaultValues<T>,
     options: Omit<UseFormProps<T>, 'resolver' | 'defaultValues'> = {}
 ) => {
     const form = useForm<T>({
         resolver: zodResolver(schema),
-        defaultValues: defaultValues as DefaultValues<T>,
+        defaultValues,
         mode: 'onChange',
         ...options
     });

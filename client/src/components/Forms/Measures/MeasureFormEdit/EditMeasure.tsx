@@ -1,16 +1,20 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import { Measure } from '@/types/measure-types/measureTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import { measureSchema, MeasureSchema } from '@/models/measure/measureSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    measureDefaults,
+    measureSchema,
+    MeasureSchema,
+} from '@/models/measure/measureSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { Ruler } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useFormSchema } from '@/hooks/useForm';
 
 type MeasureFormProps = {
     measureId: string;
@@ -29,12 +33,9 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
         successToast: 'Measure updated successfully!',
     });
 
-    const form = useForm<MeasureSchema>({
-        resolver: zodResolver(measureSchema),
-        defaultValues: {
-            name: measure.name,
-        },
-        mode: 'onChange',
+    const form = useFormSchema(measureSchema, {
+        ...measureDefaults,
+        name: measure.name,
     });
 
     const handleSubmit = useSubmitHandler(mutate, measureSchema);

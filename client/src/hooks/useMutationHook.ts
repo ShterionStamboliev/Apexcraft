@@ -1,6 +1,6 @@
 import { QueryKey, useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
-import useToastHook from './useToastHook';
 import { createEntity, editEntity } from '@/api/apiCall';
+import useToastHook from './useToastHook';
 
 interface MutationEntityStateActions {
     URL: string,
