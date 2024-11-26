@@ -1,10 +1,10 @@
-import { User } from '@/types/user-types/userTypes';
+import { User, UserLoginFormData } from '@/types/user-types/userTypes';
 import { z } from 'zod';
 
 export const userStatus = ['active', 'inactive'] as const;
 export const userRoles = ['user'] as const;
 
-export const addNewUserSchema = z.object({
+export const userSchema = z.object({
     name_and_family: z.string().min(7, {
         message: 'Name must be at least 7 characters',
     }),
@@ -22,7 +22,21 @@ export const addNewUserSchema = z.object({
     }),
 });
 
-export const formDefaultValues: User = {
+export const loginFormSchema = z.object({
+    username: z.string().min(5, {
+        message: 'Wrong username or password',
+    }),
+    password: z.string().min(5, {
+        message: 'Wrong username or password',
+    }),
+});
+
+export const loginDefaultValues: UserLoginFormData = {
+    username: '',
+    password: ''
+}
+
+export const userDefaultValues: User = {
     name_and_family: '',
     username: '',
     password: '',
@@ -30,4 +44,4 @@ export const formDefaultValues: User = {
     status: 'active',
 }
 
-export type UserSchema = z.infer<typeof addNewUserSchema>;
+export type UserSchema = z.infer<typeof userSchema>;

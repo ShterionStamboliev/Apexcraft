@@ -1,8 +1,8 @@
 import {
-    addNewUserSchema,
-    formDefaultValues,
+    userDefaultValues,
+    userSchema,
     UserSchema,
-} from '@/models/user/newUserSchema';
+} from '@/models/user/userSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FormProvider, useForm } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
@@ -18,8 +18,8 @@ type CreateUserFormProps = {
 
 const CreateUserForm = ({ handleSubmit, isPending }: CreateUserFormProps) => {
     const form = useForm<UserSchema>({
-        resolver: zodResolver(addNewUserSchema),
-        defaultValues: formDefaultValues,
+        resolver: zodResolver(userSchema),
+        defaultValues: userDefaultValues,
         mode: 'onChange',
     });
 

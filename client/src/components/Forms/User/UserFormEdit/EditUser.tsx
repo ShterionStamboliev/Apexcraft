@@ -5,13 +5,14 @@ import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { addNewUserSchema, UserSchema } from '@/models/user/newUserSchema';
+import { userSchema, UserSchema } from '@/models/user/userSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
 import { Lock, User as UserIcon } from 'lucide-react';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 type UserFormProps = {
     userId: string;
@@ -31,7 +32,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
     });
 
     const form = useForm<UserSchema>({
-        resolver: zodResolver(addNewUserSchema),
+        resolver: zodResolver(userSchema),
         defaultValues: {
             name_and_family: user.name_and_family,
             username: user.username,
@@ -42,9 +43,7 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
         mode: 'onChange',
     });
 
-    const handleSubmit = (userData: UserSchema) => {
-        mutate(userData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, userSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

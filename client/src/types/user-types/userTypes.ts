@@ -15,12 +15,3 @@ export type User = {
     status: 'active' | 'inactive';
     role: 'user' | 'manager';
 }
-
-export type UserFormType = {
-    id?: number;
-    name_and_family?: string;
-    username: string;
-    password: string;
-    role: 'user' | 'manager';
-    status: 'active' | 'inactive';
-}

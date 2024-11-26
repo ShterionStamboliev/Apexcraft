@@ -1,12 +1,12 @@
-import { EditTaskSchema, taskEditSchema } from '@/models/task/taskSchema';
+import { TaskSchema, taskSchema } from '@/models/task/taskSchema';
 import { Task } from '@/types/task-types/taskTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 export const useEditTaskForm = (task: Task) => {
-    const form = useForm<EditTaskSchema>({
-        resolver: zodResolver(taskEditSchema),
+    const form = useForm<TaskSchema>({
+        resolver: zodResolver(taskSchema),
         defaultValues: {
             name: task?.name,
             price_per_measure: task?.price_per_measure,

@@ -1,4 +1,4 @@
-import { userStatus } from '@/models/user/newUserSchema';
+import { userStatus } from '@/models/user/userSchema';
 import {
     FormControl,
     FormField,

@@ -1,10 +1,11 @@
-import { UserSchema } from '@/models/user/newUserSchema';
+import { userSchema, UserSchema } from '@/models/user/userSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import CreateUserForm from './CreateUserForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateUser = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -18,9 +19,7 @@ const CreateUser = () => {
         setIsOpen,
     });
 
-    const handleSubmit = async (userData: UserSchema) => {
-        mutate(userData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, userSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
