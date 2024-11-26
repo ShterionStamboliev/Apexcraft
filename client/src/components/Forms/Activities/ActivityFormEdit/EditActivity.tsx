@@ -1,20 +1,21 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import { Activity } from '@/types/activity-types/activityTypes';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import {
+    activityDefaults,
     activitySchema,
     ActivitySchema,
 } from '@/models/activity/activitySchema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { Activity as ActivityIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useFormSchema } from '@/hooks/useForm';
 
 type ActivityFormProps = {
     activityId: string;
@@ -33,13 +34,10 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
         setIsOpen,
     });
 
-    const form = useForm<ActivitySchema>({
-        resolver: zodResolver(activitySchema),
-        defaultValues: {
-            name: activity.name,
-            status: activity.status,
-        },
-        mode: 'onChange',
+    const form = useFormSchema(activitySchema, {
+        ...activityDefaults,
+        name: activity.name,
+        status: activity.status,
     });
 
     const handleSubmit = useSubmitHandler(mutate, activitySchema);

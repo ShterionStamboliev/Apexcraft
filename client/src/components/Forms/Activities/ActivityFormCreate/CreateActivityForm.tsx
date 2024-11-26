@@ -1,14 +1,14 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import { useFormSchema } from '@/hooks/useForm';
 import {
     activityDefaults,
     activitySchema,
     ActivitySchema,
 } from '@/models/activity/activitySchema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Activity } from 'lucide-react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 
 type CreateActivityFormProps = {
     handleSubmit: (activityData: ActivitySchema) => void;
@@ -19,11 +19,7 @@ const CreateActivityForm = ({
     handleSubmit,
     isPending,
 }: CreateActivityFormProps) => {
-    const form = useForm<ActivitySchema>({
-        resolver: zodResolver(activitySchema),
-        defaultValues: activityDefaults,
-        mode: 'onChange',
-    });
+    const form = useFormSchema(activitySchema, activityDefaults);
 
     return (
         <FormProvider {...form}>
