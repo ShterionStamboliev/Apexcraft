@@ -3,13 +3,13 @@ import {
     userSchema,
     UserSchema,
 } from '@/models/user/userSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import { Lock, User } from 'lucide-react';
+import { useFormSchema } from '@/hooks/useForm';
 
 type CreateUserFormProps = {
     handleSubmit: (userData: UserSchema) => void;
@@ -17,11 +17,7 @@ type CreateUserFormProps = {
 };
 
 const CreateUserForm = ({ handleSubmit, isPending }: CreateUserFormProps) => {
-    const form = useForm<UserSchema>({
-        resolver: zodResolver(userSchema),
-        defaultValues: userDefaultValues,
-        mode: 'onChange',
-    });
+    const form = useFormSchema(userSchema, userDefaultValues);
 
     return (
         <FormProvider {...form}>

@@ -1,18 +1,22 @@
 import { User } from '@/types/user-types/userTypes';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
-import { userSchema, UserSchema } from '@/models/user/userSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import {
+    userDefaultValues,
+    userSchema,
+    UserSchema,
+} from '@/models/user/userSchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { Lock, User as UserIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useFormSchema } from '@/hooks/useForm';
 
 type UserFormProps = {
     userId: string;
@@ -31,16 +35,13 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
         setIsOpen,
     });
 
-    const form = useForm<UserSchema>({
-        resolver: zodResolver(userSchema),
-        defaultValues: {
-            name_and_family: user.name_and_family,
-            username: user.username,
-            password: user.password,
-            role: user.role,
-            status: user.status,
-        },
-        mode: 'onChange',
+    const form = useFormSchema(userSchema, {
+        ...userDefaultValues,
+        name_and_family: user.name_and_family,
+        username: user.username,
+        password: user.password,
+        role: user.role,
+        status: user.status,
     });
 
     const handleSubmit = useSubmitHandler(mutate, userSchema);
