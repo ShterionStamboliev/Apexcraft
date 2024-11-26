@@ -9,7 +9,7 @@ import { WorkItemSchema } from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import CreateWorkItemForm from './CreateWorkItemForm';
 import useDialogState from '@/hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useMutationHook } from '@/hooks/useMutationHook';
 
 const CreateWorkItem = () => {
     const { id, taskId } = useParams();

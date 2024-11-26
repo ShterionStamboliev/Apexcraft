@@ -11,7 +11,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import useDialogState from '@/hooks/useDialogState';
-import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useMutationHook } from '@/hooks/useMutationHook';
 import {
     WorkItemSchema,
     workItemSchema,
