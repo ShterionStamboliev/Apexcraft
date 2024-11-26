@@ -4,11 +4,7 @@ import StatusSelector from '@/components/common/FormElements/FormStatusSelector'
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import {
-    newTaskSchema,
-    taskDefaults,
-    TaskSchema,
-} from '@/models/task/newTaskSchema';
+import { taskDefaults, taskSchema, TaskSchema } from '@/models/task/taskSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
@@ -22,8 +18,8 @@ type CreateTaskFormProps = {
 
 const CreateTaskForm = ({ handleSubmit, isPending }: CreateTaskFormProps) => {
     const form = useForm<TaskSchema>({
+        resolver: zodResolver(taskSchema),
         defaultValues: taskDefaults,
-        resolver: zodResolver(newTaskSchema),
         mode: 'onChange',
     });
 

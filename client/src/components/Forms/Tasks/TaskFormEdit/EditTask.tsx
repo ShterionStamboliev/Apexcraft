@@ -1,4 +1,4 @@
-import { EditTaskSchema, TaskSchema } from '@/models/task/newTaskSchema';
+import { TaskSchema } from '@/models/task/taskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -60,7 +60,7 @@ const EditTaskForm = () => {
         }
     }, [fetchNextPage, inView]);
 
-    const handleSubmit = async (formData: EditTaskSchema) => {
+    const handleSubmit = async (formData: TaskSchema) => {
         mutate(formData, {
             onSuccess: () => {
                 navigate(`/projects/${id}/tasks`);

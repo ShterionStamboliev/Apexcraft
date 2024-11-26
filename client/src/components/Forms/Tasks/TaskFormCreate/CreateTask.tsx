@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import { TaskSchema } from '@/models/task/newTaskSchema';
+import { taskSchema, TaskSchema } from '@/models/task/taskSchema';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import CreateTaskForm from './CreateTaskForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateTask = () => {
     const { id } = useParams();
@@ -21,9 +22,7 @@ const CreateTask = () => {
         setIsOpen,
     });
 
-    const handleSubmit = async (taskData: TaskSchema) => {
-        mutate(taskData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, taskSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

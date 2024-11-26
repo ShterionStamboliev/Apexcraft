@@ -1,4 +1,4 @@
-import { EditTaskSchema, taskEditSchema } from '@/models/task/newTaskSchema';
+import { EditTaskSchema, taskEditSchema } from '@/models/task/taskSchema';
 import { Task } from '@/types/task-types/taskTypes';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
