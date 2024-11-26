@@ -1,10 +1,14 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { ActivitySchema } from '@/models/activity/newActivitySchema';
+import {
+    ActivitySchema,
+    newActivitySchema,
+} from '@/models/activity/newActivitySchema';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateActivity = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -18,9 +22,7 @@ const CreateActivity = () => {
         setIsOpen,
     });
 
-    const handleSubmit = (activityData: ActivitySchema) => {
-        mutate(activityData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, newActivitySchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

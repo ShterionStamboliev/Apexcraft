@@ -1,11 +1,12 @@
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import { MeasureSchema } from '@/models/measure/newMeasureSchema';
+import { measureSchema, MeasureSchema } from '@/models/measure/measureSchema';
 import { DialogContent } from '@/components/ui/dialog';
 import { Dialog } from '@radix-ui/react-dialog';
 import CreateMeasureForm from './CreateMeasureForm';
 import useDialogState from '@/hooks/custom-hooks/useDialogState';
 import { useMutationHook } from '@/hooks/custom-hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -19,9 +20,7 @@ const CreateMeasure = () => {
         setIsOpen,
     });
 
-    const handleSubmit = async (measureData: MeasureSchema) => {
-        mutate(measureData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, measureSchema);
 
     return (
         <Dialog open={isOpen} onOpenChange={setIsOpen}>

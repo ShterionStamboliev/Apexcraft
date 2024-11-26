@@ -4,7 +4,7 @@ import {
     measureDefaults,
     MeasureSchema,
     newMeasureSchema,
-} from '@/models/measure/newMeasureSchema';
+} from '@/models/measure/measureSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Ruler } from 'lucide-react';
 import { FormProvider, useForm } from 'react-hook-form';
