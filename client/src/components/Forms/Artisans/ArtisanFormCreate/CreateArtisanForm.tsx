@@ -4,14 +4,10 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
-import {
-    artisanDefaults,
-    artisanSchema,
-    ArtisanSchema,
-} from '@/models/artisan/artisanSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useArtisanFormHooks } from '@/hooks/forms/useArtisanForm';
+import { ArtisanSchema } from '@/models/artisan/artisanSchema';
 import { Mail, Phone, User } from 'lucide-react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 
 type CreateArtisanFormProps = {
     handleSubmit: (artisanData: ArtisanSchema) => void;
@@ -22,11 +18,9 @@ const CreateArtisanForm = ({
     handleSubmit,
     isPending,
 }: CreateArtisanFormProps) => {
-    const form = useForm<ArtisanSchema>({
-        resolver: zodResolver(artisanSchema),
-        defaultValues: artisanDefaults,
-        mode: 'onChange',
-    });
+    const { useCreateArtisanForm } = useArtisanFormHooks();
+
+    const form = useCreateArtisanForm();
 
     return (
         <FormProvider {...form}>

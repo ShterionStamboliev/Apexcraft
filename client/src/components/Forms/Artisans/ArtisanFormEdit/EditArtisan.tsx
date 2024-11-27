@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
@@ -7,7 +7,6 @@ import { Artisan } from '@/types/artisan-types/artisanTypes';
 import CompanySelector from '@/components/common/FormElements/FormCompanySelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import { artisanSchema, ArtisanSchema } from '@/models/artisan/artisanSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import UsersSelector from '@/components/common/FormElements/FormUserSelector';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -15,6 +14,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Mail, Phone, User } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useArtisanFormHooks } from '@/hooks/forms/useArtisanForm';
 
 type ArtisanFormProps = {
     artisanId: string;
@@ -33,19 +33,9 @@ const EditArtisanForm = ({ artisan, artisanId }: ArtisanFormProps) => {
         setIsOpen,
     });
 
-    const form = useForm<ArtisanSchema>({
-        resolver: zodResolver(artisanSchema),
-        defaultValues: {
-            name: artisan.name,
-            email: artisan.email,
-            company: artisan.company,
-            number: artisan.number,
-            note: artisan.note,
-            artisanName: artisan.artisanName,
-            status: artisan.status,
-        },
-        mode: 'onChange',
-    });
+    const { useEditArtisanForm } = useArtisanFormHooks();
+
+    const form = useEditArtisanForm(artisan);
 
     const handleSubmit = useSubmitHandler(mutate, artisanSchema);
 
