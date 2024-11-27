@@ -1,15 +1,15 @@
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
-import { taskDefaults, taskSchema, TaskSchema } from '@/models/task/taskSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { TaskSchema } from '@/models/task/taskSchema';
 import ArtisanSelector from '@/components/common/FormElements/FormArtisanSelector';
 import ActivitySelector from '@/components/common/FormElements/FormActivitySelector';
 import MeasureSelector from '@/components/common/FormElements/FormMeasureSelector';
 import { ClipboardList, DollarSign, Hammer } from 'lucide-react';
+import { useTaskFormHooks } from '@/hooks/forms/useTaskForm';
 
 type CreateTaskFormProps = {
     handleSubmit: (taskData: TaskSchema) => void;
@@ -17,11 +17,8 @@ type CreateTaskFormProps = {
 };
 
 const CreateTaskForm = ({ handleSubmit, isPending }: CreateTaskFormProps) => {
-    const form = useForm<TaskSchema>({
-        resolver: zodResolver(taskSchema),
-        defaultValues: taskDefaults,
-        mode: 'onChange',
-    });
+    const { useCreateTaskForm } = useTaskFormHooks();
+    const form = useCreateTaskForm();
 
     return (
         <FormProvider {...form}>

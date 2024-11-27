@@ -1,7 +1,7 @@
-import { TaskSchema } from '@/models/task/taskSchema';
+import { taskSchema, TaskSchema } from '@/models/task/taskSchema';
 import TaskInformationCard from './TaskFormUtils/TaskInformationCard';
 import TaskEditForm from './TaskFormUtils/TaskEditForm';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import TaskViewEditSkeleton from '@/utils/SkeletonLoader/Tasks/TaskViewEditSkeleton';
 import { useInView } from 'react-intersection-observer';
 import { useEffect } from 'react';
@@ -13,11 +13,10 @@ import { Task } from '@/types/task-types/taskTypes';
 import { useFetchDataQuery, useGetInfiniteData } from '@/hooks/useQueryHook';
 import { useEditTaskForm } from '@/hooks/useEditTaskForm';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const EditTaskForm = () => {
     const { id, taskId } = useParams();
-
-    const navigate = useNavigate();
 
     const { ref, inView } = useInView();
 
@@ -31,6 +30,8 @@ const EditTaskForm = () => {
         });
 
     const { useEditEntity } = useMutationHook();
+
+    const form = useEditTaskForm(task!);
 
     const { mutate, isPending: isMutatePending } = useEditEntity<TaskSchema>({
         URL: `/projects/${id}/tasks/${taskId}/edit`,
@@ -48,7 +49,6 @@ const EditTaskForm = () => {
         queryKey: ['workItems', id, taskId],
     });
 
-    const form = useEditTaskForm(task!);
     const isFormDirty = form.formState.isDirty;
 
     useEffect(() => {
@@ -57,13 +57,7 @@ const EditTaskForm = () => {
         }
     }, [fetchNextPage, inView]);
 
-    const handleSubmit = async (formData: TaskSchema) => {
-        mutate(formData, {
-            onSuccess: () => {
-                navigate(`/projects/${id}/tasks`);
-            },
-        });
-    };
+    const handleSubmit = useSubmitHandler(mutate, taskSchema);
 
     if (isFetchTaskPending) {
         return <TaskViewEditSkeleton />;

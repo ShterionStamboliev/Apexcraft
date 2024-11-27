@@ -1,12 +1,18 @@
-import { QueryKey, useMutation, UseMutationResult, useQueryClient } from '@tanstack/react-query';
+import {
+    QueryKey,
+    useMutation,
+    UseMutationResult,
+    useQueryClient,
+} from '@tanstack/react-query';
 import { createEntity, editEntity } from '@/api/apiCall';
 import useToastHook from './useToastHook';
 
-interface MutationEntityStateActions {
-    URL: string,
-    queryKey: QueryKey,
-    successToast: string,
+interface MutationEntityStateActions<TData> {
+    URL: string;
+    queryKey: QueryKey;
+    successToast: string;
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+    onSuccessCallback?: (data: TData) => void;
 }
 
 export const useMutationHook = () => {
@@ -18,21 +24,26 @@ export const useMutationHook = () => {
         URL,
         queryKey,
         successToast,
-        setIsOpen
-    }: MutationEntityStateActions
-    ): UseMutationResult<void, Error, TData, unknown> => {
+        setIsOpen,
+    }: MutationEntityStateActions<TData>): UseMutationResult<
+        void,
+        Error,
+        TData,
+        unknown
+    > => {
         return useMutation({
-            mutationFn: (entityData: TData) => createEntity<TData>(URL, entityData),
+            mutationFn: (entityData: TData) =>
+                createEntity<TData>(URL, entityData),
             onSuccess: () => {
                 client.invalidateQueries({
-                    queryKey: queryKey
+                    queryKey: queryKey,
                 });
                 fireSuccessToast(successToast);
-                setIsOpen && setIsOpen(false)
+                setIsOpen && setIsOpen(false);
             },
             onError: () => {
                 fireErrorToast('Something went wrong. Please try again.');
-            }
+            },
         });
     };
 
@@ -41,25 +52,32 @@ export const useMutationHook = () => {
         queryKey,
         successToast,
         setIsOpen,
-    }: MutationEntityStateActions
-    ): UseMutationResult<void, Error, TData, unknown> => {
+        onSuccessCallback,
+    }: MutationEntityStateActions<TData>): UseMutationResult<
+        void,
+        Error,
+        TData,
+        unknown
+    > => {
         return useMutation({
-            mutationFn: (entityData: TData) => editEntity<TData>(URL, entityData),
-            onSuccess: () => {
+            mutationFn: (entityData: TData) =>
+                editEntity<TData>(URL, entityData),
+            onSuccess: (data: any) => {
                 client.invalidateQueries({
-                    queryKey: queryKey
+                    queryKey,
                 });
                 fireSuccessToast(successToast);
-                setIsOpen && setIsOpen(false)
+                setIsOpen && setIsOpen(false);
+                onSuccessCallback && onSuccessCallback(data);
             },
             onError: () => {
                 fireErrorToast('Something went wrong. Please try again.');
-            }
+            },
         });
     };
 
     return {
         useCreateNewEntity,
-        useEditEntity
-    }
-}
+        useEditEntity,
+    };
+};

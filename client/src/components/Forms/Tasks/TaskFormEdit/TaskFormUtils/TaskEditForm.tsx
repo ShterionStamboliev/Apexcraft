@@ -81,13 +81,13 @@ const TaskEditForm = ({
                             <ArtisanSelector
                                 name='artisan'
                                 label='Select artisan'
-                                defaultVal={`${task && task.artisanName}`}
+                                defaultVal={task && task.artisanName}
                                 className='w-full sm:w-[15rem]'
                             />
                             <ActivitySelector
                                 name='activity'
                                 label='Select activity'
-                                defaultVal={`${task && task.activityName}`}
+                                defaultVal={task && task.activityName}
                                 className='w-full sm:w-[15rem]'
                             />
                         </div>
@@ -95,12 +95,12 @@ const TaskEditForm = ({
                             <StatusSelector
                                 label='Status'
                                 name='status'
-                                defaultVal={`${task && task.status}`}
+                                defaultVal={task && task.status}
                             />
                             <MeasureSelector
                                 name='measure'
                                 label='Select measure'
-                                defaultVal={`${task && task.measureName}`}
+                                defaultVal={task && task.measureName}
                             />
                         </div>
 
