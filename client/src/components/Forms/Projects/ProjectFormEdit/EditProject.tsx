@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import DialogHeader from '@/components/common/DialogElements/DialogHeader';
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
@@ -8,13 +8,13 @@ import CompanySelector from '@/components/common/FormElements/FormCompanySelecto
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import { Project } from '@/types/project-types/projectTypes';
 import { projectSchema, ProjectSchema } from '@/models/project/projectSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
 import useDialogState from '@/hooks/useDialogState';
 import { ClipboardList, Mail, MapPin } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useProjectFormHook } from '@/hooks/forms/useProjectForm';
 
 type ProjectFormProps = {
     projectId: string;
@@ -32,21 +32,9 @@ const EditProjectForm = ({ project, projectId }: ProjectFormProps) => {
         successToast: 'Project updated successfully!',
         setIsOpen,
     });
+    const { useEditProjectForm } = useProjectFormHook();
 
-    const form = useForm<ProjectSchema>({
-        resolver: zodResolver(projectSchema),
-        defaultValues: {
-            company_name: project.company_name,
-            name: project.name,
-            address: project.address,
-            email: project.email,
-            start_date: project.start_date,
-            end_date: project.end_date,
-            note: project.note,
-            status: project.status,
-        },
-        mode: 'onChange',
-    });
+    const form = useEditProjectForm(project);
 
     const handleSubmit = useSubmitHandler(mutate, projectSchema);
 

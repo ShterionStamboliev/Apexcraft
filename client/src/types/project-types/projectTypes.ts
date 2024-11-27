@@ -8,4 +8,4 @@ export type Project = {
     note?: string;
     address: string;
     status: 'active' | 'inactive';
-}
+};

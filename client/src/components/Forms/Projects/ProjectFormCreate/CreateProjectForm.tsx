@@ -4,14 +4,10 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
-import {
-    projectDefaults,
-    projectSchema,
-    ProjectSchema,
-} from '@/models/project/projectSchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useProjectFormHook } from '@/hooks/forms/useProjectForm';
+import { ProjectSchema } from '@/models/project/projectSchema';
 import { ClipboardList, Mail, MapPin } from 'lucide-react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 
 type CreateProjectFormProps = {
     handleSubmit: (projectData: ProjectSchema) => void;
@@ -22,11 +18,8 @@ const CreateProjectForm = ({
     handleSubmit,
     isPending,
 }: CreateProjectFormProps) => {
-    const form = useForm<ProjectSchema>({
-        resolver: zodResolver(projectSchema),
-        defaultValues: projectDefaults,
-        mode: 'onChange',
-    });
+    const { useCreateProjectForm } = useProjectFormHook();
+    const form = useCreateProjectForm();
 
     return (
         <FormProvider {...form}>
