@@ -1,5 +1,5 @@
 import { ZodType } from 'zod';
-import { useCreateFormHooks } from '../../useFormHooks/useForm';
+import { useCreateFormHooks } from '../useForm';
 import { DefaultValues, FieldValues } from 'react-hook-form';
 
 export const useDynamicForm = <T extends FieldValues>(

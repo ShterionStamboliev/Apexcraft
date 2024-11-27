@@ -5,7 +5,7 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import RoleSelector from '@/components/common/FormElements/FormRoleSelector';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import { Lock, User } from 'lucide-react';
-import { useCreateUserForm } from '@/hooks/useFormHooks/useUserForm';
+import { useUserFormHooks } from '@/hooks/forms/useUserForm';
 
 type CreateUserFormProps = {
     handleSubmit: (userData: UserSchema) => void;
@@ -13,6 +13,7 @@ type CreateUserFormProps = {
 };
 
 const CreateUserForm = ({ handleSubmit, isPending }: CreateUserFormProps) => {
+    const { useCreateUserForm } = useUserFormHooks();
     const form = useCreateUserForm();
 
     return (

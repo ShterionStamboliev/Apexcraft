@@ -12,7 +12,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Lock, User as UserIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useEditUserForm } from '@/hooks/useFormHooks/useUserForm';
+import { useUserFormHooks } from '@/hooks/forms/useUserForm';
 
 type UserFormProps = {
     userId: string;
@@ -30,6 +30,8 @@ const EditUserForm = ({ user, userId }: UserFormProps) => {
         successToast: 'User updated successfully!',
         setIsOpen,
     });
+
+    const { useEditUserForm } = useUserFormHooks();
 
     const form = useEditUserForm(user);
 
