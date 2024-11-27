@@ -2,12 +2,8 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
-import {
-    companyDefaults,
-    companySchema,
-    CompanySchema,
-} from '@/models/company/companySchema';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useCompanyFormHooks } from '@/hooks/forms/useCompanyForm';
+import { CompanySchema } from '@/models/company/companySchema';
 import {
     ClipboardList,
     FileDigit,
@@ -16,7 +12,7 @@ import {
     Phone,
     User,
 } from 'lucide-react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 
 type CreateCompanyFormProps = {
     handleSubmit: (companyData: CompanySchema) => void;
@@ -27,11 +23,9 @@ const CreateCompanyForm = ({
     handleSubmit,
     isPending,
 }: CreateCompanyFormProps) => {
-    const form = useForm<CompanySchema>({
-        resolver: zodResolver(companySchema),
-        defaultValues: companyDefaults,
-        mode: 'onChange',
-    });
+    const { useCreateCompanyForm } = useCompanyFormHooks();
+
+    const form = useCreateCompanyForm();
 
     return (
         <FormProvider {...form}>

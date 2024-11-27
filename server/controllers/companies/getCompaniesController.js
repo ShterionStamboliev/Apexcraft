@@ -1,6 +1,6 @@
 const pool = require("../../db");
 
-const getCompanies = async (req, res) => {
+const getPaginatedCompanies = async (req, res) => {
     const { _page = 1, _limit = 10, q = '' } = req.query;
     const searchTerm = q ? `%${q}%` : null;
     const offset = (parseInt(_page) - 1) * parseInt(_limit);
@@ -32,9 +32,9 @@ const getCompanies = async (req, res) => {
 
         res.json({
             data: rows,
+            total,
             page: parseInt(_page),
             limit: parseInt(_limit),
-            total,
             totalPages: Math.ceil(total / parseInt(_limit))
         });
     }
@@ -44,5 +44,5 @@ const getCompanies = async (req, res) => {
 };
 
 module.exports = {
-    getCompanies
+    getPaginatedCompanies
 };

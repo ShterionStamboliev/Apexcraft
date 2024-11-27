@@ -5,7 +5,6 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
 import { companySchema, CompanySchema } from '@/models/company/companySchema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Company } from '@/types/company-types/companyTypes';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
@@ -20,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useCompanyFormHooks } from '@/hooks/forms/useCompanyForm';
 
 type CompanyFormProps = {
     companyId: string;
@@ -37,20 +37,8 @@ const EditCompanyForm = ({ company, companyId }: CompanyFormProps) => {
         setIsOpen,
     });
 
-    const form = useForm<CompanySchema>({
-        resolver: zodResolver(companySchema),
-        defaultValues: {
-            name: company.name,
-            address: company.address,
-            dds: company.dds,
-            email: company.email,
-            mol: company.mol,
-            number: company.number,
-            phone: company.phone,
-            status: company.status,
-        },
-        mode: 'onChange',
-    });
+    const { useEditCompanyForm } = useCompanyFormHooks();
+    const form = useEditCompanyForm(company);
 
     const handleSubmit = useSubmitHandler(mutate, companySchema);
 

@@ -10,8 +10,8 @@ const CompaniesCard = ({ companies }: CompaniesCardProps) => {
     return (
         <>
             {companies &&
-                companies.map((company, index) => (
-                    <TableRow key={index}>
+                companies.map((company) => (
+                    <TableRow key={company.id}>
                         <TableCell className='font-semibold'>
                             {company.name}
                         </TableCell>
