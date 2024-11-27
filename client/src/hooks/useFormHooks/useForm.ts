@@ -16,3 +16,24 @@ export const useFormSchema = <T extends FieldValues>(
 
     return form;
 }
+
+export const useCreateFormHooks = <T extends FieldValues>(
+    schema: ZodType<T>,
+    defaultValues: DefaultValues<T>
+) => {
+    const useCreateForm = () => {
+        return useFormSchema<T>(schema, defaultValues);
+    };
+
+    const useEditForm = (data: Partial<T>) => {
+        return useFormSchema<T>(schema, {
+            ...defaultValues,
+            ...data
+        });
+    };
+
+    return {
+        useCreateForm,
+        useEditForm,
+    }
+}

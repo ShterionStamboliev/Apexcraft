@@ -14,7 +14,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Activity as ActivityIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useEditActivityForm } from '@/hooks/entityHooks/useActivityForm';
+import { useActivityFormHooks } from '@/hooks/forms/useActivityForm';
 
 type ActivityFormProps = {
     activityId: string;
@@ -32,6 +32,8 @@ const EditActivityForm = ({ activity, activityId }: ActivityFormProps) => {
         successToast: 'Activity updated successfully!',
         setIsOpen,
     });
+
+    const { useEditActivityForm } = useActivityFormHooks();
 
     const form = useEditActivityForm(activity);
 

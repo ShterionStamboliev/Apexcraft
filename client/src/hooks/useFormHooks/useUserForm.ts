@@ -1,5 +1,5 @@
 import { userDefaultValues, userSchema, UserSchema } from '@/models/user/userSchema'
-import { useFormSchema } from '../useForm'
+import { useFormSchema } from './useForm'
 import { User } from '@/types/user-types/userTypes';
 
 export const useCreateUserForm = () => {

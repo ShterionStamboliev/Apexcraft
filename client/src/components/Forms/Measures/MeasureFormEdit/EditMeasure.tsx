@@ -10,7 +10,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Ruler } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useEditMeasureForm } from '@/hooks/entityHooks/useMeasureForm';
+import { useMeasureFormHooks } from '@/hooks/forms/useMeasureForm';
 
 type MeasureFormProps = {
     measureId: string;
@@ -28,6 +28,8 @@ const EditMeasureForm = ({ measure, measureId }: MeasureFormProps) => {
         setIsOpen,
         successToast: 'Measure updated successfully!',
     });
+
+    const { useEditMeasureForm } = useMeasureFormHooks();
 
     const form = useEditMeasureForm(measure);
 

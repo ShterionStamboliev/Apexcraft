@@ -12,7 +12,7 @@ import useDialogState from '@/hooks/useDialogState';
 import { Lock, User as UserIcon } from 'lucide-react';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import { useEditUserForm } from '@/hooks/entityHooks/useUserForm';
+import { useEditUserForm } from '@/hooks/useFormHooks/useUserForm';
 
 type UserFormProps = {
     userId: string;
