@@ -1,5 +1,5 @@
 import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
-import EditWorkItemForm from '@/components/Forms/WorkItems/WorkItemFormEdit/EditWorkItem';
+import EditWorkItem from '@/components/Forms/WorkItems/WorkItemFormEdit/EditWorkItem';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import WorkItemSkeleton from '@/utils/SkeletonLoader/WorkItems/WorkItemSkeleton';
@@ -46,7 +46,7 @@ const WorkItemsList = ({
                                 <CardHeader>
                                     <div className='flex items-center gap-4'>
                                         <CardTitle>{task.name}</CardTitle>
-                                        <EditWorkItemForm
+                                        <EditWorkItem
                                             task={task}
                                             id={id!}
                                             taskId={taskId!}

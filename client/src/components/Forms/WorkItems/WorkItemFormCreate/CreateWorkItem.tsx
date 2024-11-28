@@ -5,11 +5,15 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import { WorkItemSchema } from '@/types/task-types/workItemType';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import CreateWorkItemForm from './CreateWorkItemForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 
 const CreateWorkItem = () => {
     const { id, taskId } = useParams();
@@ -24,9 +28,7 @@ const CreateWorkItem = () => {
         setIsOpen,
     });
 
-    const handleSubmit = (workItemData: WorkItemSchema) => {
-        mutate(workItemData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, workItemSchema);
 
     return (
         <div className='mb-6'>

@@ -4,37 +4,46 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
 import { useWorkItemFormHooks } from '@/hooks/forms/useWorkItemForm';
-import { WorkItemSchema } from '@/types/task-types/workItemType';
+import { WorkItem, WorkItemSchema } from '@/types/task-types/workItemType';
 import { FormProvider } from 'react-hook-form';
 
-type UserWorkItemCreateFormProps = {
-    handleSubmit: (workItemData: WorkItemSchema) => void;
+type UserWorkItemEditFormProps = {
+    workItem: WorkItem;
+    handleSubmit: (data: WorkItemSchema) => void;
     isPending: boolean;
 };
 
-const UserWorkItemCreateForm = ({
+const UserWorkItemEditForm = ({
+    workItem,
     handleSubmit,
     isPending,
-}: UserWorkItemCreateFormProps) => {
-    const { useCreateWorkItemForm } = useWorkItemFormHooks();
+}: UserWorkItemEditFormProps) => {
+    const { useEditWorkItemForm } = useWorkItemFormHooks();
 
-    const form = useCreateWorkItemForm();
-
+    const form = useEditWorkItemForm(workItem);
     return (
         <FormProvider {...form}>
-            <form id='task-item' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput
-                    className='p-0'
-                    label='Task name'
-                    name='name'
-                    type='text'
-                />
-                <FormFieldInput
-                    label='Finished work'
-                    name='finished_work'
-                    type='text'
-                />
-                <FormTextareaInput label='Note' name='note' type='text' />
+            <form
+                id='user-work-item-edit'
+                onSubmit={form.handleSubmit(handleSubmit)}
+            >
+                <div className='flex flex-col gap-2'>
+                    <FormFieldInput
+                        name='name'
+                        label='Item title'
+                        type='text'
+                    />
+                    <FormFieldInput
+                        name='finished_work'
+                        label='Finished work'
+                        type='text'
+                    />
+                    <FormTextareaInput
+                        name='note'
+                        label='Item note'
+                        type='text'
+                    />
+                </div>
                 <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
                     <FormDatePicker
                         name='start_date'
@@ -46,19 +55,19 @@ const UserWorkItemCreateForm = ({
                     />
                 </div>
                 <TaskItemStatusSelector
-                    label='Status'
                     name='status'
-                    defaultVal=''
+                    label='Select status'
+                    defaultVal={`${workItem.status}`}
                 />
                 <DialogFooter
                     disabled={!form.formState.isDirty || isPending}
+                    label='Submit changes'
+                    formName='user-work-item-edit'
                     className='mt-6'
-                    formName='task-item'
-                    label='Submit'
                 />
             </form>
         </FormProvider>
     );
 };
 
-export default UserWorkItemCreateForm;
+export default UserWorkItemEditForm;

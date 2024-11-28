@@ -2,13 +2,9 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
-import {
-    WorkItemSchema,
-    workItemDefaults,
-    workItemSchema,
-} from '@/types/task-types/workItemType';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useWorkItemFormHooks } from '@/hooks/forms/useWorkItemForm';
+import { WorkItemSchema } from '@/types/task-types/workItemType';
+import { FormProvider } from 'react-hook-form';
 
 type CreateWorkItemFormProps = {
     handleSubmit: (workItemData: WorkItemSchema) => void;
@@ -19,11 +15,9 @@ const CreateWorkItemForm = ({
     handleSubmit,
     isPending,
 }: CreateWorkItemFormProps) => {
-    const form = useForm<WorkItemSchema>({
-        resolver: zodResolver(workItemSchema),
-        defaultValues: workItemDefaults,
-        mode: 'onChange',
-    });
+    const { useCreateWorkItemForm } = useWorkItemFormHooks();
+
+    const form = useCreateWorkItemForm();
 
     return (
         <FormProvider {...form}>
