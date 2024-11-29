@@ -1,16 +1,21 @@
-import { getEntityData, getInfiniteData, getPaginatedData } from '@/api/apiCall';
 import {
+    getEntityData,
+    getInfiniteData,
+    getPaginatedData,
+} from '@/api/apiCall';
+import {
+    CachedDataOptions,
     FetchDataQueryOptions,
     FetchQueryOptions,
     PaginatedDataResponse,
-    UseGetPaginatedDataTypes
+    UseGetPaginatedDataTypes,
 } from '@/types/query-data-types/paginatedDataTypes';
 import {
     keepPreviousData,
     useInfiniteQuery,
     UseInfiniteQueryResult,
     useQuery,
-    UseQueryResult
+    UseQueryResult,
 } from '@tanstack/react-query';
 
 export const useGetPaginatedData = <TData>({
@@ -18,9 +23,8 @@ export const useGetPaginatedData = <TData>({
     queryKey,
     limit,
     page,
-    search
-}: UseGetPaginatedDataTypes
-): UseQueryResult<PaginatedDataResponse<TData>> => {
+    search,
+}: UseGetPaginatedDataTypes): UseQueryResult<PaginatedDataResponse<TData>> => {
     return useQuery({
         queryKey: [...queryKey, page, limit, search],
         queryFn: () => getPaginatedData<TData>(URL, page, limit!, search),
@@ -34,11 +38,11 @@ export const useGetPaginatedData = <TData>({
 export const useGetInfiniteData = <TData>({
     URL,
     queryKey,
-}: FetchQueryOptions
-): UseInfiniteQueryResult<TData> => {
+}: FetchQueryOptions): UseInfiniteQueryResult<TData> => {
     return useInfiniteQuery({
         queryKey: queryKey,
-        queryFn: ({ pageParam = 1 }) => getInfiniteData<TData[]>(URL, pageParam),
+        queryFn: ({ pageParam = 1 }) =>
+            getInfiniteData<TData[]>(URL, pageParam),
         initialPageParam: 1,
         getNextPageParam: (lastPage, pages) => {
             if (lastPage.length === 0) {
@@ -46,7 +50,7 @@ export const useGetInfiniteData = <TData>({
             }
             return pages.length + 1;
         },
-        staleTime: 0
+        staleTime: 0,
     });
 };
 
@@ -54,11 +58,21 @@ export const useFetchDataQuery = <TData>({
     URL,
     queryKey,
     options,
-}: FetchDataQueryOptions<TData>
-): UseQueryResult<TData> => {
+}: FetchDataQueryOptions<TData>): UseQueryResult<TData> => {
     return useQuery({
         queryKey,
         queryFn: () => getEntityData<TData>(URL),
-        ...options
+        ...options,
     });
+};
+
+export const useCachedData = <TData>({
+    queryKey,
+    selectFn,
+}: CachedDataOptions<TData>) => {
+    const { data } = useQuery({
+        queryKey,
+        select: (data: TData[]) => selectFn(data),
+    });
+    return data;
 };

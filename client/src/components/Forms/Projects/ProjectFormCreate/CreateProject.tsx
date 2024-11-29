@@ -12,6 +12,7 @@ const CreateProject = () => {
     const { isOpen, setIsOpen } = useDialogState();
 
     const { useCreateNewEntity } = useMutationHook();
+
     const { mutate, isPending } = useCreateNewEntity<ProjectSchema>({
         URL: '/projects/create',
         queryKey: ['projects'],
