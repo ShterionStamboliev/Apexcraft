@@ -58,7 +58,7 @@ const ArtisansTableBody = () => {
                     <ConditionalRenderer
                         data={artisans.data}
                         renderData={(artisans) => (
-                            <ArtisansCard artisans={artisans} />
+                            <ArtisansCard artisans={artisans as Artisan[]} />
                         )}
                         noResults={{
                             title: 'No artisans found',

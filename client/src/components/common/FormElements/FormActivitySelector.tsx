@@ -16,14 +16,12 @@ import { TableFormSelectType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';
 import { PaginatedData } from '../Pagination/Pagination';
 import { useFetchDataQuery } from '@/hooks/useQueryHook';
-import { cn } from '@/lib/utils';
 
 const ActivitySelector = ({
     label,
     name,
     placeholder,
     defaultVal,
-    className,
 }: TableFormSelectType) => {
     const { control } = useFormContext();
 
@@ -47,9 +45,7 @@ const ActivitySelector = ({
                         defaultValue={defaultVal}
                     >
                         <FormControl>
-                            <SelectTrigger
-                                className={cn('w-[140px]', className)}
-                            >
+                            <SelectTrigger>
                                 <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                         </FormControl>

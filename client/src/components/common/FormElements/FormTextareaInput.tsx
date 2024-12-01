@@ -2,7 +2,7 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel
+    FormLabel,
 } from '@/components/ui/form';
 import { FormInputType } from '@/types/table-types/tableTypes';
 import { useFormContext } from 'react-hook-form';
@@ -13,6 +13,7 @@ const FormTextareaInput = ({
     label,
     name,
     className,
+    placeholder,
 }: FormInputType) => {
     const { control } = useFormContext();
 
@@ -27,7 +28,7 @@ const FormTextareaInput = ({
                     </FormLabel>
                     <FormControl>
                         <Textarea
-                            placeholder='Project notes...'
+                            placeholder={placeholder}
                             className='resize-none'
                             {...field}
                         />
@@ -35,7 +36,7 @@ const FormTextareaInput = ({
                 </FormItem>
             )}
         />
-    )
-}
+    );
+};
 
-export default FormTextareaInput
+export default FormTextareaInput;

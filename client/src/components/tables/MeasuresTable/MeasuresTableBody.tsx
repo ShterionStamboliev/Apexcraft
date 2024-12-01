@@ -38,7 +38,7 @@ const MeasuresTableBody = () => {
                     <ConditionalRenderer
                         data={measures || []}
                         renderData={(measures) => (
-                            <MeasuresCard measures={measures} />
+                            <MeasuresCard measures={measures as Measure[]} />
                         )}
                         noResults={{
                             title: 'No measures found',

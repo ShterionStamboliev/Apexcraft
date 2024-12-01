@@ -2,7 +2,7 @@ import NoResultsFound from '@/components/common/FormMessages/NoResultsFound';
 import UserWorkItemEdit from '@/components/Forms/UserWorkItem/UserWorkItemFormEdit/UserWorkItemEdit';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { WorkItem } from '@/types/task-types/workItemType';
+import { WorkItem } from '@/types/work-item-types/workItem';
 import { format } from 'date-fns';
 import { ClipboardList, Hourglass } from 'lucide-react';
 import { useParams } from 'react-router-dom';

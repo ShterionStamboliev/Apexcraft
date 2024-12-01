@@ -30,7 +30,7 @@ const UserProjectsTableBody = () => {
     return (
         <ConditionalRenderer
             data={tasks}
-            renderData={(tasks) => <UserProjectsCard tasks={tasks} />}
+            renderData={(tasks) => <UserProjectsCard tasks={tasks as Task[]} />}
             noResults={{
                 title: 'No tasks found',
                 description: "It looks like you haven't added any tasks yet.",

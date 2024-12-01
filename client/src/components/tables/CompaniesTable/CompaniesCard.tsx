@@ -1,4 +1,4 @@
-import EditCompanyForm from '@/components/Forms/Companies/CompanyFormEdit/EditCompany';
+import EditCompany from '@/components/Forms/Companies/CompanyFormEdit/EditCompany';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Company } from '@/types/company-types/companyTypes';
 
@@ -22,10 +22,7 @@ const CompaniesCard = ({ companies }: CompaniesCardProps) => {
                             {company.mol}
                         </TableCell>
                         <TableCell className='text-end w-[200px]'>
-                            <EditCompanyForm
-                                company={company}
-                                companyId={company.id!}
-                            />
+                            <EditCompany companyId={company.id!} />
                         </TableCell>
                     </TableRow>
                 ))}

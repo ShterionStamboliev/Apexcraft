@@ -1,34 +1,28 @@
-import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import {
-    WorkItemSchema,
-    workItemSchema,
-} from '@/types/task-types/workItemType';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import EditWorkItemForm from './EditWorkItemForm';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/models/workItem/workItemSchema';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
+import { useParams } from 'react-router-dom';
 
 type EditWorkItemProps = {
-    id: string;
-    taskId: string;
     workItemId: string;
-    task: WorkItemSchema;
 };
 
-const EditWorkItem = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
+const EditWorkItem = ({ workItemId }: EditWorkItemProps) => {
+    const { id, taskId } = useParams();
+
     const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditEntity } = useMutationHook();
 
     const { mutate, isPending } = useEditEntity<WorkItemSchema>({
-        URL: `/projects/${id}/tasks/${taskId}/workItems/${workItemId}/edit`,
-        queryKey: ['workItems', id, taskId],
+        URL: `/projects/${id}/tasks/${taskId}/work-items/${workItemId}/edit`,
+        queryKey: ['projects', id, 'tasks', taskId, 'work-items'],
         successToast: 'Work item updated successfully!',
         setIsOpen,
     });
@@ -36,19 +30,13 @@ const EditWorkItem = ({ id, taskId, workItemId, task }: EditWorkItemProps) => {
     const handleSubmit = useSubmitHandler(mutate, workItemSchema);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTriggerButtonEdit />
-            <DialogContent className='rounded-lg'>
-                <DialogHeader className='items-center'>
-                    <DialogTitle>Edit Work Item</DialogTitle>
-                </DialogHeader>
-                <EditWorkItemForm
-                    task={task}
-                    handleSubmit={handleSubmit}
-                    isPending={isPending}
-                />
-            </DialogContent>
-        </Dialog>
+        <DialogModal
+            Component={EditWorkItemForm}
+            props={{ handleSubmit, isPending, id, taskId, workItemId }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            title='Edit work item'
+        />
     );
 };
 

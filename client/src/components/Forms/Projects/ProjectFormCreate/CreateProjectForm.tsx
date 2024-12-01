@@ -4,6 +4,7 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
+import { Separator } from '@/components/ui/separator';
 import { useProjectFormHook } from '@/hooks/forms/useProjectForm';
 import { ProjectSchema } from '@/models/project/projectSchema';
 import { ClipboardList, Mail, MapPin } from 'lucide-react';
@@ -24,28 +25,31 @@ const CreateProjectForm = ({
     return (
         <FormProvider {...form}>
             <form id='project-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput
-                    type='text'
-                    label='Project name'
-                    name='name'
-                    className='pl-10'
-                    Icon={ClipboardList}
-                />
-                <FormFieldInput
-                    type='email'
-                    label='Project email'
-                    name='email'
-                    className='pl-10'
-                    Icon={Mail}
-                />
-                <FormFieldInput
-                    type='text'
-                    label='Project address'
-                    name='address'
-                    className='pl-10'
-                    Icon={MapPin}
-                />
-                <div className='flex flex-1 pt-2 justify-between'>
+                <div className='grid grid-cols-1 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Project name'
+                        name='name'
+                        className='pl-10'
+                        Icon={ClipboardList}
+                    />
+                    <FormFieldInput
+                        type='email'
+                        label='Project email'
+                        name='email'
+                        className='pl-10'
+                        Icon={Mail}
+                    />
+                    <FormFieldInput
+                        type='text'
+                        label='Project address'
+                        name='address'
+                        className='pl-10'
+                        Icon={MapPin}
+                    />
+                </div>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-2 sm:grid-cols-2 gap-2 '>
                     <StatusSelector
                         label='Status'
                         name='status'
@@ -56,7 +60,8 @@ const CreateProjectForm = ({
                         name='company_name'
                     />
                 </div>
-                <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-1 sm:grid-cols-2 content-around gap-2'>
                     <FormDatePicker
                         name='start_date'
                         label='Select a start date'
@@ -66,9 +71,11 @@ const CreateProjectForm = ({
                         label='Select an end date'
                     />
                 </div>
+                <Separator className='mt-2 mb-2' />
                 <FormTextareaInput
                     name='note'
-                    label='Enter notes for your project'
+                    label='Project note'
+                    placeholder='Project notes...'
                     type='text'
                 />
                 <DialogFooter

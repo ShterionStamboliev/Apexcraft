@@ -41,7 +41,7 @@ const ProjectsTasksBody = () => {
                     <ConditionalRenderer
                         data={tasks}
                         renderData={(tasks) => (
-                            <TasksCard tasks={tasks} id={id!} />
+                            <TasksCard tasks={tasks as Task[]} id={id!} />
                         )}
                         noResults={{
                             title: 'No tasks found',

@@ -4,7 +4,7 @@ import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
 import { useWorkItemFormHooks } from '@/hooks/forms/useWorkItemForm';
-import { WorkItemSchema } from '@/types/task-types/workItemType';
+import { WorkItemSchema } from '@/models/workItem/workItemSchema';
 import { FormProvider } from 'react-hook-form';
 
 type UserWorkItemCreateFormProps = {

@@ -7,13 +7,13 @@ import {
 } from '@/components/ui/dialog';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
-import {
-    WorkItem,
-    workItemSchema,
-    WorkItemSchema,
-} from '@/types/task-types/workItemType';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import UserWorkItemEditForm from './UserWorkItemEditForm';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/models/workItem/workItemSchema';
+import { WorkItem } from '@/types/work-item-types/workItem';
 
 type UserWorkItemEditProps = {
     taskId: string;

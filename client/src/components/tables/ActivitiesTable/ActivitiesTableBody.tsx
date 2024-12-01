@@ -58,7 +58,9 @@ const ActivitiesTableBody = () => {
                     <ConditionalRenderer
                         data={activities.data}
                         renderData={(activities) => (
-                            <ActivitiesCard activities={activities} />
+                            <ActivitiesCard
+                                activities={activities as Activity[]}
+                            />
                         )}
                         noResults={{
                             title: 'No activities found',

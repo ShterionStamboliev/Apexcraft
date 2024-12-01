@@ -1,14 +1,12 @@
-import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import {
     activitySchema,
     ActivitySchema,
 } from '@/models/activity/activitySchema';
-import { Dialog, DialogContent } from '@/components/ui/dialog';
 import CreateActivityForm from './CreateActivityForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 const CreateActivity = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -25,19 +23,15 @@ const CreateActivity = () => {
     const handleSubmit = useSubmitHandler(mutate, activitySchema);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTriggerButtonCreate
-                className='md:w-full lg:max-w-[12rem]'
-                text='Add new activity'
-            />
-            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader title='Add new activity' />
-                <CreateActivityForm
-                    handleSubmit={handleSubmit}
-                    isPending={isPending}
-                />
-            </DialogContent>
-        </Dialog>
+        <DialogModal
+            Component={CreateActivityForm}
+            props={{ handleSubmit, isPending }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            CreateButtonModal
+            createButtonTitle='Add new activity'
+            title='New activity'
+        />
     );
 };
 

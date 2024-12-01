@@ -1,7 +1,9 @@
+import EditTask from '@/components/Forms/Tasks/TaskFormEdit/EditTask';
 import {
     Card,
     CardContent,
     CardDescription,
+    CardFooter,
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
@@ -24,7 +26,7 @@ const TasksCard = ({ tasks, id }: TasksCardProps) => {
                     <CardHeader className='bg-header rounded-t-lg p-5'>
                         <CardTitle>
                             <Link
-                                to={`/projects/${id}/tasks/${task.id}/edit`}
+                                to={`/projects/${id}/tasks/${task.id}/work-items`}
                                 className='transition duration-300 ease-in-out hover:text-slate-400'
                             >
                                 {task.name}
@@ -59,6 +61,9 @@ const TasksCard = ({ tasks, id }: TasksCardProps) => {
                             <span>{task.status}</span>
                         </CardDescription>
                     </CardContent>
+                    <CardFooter className='p-1 justify-center items-center rounded-b-lg border-t'>
+                        <EditTask id={id} taskId={task.id!} />
+                    </CardFooter>
                 </Card>
             ))}
         </>

@@ -58,7 +58,7 @@ const CompaniesTableBody = () => {
                     <ConditionalRenderer
                         data={companies.data}
                         renderData={(companies) => (
-                            <CompaniesCard companies={companies} />
+                            <CompaniesCard companies={companies as Company[]} />
                         )}
                         noResults={{
                             title: 'No companies found',

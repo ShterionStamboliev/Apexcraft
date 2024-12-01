@@ -1,12 +1,9 @@
-import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import { artisanSchema, ArtisanSchema } from '@/models/artisan/artisanSchema';
-import { DialogContent } from '@/components/ui/dialog';
-import { Dialog } from '@radix-ui/react-dialog';
 import CreateArtisanForm from './CreateArtisanForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 const CreateArtisan = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -23,19 +20,15 @@ const CreateArtisan = () => {
     const handleSubmit = useSubmitHandler(mutate, artisanSchema);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTriggerButtonCreate
-                className='md:w-full lg:max-w-[12rem]'
-                text='Add new artisan'
-            />
-            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader title='Add new artisan' />
-                <CreateArtisanForm
-                    handleSubmit={handleSubmit}
-                    isPending={isPending}
-                />
-            </DialogContent>
-        </Dialog>
+        <DialogModal
+            Component={CreateArtisanForm}
+            CreateButtonModal
+            props={{ handleSubmit, isPending }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            createButtonTitle='Add new artisan'
+            title='New artisan'
+        />
     );
 };
 

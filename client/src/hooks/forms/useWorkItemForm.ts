@@ -2,7 +2,7 @@ import {
     workItemDefaults,
     workItemSchema,
     WorkItemSchema,
-} from '@/types/task-types/workItemType';
+} from '@/models/workItem/workItemSchema';
 import { useDynamicForm } from './dynamicForm/useDynamicForm';
 
 export const useWorkItemFormHooks = () => {

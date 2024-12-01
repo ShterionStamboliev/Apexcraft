@@ -20,13 +20,15 @@ const CreateMeasureForm = ({
     return (
         <FormProvider {...form}>
             <form id='measure-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput
-                    type='text'
-                    label='Measure type'
-                    name='name'
-                    className='pl-10'
-                    Icon={Ruler}
-                />
+                <div className='grid grid-cols-1 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Measure type'
+                        name='name'
+                        className='pl-10'
+                        Icon={Ruler}
+                    />
+                </div>
                 <DialogFooter
                     disabled={!form.formState.isDirty || isPending}
                     label='Submit'

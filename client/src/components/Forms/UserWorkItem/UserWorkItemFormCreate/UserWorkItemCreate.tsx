@@ -5,15 +5,15 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
-import {
-    workItemSchema,
-    WorkItemSchema,
-} from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import UserWorkItemCreateForm from './UserWorkItemCreateForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/models/workItem/workItemSchema';
 
 const UserWorkItemCreate = () => {
     const { taskId } = useParams();

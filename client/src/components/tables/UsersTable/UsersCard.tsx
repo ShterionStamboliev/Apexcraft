@@ -1,4 +1,4 @@
-import EditUserForm from '@/components/Forms/User/UserFormEdit/EditUser';
+import EditUser from '@/components/Forms/User/UserFormEdit/EditUser';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { User } from '@/types/user-types/userTypes';
 
@@ -18,7 +18,7 @@ const UsersCard = ({ users }: UsersCardProps) => {
                         {user.username}
                     </TableCell>
                     <TableCell className='text-end font-semibold w-[200px]'>
-                        <EditUserForm user={user} userId={user.id!} />
+                        <EditUser userId={user.id!} />
                     </TableCell>
                 </TableRow>
             ))}

@@ -57,7 +57,9 @@ const UsersTableBody = () => {
                 <TableBody>
                     <ConditionalRenderer
                         data={users.data}
-                        renderData={(users) => <UsersCard users={users} />}
+                        renderData={(users) => (
+                            <UsersCard users={users as User[]} />
+                        )}
                         noResults={{
                             title: 'No users found',
                             description:

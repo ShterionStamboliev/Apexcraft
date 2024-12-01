@@ -24,6 +24,8 @@ const getTaskById = async (req, res) => {
             measureName,
         };
 
+        console.log(taskWithNames);
+
         res.json(taskWithNames);
 
     } catch (error) {

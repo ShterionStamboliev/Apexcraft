@@ -35,7 +35,7 @@ const ProjectsTableBody = () => {
                     <ConditionalRenderer
                         data={projects}
                         renderData={(projects) => (
-                            <ProjectsCard projects={projects} />
+                            <ProjectsCard projects={projects as Project[]} />
                         )}
                         noResults={{
                             title: 'No projects found',

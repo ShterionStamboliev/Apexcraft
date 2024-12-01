@@ -10,6 +10,7 @@ import {
     PaginatedDataResponse,
     UseGetPaginatedDataTypes,
 } from '@/types/query-data-types/paginatedDataTypes';
+import { PaginatedWorkItems } from '@/types/work-item-types/workItem';
 import {
     keepPreviousData,
     useInfiniteQuery,
@@ -72,7 +73,14 @@ export const useCachedData = <TData>({
 }: CachedDataOptions<TData>) => {
     const { data } = useQuery({
         queryKey,
-        select: (data: TData[]) => selectFn(data),
+        select: (
+            data: PaginatedDataResponse<TData> | TData[] | PaginatedWorkItems
+        ) => {
+            if (!data) {
+                return undefined;
+            }
+            return selectFn(data);
+        },
     });
     return data;
 };

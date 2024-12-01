@@ -13,7 +13,7 @@ const apiCall = async (endpoint: string, method: string, data?: unknown) => {
     });
 
     if (!response.ok) {
-        throw new Error('Something wrong happened')
+        throw new Error('Something wrong happened');
     }
 
     const editEndpointPattern: RegExp = /^\/users\/\d+\/edit$/;
@@ -29,25 +29,29 @@ export const getPaginatedData = async <TData>(
     URL: string,
     page: number,
     limit: number,
-    search?: string,
+    search?: string
 ): Promise<PaginatedDataResponse<TData>> => {
     const searchParam = search ? `&q=${encodeURIComponent(search)}` : '';
     const pageParam = page ? `?_page=${encodeURIComponent(page)}` : '';
-    const data: PaginatedDataResponse<TData> = await apiCall(`${URL}${pageParam}&_limit=${limit}${searchParam}`, 'GET');
+    const data: PaginatedDataResponse<TData> = await apiCall(
+        `${URL}${pageParam}&_limit=${limit}${searchParam}`,
+        'GET'
+    );
     return data;
 };
 
 export const getInfiniteData = async <TData>(
     URL: string,
-    pageParam: number,
+    pageParam: number
 ): Promise<TData> => {
-    const data: TData = await apiCall(`${URL}/workItems?_page=${pageParam}&_limit=4`, 'GET');
+    const data: TData = await apiCall(
+        `${URL}/work-items?_page=${pageParam}&_limit=4`,
+        'GET'
+    );
     return data;
 };
 
-export const getEntityData = async <TData>(
-    URL: string
-): Promise<TData> => {
+export const getEntityData = async <TData>(URL: string): Promise<TData> => {
     const data: TData = await apiCall(`${URL}`, 'GET');
     return data;
 };
