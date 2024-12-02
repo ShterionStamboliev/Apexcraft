@@ -4,7 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ProjectTask } from '@/types/task-types/taskTypes';
 import { format } from 'date-fns';
-import { Building, Calendar, ClipboardList, MapPin, User } from 'lucide-react';
+import { Building, Calendar, ClipboardList, MapPin } from 'lucide-react';
 
 const ProjectInformationCard = ({ project }: { project: ProjectTask }) => {
     return (
