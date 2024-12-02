@@ -1,7 +1,9 @@
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { PaginatedWorkItems } from '@/types/work-item-types/workItem';
+import { ClipboardList, DollarSign, Hammer, User } from 'lucide-react';
 import { useMemo } from 'react';
 
 type TaskItemCardProps = {
@@ -52,71 +54,127 @@ const TaskItemCard = ({ workItems }: TaskItemCardProps) => {
                     </h1>
                     <Separator />
                     <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
-                        <div>
+                        <div className='relative'>
                             <Label htmlFor='text' className='font-bold text-md'>
                                 Task name
                             </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.taskName}`}
-                                className='mt-2'
-                            />
+                            <div className='relative'>
+                                <ClipboardList
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={`${taskDetails.taskName}`}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
                         </div>
-                        <div>
+                        <div className='relative'>
                             <Label htmlFor='text' className='font-bold text-md'>
                                 Artisan name
                             </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.artisanName}`}
-                                className='mt-2'
-                            />
+                            <div className='relative'>
+                                <User
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={`${taskDetails.artisanName}`}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
                         </div>
-                        <div>
+                        <div className='relative'>
                             <Label htmlFor='text' className='font-bold text-md'>
                                 Measure price
                             </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.measurePrice}`}
-                                className='mt-2'
-                            />
+                            <div className='relative'>
+                                <DollarSign
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={`${taskDetails.measurePrice}`}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
                         </div>
-                        <div>
+                        <div className='relative'>
                             <Label htmlFor='text' className='font-bold text-md'>
                                 Total price
                             </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.totalPrice}`}
-                                className='mt-2'
-                            />
+                            <div className='relative'>
+                                <DollarSign
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={`${taskDetails.totalPrice}`}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
                         </div>
-                        <div>
-                            <Label htmlFor='text' className='font-bold text-md'>
-                                Task status
-                            </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.taskStatus}`}
-                                className='mt-2'
-                            />
-                        </div>
-                        <div>
+                        <div className='relative'>
                             <Label htmlFor='text' className='font-bold text-md'>
                                 Total work
                             </Label>
-                            <Input
-                                disabled
-                                type='text'
-                                placeholder={`${taskDetails.totalWork}`}
-                                className='mt-2'
-                            />
+                            <div className='relative'>
+                                <Hammer
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={`${taskDetails.totalWork}`}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='flex flex-col gap-2 items-center text-center justify-center'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project status
+                            </Label>
+                            <Badge
+                                className={`px-4 text-sm rounded-full 
+                                ${
+                                    taskDetails.taskStatus.toString() ===
+                                    'active'
+                                        ? 'text-green-500'
+                                        : 'text-red-500'
+                                }`}
+                                variant='outline'
+                            >
+                                {taskDetails.taskStatus}
+                            </Badge>
                         </div>
                     </div>
                 </div>
