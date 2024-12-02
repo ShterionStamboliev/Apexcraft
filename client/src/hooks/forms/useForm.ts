@@ -1,5 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DefaultValues, FieldValues, useForm, UseFormProps } from 'react-hook-form';
+import {
+    DefaultValues,
+    FieldValues,
+    useForm,
+    UseFormProps,
+} from 'react-hook-form';
 import { ZodType } from 'zod';
 
 export const useFormSchema = <T extends FieldValues>(
@@ -11,11 +16,11 @@ export const useFormSchema = <T extends FieldValues>(
         resolver: zodResolver(schema),
         defaultValues,
         mode: 'onChange',
-        ...options
+        ...options,
     });
 
     return form;
-}
+};
 
 export const useCreateFormHooks = <T extends FieldValues>(
     schema: ZodType<T>,
@@ -28,12 +33,12 @@ export const useCreateFormHooks = <T extends FieldValues>(
     const useEditForm = (data: Partial<T>) => {
         return useFormSchema<T>(schema, {
             ...defaultValues,
-            ...data
+            ...data,
         });
     };
 
     return {
         useCreateForm,
         useEditForm,
-    }
-}
+    };
+};

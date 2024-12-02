@@ -2,10 +2,10 @@ import ProjectsSkeletonCard from '@/utils/SkeletonLoader/Projects/ProjectsSkelet
 import { BrickWall, CircleAlert } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Project } from '@/types/project-types/projectTypes';
-import CreateProject from '@/components/Forms/Projects/ProjectFormCreate/CreateProject';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import ProjectsCard from './ProjectsCard';
+import ProjectsBreadcrumb from '@/components/common/Breadcrumbs/ProjectsBreadcrumb';
 
 const ProjectsTableBody = () => {
     const {
@@ -27,15 +27,13 @@ const ProjectsTableBody = () => {
 
     return (
         <>
-            <div className='flex flex-col border rounded-lg mt-8 mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
-                <CreateProject />
-            </div>
-            <div className='flex flex-col border rounded-lg mt-8 mb-24 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
+            <ProjectsBreadcrumb />
+            <div className='flex flex-col border rounded-lg mt-48 mb-28 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
                 <div className='flex flex-wrap sm:w-full gap-4'>
                     <ConditionalRenderer
                         data={projects}
                         renderData={(projects) => (
-                            <ProjectsCard projects={projects} />
+                            <ProjectsCard projects={projects as Project[]} />
                         )}
                         noResults={{
                             title: 'No projects found',

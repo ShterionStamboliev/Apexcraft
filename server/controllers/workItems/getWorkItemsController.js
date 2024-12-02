@@ -8,8 +8,25 @@ const getWorkItems = async (req, res) => {
 
     try {
         const query = `
-            SELECT * FROM tbl_workItems 
-            WHERE task_id = ?
+            SELECT 
+                workItem.id AS id, 
+                workItem.name AS name, 
+                workItem.start_date AS start_date, 
+                workItem.end_date AS end_date, 
+                workItem.note AS note, 
+                workItem.finished_work, 
+                workItem.status AS status,
+                task.name AS task_name, 
+                artisan.name AS artisan_name, 
+                task.price_per_measure, 
+                task.total_price, 
+                task.total_work_in_selected_measure,
+                task.status AS task_status,
+                task.id AS task_id
+            FROM tbl_workitems workItem
+            JOIN tbl_tasks task ON workItem.task_id = task.id
+            LEFT JOIN tbl_artisans artisan ON task.artisan_id = artisan.id
+            WHERE workItem.task_id = ?
             LIMIT ? OFFSET ?
         `;
 

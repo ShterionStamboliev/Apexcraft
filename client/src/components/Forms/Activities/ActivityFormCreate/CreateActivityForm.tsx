@@ -1,6 +1,7 @@
 import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
+import { Separator } from '@/components/ui/separator';
 import { useActivityFormHooks } from '@/hooks/forms/useActivityForm';
 import { ActivitySchema } from '@/models/activity/activitySchema';
 import { Activity } from 'lucide-react';
@@ -21,14 +22,17 @@ const CreateActivityForm = ({
     return (
         <FormProvider {...form}>
             <form id='activity-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput
-                    type='text'
-                    label='Activity name'
-                    name='name'
-                    className='pl-10'
-                    Icon={Activity}
-                />
-                <div className='flex flex-1 pt-2 justify-between'>
+                <div className='grid grid-cols-1 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Activity name'
+                        name='name'
+                        className='pl-10'
+                        Icon={Activity}
+                    />
+                </div>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-1 sm:grid-cols-2 content-around gap-2'>
                     <StatusSelector
                         label='Status'
                         name='status'

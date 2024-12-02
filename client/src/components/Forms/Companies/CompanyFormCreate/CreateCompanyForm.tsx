@@ -2,6 +2,7 @@ import DialogFooter from '@/components/common/DialogElements/DialogFooter';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import StatusSelector from '@/components/common/FormElements/FormStatusSelector';
 import VatSelector from '@/components/common/FormElements/FormVatSelector';
+import { Separator } from '@/components/ui/separator';
 import { useCompanyFormHooks } from '@/hooks/forms/useCompanyForm';
 import { CompanySchema } from '@/models/company/companySchema';
 import {
@@ -30,49 +31,58 @@ const CreateCompanyForm = ({
     return (
         <FormProvider {...form}>
             <form id='company-form' onSubmit={form.handleSubmit(handleSubmit)}>
-                <FormFieldInput
-                    type='text'
-                    label='Company name'
-                    name='name'
-                    className='pl-10'
-                    Icon={ClipboardList}
-                />
-                <FormFieldInput
-                    type='text'
-                    label='Company number'
-                    name='number'
-                    className='pl-10'
-                    Icon={FileDigit}
-                />
-                <FormFieldInput
-                    type='text'
-                    label='Company address'
-                    name='address'
-                    className='pl-10'
-                    Icon={MapPin}
-                />
-                <FormFieldInput
-                    type='text'
-                    label='Company MOL'
-                    name='mol'
-                    className='pl-10'
-                    Icon={User}
-                />
-                <FormFieldInput
-                    type='email'
-                    label='Company email'
-                    name='email'
-                    className='pl-10'
-                    Icon={Mail}
-                />
-                <FormFieldInput
-                    type='text'
-                    label='Company phone'
-                    name='phone'
-                    className='pl-10'
-                    Icon={Phone}
-                />
-                <div className='flex flex-wrap gap-1 flex-1 pt-2 justify-between'>
+                <div className='grid grid-cols-1 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Company name'
+                        name='name'
+                        className='pl-10'
+                        Icon={ClipboardList}
+                    />
+                    <FormFieldInput
+                        type='text'
+                        label='Company address'
+                        name='address'
+                        className='pl-10'
+                        Icon={MapPin}
+                    />
+                </div>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-1 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Company MOL'
+                        name='mol'
+                        className='pl-10'
+                        Icon={User}
+                    />
+                    <FormFieldInput
+                        type='email'
+                        label='Company email'
+                        name='email'
+                        className='pl-10'
+                        Icon={Mail}
+                    />
+                </div>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-2 gap-2 mb-2'>
+                    <FormFieldInput
+                        type='text'
+                        label='Company number'
+                        name='number'
+                        className='pl-10'
+                        Icon={FileDigit}
+                    />
+                    <FormFieldInput
+                        type='text'
+                        label='Company phone'
+                        name='phone'
+                        className='pl-10'
+                        Icon={Phone}
+                    />
+                </div>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-2 sm:grid-cols-2 content-around gap-2'>
                     <StatusSelector
                         label='Status'
                         name='status'

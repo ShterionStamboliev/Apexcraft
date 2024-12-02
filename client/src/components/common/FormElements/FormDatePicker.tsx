@@ -44,7 +44,7 @@ const FormDatePicker = ({
             name={name}
             render={({ field }) => (
                 <FormItem className={cn('flex flex-col', className)}>
-                    <FormLabel className='font-semibold pb-3'>
+                    <FormLabel className='font-semibold pb-1'>
                         {label}
                     </FormLabel>
                     <Popover open={calendarOpen} onOpenChange={setCalendarOpen}>

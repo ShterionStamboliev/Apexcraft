@@ -6,7 +6,7 @@ const UserProjectTaskPage = () => {
         <div className='flex md:gap-60 min-h-screen'>
             <Sidebar />
 
-            <div className='flex-1 flex px-2 md:gap-8'>
+            <div className='flex flex-col w-full overflow-x-auto md:gap-8'>
                 <UserProjectTaskTableBody />
             </div>
         </div>

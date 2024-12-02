@@ -1,4 +1,4 @@
-import EditArtisanForm from '@/components/Forms/Artisans/ArtisanFormEdit/EditArtisan';
+import EditArtisan from '@/components/Forms/Artisans/ArtisanFormEdit/EditArtisan';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Artisan } from '@/types/artisan-types/artisanTypes';
 
@@ -15,10 +15,7 @@ const ArtisansCard = ({ artisans }: ArtisansCardProps) => {
                         {artisan.name}
                     </TableCell>
                     <TableCell className='text-end w-[200px]'>
-                        <EditArtisanForm
-                            artisan={artisan}
-                            artisanId={artisan.id!}
-                        />
+                        <EditArtisan artisanId={artisan.id!} />
                     </TableCell>
                 </TableRow>
             ))}

@@ -1,15 +1,13 @@
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
-import { WorkItemSchema } from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import CreateWorkItemForm from './CreateWorkItemForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/models/workItem/workItemSchema';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 const CreateWorkItem = () => {
     const { id, taskId } = useParams();
@@ -19,32 +17,23 @@ const CreateWorkItem = () => {
 
     const { mutate, isPending } = useCreateNewEntity<WorkItemSchema>({
         URL: `/projects/${id}/tasks/${taskId}/workItems/create`,
-        queryKey: ['workItems', id, taskId],
+        queryKey: ['projects', id, 'tasks', taskId, 'work-items'],
         successToast: 'Work item created successfully!',
         setIsOpen,
     });
 
-    const handleSubmit = (workItemData: WorkItemSchema) => {
-        mutate(workItemData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, workItemSchema);
 
     return (
-        <div className='mb-6'>
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTriggerButtonCreate text='Add new work item' />
-                <DialogContent className='rounded-lg sm:max-w-[30rem]'>
-                    <DialogHeader>
-                        <DialogTitle className='text-center'>
-                            Add new work item
-                        </DialogTitle>
-                    </DialogHeader>
-                    <CreateWorkItemForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+        <DialogModal
+            Component={CreateWorkItemForm}
+            CreateButtonModal
+            props={{ handleSubmit, isPending }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            createButtonTitle='Add new work item'
+            title='New work item'
+        />
     );
 };
 

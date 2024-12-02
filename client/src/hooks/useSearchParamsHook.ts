@@ -4,19 +4,25 @@ type UseSearchParamsReturn = {
     setSearchParams: ReturnType<typeof useSearchParams>[1];
     page: number;
     itemsLimit: number;
-}
+    searchParam: string;
+};
 
 const useSearchParamsHook = (): UseSearchParamsReturn => {
     const [searchParams, setSearchParams] = useSearchParams();
     const pageParam = searchParams.get('page');
-    const page = pageParam && !Number.isNaN(Number(pageParam)) ? parseInt(pageParam, 10) : 1;
+    const page =
+        pageParam && !Number.isNaN(Number(pageParam))
+            ? parseInt(pageParam, 10)
+            : 1;
     const itemsLimit: number = 10;
+    const searchParam = searchParams.get('q') || '';
 
     return {
         setSearchParams,
         page,
-        itemsLimit
-    }
-}
+        itemsLimit,
+        searchParam,
+    };
+};
 
 export default useSearchParamsHook;

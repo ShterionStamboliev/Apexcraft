@@ -1,4 +1,4 @@
-import EditProjectForm from '@/components/Forms/Projects/ProjectFormEdit/EditProject';
+import EditProject from '@/components/Forms/Projects/ProjectFormEdit/EditProject';
 import {
     Card,
     CardContent,
@@ -57,10 +57,7 @@ const ProjectsCard = ({ projects }: CardFormProps) => {
                         </CardDescription>
                     </CardContent>
                     <CardFooter className='p-1 justify-center items-center rounded-b-lg border-t'>
-                        <EditProjectForm
-                            project={project}
-                            projectId={project.id!}
-                        />
+                        <EditProject projectId={project.id!} />
                     </CardFooter>
                 </Card>
             ))}

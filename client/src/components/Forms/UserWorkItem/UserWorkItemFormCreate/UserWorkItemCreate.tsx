@@ -1,15 +1,13 @@
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
-import { WorkItemSchema } from '@/types/task-types/workItemType';
 import { useParams } from 'react-router-dom';
 import UserWorkItemCreateForm from './UserWorkItemCreateForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import { useSubmitHandler } from '@/utils/helpers/submitHandler';
+import {
+    workItemSchema,
+    WorkItemSchema,
+} from '@/models/workItem/workItemSchema';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 const UserWorkItemCreate = () => {
     const { taskId } = useParams();
@@ -25,27 +23,18 @@ const UserWorkItemCreate = () => {
         setIsOpen,
     });
 
-    const handleSubmit = (workItemData: WorkItemSchema) => {
-        mutate(workItemData);
-    };
+    const handleSubmit = useSubmitHandler(mutate, workItemSchema);
 
     return (
-        <div className='mb-6'>
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogTriggerButtonCreate text='Add new work item' />
-                <DialogContent className='rounded-lg sm:max-w-[30rem]'>
-                    <DialogHeader>
-                        <DialogTitle className='text-center'>
-                            Add new work item
-                        </DialogTitle>
-                    </DialogHeader>
-                    <UserWorkItemCreateForm
-                        handleSubmit={handleSubmit}
-                        isPending={isPending}
-                    />
-                </DialogContent>
-            </Dialog>
-        </div>
+        <DialogModal
+            Component={UserWorkItemCreateForm}
+            CreateButtonModal
+            createButtonTitle='Add work item'
+            props={{ handleSubmit, isPending }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            title='New work item'
+        />
     );
 };
 

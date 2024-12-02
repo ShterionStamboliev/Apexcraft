@@ -1,12 +1,9 @@
-import DialogHeader from '@/components/common/DialogElements/DialogHeader';
-import DialogTriggerButtonCreate from '@/components/common/DialogElements/DialogTriggerButtonCreate';
 import { measureSchema, MeasureSchema } from '@/models/measure/measureSchema';
-import { DialogContent } from '@/components/ui/dialog';
-import { Dialog } from '@radix-ui/react-dialog';
 import CreateMeasureForm from './CreateMeasureForm';
 import useDialogState from '@/hooks/useDialogState';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
 import { useMutationHook } from '@/hooks/useMutationHook';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 const CreateMeasure = () => {
     const { isOpen, setIsOpen } = useDialogState();
@@ -23,19 +20,15 @@ const CreateMeasure = () => {
     const handleSubmit = useSubmitHandler(mutate, measureSchema);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTriggerButtonCreate
-                className='md:w-full lg:max-w-[12rem]'
-                text='Add new measure'
-            />
-            <DialogContent className='max-w-[400px] rounded-md sm:max-w-[425px] gap-0'>
-                <DialogHeader title='Add new measure' />
-                <CreateMeasureForm
-                    handleSubmit={handleSubmit}
-                    isPending={isPending}
-                />
-            </DialogContent>
-        </Dialog>
+        <DialogModal
+            Component={CreateMeasureForm}
+            props={{ handleSubmit, isPending }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            CreateButtonModal
+            createButtonTitle='Add new measure'
+            title='New measure'
+        />
     );
 };
 

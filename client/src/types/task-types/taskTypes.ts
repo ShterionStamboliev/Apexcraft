@@ -1,4 +1,4 @@
-import { WorkItem } from './workItemType';
+import { WorkItem } from '../work-item-types/workItem';
 
 export type Task = {
     id?: string;
@@ -16,7 +16,7 @@ export type Task = {
     end_date?: string;
     note?: string;
     status?: 'active' | 'inactive';
-}
+};
 
 export type ProjectTask = {
     taskProjectData: {
@@ -28,9 +28,9 @@ export type ProjectTask = {
         artisanName?: string;
         activityName?: string;
         measureName?: string;
-        price_per_measure?: number;
-        total_price?: number;
-        total_work_in_selected_measure?: number;
+        price_per_measure?: string | number;
+        total_price?: string | number;
+        total_work_in_selected_measure?: string | number;
         start_date?: string;
         end_date?: string;
         note?: string;
@@ -41,6 +41,6 @@ export type ProjectTask = {
         project_start_date?: string;
         project_end_date?: string;
         status?: 'active' | 'inactive';
-    },
+    };
     workItemsData?: WorkItem[];
-}
+};

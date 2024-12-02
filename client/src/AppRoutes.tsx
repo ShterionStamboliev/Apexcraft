@@ -9,11 +9,11 @@ import ProjectsTablePage from './pages/ProjectsTablePage';
 import CompaniesTablePage from './pages/CompaniesTablePage';
 import ArtisansTablePage from './pages/ArtisansTablePage';
 import ProjectTasksPage from './pages/ProjectTasksPage';
-import TaskEditPage from './pages/TaskEditPage';
 import UserGuard from './guards/UserGuard';
 import ManagerGuard from './guards/ManagerGuard';
 import UserProjectsPage from './pages/UserProjectsPage';
 import UserProjectTaskPage from './pages/UserProjectTaskPage';
+import WorkItemsPage from './pages/WorkItemsPage';
 
 const AppRoutes = () => {
     return (
@@ -91,10 +91,10 @@ const AppRoutes = () => {
             </Route>
             <Route element={<ManagerGuard />}>
                 <Route
-                    path='/projects/:id/tasks/:taskId/edit'
+                    path='/projects/:id/tasks/:taskId/work-items'
                     element={
                         <TableLayout>
-                            <TaskEditPage />
+                            <WorkItemsPage />
                         </TableLayout>
                     }
                 />

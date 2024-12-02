@@ -35,7 +35,7 @@ const StatusSelector = ({
                         defaultValue={defaultVal}
                     >
                         <FormControl>
-                            <SelectTrigger className='w-[140px]'>
+                            <SelectTrigger>
                                 <SelectValue placeholder={placeholder} />
                             </SelectTrigger>
                         </FormControl>

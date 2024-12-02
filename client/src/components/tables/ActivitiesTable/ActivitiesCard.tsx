@@ -1,4 +1,4 @@
-import EditActivityForm from '@/components/Forms/Activities/ActivityFormEdit/EditActivity';
+import EditActivity from '@/components/Forms/Activities/ActivityFormEdit/EditActivity';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { Activity } from '@/types/activity-types/activityTypes';
 
@@ -15,10 +15,7 @@ const ActivitiesCard = ({ activities }: ActivitiesCardProps) => {
                         {activity.name}
                     </TableCell>
                     <TableCell className='text-end w-[200px]'>
-                        <EditActivityForm
-                            activity={activity}
-                            activityId={activity.id!}
-                        />
+                        <EditActivity activityId={activity.id!} />
                     </TableCell>
                 </TableRow>
             ))}

@@ -2,8 +2,8 @@ import { useToast } from '@/components/ui/use-toast';
 
 type ToastProps = {
     title: string;
-    variant: "default" | "destructive" | "success" | null | undefined;
-}
+    variant: 'default' | 'destructive' | 'success' | null | undefined;
+};
 
 const useToastHook = () => {
     const { toast } = useToast();
