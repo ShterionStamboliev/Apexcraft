@@ -1,79 +1,163 @@
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { ProjectTask } from '@/types/task-types/taskTypes';
 import { format } from 'date-fns';
-import { CalendarIcon, ClockIcon } from 'lucide-react';
+import { Building, Calendar, ClipboardList, MapPin, User } from 'lucide-react';
 
 const ProjectInformationCard = ({ project }: { project: ProjectTask }) => {
     return (
-        <Card>
-            <CardHeader className='bg-header rounded-t-lg p-5'>
-                <CardTitle className='text-xl text-center'>
-                    Project Information
-                </CardTitle>
-            </CardHeader>
-            <CardContent className='space-y-3 p-5'>
-                <div>
-                    <h3 className='font-semibold'>Project name</h3>
-                    <p className='text-gray-400'>
+        <>
+            {project && (
+                <div className='flex flex-col mt-44 border rounded-lg mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
+                    <h1 className='text-2xl font-bold mb-2 text-foreground text-center motion-preset-shrink motion-duration-1000'>
+                        Project name <br />
                         {project.taskProjectData.project_name}
-                    </p>
-                </div>
-                <Separator />
-                <div>
-                    <h3 className='font-semibold'>Company name</h3>
-                    <p className='text-gray-400'>
-                        {project.taskProjectData.project_company_name}
-                    </p>
-                </div>
-                <Separator />
-                <div>
-                    <h3 className='font-semibold'>Project address</h3>
-                    <p className='text-gray-400'>
-                        {project.taskProjectData.project_address}
-                    </p>
-                </div>
-                <Separator />
-                <div className='flex items-center pt-4'>
-                    <CalendarIcon className='mr-2 text-blue-600' />
-                    <h3 className='mr-2'>Start:</h3>
-                    <span className='text-gray-400'>
-                        {format(
-                            project.taskProjectData
-                                .project_start_date as string,
-                            'PPP'
-                        )}
-                    </span>
-                </div>
-                <div className='flex items-center'>
-                    <CalendarIcon className='mr-2 text-red-500' />
-                    <h3 className='mr-2'>End:</h3>
-                    <span className='text-gray-400'>
-                        {format(
-                            project.taskProjectData.project_end_date as string,
-                            'PPP'
-                        )}
-                    </span>
-                </div>
-                <div className='flex items-center'>
-                    <ClockIcon className='mr-2' />
-                    <h3 className='mr-2'>Status:</h3>
-                    <Badge
-                        className={`px-4 text-sm rounded-full 
+                    </h1>
+                    <Separator />
+                    <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
+                        <div className='relative'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project name
+                            </Label>
+                            <div className='relative'>
+                                <ClipboardList
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={
+                                        project.taskProjectData.project_name
+                                    }
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='relative'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Company name
+                            </Label>
+                            <div className='relative'>
+                                <Building
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={
+                                        project.taskProjectData
+                                            .project_company_name
+                                    }
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='relative'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project address
+                            </Label>
+                            <div className='relative'>
+                                <MapPin
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={
+                                        project.taskProjectData.project_address
+                                    }
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='relative'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project start date
+                            </Label>
+                            <div className='relative'>
+                                <Calendar
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={format(
+                                        project.taskProjectData
+                                            .project_start_date as string,
+                                        'PPP'
+                                    )}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='relative'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project end date
+                            </Label>
+                            <div className='relative'>
+                                <Calendar
+                                    size={15}
+                                    className='absolute left-2.5 top-1/2 transform -translate-y-1/2 text-gray-500'
+                                />
+                                <Separator
+                                    className='absolute left-8 top-1/2 transform -translate-y-1/2'
+                                    orientation='vertical'
+                                />
+                                <Input
+                                    disabled
+                                    type='text'
+                                    placeholder={format(
+                                        project.taskProjectData
+                                            .project_end_date as string,
+                                        'PPP'
+                                    )}
+                                    className='mt-2 pl-10'
+                                />
+                            </div>
+                        </div>
+                        <div className='flex flex-col gap-2 items-center text-center justify-center'>
+                            <Label htmlFor='text' className='font-bold text-md'>
+                                Project status
+                            </Label>
+                            <Badge
+                                className={`px-4 text-sm rounded-full 
                                 ${
                                     project.taskProjectData.project_status ===
                                     'active'
                                         ? 'text-green-500'
                                         : 'text-red-500'
                                 }`}
-                        variant='outline'
-                    >
-                        {project.taskProjectData.project_status}
-                    </Badge>
+                                variant='outline'
+                            >
+                                {project.taskProjectData.project_status}
+                            </Badge>
+                        </div>
+                    </div>
                 </div>
-            </CardContent>
-        </Card>
+            )}
+        </>
     );
 };
 

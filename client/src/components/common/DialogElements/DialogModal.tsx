@@ -47,7 +47,7 @@ const DialogModal = <T extends {}>({
                     </Button>
                 )}
             </DialogTrigger>
-            <DialogContent className='max-w-[22rem] sm:max-w-[30rem] rounded-md'>
+            <DialogContent className='max-w-[22rem] sm:max-w-[30rem] rounded-md '>
                 <DialogHeader>
                     <DialogTitle
                         className={cn(

@@ -1,10 +1,3 @@
-import DialogTriggerButtonEdit from '@/components/common/DialogElements/DialogTriggerButtonEdit';
-import {
-    Dialog,
-    DialogContent,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
 import useDialogState from '@/hooks/useDialogState';
 import { useMutationHook } from '@/hooks/useMutationHook';
 import { useSubmitHandler } from '@/utils/helpers/submitHandler';
@@ -13,19 +6,16 @@ import {
     workItemSchema,
     WorkItemSchema,
 } from '@/models/workItem/workItemSchema';
-import { WorkItem } from '@/types/work-item-types/workItem';
+import { useParams } from 'react-router-dom';
+import DialogModal from '@/components/common/DialogElements/DialogModal';
 
 type UserWorkItemEditProps = {
-    taskId: string;
     workItemId?: string;
-    workItem: WorkItem;
 };
 
-const UserWorkItemEdit = ({
-    taskId,
-    workItem,
-    workItemId,
-}: UserWorkItemEditProps) => {
+const UserWorkItemEdit = ({ workItemId }: UserWorkItemEditProps) => {
+    const { taskId } = useParams();
+
     const { isOpen, setIsOpen } = useDialogState();
 
     const { useEditEntity } = useMutationHook();
@@ -40,19 +30,13 @@ const UserWorkItemEdit = ({
     const handleSubmit = useSubmitHandler(mutate, workItemSchema);
 
     return (
-        <Dialog open={isOpen} onOpenChange={setIsOpen}>
-            <DialogTriggerButtonEdit />
-            <DialogContent className='rounded-lg'>
-                <DialogHeader className='items-center'>
-                    <DialogTitle>Edit Work Item</DialogTitle>
-                </DialogHeader>
-                <UserWorkItemEditForm
-                    workItem={workItem}
-                    handleSubmit={handleSubmit}
-                    isPending={isPending}
-                />
-            </DialogContent>
-        </Dialog>
+        <DialogModal
+            Component={UserWorkItemEditForm}
+            props={{ handleSubmit, isPending, taskId, workItemId }}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            title='Edit work item'
+        />
     );
 };
 

@@ -3,49 +3,66 @@ import FormDatePicker from '@/components/common/FormElements/FormDatePicker';
 import FormFieldInput from '@/components/common/FormElements/FormFieldInput';
 import FormTextareaInput from '@/components/common/FormElements/FormTextareaInput';
 import TaskItemStatusSelector from '@/components/common/FormElements/TaskItemStatusSelector';
+import { Separator } from '@/components/ui/separator';
 import { useWorkItemFormHooks } from '@/hooks/forms/useWorkItemForm';
+import { useCachedData } from '@/hooks/useQueryHook';
 import { WorkItemSchema } from '@/models/workItem/workItemSchema';
+import { ProjectTask } from '@/types/task-types/taskTypes';
 import { WorkItem } from '@/types/work-item-types/workItem';
+import { findItemById } from '@/utils/helpers/findItemById';
+import { ClipboardList, Hammer } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 
 type UserWorkItemEditFormProps = {
-    workItem: WorkItem;
+    taskId?: string;
     handleSubmit: (data: WorkItemSchema) => void;
     isPending: boolean;
+    workItemId?: string;
 };
 
 const UserWorkItemEditForm = ({
-    workItem,
     handleSubmit,
+    taskId,
+    workItemId,
     isPending,
 }: UserWorkItemEditFormProps) => {
+    const userWorkItem = useCachedData<WorkItem>({
+        queryKey: ['artisanTasks', taskId],
+        selectFn: (data) =>
+            findItemById<WorkItem>(
+                data as ProjectTask,
+                workItemId as string,
+                (item) => item.id as string
+            ),
+    });
+
     const { useEditWorkItemForm } = useWorkItemFormHooks();
 
-    const form = useEditWorkItemForm(workItem);
+    const form = useEditWorkItemForm(userWorkItem as Partial<WorkItem>);
     return (
         <FormProvider {...form}>
             <form
                 id='user-work-item-edit'
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
-                <div className='flex flex-col gap-2'>
+                <div className='grid grid-cols-1 gap-2 mb-2'>
                     <FormFieldInput
                         name='name'
                         label='Item title'
                         type='text'
+                        className='pl-10'
+                        Icon={ClipboardList}
                     />
                     <FormFieldInput
                         name='finished_work'
                         label='Finished work'
                         type='text'
-                    />
-                    <FormTextareaInput
-                        name='note'
-                        label='Item note'
-                        type='text'
+                        className='pl-10'
+                        Icon={Hammer}
                     />
                 </div>
-                <div className='flex flex-col pt-4 sm:flex-row sm:flex-1 sm:justify-between'>
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-1 sm:grid-cols-2 content-around gap-2'>
                     <FormDatePicker
                         name='start_date'
                         label='Select a start date'
@@ -55,10 +72,20 @@ const UserWorkItemEditForm = ({
                         label='Select an end date'
                     />
                 </div>
-                <TaskItemStatusSelector
-                    name='status'
-                    label='Select status'
-                    defaultVal={`${workItem.status}`}
+                <Separator className='mt-4 mb-2' />
+                <div className='grid grid-cols-2 sm:grid-cols-2 gap-2'>
+                    <TaskItemStatusSelector
+                        name='status'
+                        label='Select status'
+                        defaultVal={userWorkItem?.status}
+                    />
+                </div>
+
+                <FormTextareaInput
+                    name='note'
+                    label='Item note'
+                    type='text'
+                    className='pt-2'
                 />
                 <DialogFooter
                     disabled={!form.formState.isDirty || isPending}

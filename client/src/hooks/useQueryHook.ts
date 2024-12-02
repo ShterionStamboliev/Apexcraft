@@ -10,6 +10,7 @@ import {
     PaginatedDataResponse,
     UseGetPaginatedDataTypes,
 } from '@/types/query-data-types/paginatedDataTypes';
+import { ProjectTask } from '@/types/task-types/taskTypes';
 import { PaginatedWorkItems } from '@/types/work-item-types/workItem';
 import {
     keepPreviousData,
@@ -74,7 +75,11 @@ export const useCachedData = <TData>({
     const { data } = useQuery({
         queryKey,
         select: (
-            data: PaginatedDataResponse<TData> | TData[] | PaginatedWorkItems
+            data:
+                | PaginatedDataResponse<TData>
+                | TData[]
+                | PaginatedWorkItems
+                | ProjectTask
         ) => {
             if (!data) {
                 return undefined;

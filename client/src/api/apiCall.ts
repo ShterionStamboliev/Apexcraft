@@ -45,7 +45,7 @@ export const getInfiniteData = async <TData>(
     pageParam: number
 ): Promise<TData> => {
     const data: TData = await apiCall(
-        `${URL}/work-items?_page=${pageParam}&_limit=4`,
+        `${URL}/work-items?_page=${pageParam}&_limit=10`,
         'GET'
     );
     return data;

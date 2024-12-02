@@ -1,5 +1,5 @@
 import { useGetInfiniteData } from '@/hooks/useQueryHook';
-import { CircleAlert, ClipboardList } from 'lucide-react';
+import { ChevronDown, CircleAlert, ClipboardList } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import { PaginatedWorkItems } from '@/types/work-item-types/workItem';
@@ -7,7 +7,8 @@ import { useEffect } from 'react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
 import WorkItemCard from './WorkItemCard';
-import CreateWorkItem from '@/components/Forms/WorkItems/WorkItemFormCreate/CreateWorkItem';
+import WorkItemsBreadcrumb from '@/components/common/Breadcrumbs/WorkItemsBreadcrumb';
+import TaskItemCard from './TaskItemCard';
 
 const WorkItemsTableBody = () => {
     const { ref, inView } = useInView();
@@ -37,10 +38,13 @@ const WorkItemsTableBody = () => {
 
     return (
         <>
-            <div className='flex flex-col border rounded-lg mt-8 mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
-                <CreateWorkItem />
+            <WorkItemsBreadcrumb />
+            <TaskItemCard workItems={workItems as PaginatedWorkItems} />
+            <div className='flex flex-col items-center justify-center'>
+                <span className='text-2xl pt-5'>Work items</span>
+                <ChevronDown className='motion-preset-oscillate motion-duration-2000 motion-loop-twice' />
             </div>
-            <div className='flex flex-col border rounded-lg mt-8 mb-24 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
+            <div className='flex flex-col border rounded-lg mb-20 mt-5 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
                 <div className='flex flex-wrap sm:w-full gap-4'>
                     <ConditionalRenderer
                         data={workItems as PaginatedWorkItems}
@@ -52,7 +56,7 @@ const WorkItemsTableBody = () => {
                         noResults={{
                             title: 'No work items found',
                             description:
-                                "It looks like you haven't added any projects yet",
+                                "It looks like you haven't added any work items yet",
                             Icon: ClipboardList,
                         }}
                     />

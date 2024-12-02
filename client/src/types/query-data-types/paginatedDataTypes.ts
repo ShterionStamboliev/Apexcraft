@@ -1,5 +1,6 @@
 import { QueryKey, UseQueryOptions } from '@tanstack/react-query';
 import { PaginatedWorkItems } from '../work-item-types/workItem';
+import { ProjectTask } from '../task-types/taskTypes';
 
 export type UseFetchQueryOptions<TData> = Omit<
     UseQueryOptions<TData>,
@@ -9,7 +10,11 @@ export type UseFetchQueryOptions<TData> = Omit<
 export type CachedDataOptions<TData> = {
     queryKey: QueryKey;
     selectFn: (
-        data: PaginatedDataResponse<TData> | TData[] | PaginatedWorkItems
+        data:
+            | PaginatedDataResponse<TData>
+            | TData[]
+            | PaginatedWorkItems
+            | ProjectTask
     ) => TData | undefined;
 };
 

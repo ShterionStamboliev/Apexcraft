@@ -4,9 +4,9 @@ import { CircleAlert, ClipboardList } from 'lucide-react';
 import ErrorMessage from '@/components/common/FormMessages/ErrorMessage';
 import { Task } from '@/types/task-types/taskTypes';
 import ConditionalRenderer from '@/components/common/ConditionalRenderer/ConditionalRenderer';
-import CreateTask from '@/components/Forms/Tasks/TaskFormCreate/CreateTask';
 import { useFetchDataQuery } from '@/hooks/useQueryHook';
 import TasksCard from './TasksCard';
+import TasksBreadcrumbs from '@/components/common/Breadcrumbs/TasksBreadcrumb';
 
 const ProjectsTasksBody = () => {
     const { id } = useParams();
@@ -33,10 +33,8 @@ const ProjectsTasksBody = () => {
 
     return (
         <>
-            <div className='flex flex-col border rounded-lg mt-8 mx-8 space-y-4 p-4 backdrop-blur-sm bg-slate-900/20'>
-                <CreateTask />
-            </div>
-            <div className='flex flex-col border rounded-lg mt-8 mb-24 md:mt-0 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
+            <TasksBreadcrumbs />
+            <div className='flex flex-col border rounded-lg mt-48 mb-28 mx-8 p-4 backdrop-blur-sm bg-slate-900/20'>
                 <div className='flex flex-wrap sm:w-full gap-4'>
                     <ConditionalRenderer
                         data={tasks}
